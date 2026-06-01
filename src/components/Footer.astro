@@ -1,0 +1,228 @@
+---
+const year = new Date().getFullYear();
+
+const services = [
+  { href: '/services#remodeling', label: 'Remodeling' },
+  { href: '/services#restoration', label: 'Restoration' },
+  { href: '/services#new-builds', label: 'New Construction' },
+  { href: '/services#repairs', label: 'Repairs' },
+];
+
+const company = [
+  { href: '/about', label: 'About' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/style-selector', label: 'Design Guide' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo" aria-label="Stronghold928 Home">
+        <span class="logo-mark">S928</span>
+        <span class="logo-text">STRONGHOLD</span>
+      </a>
+      <p class="footer-tagline">
+        Building better homes and stronger communities across northern Arizona.
+      </p>
+      <p class="footer-location">Flagstaff, AZ &mdash; Serving Northern Arizona</p>
+      <p class="footer-license">AZ ROC License: <span class="license-placeholder">[Pending]</span></p>
+    </div>
+
+    <div class="footer-nav">
+      <div class="footer-col">
+        <h3 class="footer-col-title">Services</h3>
+        <ul>
+          {services.map(link => (
+            <li><a href={link.href} class="footer-link">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-title">Company</h3>
+        <ul>
+          {company.map(link => (
+            <li><a href={link.href} class="footer-link">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-col-title">Contact</h3>
+        <ul>
+          <li><a href="tel:+19285550100" class="footer-link">(928) 555-0100</a></li>
+          <li><a href="mailto:hello@stronghold928.com" class="footer-link">hello@stronghold928.com</a></li>
+        </ul>
+        <a href="/contact" class="footer-cta">Get a Quote &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p>&copy; {year} Stronghold928. All rights reserved.</p>
+      <p class="footer-values">Integrity &bull; Honesty &bull; Community</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-brand-gray);
+    border-top: 3px solid var(--color-brand-red);
+    margin-top: 6rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .logo-mark {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--color-brand-red);
+    letter-spacing: -0.05em;
+  }
+
+  .logo-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--color-brand-white);
+    letter-spacing: 0.15em;
+  }
+
+  .footer-tagline {
+    color: var(--color-brand-white);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+    max-width: 280px;
+  }
+
+  .footer-location,
+  .footer-license {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    margin-bottom: 0.25rem;
+  }
+
+  .license-placeholder {
+    color: var(--color-brand-red);
+  }
+
+  .footer-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-col-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    color: var(--color-brand-white);
+    opacity: 0.7;
+    transition: opacity 0.15s;
+  }
+
+  .footer-link:hover {
+    opacity: 1;
+  }
+
+  .footer-cta {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 3px 3px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+
+  .footer-cta:hover {
+    box-shadow: 1px 1px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--color-brand-gray-light);
+  }
+
+  .footer-bottom-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    opacity: 0.5;
+  }
+
+  .footer-values {
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .footer-nav {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-bottom-inner {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-nav {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
