@@ -1,0 +1,352 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const typeLabels: Record<string, string> = {
+  remodeling: 'Remodeling',
+  restoration: 'Restoration',
+  'new-build': 'New Construction',
+  repair: 'Repair',
+};
+---
+
+<Layout
+  title={project.data.title}
+  description={project.data.description}
+  ogImage={project.data.afterImage}
+>
+  <div class="project-back">
+    <a href="/projects" class="back-link">&larr; All Projects</a>
+  </div>
+
+  <section class="project-hero">
+    <div class="project-hero-inner">
+      <div class="project-meta">
+        <span class="meta-badge">{typeLabels[project.data.type]}</span>
+        <span class="meta-location">{project.data.location}</span>
+        <span class="meta-date">Completed {project.data.completedDate}</span>
+      </div>
+      <h1>{project.data.title}</h1>
+      <p class="project-description">{project.data.description}</p>
+    </div>
+  </section>
+
+  {project.data.beforeImage && (
+    <section class="before-after">
+      <div class="before-after-inner">
+        <div class="ba-col">
+          <p class="ba-label">Before</p>
+          <div class="ba-img-wrap">
+            <img src={project.data.beforeImage} alt={`${project.data.title} — before`} loading="lazy" />
+          </div>
+        </div>
+        <div class="ba-col">
+          <p class="ba-label ba-label--after">After</p>
+          <div class="ba-img-wrap ba-img-wrap--after">
+            <img src={project.data.afterImage} alt={`${project.data.title} — after`} loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {!project.data.beforeImage && (
+    <section class="single-image">
+      <div class="single-image-inner">
+        <div class="single-img-wrap">
+          <img src={project.data.afterImage} alt={project.data.title} loading="lazy" />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="project-body-section">
+    <div class="project-body-inner">
+      {project.data.highlights && project.data.highlights.length > 0 && (
+        <aside class="highlights">
+          <h3 class="highlights-title">Project Highlights</h3>
+          <ul>
+            {project.data.highlights.map(h => (
+              <li>{h}</li>
+            ))}
+          </ul>
+        </aside>
+      )}
+      <div class="project-prose">
+        <Content />
+      </div>
+    </div>
+  </section>
+
+  {project.data.gallery && project.data.gallery.length > 1 && (
+    <section class="gallery-section">
+      <div class="gallery-inner">
+        <h3 class="gallery-title">Gallery</h3>
+        <div class="gallery-grid">
+          {project.data.gallery.map((img, i) => (
+            <div class="gallery-img-wrap">
+              <img src={img} alt={`${project.data.title} — photo ${i + 1}`} loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="project-footer-cta">
+    <div class="project-footer-inner">
+      <h2>Ready to talk<br />about your project?</h2>
+      <p>Every project starts with a straightforward conversation. No obligation, no pressure.</p>
+      <div class="cta-row">
+        <a href="/contact" class="btn-primary">Get a Quote &rarr;</a>
+        <a href="/projects" class="btn-outline">More Projects</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .project-back {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 0;
+  }
+  .back-link {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    transition: opacity 0.15s;
+  }
+  .back-link:hover { opacity: 1; }
+
+  .project-hero {
+    padding: 3rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-brand-gray);
+  }
+  .project-hero-inner { max-width: 900px; margin: 0 auto; }
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .meta-badge {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    padding: 0.25rem 0.6rem;
+  }
+  .meta-location {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.6;
+  }
+  .meta-date { font-size: 0.8rem; opacity: 0.4; margin-left: auto; }
+  .project-hero h1 { font-size: var(--font-size-h1); margin-bottom: 1rem; }
+  .project-description {
+    font-size: 1.1rem;
+    opacity: 0.75;
+    line-height: 1.7;
+    max-width: 700px;
+  }
+
+  .before-after {
+    background-color: var(--color-brand-gray);
+    border-bottom: 2px solid var(--color-brand-black);
+  }
+  .before-after-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+  .ba-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+  .ba-label--after { color: var(--color-brand-red); opacity: 1; }
+  .ba-img-wrap {
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    border: 2px solid var(--color-brand-black);
+  }
+  .ba-img-wrap--after {
+    border-color: var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-brand-red);
+  }
+  .ba-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+  .single-image { border-bottom: 2px solid var(--color-brand-gray); }
+  .single-image-inner { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; }
+  .single-img-wrap {
+    aspect-ratio: 16/7;
+    overflow: hidden;
+    border: 2px solid var(--color-brand-gray);
+    box-shadow: 6px 6px 0 var(--color-brand-red);
+  }
+  .single-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+  .project-body-section { border-bottom: 2px solid var(--color-brand-gray); }
+  .project-body-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .highlights {
+    background-color: var(--color-brand-gray);
+    padding: 1.75rem;
+    border-left: 3px solid var(--color-brand-red);
+    position: sticky;
+    top: 80px;
+  }
+  .highlights-title {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .highlights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .highlights li {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    line-height: 1.4;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .highlights li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-brand-red);
+  }
+  .project-prose { font-size: 1rem; line-height: 1.8; }
+  .project-prose :global(p) { margin-bottom: 1.25rem; opacity: 0.85; }
+  .project-prose :global(h2),
+  .project-prose :global(h3) {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-top: 2rem;
+  }
+  .project-prose :global(strong) { color: var(--color-brand-white); opacity: 1; }
+
+  .gallery-section {
+    background-color: var(--color-brand-gray);
+    border-top: 2px solid var(--color-brand-black);
+  }
+  .gallery-inner { max-width: 1200px; margin: 0 auto; padding: 3rem 1.5rem; }
+  .gallery-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1.5rem;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+  }
+  .gallery-img-wrap { aspect-ratio: 4/3; overflow: hidden; border: 2px solid var(--color-brand-black); }
+  .gallery-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .gallery-img-wrap:hover img { transform: scale(1.05); }
+
+  .project-footer-cta {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+  }
+  .project-footer-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem; }
+  .project-footer-inner h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; }
+  .project-footer-inner p { opacity: 0.85; max-width: 480px; line-height: 1.6; margin-bottom: 2rem; }
+  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-black);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-black);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-white);
+    transition: background-color 0.15s, color 0.15s;
+  }
+  .btn-outline:hover {
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-black);
+  }
+
+  @media (max-width: 900px) {
+    .before-after-inner { grid-template-columns: 1fr; }
+    .project-body-inner { grid-template-columns: 1fr; }
+    .highlights { position: static; }
+  }
+</style>

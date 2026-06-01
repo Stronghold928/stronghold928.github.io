@@ -1,5 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const featured = allProjects
+  .filter(p => p.data.featured)
+  .sort((a, b) => b.data.completedDate.localeCompare(a.data.completedDate))
+  .slice(0, 3);
+
+const typeLabels: Record<string, string> = {
+  remodeling: 'Remodeling',
+  restoration: 'Restoration',
+  'new-build': 'New Build',
+  repair: 'Repair',
+};
 ---
 
 <Layout title="Home" description="Stronghold928 — General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and repairs across northern Arizona.">
@@ -90,17 +104,17 @@ import Layout from '../layouts/Layout.astro';
         <a href="/projects" class="btn-outline">View All Projects &rarr;</a>
       </div>
       <div class="projects-grid">
-        {[1,2,3].map(i => (
-          <div class="project-card">
-            <div class="project-img-placeholder">
-              <span>Project Photo</span>
+        {featured.map(project => (
+          <a href={`/projects/${project.id}`} class="project-card">
+            <div class="project-img-wrap">
+              <img src={project.data.afterImage} alt={project.data.title} loading="lazy" />
             </div>
             <div class="project-card-body">
-              <p class="project-type">Remodeling</p>
-              <h3 class="project-title">Project Name {i}</h3>
-              <p class="project-location">Flagstaff, AZ</p>
+              <p class="project-type">{typeLabels[project.data.type]}</p>
+              <h3 class="project-title">{project.data.title}</h3>
+              <p class="project-location">{project.data.location}</p>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </div>
@@ -468,22 +482,27 @@ import Layout from '../layouts/Layout.astro';
     border: 1.5px solid var(--color-brand-gray);
     overflow: hidden;
     transition: border-color 0.15s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }
 
   .project-card:hover {
     border-color: var(--color-brand-red);
   }
 
-  .project-img-placeholder {
+  .project-img-wrap {
     aspect-ratio: 4/3;
-    background-color: var(--color-brand-gray-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    opacity: 0.3;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    overflow: hidden;
+  }
+  .project-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .project-card:hover .project-img-wrap img {
+    transform: scale(1.05);
   }
 
   .project-card-body {

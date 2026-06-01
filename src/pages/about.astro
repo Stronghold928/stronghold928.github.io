@@ -1,0 +1,372 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const values = [
+  {
+    word: 'Integrity',
+    body: 'We say what we do and do what we say. If a scope changes, you hear it from us before you see it on an invoice. If we make a mistake, we own it and fix it.',
+  },
+  {
+    word: 'Honesty',
+    body: 'We give you our real assessment, not the one designed to win the job. If a project isn\'t the right move financially, we\'ll tell you. If a competing bid is structured better than ours, we\'ll explain why — or match it if we can.',
+  },
+  {
+    word: 'Community',
+    body: 'Flagstaff is our home. The people whose homes we build and remodel are our neighbors. We care whether the work is done right because we live here too — and because people deserve a safe, soul-refreshing place to come home to.',
+  },
+];
+
+const team = [
+  {
+    name: 'Derek Hanson',
+    role: 'Owner / General Contractor',
+    bio: 'Third-generation builder and Flagstaff native. Licensed in Arizona with 15+ years across residential construction, remodeling, and restoration. Believes the best contractor is the one who tells you what you need to hear.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
+  },
+  {
+    name: 'Project Manager',
+    role: 'Field Operations',
+    bio: 'Manages scheduling, subcontractor coordination, and site quality control on every active project. Your point of contact when Derek is in the field.',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80',
+  },
+  {
+    name: 'Design Coordinator',
+    role: 'Guided Design Process',
+    bio: 'Runs our guided design sessions — translating style profiles into specific, buildable selections. Background in interior architecture and material sourcing.',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&auto=format&fit=crop&q=80',
+  },
+];
+
+const community = [
+  'Annual volunteer build day with Flagstaff Habitat for Humanity',
+  'Discounted repair services for elderly and fixed-income homeowners in Coconino County',
+  'Tools and materials donation program for Flagstaff Unified School District trade programs',
+  'Mentorship of apprentice tradespeople through local union partnerships',
+];
+---
+
+<Layout
+  title="About"
+  description="Stronghold928 is a Flagstaff, AZ based general contractor built on integrity, honesty, and community. Learn who we are and why we build the way we do."
+>
+  <!-- Mission -->
+  <section class="mission-section">
+    <div class="mission-inner">
+      <div class="mission-text">
+        <p class="eyebrow">Who We Are</p>
+        <h1>Not just a contractor.<br /><span class="accent">A trusted neighbor.</span></h1>
+        <p class="mission-lead">Stronghold928 was built around a simple idea: what if your contractor talked to you the way a knowledgeable friend would — honestly, without an agenda, focused on what's actually right for you?</p>
+        <p>We're a small, owner-operated general contractor based in Flagstaff, AZ. We specialize in residential remodeling, restoration, new construction, and repair work across northern Arizona. We're not the biggest contractor in the market — deliberately. Staying small means every project gets personal attention and our reputation is on every job.</p>
+      </div>
+      <div class="mission-photo">
+        <div class="mission-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&auto=format&fit=crop&q=80"
+            alt="Stronghold928 team at a job site"
+            loading="lazy"
+          />
+        </div>
+        <div class="mission-label">
+          <span>Flagstaff, AZ</span>
+          <span class="label-divider">—</span>
+          <span>Est. 2015</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values-section">
+    <div class="values-inner">
+      <div class="values-header">
+        <p class="eyebrow">What We Stand For</p>
+        <h2>Three words.<br />Every decision.</h2>
+      </div>
+      <div class="values-grid">
+        {values.map(v => (
+          <div class="value-card">
+            <h3 class="value-word">{v.word}</h3>
+            <p class="value-body">{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team-section">
+    <div class="team-inner">
+      <p class="eyebrow">The Team</p>
+      <h2>People who build things<br />and answer their phones.</h2>
+      <div class="team-grid">
+        {team.map(member => (
+          <div class="team-card">
+            <div class="team-img-wrap">
+              <img src={member.image} alt={member.name} loading="lazy" />
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">{member.name}</h3>
+              <p class="team-role">{member.role}</p>
+              <p class="team-bio">{member.bio}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section class="community-section">
+    <div class="community-inner">
+      <div class="community-text">
+        <p class="eyebrow">Giving Back</p>
+        <h2>Northern Arizona<br />is our community too.</h2>
+        <p>We believe contractors have a responsibility to the places they work. For us, that means tangible commitments — not just words on a website.</p>
+        <ul class="community-list">
+          {community.map(item => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="community-photo">
+        <div class="community-img-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800&auto=format&fit=crop&q=80"
+            alt="Community construction volunteer work"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="about-cta">
+    <div class="about-cta-inner">
+      <h2>Ready to meet<br />your contractor?</h2>
+      <p>Start with a conversation — no paperwork, no commitment. Just tell us what you're working with.</p>
+      <a href="/contact" class="btn-primary">Get in Touch &rarr;</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Mission */
+  .mission-section {
+    padding: 6rem 1.5rem;
+    border-bottom: 2px solid var(--color-brand-gray);
+  }
+  .mission-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .mission-text h1 { font-size: var(--font-size-h1); margin-bottom: 1.5rem; }
+  .accent { color: var(--color-brand-red); }
+  .mission-lead {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    opacity: 0.9;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+    border-left: 3px solid var(--color-brand-red);
+    padding-left: 1.25rem;
+  }
+  .mission-text p:not(.mission-lead):not(.eyebrow) {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.75;
+  }
+  .mission-img-wrap {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border: 2px solid var(--color-brand-gray);
+    box-shadow: 6px 6px 0 var(--color-brand-red);
+    margin-bottom: 0.75rem;
+  }
+  .mission-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .mission-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    display: flex;
+    gap: 0.5rem;
+  }
+  .label-divider { color: var(--color-brand-red); }
+
+  /* Values */
+  .values-section {
+    background-color: var(--color-brand-gray);
+    border-bottom: 2px solid var(--color-brand-black);
+  }
+  .values-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .values-header { margin-bottom: 3rem; }
+  .values-header h2 { font-size: var(--font-size-h2); }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 2px solid var(--color-brand-black);
+  }
+  .value-card {
+    padding: 2.5rem;
+    border-right: 2px solid var(--color-brand-black);
+  }
+  .value-card:last-child { border-right: none; }
+  .value-word {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-brand-white);
+    border-bottom: 3px solid var(--color-brand-red);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+  }
+  .value-body { font-size: 0.9rem; line-height: 1.7; opacity: 0.75; }
+
+  /* Team */
+  .team-section {
+    padding: 5rem 1.5rem;
+    border-bottom: 2px solid var(--color-brand-gray);
+  }
+  .team-inner { max-width: 1200px; margin: 0 auto; }
+  .team-inner h2 { font-size: var(--font-size-h2); margin-bottom: 3rem; }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .team-img-wrap {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 2px solid var(--color-brand-gray);
+    margin-bottom: 1.25rem;
+  }
+  .team-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .team-name {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .team-role {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 0.75rem;
+  }
+  .team-bio { font-size: 0.875rem; opacity: 0.7; line-height: 1.6; }
+
+  /* Community */
+  .community-section {
+    background-color: var(--color-brand-black);
+    border-top: 2px solid var(--color-brand-gray);
+    border-bottom: 2px solid var(--color-brand-gray);
+  }
+  .community-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .community-text h2 { font-size: var(--font-size-h2); margin-bottom: 1.25rem; }
+  .community-text > p { opacity: 0.75; line-height: 1.7; margin-bottom: 1.5rem; }
+  .community-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .community-list li {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.5;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .community-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--color-brand-red);
+  }
+  .community-img-wrap {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border: 2px solid var(--color-brand-gray);
+    box-shadow: -6px 6px 0 var(--color-brand-red);
+  }
+  .community-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* CTA */
+  .about-cta {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+  }
+  .about-cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .about-cta h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; }
+  .about-cta p { opacity: 0.85; max-width: 480px; line-height: 1.7; margin-bottom: 2rem; }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-black);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-black);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+
+  @media (max-width: 900px) {
+    .mission-inner,
+    .community-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .value-card { border-right: none; border-bottom: 2px solid var(--color-brand-black); }
+    .value-card:last-child { border-bottom: none; }
+  }
+  @media (max-width: 600px) {
+    .team-grid { grid-template-columns: 1fr; }
+  }
+</style>

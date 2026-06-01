@@ -1,0 +1,279 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allProjects = await getCollection('projects');
+const sorted = allProjects.sort((a, b) =>
+  b.data.completedDate.localeCompare(a.data.completedDate)
+);
+
+const typeLabels: Record<string, string> = {
+  remodeling: 'Remodeling',
+  restoration: 'Restoration',
+  'new-build': 'New Build',
+  repair: 'Repair',
+};
+---
+
+<Layout
+  title="Projects"
+  description="A portfolio of Stronghold928's remodeling, restoration, new construction, and repair projects across northern Arizona."
+>
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">Our Work</p>
+      <h1>Projects built to<br /><span class="accent">outlast us.</span></h1>
+      <p class="hero-sub">A selection of projects across northern Arizona — each one a family's home, and each one treated like it.</p>
+    </div>
+  </section>
+
+  <section class="filters-bar">
+    <div class="filters-inner">
+      <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="remodeling">Remodeling</button>
+      <button class="filter-btn" data-filter="restoration">Restoration</button>
+      <button class="filter-btn" data-filter="new-build">New Build</button>
+      <button class="filter-btn" data-filter="repair">Repair</button>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <div class="projects-grid" id="projects-grid">
+      {sorted.map(project => (
+        <a
+          href={`/projects/${project.id}`}
+          class="project-card"
+          data-type={project.data.type}
+        >
+          <div class="project-img">
+            <img
+              src={project.data.afterImage}
+              alt={project.data.title}
+              loading="lazy"
+            />
+            <span class="project-type-badge">{typeLabels[project.data.type]}</span>
+          </div>
+          <div class="project-body">
+            <h2 class="project-title">{project.data.title}</h2>
+            <p class="project-location">{project.data.location}</p>
+            <p class="project-desc">{project.data.description}</p>
+            <span class="project-link">View Project &rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="projects-cta">
+    <div class="projects-cta-inner">
+      <h2>Ready to start<br />your project?</h2>
+      <p>Tell us what you're working with. We'll give you an honest read on scope, timeline, and cost — no obligation.</p>
+      <a href="/contact" class="btn-primary">Get a Quote &rarr;</a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'all';
+      btns.forEach(b => b.classList.remove('filter-btn--active'));
+      btn.classList.add('filter-btn--active');
+      cards.forEach(card => {
+        const match = filter === 'all' || card.dataset.type === filter;
+        card.style.display = match ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+<style>
+  .page-hero {
+    padding: 6rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-brand-gray);
+  }
+  .page-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .page-hero h1 { font-size: var(--font-size-h1); margin-bottom: 1.25rem; }
+  .accent { color: var(--color-brand-red); }
+  .hero-sub { font-size: 1.1rem; opacity: 0.7; max-width: 500px; line-height: 1.6; }
+
+  /* Filters */
+  .filters-bar {
+    background-color: var(--color-brand-gray);
+    border-bottom: 2px solid var(--color-brand-black);
+    position: sticky;
+    top: 64px;
+    z-index: 10;
+  }
+  .filters-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+  }
+  .filter-btn {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 1rem 1.25rem;
+    background: none;
+    border: none;
+    border-right: 1px solid var(--color-brand-black);
+    color: var(--color-brand-white);
+    opacity: 0.5;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.15s, background-color 0.15s;
+  }
+  .filter-btn:hover { opacity: 0.8; }
+  .filter-btn--active {
+    opacity: 1;
+    border-bottom: 2px solid var(--color-brand-red);
+  }
+
+  /* Grid */
+  .projects-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px;
+    border: 2px solid var(--color-brand-gray);
+  }
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-brand-gray);
+    border: 2px solid var(--color-brand-gray);
+    transition: border-color 0.2s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .project-card:hover {
+    border-color: var(--color-brand-red);
+    z-index: 1;
+  }
+  .project-img {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+  .project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover .project-img img {
+    transform: scale(1.05);
+  }
+  .project-type-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    padding: 0.25rem 0.6rem;
+  }
+  .project-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .project-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .project-location {
+    font-size: 0.8rem;
+    color: var(--color-brand-red);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .project-desc {
+    font-size: 0.875rem;
+    opacity: 0.65;
+    line-height: 1.55;
+    flex: 1;
+    margin-top: 0.25rem;
+  }
+  .project-link {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-brand-white);
+    margin-top: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .project-card:hover .project-link { opacity: 1; }
+
+  /* CTA */
+  .projects-cta {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+  }
+  .projects-cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .projects-cta h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; }
+  .projects-cta p { opacity: 0.85; max-width: 480px; line-height: 1.7; margin-bottom: 2rem; }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-black);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-black);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>

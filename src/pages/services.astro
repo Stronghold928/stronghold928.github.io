@@ -1,0 +1,363 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    id: 'remodeling',
+    label: 'Remodeling',
+    tagline: 'Transform your space. Live better.',
+    description: 'A remodel is one of the biggest investments you can make in your home — and in your daily life. We approach every project with the same question: how does this family actually live, and how can this space serve them better?',
+    detail: 'For clients who know they want a change but aren\'t sure what they want it to look like, we offer our guided design process — a structured series of conversations and visual exercises that helps you identify your style, your priorities, and your boundaries before a single nail is pulled.',
+    photo: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1400&auto=format&fit=crop&q=80',
+    photoAlt: 'Modern kitchen remodel with white cabinetry and quartz countertops',
+    steps: [
+      { n: '01', title: 'Discovery Call', body: 'We learn your goals, timeline, and rough budget. No obligation, no pitch.' },
+      { n: '02', title: 'Site Walk', body: 'We see the space, assess what\'s there, and identify any structural or code considerations.' },
+      { n: '03', title: 'Design Session', body: 'For clients using our guided process: style profiling, material selection, and scope definition.' },
+      { n: '04', title: 'Detailed Quote', body: 'Itemized, line-by-line. No lump sums hiding surprises.' },
+      { n: '05', title: 'Build', body: 'Managed project with weekly updates, open communication, and no ghost acts.' },
+      { n: '06', title: 'Walkthrough', body: 'We walk every item on the punch list together before we call it done.' },
+    ],
+    cta: { label: 'Try the Design Guide', href: '/style-selector' },
+  },
+  {
+    id: 'restoration',
+    label: 'Restoration',
+    tagline: 'Preserve what matters. Fix what doesn\'t.',
+    description: 'Northern Arizona\'s older homes carry character that no new build can replicate. Whether it\'s a 1920s Craftsman in Flagstaff\'s Southside or a mid-century ranch on the east side, restoration work requires patience, skill, and respect for what\'s already there.',
+    detail: 'We specialize in structural restoration — sill plates, foundations, roof systems, windows — the things that determine whether a home lasts another 50 years or slowly fails. We work honestly: we\'ll tell you what a house actually needs, not what generates the most billable hours.',
+    photo: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1400&auto=format&fit=crop&q=80',
+    photoAlt: 'Restored Craftsman bungalow exterior',
+    steps: [
+      { n: '01', title: 'Condition Assessment', body: 'Thorough walk of the structure — foundation, envelope, systems. Written report with honest priority order.' },
+      { n: '02', title: 'Scope Definition', body: 'We separate need-to-do from nice-to-do, clearly and in writing.' },
+      { n: '03', title: 'Phased Plan', body: 'Restoration rarely happens all at once. We build a sequence that protects the structure while fitting your budget.' },
+      { n: '04', title: 'Careful Execution', body: 'Original materials salvaged where possible. Appropriate modern materials used where they perform better.' },
+      { n: '05', title: 'Documentation', body: 'Photos and records of every wall opened and every system touched — important for future owners and insurance.' },
+    ],
+    cta: { label: 'Get a Condition Assessment', href: '/contact' },
+  },
+  {
+    id: 'new-builds',
+    label: 'New Construction',
+    tagline: 'Build it right the first time.',
+    description: 'We build single-family and multi-family homes across northern Arizona — from owner-occupied custom homes to small investment properties. Every project gets the same attention to structure, envelope, and systems that determines whether a home holds its value and performs for decades.',
+    detail: 'We work from architect-provided plans or can connect you with design professionals we trust. Either way, our job starts at pre-construction: reviewing drawings for buildability, flagging coordination issues before they become field problems, and building a schedule and budget you can actually rely on.',
+    photo: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&auto=format&fit=crop&q=80',
+    photoAlt: 'New single-family home under blue sky',
+    steps: [
+      { n: '01', title: 'Pre-Construction Review', body: 'We review plans, flag issues, coordinate with your design team, and build the real schedule.' },
+      { n: '02', title: 'Permitting', body: 'We manage the permit application and coordinate all required inspections.' },
+      { n: '03', title: 'Site Prep & Foundation', body: 'Excavation, form work, pour. The most important phase — done without shortcuts.' },
+      { n: '04', title: 'Framing & Envelope', body: 'Structure, sheathing, windows, roofing. The shell that protects everything else.' },
+      { n: '05', title: 'Rough Systems', body: 'Plumbing, electrical, HVAC, insulation — coordinated and inspected before drywall.' },
+      { n: '06', title: 'Finish & Close Out', body: 'Trim, paint, fixtures, appliances, final inspections, and certificate of occupancy.' },
+    ],
+    cta: { label: 'Start a New Build Conversation', href: '/contact' },
+  },
+  {
+    id: 'repairs',
+    label: 'Repairs',
+    tagline: 'Fix the problem. Not just the symptom.',
+    description: 'Not every project is a remodel. Sometimes a deck is failing, a roof is leaking, or a floor is soft in a spot that shouldn\'t be soft. We do repair work — properly, with permits where required, and without manufacturing urgency or upselling scope that isn\'t needed.',
+    detail: 'We\'re particularly good at diagnostic work: figuring out why something failed, not just patching the visible result. A roof leak that keeps coming back usually has a root cause. We find it.',
+    photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&auto=format&fit=crop&q=80',
+    photoAlt: 'Contractor doing structural repair work',
+    steps: [
+      { n: '01', title: 'Honest Assessment', body: 'We look at the actual problem, tell you what\'s causing it, and what a proper fix costs.' },
+      { n: '02', title: 'Scope Agreement', body: 'Written scope. No verbal agreements, no scope creep without your approval.' },
+      { n: '03', title: 'Permitted Work', body: 'Structural repairs, electrical, plumbing — permitted and inspected when required by code.' },
+      { n: '04', title: 'Clean Site', body: 'We leave your property the way we found it — or better.' },
+    ],
+    cta: { label: 'Describe Your Repair', href: '/contact' },
+  },
+];
+---
+
+<Layout
+  title="Services"
+  description="Stronghold928 offers remodeling, restoration, new construction, and repair services across northern Arizona. Based in Flagstaff, AZ."
+>
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">What We Do</p>
+      <h1>Services built on<br /><span class="accent">straight talk.</span></h1>
+      <p class="hero-sub">Every project gets an honest assessment, an itemized quote, and a team that shows up. No surprises, no ghost acts.</p>
+    </div>
+  </section>
+
+  <nav class="service-nav" aria-label="Jump to service">
+    {services.map(s => (
+      <a href={`#${s.id}`} class="service-nav-link">{s.label}</a>
+    ))}
+  </nav>
+
+  {services.map((s, i) => (
+    <section id={s.id} class={`service-section ${i % 2 === 1 ? 'service-section--alt' : ''}`}>
+      <div class="service-inner">
+        <div class="service-photo-col">
+          <div class="service-photo-wrap">
+            <img src={s.photo} alt={s.photoAlt} loading="lazy" />
+          </div>
+        </div>
+        <div class="service-content-col">
+          <p class="eyebrow">{s.label}</p>
+          <h2>{s.tagline}</h2>
+          <p class="service-desc">{s.description}</p>
+          <p class="service-detail">{s.detail}</p>
+          <a href={s.cta.href} class="btn-primary">{s.cta.label} &rarr;</a>
+        </div>
+      </div>
+      <div class="service-process">
+        <div class="service-process-inner">
+          <h3 class="process-title">Our Process</h3>
+          <div class="process-steps">
+            {s.steps.map(step => (
+              <div class="process-step">
+                <span class="step-num">{step.n}</span>
+                <div>
+                  <h4 class="step-title">{step.title}</h4>
+                  <p class="step-body">{step.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="service-area">
+    <div class="service-area-inner">
+      <p class="eyebrow">Where We Work</p>
+      <h2>Northern Arizona,<br />our home territory.</h2>
+      <p>We're based in Flagstaff and serve the surrounding region — Flagstaff, Williams, Sedona, Winslow, Show Low, and communities in between. If you're in northern Arizona and need a contractor who knows the climate, the codes, and the community, let's talk.</p>
+      <a href="/contact" class="btn-primary">Get in Touch &rarr;</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Page hero */
+  .page-hero {
+    padding: 6rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-brand-gray);
+  }
+  .page-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .page-hero h1 {
+    font-size: var(--font-size-h1);
+    margin-bottom: 1.25rem;
+  }
+  .accent { color: var(--color-brand-red); }
+  .hero-sub {
+    font-size: 1.1rem;
+    opacity: 0.7;
+    max-width: 540px;
+    line-height: 1.6;
+  }
+
+  /* Service nav */
+  .service-nav {
+    display: flex;
+    background-color: var(--color-brand-gray);
+    border-bottom: 2px solid var(--color-brand-black);
+    overflow-x: auto;
+  }
+  .service-nav-link {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+    color: var(--color-brand-white);
+    opacity: 0.6;
+    white-space: nowrap;
+    border-right: 1px solid var(--color-brand-black);
+    transition: opacity 0.15s, background-color 0.15s;
+  }
+  .service-nav-link:hover {
+    opacity: 1;
+    background-color: var(--color-brand-black);
+  }
+
+  /* Service sections */
+  .service-section {
+    border-bottom: 2px solid var(--color-brand-gray);
+  }
+  .service-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .service-section--alt .service-inner {
+    direction: rtl;
+  }
+  .service-section--alt .service-content-col {
+    direction: ltr;
+  }
+  .service-section--alt .service-photo-col {
+    direction: ltr;
+  }
+  .service-photo-wrap {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border: 2px solid var(--color-brand-gray);
+    box-shadow: 6px 6px 0 var(--color-brand-red);
+  }
+  .service-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .service-photo-wrap:hover img {
+    transform: scale(1.03);
+  }
+  .service-content-col h2 {
+    font-size: var(--font-size-h2);
+    margin-bottom: 1.25rem;
+  }
+  .service-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+  }
+  .service-detail {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    opacity: 0.6;
+    margin-bottom: 1.75rem;
+    border-left: 3px solid var(--color-brand-red);
+    padding-left: 1rem;
+  }
+
+  /* Process strip */
+  .service-process {
+    background-color: var(--color-brand-gray);
+    border-top: 1px solid var(--color-brand-black);
+  }
+  .service-process-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .process-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1.75rem;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .process-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-brand-red);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .step-body {
+    font-size: 0.8rem;
+    opacity: 0.65;
+    line-height: 1.5;
+  }
+
+  /* Service area */
+  .service-area {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+  }
+  .service-area-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .service-area h2 {
+    font-size: var(--font-size-h2);
+    margin-bottom: 1.25rem;
+  }
+  .service-area p {
+    opacity: 0.85;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .service-area .btn-primary {
+    background-color: var(--color-brand-black);
+    border-color: var(--color-brand-black);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+  }
+  .service-area .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .service-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .service-section--alt .service-inner {
+      direction: ltr;
+    }
+  }
+</style>
