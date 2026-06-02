@@ -4,35 +4,35 @@ import Layout from '../layouts/Layout.astro';
 const values = [
   {
     word: 'Integrity',
-    body: 'We say what we do and do what we say. If a scope changes, you hear it from us before you see it on an invoice. If we make a mistake, we own it and fix it.',
+    body: 'If a scope changes, you hear it from us before you see it on an invoice. If we make a mistake, we own it and fix it. No stories, no excuses.',
   },
   {
     word: 'Honesty',
-    body: 'We give you our real assessment, not the one designed to win the job. If a project isn\'t the right move financially, we\'ll tell you. If a competing bid is structured better than ours, we\'ll explain why — or match it if we can.',
+    body: 'You get our real read on the project, not the one designed to win the bid. If something is not worth doing, we say so. If a competitor has a better approach, we will tell you that too.',
   },
   {
     word: 'Community',
-    body: 'Flagstaff is our home. The people whose homes we build and remodel are our neighbors. We care whether the work is done right because we live here too — and because people deserve a safe, soul-refreshing place to come home to.',
+    body: 'Flagstaff is home. The families whose houses we build and fix are our neighbors, our kids\'s classmates, and the people we see at the grocery store. We care about getting it right.',
   },
 ];
 
 const team = [
   {
-    name: 'Derek Hanson',
-    role: 'Owner / General Contractor',
+    name: 'General Contractor',
+    role: 'Owner / Licensed GC',
     bio: 'Third-generation builder and Flagstaff native. Licensed in Arizona with 15+ years across residential construction, remodeling, and restoration. Believes the best contractor is the one who tells you what you need to hear.',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
   },
   {
     name: 'Project Manager',
     role: 'Field Operations',
-    bio: 'Manages scheduling, subcontractor coordination, and site quality control on every active project. Your point of contact when Derek is in the field.',
+    bio: 'Manages scheduling, subcontractor coordination, and site quality on every active project. Your day-to-day point of contact once a build is underway.',
     image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80',
   },
   {
     name: 'Design Coordinator',
     role: 'Guided Design Process',
-    bio: 'Runs our guided design sessions — translating style profiles into specific, buildable selections. Background in interior architecture and material sourcing.',
+    bio: 'Runs our guided design sessions, translating style profiles into specific, buildable selections. Background in interior architecture and material sourcing.',
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&auto=format&fit=crop&q=80',
   },
 ];
@@ -54,9 +54,9 @@ const community = [
     <div class="mission-inner">
       <div class="mission-text">
         <p class="eyebrow">Who We Are</p>
-        <h1>Not just a contractor.<br /><span class="accent">A trusted neighbor.</span></h1>
-        <p class="mission-lead">Stronghold928 was built around a simple idea: what if your contractor talked to you the way a knowledgeable friend would — honestly, without an agenda, focused on what's actually right for you?</p>
-        <p>We're a small, owner-operated general contractor based in Flagstaff, AZ. We specialize in residential remodeling, restoration, new construction, and repair work across northern Arizona. We're not the biggest contractor in the market — deliberately. Staying small means every project gets personal attention and our reputation is on every job.</p>
+        <h1>Your contractor.<br /><span class="accent">Your neighbor.</span></h1>
+        <p class="mission-lead">Stronghold928 started with a pretty simple question: what would it feel like to hire a contractor who just talked to you straight? No sales pitch, no inflated scope, no runaround on why something cost twice what you expected.</p>
+        <p>We're a small, owner-operated general contractor out of Flagstaff. We work on residential remodeling, restoration, new construction, and repairs across northern Arizona. Being small is a choice. It means the person you shake hands with at the start is still the one responsible when the job is done.</p>
       </div>
       <div class="mission-photo">
         <div class="mission-img-wrap">
@@ -68,7 +68,7 @@ const community = [
         </div>
         <div class="mission-label">
           <span>Flagstaff, AZ</span>
-          <span class="label-divider">—</span>
+          <span class="label-divider">/</span>
           <span>Est. 2015</span>
         </div>
       </div>
@@ -80,7 +80,7 @@ const community = [
     <div class="values-inner">
       <div class="values-header">
         <p class="eyebrow">What We Stand For</p>
-        <h2>Three words.<br />Every decision.</h2>
+        <h2>What we actually<br />believe in.</h2>
       </div>
       <div class="values-grid">
         {values.map(v => (
@@ -121,7 +121,7 @@ const community = [
       <div class="community-text">
         <p class="eyebrow">Giving Back</p>
         <h2>Northern Arizona<br />is our community too.</h2>
-        <p>We believe contractors have a responsibility to the places they work. For us, that means tangible commitments — not just words on a website.</p>
+        <p>Being a good neighbor means more than showing up on time. It means investing in the community in ways you can actually see and touch.</p>
         <ul class="community-list">
           {community.map(item => (
             <li>{item}</li>
@@ -143,8 +143,8 @@ const community = [
   <!-- CTA -->
   <section class="about-cta">
     <div class="about-cta-inner">
-      <h2>Ready to meet<br />your contractor?</h2>
-      <p>Start with a conversation — no paperwork, no commitment. Just tell us what you're working with.</p>
+      <h2>Ready to get started?</h2>
+      <p>Reach out and tell us what you've got going on. No paperwork to fill out, no sales call. Just a real conversation about your project.</p>
       <a href="/contact" class="btn-primary">Get in Touch &rarr;</a>
     </div>
   </section>
@@ -211,8 +211,8 @@ const community = [
 
   /* Values */
   .values-section {
-    background-color: var(--color-brand-gray);
-    border-bottom: 2px solid var(--color-brand-black);
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
   }
   .values-inner {
     max-width: 1200px;
@@ -225,29 +225,30 @@ const community = [
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
-    border: 2px solid var(--color-brand-black);
+    border: 2px solid var(--color-border);
   }
   .value-card {
     padding: 2.5rem;
-    border-right: 2px solid var(--color-brand-black);
+    border-right: 2px solid var(--color-border);
+    background-color: var(--color-brand-white);
   }
   .value-card:last-child { border-right: none; }
   .value-word {
     font-family: var(--font-heading);
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--color-brand-white);
+    color: var(--color-text);
     border-bottom: 3px solid var(--color-brand-red);
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
     display: inline-block;
   }
-  .value-body { font-size: 0.9rem; line-height: 1.7; opacity: 0.75; }
+  .value-body { font-size: 0.9rem; line-height: 1.7; color: var(--color-text); opacity: 0.7; }
 
   /* Team */
   .team-section {
     padding: 5rem 1.5rem;
-    border-bottom: 2px solid var(--color-brand-gray);
+    border-bottom: 2px solid var(--color-border);
   }
   .team-inner { max-width: 1200px; margin: 0 auto; }
   .team-inner h2 { font-size: var(--font-size-h2); margin-bottom: 3rem; }
@@ -259,7 +260,7 @@ const community = [
   .team-img-wrap {
     aspect-ratio: 1;
     overflow: hidden;
-    border: 2px solid var(--color-brand-gray);
+    border: 2px solid var(--color-border);
     margin-bottom: 1.25rem;
   }
   .team-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
@@ -282,9 +283,9 @@ const community = [
 
   /* Community */
   .community-section {
-    background-color: var(--color-brand-black);
-    border-top: 2px solid var(--color-brand-gray);
-    border-bottom: 2px solid var(--color-brand-gray);
+    background-color: var(--color-surface);
+    border-top: 2px solid var(--color-border);
+    border-bottom: 2px solid var(--color-border);
   }
   .community-inner {
     max-width: 1200px;
@@ -313,15 +314,16 @@ const community = [
     position: relative;
   }
   .community-list li::before {
-    content: '—';
+    content: '+';
     position: absolute;
     left: 0;
     color: var(--color-brand-red);
+    font-weight: 700;
   }
   .community-img-wrap {
     aspect-ratio: 4/3;
     overflow: hidden;
-    border: 2px solid var(--color-brand-gray);
+    border: 2px solid var(--color-border);
     box-shadow: -6px 6px 0 var(--color-brand-red);
   }
   .community-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
@@ -363,7 +365,7 @@ const community = [
     .community-inner { grid-template-columns: 1fr; gap: 3rem; }
     .team-grid { grid-template-columns: 1fr 1fr; }
     .values-grid { grid-template-columns: 1fr; }
-    .value-card { border-right: none; border-bottom: 2px solid var(--color-brand-black); }
+    .value-card { border-right: none; border-bottom: 2px solid var(--color-border); }
     .value-card:last-child { border-bottom: none; }
   }
   @media (max-width: 600px) {

@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
-/* Brand design tokens — colors registered with Tailwind v4 */
+/* Brand design tokens */
 @theme {
   --color-brand-red: #CC0000;
   --color-brand-black: #0A0A0A;
-  --color-brand-white: #F5F5F5;
-  --color-brand-gray: #2A2A2A;
-  --color-brand-gray-light: #3D3D3D;
+  --color-brand-white: #FFFFFF;
+  --color-brand-gray: #F2F2F0;
+  --color-brand-gray-light: #E4E4E0;
 }
 
-/* Non-color tokens as standard CSS custom properties */
+/* Semantic variables (not Tailwind tokens) */
 :root {
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -18,9 +18,18 @@
   --font-size-h1: clamp(2rem, 4vw, 3.5rem);
   --font-size-h2: clamp(1.5rem, 3vw, 2.5rem);
   --font-size-h3: clamp(1.25rem, 2vw, 1.75rem);
+
+  /* Light theme semantic tokens */
+  --color-bg: #FFFFFF;
+  --color-text: #1A1A1A;
+  --color-surface: #F2F2F0;
+  --color-surface-2: #E8E8E4;
+  --color-border: #D4D4D0;
+  --color-dark: #0A0A0A;
+  --color-dark-surface: #1C1C1C;
 }
 
-/* Base reset and globals */
+/* Base reset */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -30,8 +39,8 @@ html {
 }
 
 body {
-  background-color: var(--color-brand-black);
-  color: var(--color-brand-white);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.6;
@@ -55,20 +64,20 @@ img {
   display: block;
 }
 
-/* Utility: brutalist hard shadow */
+/* Brutalist hard shadow utilities */
 .shadow-hard {
   box-shadow: 4px 4px 0px var(--color-brand-red);
 }
 
-.shadow-hard-white {
-  box-shadow: 4px 4px 0px var(--color-brand-white);
+.shadow-hard-dark {
+  box-shadow: 4px 4px 0px var(--color-dark);
 }
 
-/* Utility: thick border accent */
+/* Border utilities */
 .border-accent {
-  border: 2px solid var(--color-brand-white);
+  border: 2px solid var(--color-brand-red);
 }
 
-.border-red {
-  border: 2px solid var(--color-brand-red);
+.border-dark {
+  border: 2px solid var(--color-dark);
 }

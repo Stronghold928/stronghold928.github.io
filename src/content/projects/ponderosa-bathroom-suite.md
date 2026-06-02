@@ -2,13 +2,13 @@
 title: Ponderosa Master Bath Suite
 type: remodeling
 location: Flagstaff, AZ
-description: A cramped 1970s master bathroom transformed into a full spa suite. Walk-in shower with bench, freestanding soaking tub, dual vanity, and radiant-heat floor tile — all within the original footprint by reclaiming a closet.
+description: A cramped 1970s master bathroom transformed into a full spa suite. Walk-in shower with bench, freestanding soaking tub, dual vanity, and radiant-heat floor tile, all within the original footprint by reclaiming a closet.
 completedDate: "2024-11"
 featured: true
 beforeImage: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&auto=format&fit=crop&q=80"
-afterImage: "https://images.unsplash.com/photo-1620626011761-996317702149?w=1200&auto=format&fit=crop&q=80"
+afterImage: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&auto=format&fit=crop&q=80"
 gallery:
-  - "https://images.unsplash.com/photo-1620626011761-996317702149?w=1200&auto=format&fit=crop&q=80"
+  - "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1200&auto=format&fit=crop&q=80"
   - "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&auto=format&fit=crop&q=80"
 highlights:
   - Absorbed adjacent closet to expand footprint by 42 sq ft
@@ -19,8 +19,8 @@ highlights:
   - Custom niche shelving in shower with waterproof backing
 ---
 
-The original bathroom had a 32" shower stall, a single vanity, and a builder-grade tub that had never been used. The clients had been putting off the project for years — intimidated by the scope and unsure what they actually wanted.
+The original bathroom had a 32-inch shower stall, a single vanity, and a builder-grade tub that had genuinely never been used. The clients had been putting it off for years, mostly because they didn't know where to start.
 
-Our guided design session helped them identify their style: **Spa Minimal** — muted stone tones, no visual clutter, materials that feel expensive but not ostentatious. Once they could see their style profile, decisions came easily.
+A guided design session helped them find their style: Spa Minimal. Muted stone tones, clean surfaces, materials that feel calm without feeling cold. Once they had that language, every decision got easier.
 
-We absorbed the adjacent linen closet to gain 42 square feet, moved plumbing for the tub position, and ran new circuits for radiant heat and the lighted mirrors. The result feels nothing like the original room — it's calm, functional, and completely personal to how they actually use the space.
+We absorbed the adjacent linen closet to gain 42 square feet, moved plumbing for the tub position, and ran new circuits for radiant heat and the vanity mirrors. The finished room feels nothing like the one we started with. It's quiet, personal, and actually gets used now.

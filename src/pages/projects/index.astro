@@ -114,8 +114,8 @@ const typeLabels: Record<string, string> = {
 
   /* Filters */
   .filters-bar {
-    background-color: var(--color-brand-gray);
-    border-bottom: 2px solid var(--color-brand-black);
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
     position: sticky;
     top: 64px;
     z-index: 10;
@@ -137,8 +137,8 @@ const typeLabels: Record<string, string> = {
     padding: 1rem 1.25rem;
     background: none;
     border: none;
-    border-right: 1px solid var(--color-brand-black);
-    color: var(--color-brand-white);
+    border-right: 1px solid var(--color-border);
+    color: var(--color-text);
     opacity: 0.5;
     cursor: pointer;
     white-space: nowrap;
@@ -160,16 +160,16 @@ const typeLabels: Record<string, string> = {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 2px;
-    border: 2px solid var(--color-brand-gray);
+    border: 2px solid var(--color-border);
   }
   .project-card {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-brand-gray);
-    border: 2px solid var(--color-brand-gray);
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
     transition: border-color 0.2s;
     text-decoration: none;
-    color: inherit;
+    color: var(--color-text);
   }
   .project-card:hover {
     border-color: var(--color-brand-red);
@@ -262,14 +262,14 @@ const typeLabels: Record<string, string> = {
     letter-spacing: 0.05em;
     text-transform: uppercase;
     padding: 0.875rem 1.75rem;
-    background-color: var(--color-brand-black);
-    color: var(--color-brand-white);
-    border: 2px solid var(--color-brand-black);
-    box-shadow: 4px 4px 0 var(--color-brand-white);
+    background-color: var(--color-dark);
+    color: #fff;
+    border: 2px solid var(--color-dark);
+    box-shadow: 4px 4px 0 rgba(255,255,255,0.4);
     transition: box-shadow 0.1s, transform 0.1s;
   }
   .btn-primary:hover {
-    box-shadow: 2px 2px 0 var(--color-brand-white);
+    box-shadow: 2px 2px 0 rgba(255,255,255,0.4);
     transform: translate(2px, 2px);
   }
 
