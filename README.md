@@ -5,6 +5,8 @@ General contractor based in Flagstaff, AZ. Specializing in remodeling, restorati
 **Brand:** Red, white, and black. Minimal brutalist design.
 **Values:** Integrity, honesty, trusted/knowledgeable friend, community development, safe and soul-refreshing homes.
 **Differentiator:** Guided design process for clients who want a remodel but don't know their style. ([style-selector](https://stronghold928.github.io/style-selector))
+- Phase 1 (complete): style quiz → style reveal → 7-step design wizard → full summary with consultation CTA
+- Three style profiles: Organic Modern, European Modern, Transitional Modern (sourced from Clear Creek Collective guides)
 
 ---
 
@@ -125,13 +127,16 @@ The MVP is a fully styled public-facing marketing site with no portal functional
 - [x] Project detail: highlights sidebar, prose body from markdown, gallery grid
 - [x] 5 sample projects with Unsplash representative photos
 
-#### Style Selector (`/style-selector`) ✓
-- [x] 5-step guided questionnaire with text and image-choice question types
-- [x] Weighted scoring across 4 style profiles (Modern Warm, Southwest Organic, Industrial Modern, Classic Refined)
-- [x] Results page: style name, tagline, description, color palette swatches, materials list
-- [x] CTA to contact with `?ref=style-selector` param for tracking
-- [x] Retake button — resets scores and restarts
-- [x] Vanilla JS only, no framework dependency, works fully statically
+#### Style Selector (`/style-selector`) ✓ — rebuilt as full two-phase design wizard
+- [x] **Phase 1 (Quiz):** 5-question quiz (text + image answers) with weighted scoring → Organic Modern, European Modern, or Transitional Modern
+- [x] **Phase 2 (Reveal):** Style reveal screen with large style name, tagline, 5 labeled palette swatches, description, and 4 Style DNA principles
+- [x] **Phase 3 (Wizard):** 7-step design decision wizard (Flooring → Cabinetry → Countertops → Tile → Lighting → Paint → Decor)
+  - Sticky header: style name, palette dots, "Step X of 7", 7 clickable step-dot nav
+  - Each step: "Why This Comes First" box, 3 style-specific option cards (one tagged "Most Aligned"), Splurge vs. Save two-column guidance
+  - Option card selection tracked with red border + hard shadow; Back/Next/Finish navigation
+- [x] **Phase 4 (Summary):** All 7 decisions in a numbered grid, style-specific guardrail filter questions, "Book a Design Consultation →" CTA to `/contact?ref=design-wizard`, "Start Over" reset
+- [x] Vanilla JS state machine only — no framework, no storage needed, fully static
+- [x] Original 4-profile quiz (Modern Warm, Southwest Organic, Industrial Modern, Classic Refined) replaced in full; URL `/style-selector` preserved
 
 #### About Page (`/about`) ✓
 - [x] Company origin and mission with italic blockquote callout
@@ -207,20 +212,74 @@ These are external URLs that load from Unsplash's CDN. When real project photos 
 2. Reference as `/images/projects/your-photo.jpg` in frontmatter
 3. Remove the Unsplash URLs
 
-### Style Selector Architecture (Phase 1)
+### Style Selector Architecture (Phase 1 → rebuilt)
 
-The style selector (`/style-selector`) is a fully static page with client-side vanilla JavaScript. No server, no database, no framework.
+The style selector (`/style-selector`) is a fully static page driven by a client-side vanilla JavaScript state machine. No server, no database, no framework. The original 4-profile quiz was replaced with a full two-phase design wizard in a single session.
 
-**How it works:**
-- 5 questions defined in the Astro frontmatter as a `questions` array
-- Each answer has a `weights` object mapping profile IDs to numeric scores
-- On answer selection, weights are accumulated into a `scores` object
-- After question 5, the highest-scoring profile ID wins
-- Results are rendered by finding the matching profile object and populating the DOM
+#### State machine
 
-**4 style profiles:** Modern Warm, Southwest Organic, Industrial Modern, Classic Refined
+All data (style profiles, quiz questions, wizard steps) is defined in Astro frontmatter as typed arrays and passed to the `<script>` block via `define:vars`. The script holds a `state` object:
 
-**To add a profile:** add to the `profiles` array in `style-selector.astro` frontmatter and add weights for the new profile ID in question answers.
+```javascript
+const state = {
+  quizStep: 1,
+  scores: { 'organic-modern': 0, 'european-modern': 0, 'transitional-modern': 0 },
+  selectedStyle: null,    // set after quiz, used throughout wizard + summary
+  wizardStep: 1,
+  wizardSelections: {},   // stepId → optionId
+  wizardLabels: {},       // stepId → human-readable option label (for summary)
+};
+```
+
+Four phases are managed via `showPhase(phase)` which toggles `display:none/block` on `#phase-quiz`, `#phase-reveal`, `#phase-wizard`, `#phase-summary`.
+
+#### Data structure
+
+**Style profiles** (`styles` array): id, name, tagline, description, palette (5 hex colors), paletteNames, dna (4 principles), guardrails (4 filter questions).
+
+**Quiz questions** (`quizQuestions` array): 5 questions, each with `type: 'text' | 'image'` and answers carrying a `weights` object mapping profile IDs to scores. Highest score after 5 questions wins.
+
+**Wizard steps** (`wizardSteps` array): 7 steps. Each has `id`, `title`, `subtitle`, `why` text, `splurge`/`save` guidance, and an `options` object keyed by style ID — each style gets 3 options with `id`, `label`, `desc`, and optional `tag: 'Most Aligned'`.
+
+#### Why wizard options are rendered in JavaScript, not Astro template
+
+Each wizard step has 3 options × 3 styles = 9 option cards per step, 63 total. Rendering all in static HTML (with CSS show/hide) would bloat the DOM. Instead, `renderWizardOptions(stepId, styleId)` injects only the 3 cards for the selected style via `innerHTML` at wizard-init time.
+
+**Consequence:** dynamically injected elements don't receive Astro's scoped CSS data attribute, so scoped styles don't apply. A `<style is:global>` block covers all classes used only in dynamic HTML (`.wizard-option-card`, `.wizard-dot`, `.palette-swatch`, `.summary-item`, `.guardrail-item`, etc.). Static-element styles remain in the normal scoped `<style>` block.
+
+#### `data-step` collision bug (fixed)
+
+Both quiz question blocks and wizard step blocks use `data-step="1"` through `data-step="5"`. The original `showQuizQuestion()` used `document.querySelector('[data-step="${step}"]')` which would match whichever came first in the DOM. Fixed by scoping to the quiz container:
+```javascript
+document.querySelector('#quiz-questions-container [data-step="${step}"]')
+```
+`showWizardStep()` was already scoped to `#wizard-steps-container` and was not affected.
+
+#### Three style profiles (replacing original four)
+
+| Profile ID | Name | Character |
+|---|---|---|
+| `organic-modern` | Organic Modern | Natural materials, light oak, texture-forward, earthy neutrals |
+| `european-modern` | European Modern | Collected/timeless, White Dove, unlacquered brass, arched details |
+| `transitional-modern` | Transitional Modern | Classic meets modern, bold contrast moments, Pale Oak + Wrought Iron |
+
+Source material: Clear Creek Collective Quickstart Guide PDFs (purchased; individual-use license). Content in code is original — style names are generic industry terms, decision order is generic design advice. PDFs are not committed to the repo.
+
+#### Style decision order (same across all three styles)
+
+The 7-step wizard follows the same sequence for all styles — this order is intentional and matches how professional designers sequence decisions (each step narrows what comes next):
+
+1. Flooring & Wood Tone — sets the tonal foundation; everything calibrates to it
+2. Cabinetry Style & Finish — drives paint, tile, hardware, and lighting direction
+3. Countertops — critical cohesion point between cabinetry and wall color
+4. Tile & Grout — easier once cabinetry and paint are locked; grout color matters as much as tile
+5. Lighting — statement fixtures must be chosen before rough-in/framing
+6. Paint & Wall Treatments — always chosen last, after hard finishes are decided
+7. Decor & Textiles — final layer, allowed to evolve over time
+
+**To add a 4th style:** add to the `styles` array, add weights for the new ID in quiz question answers, and add an `options[newStyleId]` block in each of the 7 wizard steps.
+
+**To add an 8th wizard step:** add to the `wizardSteps` array; update `TOTAL_WIZARD = 7` to `TOTAL_WIZARD = 8` in the script.
 
 ### Contact Form (Phase 1)
 
@@ -242,6 +301,19 @@ The form includes a honeypot field (`_gotcha`) to reduce spam.
 | Red as strike accent | Used on labels, borders, underlines | Not fill — red as emphasis only, not background wash |
 | Typography as structure | Large type does layout work | Headlines define sections; no decorative dividers needed |
 | `direction: rtl` alternation | Services page alternates photo side | Clean reversal without duplicating CSS layout code |
+
+### Astro Scoped CSS Limitation
+
+Astro's component `<style>` blocks are scoped by adding a unique `data-astro-cid-*` attribute to every element rendered in the template. CSS selectors are compiled with that attribute as a qualifier (e.g. `.wizard-option-card` → `.wizard-option-card[data-astro-cid-xxxx]`).
+
+**Elements injected via `innerHTML` at runtime do not receive the scoping attribute.** They are invisible to scoped styles. The pattern used in this project:
+
+- Static elements → normal scoped `<style>` block (at bottom of `.astro` file)
+- Dynamically-injected elements → `<style is:global>` block immediately after the scoped block
+
+Use specific, page-prefixed class names in the global block to avoid leaking styles to other pages. Example prefix convention used: `wizard-`, `reveal-`, `summary-`, `option-`.
+
+**Descendant selectors do work across the boundary** — e.g. `.reveal-dna li` works because the parent `.reveal-dna` is a static element and the child `li` elements only need to be DOM descendants, not attribute-matched. Use this to minimize the global block size.
 
 ### Astro v6 Content Collections Note
 
@@ -268,6 +340,10 @@ npm run build
 # Preview production build locally
 npm run preview
 ```
+
+**Node version requirement:** `>=22.12.0` (Astro v6 compatibility). CI/CD workflow pins Node 24.
+
+**Claude Code preview server:** `.claude/launch.json` configures the dev server for use with Claude Code's preview tools. The configuration points to `npm run dev` on port 4321. This file is committed so Claude Code can use `preview_start` without manual setup.
 
 Deployment: push to `main` → GitHub Actions builds → deploys to GitHub Pages automatically. Requires GitHub Pages set to "GitHub Actions" source in repo Settings → Pages.
 
