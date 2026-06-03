@@ -1,99 +1,28 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const services = [
-  {
-    id: 'remodeling',
-    label: 'Remodeling',
-    tagline: 'Transform your space. Live better.',
-    description: 'A remodel is one of the biggest investments you can make in your home — and in your daily life. We approach every project with the same question: how does this family actually live, and how can this space serve them better?',
-    detail: 'Not sure what you want it to look like? Our guided design process walks you through a series of conversations and visual exercises to nail down your style, priorities, and limits before any work begins.',
-    photo: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1400&auto=format&fit=crop&q=80',
-    photoAlt: 'Modern kitchen remodel with white cabinetry and quartz countertops',
-    steps: [
-      { n: '01', title: 'Discovery Call', body: 'We learn your goals, timeline, and rough budget. No obligation, no pitch.' },
-      { n: '02', title: 'Site Walk', body: 'We see the space, assess what\'s there, and identify any structural or code considerations.' },
-      { n: '03', title: 'Design Session', body: 'For clients using our guided process: style profiling, material selection, and scope definition.' },
-      { n: '04', title: 'Detailed Quote', body: 'Itemized, line-by-line. No lump sums hiding surprises.' },
-      { n: '05', title: 'Build', body: 'Managed project with weekly updates, open communication, and no ghost acts.' },
-      { n: '06', title: 'Walkthrough', body: 'We walk every item on the punch list together before we call it done.' },
-    ],
-    cta: { label: 'Try the Design Guide', href: '/style-selector' },
-  },
-  {
-    id: 'restoration',
-    label: 'Restoration',
-    tagline: 'Preserve what matters. Fix what doesn\'t.',
-    description: 'Northern Arizona\'s older homes carry character that no new build can replicate. Whether it\'s a 1920s Craftsman in Flagstaff\'s Southside or a mid-century ranch on the east side, restoration work requires patience, skill, and respect for what\'s already there.',
-    detail: 'We focus on structural restoration: sill plates, foundations, roof systems, windows. These are the things that decide whether a home lasts another 50 years. We will tell you what the house actually needs, not what generates the most work for us.',
-    photo: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1400&auto=format&fit=crop&q=80',
-    photoAlt: 'Restored Craftsman bungalow exterior',
-    steps: [
-      { n: '01', title: 'Condition Assessment', body: 'Thorough walk of the structure: foundation, envelope, systems. Written report with an honest priority order.' },
-      { n: '02', title: 'Scope Definition', body: 'We separate need-to-do from nice-to-do, clearly and in writing.' },
-      { n: '03', title: 'Phased Plan', body: 'Restoration rarely happens all at once. We build a sequence that protects the structure while fitting your budget.' },
-      { n: '04', title: 'Careful Execution', body: 'Original materials salvaged where possible. Appropriate modern materials used where they perform better.' },
-      { n: '05', title: 'Documentation', body: 'Photos and records of every wall opened and system touched. Useful for future owners, insurance, and permit history.' },
-    ],
-    cta: { label: 'Get a Condition Assessment', href: '/contact' },
-  },
-  {
-    id: 'new-builds',
-    label: 'New Construction',
-    tagline: 'Build it right the first time.',
-    description: 'We build single-family and multi-family homes across northern Arizona, from owner-occupied custom homes to small investment properties. Structure, envelope, and systems get the same care on every job, regardless of the budget.',
-    detail: 'We work from architect-provided plans or can connect you with design professionals we trust. Either way, our job starts at pre-construction: reviewing drawings for buildability, flagging coordination issues before they become field problems, and building a schedule and budget you can actually rely on.',
-    photo: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&auto=format&fit=crop&q=80',
-    photoAlt: 'New single-family home under blue sky',
-    steps: [
-      { n: '01', title: 'Pre-Construction Review', body: 'We review plans, flag issues, coordinate with your design team, and build the real schedule.' },
-      { n: '02', title: 'Permitting', body: 'We manage the permit application and coordinate all required inspections.' },
-      { n: '03', title: 'Site Prep & Foundation', body: 'Excavation, form work, pour. The most important phase, done without shortcuts.' },
-      { n: '04', title: 'Framing & Envelope', body: 'Structure, sheathing, windows, roofing. The shell that protects everything else.' },
-      { n: '05', title: 'Rough Systems', body: 'Plumbing, electrical, HVAC, insulation. Coordinated and inspected before drywall goes up.' },
-      { n: '06', title: 'Finish & Close Out', body: 'Trim, paint, fixtures, appliances, final inspections, and certificate of occupancy.' },
-    ],
-    cta: { label: 'Start a New Build Conversation', href: '/contact' },
-  },
-  {
-    id: 'repairs',
-    label: 'Repairs',
-    tagline: 'Figure out why. Fix it right.',
-    description: 'Not every project is a remodel. Sometimes a deck is failing, a roof is leaking, or a floor is soft somewhere it should not be. We do repair work with permits when required and no inflated scope.',
-    detail: 'We are good at diagnostic work. A recurring roof leak has a root cause. A soft floor has a story. We find the actual problem rather than patching what is visible and calling it done.',
-    photo: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&auto=format&fit=crop&q=80',
-    photoAlt: 'Contractor doing structural repair work',
-    steps: [
-      { n: '01', title: 'Honest Assessment', body: 'We look at the actual problem, tell you what\'s causing it, and what a proper fix costs.' },
-      { n: '02', title: 'Scope Agreement', body: 'Written scope. No verbal agreements, no scope creep without your approval.' },
-      { n: '03', title: 'Permitted Work', body: 'Structural repairs, electrical, plumbing — permitted and inspected when required by code.' },
-      { n: '04', title: 'Clean Site', body: 'We leave your property cleaner than we found it.' },
-    ],
-    cta: { label: 'Describe Your Repair', href: '/contact' },
-  },
-];
+import { services } from '../data/services';
 ---
 
 <Layout
   title="Services"
-  description="Stronghold928 offers remodeling, restoration, new construction, and repair services across northern Arizona. Based in Flagstaff, AZ."
+  description="Stronghold offers remodeling, restoration, new construction, and repair services across northern Arizona. Based in Flagstaff, AZ."
 >
   <section class="page-hero">
     <div class="page-hero-inner">
       <p class="eyebrow">What We Do</p>
-      <h1>Services built on<br /><span class="accent">straight talk.</span></h1>
-      <p class="hero-sub">Every project gets an honest assessment, an itemized quote, and a team that shows up. No surprises, no ghost acts.</p>
+      <h1>What we do,<br /><span class="accent">and how we do it.</span></h1>
+      <p class="hero-sub">Every project starts with an honest conversation about what you actually need. From there you get a real quote, a real crew, and someone you can reach when you have questions.</p>
     </div>
   </section>
 
   <nav class="service-nav" aria-label="Jump to service">
     {services.map(s => (
-      <a href={`#${s.id}`} class="service-nav-link">{s.label}</a>
+      <a href={`#${s.slug}`} class="service-nav-link">{s.label}</a>
     ))}
   </nav>
 
   {services.map((s, i) => (
-    <section id={s.id} class={`service-section ${i % 2 === 1 ? 'service-section--alt' : ''}`}>
+    <section id={s.slug} class={`service-section ${i % 2 === 1 ? 'service-section--alt' : ''}`}>
       <div class="service-inner">
         <div class="service-photo-col">
           <div class="service-photo-wrap">
@@ -105,7 +34,12 @@ const services = [
           <h2>{s.tagline}</h2>
           <p class="service-desc">{s.description}</p>
           <p class="service-detail">{s.detail}</p>
-          <a href={s.cta.href} class="btn-primary">{s.cta.label} &rarr;</a>
+          <div class="service-cta-row">
+            <a href={`/services/${s.slug}`} class="btn-primary">Learn More &rarr;</a>
+            {s.designCta && (
+              <a href={s.designCta.href} class="btn-outline">{s.designCta.label}</a>
+            )}
+          </div>
         </div>
       </div>
       <div class="service-process">
@@ -130,8 +64,8 @@ const services = [
   <section class="service-area">
     <div class="service-area-inner">
       <p class="eyebrow">Where We Work</p>
-      <h2>Northern Arizona,<br />our home territory.</h2>
-      <p>We're based in Flagstaff and serve the surrounding region — Flagstaff, Williams, Sedona, Winslow, Show Low, and communities in between. If you're in northern Arizona and need a contractor who knows the climate, the codes, and the community, let's talk.</p>
+      <h2>We work all over<br />northern Arizona.</h2>
+      <p>Flagstaff is home base, but we regularly work in Williams, Sedona, Winslow, Show Low, Camp Verde, and the communities in between. If you're in the region and wondering whether we travel to you, just ask.</p>
       <a href="/contact" class="btn-primary">Get in Touch &rarr;</a>
     </div>
   </section>
@@ -250,6 +184,12 @@ const services = [
     border-left: 3px solid var(--color-brand-red);
     padding-left: 1rem;
   }
+  .service-cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 
   /* Process strip */
   .service-process {
@@ -348,6 +288,22 @@ const services = [
   .btn-primary:hover {
     box-shadow: 2px 2px 0 var(--color-dark);
     transform: translate(2px, 2px);
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.25rem;
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+    transition: border-color 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-brand-red);
   }
 
   /* Responsive */

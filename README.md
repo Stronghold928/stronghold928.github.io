@@ -1,11 +1,12 @@
-# Stronghold928 — Website Project
+# Stronghold — Website Project
 
 General contractor based in Flagstaff, AZ. Specializing in remodeling, restoration, new single-family and multi-family construction, and repair projects across northern Arizona.
 
 **Brand:** Red, white, and black. Minimal brutalist design.
 **Values:** Integrity, honesty, trusted/knowledgeable friend, community development, safe and soul-refreshing homes.
-**Differentiator:** Guided design process for clients who want a remodel but don't know their style. ([style-selector](https://stronghold928.github.io/style-selector))
-- Phase 1 (complete): style quiz → style reveal → 7-step design wizard → full summary with consultation CTA
+**Differentiator:** Guided design process for clients who want a remodel but don't know their style. ([/design](https://builtstronghold.com/design))
+- Phase 1 (complete): 5-photo style quiz → style reveal → quote CTA
+- Phase 2 (pending): 7-step design wizard added to client portal after login
 - Three style profiles: Organic Modern, European Modern, Transitional Modern (sourced from Clear Creek Collective guides)
 
 ---
@@ -21,16 +22,16 @@ General contractor based in Flagstaff, AZ. Specializing in remodeling, restorati
 | Client/Worker portal (Phase 2) | **Supabase** | Postgres + auth + real-time, generous free tier, no backend server needed |
 | Payments (Phase 3) | **Stripe** | Industry standard, handles invoicing and payment collection |
 | CMS for project showcases | **Markdown files + Astro Content Collections** | Zero cost, git-tracked, easy to hand off editing. Astro v6 glob loader in `src/content.config.ts` |
-| Hosting | **GitHub Pages** | Already using `stronghold928.github.io` domain |
+| Hosting | **GitHub Pages** | Custom domain `builtstronghold.com` |
 
 ### Site Structure (MVP → Full)
 
 ```
-stronghold928.github.io/
+builtstronghold.com/
 ├── /                        # Landing page — hero, services, featured projects, CTA
 ├── /services                # Services breakdown (remodel, restore, new build, repair)
 ├── /projects                # Project showcase gallery
-├── /style-selector          # Guided design process tool
+├── /design                  # Style quiz → style reveal → quote CTA (public)
 ├── /about                   # Company story, values, team
 ├── /contact                 # Contact form + service area map
 │
@@ -39,7 +40,7 @@ stronghold928.github.io/
 │   ├── dashboard            #   Overview — active projects, outstanding items
 │   ├── quotes               #   View submitted/approved quotes
 │   ├── projects/[id]        #   Project detail — progress, schedule, docs
-│   ├── design               #   Design selections and style-selector results
+│   ├── design               #   Design Wizard (7-step material decisions) — src/pages/design-wizard.astro ready to integrate
 │   ├── payments             #   Pay invoices, add payment method
 │   └── requests             #   Submit new work requests
 │
@@ -72,7 +73,7 @@ The MVP is a fully styled public-facing marketing site with no portal functional
 - Project showcase (static, 3–5 sample projects from markdown)
 - About page
 - Contact page with functional form (Formspree or Netlify Forms — no backend needed)
-- Style-selector page (guided design questionnaire, static)
+- Design page (`/design`) — 5-photo style quiz, style reveal, quote CTA (static)
 - Mobile responsive
 - Deployed to GitHub Pages
 
@@ -127,16 +128,25 @@ The MVP is a fully styled public-facing marketing site with no portal functional
 - [x] Project detail: highlights sidebar, prose body from markdown, gallery grid
 - [x] 5 sample projects with Unsplash representative photos
 
-#### Style Selector (`/style-selector`) ✓ — rebuilt as full two-phase design wizard
-- [x] **Phase 1 (Quiz):** 5-question quiz (text + image answers) with weighted scoring → Organic Modern, European Modern, or Transitional Modern
-- [x] **Phase 2 (Reveal):** Style reveal screen with large style name, tagline, 5 labeled palette swatches, description, and 4 Style DNA principles
-- [x] **Phase 3 (Wizard):** 7-step design decision wizard (Flooring → Cabinetry → Countertops → Tile → Lighting → Paint → Decor)
+#### Design Page (`/design`) ✓ — public style quiz with quote CTA
+- [x] Page renamed from `/style-selector` to `/design`; nav label changed from "Design Guide" to "Design"
+- [x] Hero section with value proposition: Style Clarity, Right Decision Order, Shared Vocabulary
+- [x] "How It Works" section (4 steps) placed between hero and quiz
+- [x] **Quiz:** 5-question all-photo quiz (weighted scoring) → Organic Modern, European Modern, or Transitional Modern
+  - Q1 Living rooms, Q2 Kitchens, Q3 Bathrooms, Q4 Bedrooms, Q5 Dining spaces
+- [x] **Reveal:** Style profile screen — name, tagline, 5 palette swatches, description, 4 Style DNA principles
+- [x] **Reveal CTA:** "Get a Quote →" links to `/contact?ref=design-quiz`; secondary "Retake Quiz" button
+- [x] Vanilla JS state machine — no framework, no storage needed, fully static
+- [x] Three style profiles: Organic Modern, European Modern, Transitional Modern
+
+#### Design Wizard (`/design-wizard`) — built, unlinked, ready for client portal
+- [x] 7-step material decision wizard (Flooring → Cabinetry → Countertops → Tile → Lighting → Paint → Decor)
   - Sticky header: style name, palette dots, "Step X of 7", 7 clickable step-dot nav
-  - Each step: "Why This Comes First" box, 3 style-specific option cards (one tagged "Most Aligned"), Splurge vs. Save two-column guidance
-  - Option card selection tracked with red border + hard shadow; Back/Next/Finish navigation
-- [x] **Phase 4 (Summary):** All 7 decisions in a numbered grid, style-specific guardrail filter questions, "Book a Design Consultation →" CTA to `/contact?ref=design-wizard`, "Start Over" reset
-- [x] Vanilla JS state machine only — no framework, no storage needed, fully static
-- [x] Original 4-profile quiz (Modern Warm, Southwest Organic, Industrial Modern, Classic Refined) replaced in full; URL `/style-selector` preserved
+  - Each step: "Why This Comes First" box, 3 style-specific option cards (one tagged "Most Aligned"), Splurge vs. Save guidance
+- [x] Summary screen: all 7 decisions in numbered grid, guardrail filter questions, consultation CTA
+- [x] Reads selected style from `?style=` URL param; "Start Over" returns to `/design`
+- [x] File at `src/pages/design-wizard.astro` — not publicly linked; no nav/footer entry
+- [ ] **Future:** Move into client portal at `/portal/client/design` with auth gate (Phase 2)
 
 #### About Page (`/about`) ✓
 - [x] Company origin and mission with italic blockquote callout
@@ -165,9 +175,10 @@ The MVP is a fully styled public-facing marketing site with no portal functional
 - [ ] Supabase project setup (auth, DB schema)
 - [ ] Unified login page with role routing
 - [ ] **Client portal:** dashboard, quotes view, project detail, design selections, payment, new request form
+- [ ] **Design Wizard:** integrate `src/pages/design-wizard.astro` into client portal at `/portal/client/design`; add auth gate so wizard is only accessible after login; persist completed selections to client's Supabase record
 - [ ] **Worker portal:** dashboard, time submission, expense submission with photo upload
 - [ ] Row-level security policies (clients see only their data)
-- [ ] Admin view for Stronghold928 team
+- [ ] Admin view for Stronghold team
 
 ### Phase 3 — Payments & Advanced Features
 - [ ] Stripe integration for invoice payment
@@ -355,7 +366,7 @@ Deployment: push to `main` → GitHub Actions builds → deploys to GitHub Pages
 |---|---|---|
 | Replace Formspree URL | `src/pages/contact.astro` | Sign up at formspree.io, get form ID |
 | Replace phone number | `src/components/Nav.astro`, `Footer.astro`, `contact.astro` | Currently `(928) 555-0100` |
-| Replace email | `src/components/Footer.astro`, `contact.astro` | Currently `hello@stronghold928.com` |
+| Replace email | `src/components/Footer.astro`, `contact.astro` | Currently `hello@builtstronghold.com` |
 | Add AZ ROC license number | `src/components/Footer.astro`, `contact.astro` | Labeled `[Pending]` |
 | Enable GitHub Pages | GitHub repo Settings → Pages | Set source to "GitHub Actions" |
 | Replace placeholder team photos | `src/pages/about.astro` | Unsplash placeholder images in team section |
@@ -366,7 +377,8 @@ Deployment: push to `main` → GitHub Actions builds → deploys to GitHub Pages
 
 ## Notes
 
-- Style-selector lives at `/style-selector` and is referenced externally — maintain that URL permanently.
+- Design page lives at `/design`. The old `/style-selector` URL is no longer active — update any external references.
+- `src/pages/design-wizard.astro` is built and complete but intentionally has no public nav entry or inbound links. It is reserved for the Phase 2 client portal.
 - All portal routes (Phase 2) must be auth-gated; no sensitive data exposed publicly.
 - The `completedDate` field in project frontmatter controls sort order. Format: `"YYYY-MM"`.
 - License number placeholder intentional — replace when AZ ROC number is confirmed.

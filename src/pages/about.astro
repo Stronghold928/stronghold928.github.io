@@ -8,11 +8,11 @@ const values = [
   },
   {
     word: 'Honesty',
-    body: 'You get our real read on the project, not the one designed to win the bid. If something is not worth doing, we say so. If a competitor has a better approach, we will tell you that too.',
+    body: "You get our real read on the project, not the answer designed to win the bid. Sometimes that means telling you something isn't worth doing. We're okay with that.",
   },
   {
     word: 'Community',
-    body: 'Flagstaff is home. The families whose houses we build and fix are our neighbors, our kids\'s classmates, and the people we see at the grocery store. We care about getting it right.',
+    body: "Flagstaff is home. The families whose houses we work on are our neighbors. We see them around town. That makes it personal in a way that a bigger operation just can't replicate.",
   },
 ];
 
@@ -47,7 +47,7 @@ const community = [
 
 <Layout
   title="About"
-  description="Stronghold928 is a Flagstaff, AZ based general contractor built on integrity, honesty, and community. Learn who we are and why we build the way we do."
+  description="Stronghold is a Flagstaff, AZ based general contractor built on integrity, honesty, and community. Learn who we are and why we build the way we do."
 >
   <!-- Mission -->
   <section class="mission-section">
@@ -55,14 +55,14 @@ const community = [
       <div class="mission-text">
         <p class="eyebrow">Who We Are</p>
         <h1>Your contractor.<br /><span class="accent">Your neighbor.</span></h1>
-        <p class="mission-lead">Stronghold928 started with a pretty simple question: what would it feel like to hire a contractor who just talked to you straight? No sales pitch, no inflated scope, no runaround on why something cost twice what you expected.</p>
+        <p class="mission-lead">Stronghold started with a pretty simple question: what would it feel like to hire a contractor who just talked to you straight? No sales pitch, no inflated scope, no runaround on why something cost twice what you expected.</p>
         <p>We're a small, owner-operated general contractor out of Flagstaff. We work on residential remodeling, restoration, new construction, and repairs across northern Arizona. Being small is a choice. It means the person you shake hands with at the start is still the one responsible when the job is done.</p>
       </div>
       <div class="mission-photo">
         <div class="mission-img-wrap">
           <img
             src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&auto=format&fit=crop&q=80"
-            alt="Stronghold928 team at a job site"
+            alt="Stronghold team at a job site"
             loading="lazy"
           />
         </div>
@@ -121,7 +121,7 @@ const community = [
       <div class="community-text">
         <p class="eyebrow">Giving Back</p>
         <h2>Northern Arizona<br />is our community too.</h2>
-        <p>Being a good neighbor means more than showing up on time. It means investing in the community in ways you can actually see and touch.</p>
+        <p>We've got roots here and we try to act like it. Some of it is formal, some of it is just showing up when someone needs help.</p>
         <ul class="community-list">
           {community.map(item => (
             <li>{item}</li>
@@ -144,7 +144,7 @@ const community = [
   <section class="about-cta">
     <div class="about-cta-inner">
       <h2>Ready to get started?</h2>
-      <p>Reach out and tell us what you've got going on. No paperwork to fill out, no sales call. Just a real conversation about your project.</p>
+      <p>Tell us what you've got going on. We'll have a straight conversation about whether we're a good fit and what the project actually involves.</p>
       <a href="/contact" class="btn-primary">Get in Touch &rarr;</a>
     </div>
   </section>

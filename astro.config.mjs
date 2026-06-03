@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://stronghold928.github.io',
+  site: 'https://builtstronghold.com',
   vite: {
     plugins: [tailwindcss()]
   }

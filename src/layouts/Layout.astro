@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title,
-  description = 'Stronghold928 — General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and repairs across northern Arizona.',
+  description = 'Stronghold — General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and repairs across northern Arizona.',
   ogImage = '/og-default.jpg',
 } = Astro.props;
 
@@ -25,14 +25,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{title} | Stronghold928</title>
+    <title>{title} | Stronghold</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={`${title} | Stronghold928`} />
+    <meta property="og:title" content={`${title} | Stronghold`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
 

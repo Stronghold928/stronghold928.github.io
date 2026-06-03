@@ -10,15 +10,15 @@ const styles = [
     palette: ['#F0EBE1', '#C4B99A', '#6B7B5A', '#888880', '#2A2A2A'],
     paletteNames: ['Alabaster', 'Warm Taupe', 'Pewter Green', 'Warm Gray', 'Charcoal'],
     dna: [
-      'Natural materials lead every decision — light oak, stone, linen, and clay over synthetic',
-      'Clean architecture creates the "modern" half — no heavy molding, no ornate trim',
-      'Light rift-sawn oak is the defining material — use it in cabinetry, flooring, and ceilings',
-      'Texture does the heavy lifting — leathered stone, reeded cabinets, plaster walls, woven textiles',
+      'Natural materials lead every decision: light oak, stone, linen, and clay over synthetic',
+      'Clean architecture creates the "modern" half: no heavy molding, no ornate trim',
+      'Light rift-sawn oak is the defining material. Use it in cabinetry, flooring, and ceilings.',
+      'Texture does the heavy lifting: leathered stone, reeded cabinets, plaster walls, woven textiles',
     ],
     guardrails: [
-      'Does this feel warm and grounded — or cold and sterile?',
+      'Does this feel warm and grounded, or cold and sterile?',
       'Does it look like it came from nature, or a factory?',
-      'Does it add texture and depth — or visual noise?',
+      'Does it add texture and depth, or just visual noise?',
       'Will it still feel right in fifteen years?',
     ],
   },
@@ -26,127 +26,40 @@ const styles = [
     id: 'european-modern',
     name: 'European Modern',
     tagline: 'Timeless. Layered. Quietly Sophisticated.',
-    description: 'Your home should feel collected — like it has always been there. Warm plaster, timeless tile, unlacquered brass, and arched details create a home with real soul. Nothing trendy. Nothing stark. Every surface carries character, every room invites you to stay.',
+    description: 'Your home should feel like it has always been there. Warm plaster, timeless tile, unlacquered brass, and arched details create a home with real soul. Nothing trendy. Nothing stark. Every surface carries character.',
     palette: ['#EEE8DE', '#B4A48C', '#6B5E4C', '#8A8880', '#2A2A2A'],
     paletteNames: ['White Dove', 'Stone Hearth', 'Warm Umber', 'Warm Gray', 'Charcoal'],
     dna: [
-      'Tone is everything — this style is built on a feeling, not a trend. Ask: does this have soul?',
+      'Tone is everything. This style is built on a feeling, not a trend. Ask: does this room have soul?',
       'White Dove at 50% strength on walls creates a softness no standard white can match',
-      'Arch shapes and repeated details create continuity — carry them from room to room',
-      'Hard finishes carry character — zellige, checkered floors, leathered stone, plaster range hoods',
+      'Arch shapes and repeated details create continuity. Carry them from room to room.',
+      'Hard finishes carry the character: zellige, checkered floors, leathered stone, plaster range hoods',
     ],
     guardrails: [
-      'Does this feel collected and timeless — or trendy and temporary?',
-      'Does it have texture, warmth, or character — or does it feel flat?',
-      'Could this have existed in a beautiful home 50 years ago?',
-      'Does it add depth and charm — or visual noise?',
+      'Does this feel collected and timeless, or trendy and temporary?',
+      'Does it have texture, warmth, or character, or does it feel flat?',
+      'Could this have lived in a beautiful home 50 years ago?',
+      'Does it add depth and charm, or just visual noise?',
     ],
   },
   {
     id: 'transitional-modern',
     name: 'Transitional Modern',
     tagline: 'Classic Bones. Modern Edge. Built to Last.',
-    description: 'Your home should feel elevated and livable at the same time. Classic proportions, clean modern lines, and bold contrast moments that anchor each space. Nothing overdone, nothing cold. One or two dramatic decisions — dark cabinetry, a statement tile — surrounded by warm, grounded neutrals.',
+    description: 'Your home should feel elevated and livable at the same time. Classic proportions, clean modern lines, and bold contrast moments that anchor each space. One or two dramatic decisions surrounded by warm, grounded neutrals.',
     palette: ['#EEE8DE', '#D0C9B4', '#3D3D3A', '#5A6673', '#4A5042'],
     paletteNames: ['White Dove', 'Pale Oak', 'Wrought Iron', 'Ocean Floor', 'Dark Olive'],
     dna: [
-      'This style walks the line between classic and modern — and does it with confidence',
+      'This style walks the line between classic and modern and does it with confidence',
       'White Dove at 50% on walls, full strength on trim creates built-in warmth throughout',
-      'Contrast is the defining move — bold dark moments against soft, grounded backgrounds',
-      'Clean architecture throughout — caseless trim, slim shaker profiles, nothing ornate',
+      'Contrast is the defining move: bold dark moments against soft, grounded backgrounds',
+      'Clean architecture throughout: caseless trim, slim shaker profiles, nothing ornate',
     ],
     guardrails: [
-      'Does this feel elevated and timeless — or trendy and dated?',
+      'Does this feel elevated and timeless, or trendy and dated?',
       'Does it balance classic character with a clean modern edge?',
-      'Does it add contrast intentionally — or just visual confusion?',
+      'Does it add contrast intentionally, or just create visual confusion?',
       'Could this piece live comfortably here for twenty years?',
-    ],
-  },
-];
-
-const quizQuestions = [
-  {
-    id: 'q1',
-    step: 1,
-    question: 'Which of these best describes how you want your home to feel?',
-    answers: [
-      { label: 'Warm, grounded, and rooted in natural materials. A home that feels alive.', weights: { 'organic-modern': 3 } },
-      { label: 'Timeless and collected — like it has real history, soul, and a quietly European character.', weights: { 'european-modern': 3 } },
-      { label: 'Polished and balanced. Classic bones, clean modern edge. Elevated without being trendy.', weights: { 'transitional-modern': 3 } },
-      { label: 'Bold and high-contrast. One or two striking moments that anchor the whole space.', weights: { 'transitional-modern': 2, 'organic-modern': 1 } },
-    ],
-  },
-  {
-    id: 'q2',
-    step: 2,
-    type: 'image',
-    question: 'Which kitchen speaks to you?',
-    answers: [
-      {
-        label: 'Light oak cabinetry, leathered stone countertop, simple matte hardware',
-        image: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&auto=format&fit=crop&q=80',
-        weights: { 'organic-modern': 3 },
-      },
-      {
-        label: 'White shaker cabinets, warm stone counters, brass pendants',
-        image: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=600&auto=format&fit=crop&q=80',
-        weights: { 'european-modern': 3 },
-      },
-      {
-        label: 'Dark charcoal island, white perimeter, marble countertop, black window frames',
-        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&auto=format&fit=crop&q=80',
-        weights: { 'transitional-modern': 3 },
-      },
-      {
-        label: 'Warm two-tone — natural oak base, painted upper cabinets, clean shaker profile',
-        image: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&auto=format&fit=crop&q=80',
-        weights: { 'european-modern': 2, 'transitional-modern': 1 },
-      },
-    ],
-  },
-  {
-    id: 'q3',
-    step: 3,
-    question: 'Which hardware finish do you gravitate toward?',
-    answers: [
-      { label: 'Matte black — clean, minimal, pairs beautifully with natural oak and stone', weights: { 'organic-modern': 3, 'transitional-modern': 1 } },
-      { label: 'Unlacquered brass — develops a patina over time, warm, quietly European', weights: { 'european-modern': 3 } },
-      { label: 'Brushed nickel — refined, neutral, works in multiple style directions', weights: { 'transitional-modern': 2, 'european-modern': 1 } },
-      { label: 'Satin or antique brass — contemporary warmth, classic but not fussy', weights: { 'european-modern': 2, 'organic-modern': 1 } },
-    ],
-  },
-  {
-    id: 'q4',
-    step: 4,
-    type: 'image',
-    question: 'Which flooring feels most like home to you?',
-    answers: [
-      {
-        label: 'Light rift-sawn oak, wide plank, matte finish — natural and warm',
-        image: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=600&auto=format&fit=crop&q=80',
-        weights: { 'organic-modern': 3 },
-      },
-      {
-        label: 'Medium-toned hardwood, traditional plank width, warm matte finish',
-        image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c349479?w=600&auto=format&fit=crop&q=80',
-        weights: { 'european-modern': 3, 'transitional-modern': 1 },
-      },
-      {
-        label: 'Wide-plank, mid-tone wood — versatile, clean, pairs with bold or soft',
-        image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&auto=format&fit=crop&q=80',
-        weights: { 'transitional-modern': 3 },
-      },
-    ],
-  },
-  {
-    id: 'q5',
-    step: 5,
-    question: 'Which architectural detail excites you most?',
-    answers: [
-      { label: 'Wood-paneled ceilings, caseless windows, flush trim — texture without fuss', weights: { 'organic-modern': 3 } },
-      { label: 'Arched walkways, a plaster-finished range hood, built-ins with curved details', weights: { 'european-modern': 3 } },
-      { label: 'Bold dark accent wall, tall black-trim windows, crisp shaker cabinetry', weights: { 'transitional-modern': 3 } },
-      { label: 'Clean shiplap or vertical paneling in one key room, simple trim everywhere else', weights: { 'transitional-modern': 2, 'organic-modern': 1 } },
     ],
   },
 ];
@@ -338,87 +251,24 @@ const wizardSteps = [
 ---
 
 <Layout
-  title="Design Guide"
-  description="Not sure what style you want for your remodel? Stronghold928's guided design wizard helps you find your style profile and walk through every key decision — before the first nail."
+  title="Design Wizard"
+  description="Walk through 7 key design decisions with Stronghold's Design Wizard — flooring, cabinetry, countertops, tile, lighting, paint, and decor — in the right order."
 >
-  <section class="selector-hero">
-    <div class="selector-hero-inner">
-      <p class="eyebrow">Guided Design</p>
-      <h1>Find your style.<br /><span class="accent">Then make every decision.</span></h1>
-      <p class="hero-sub">
-        A short quiz to find your style. A step-by-step wizard through every key design decision.
-        A clear starting point for every conversation with your contractor.
-      </p>
-    </div>
-  </section>
-
-  <div id="selector-app" class="selector-app">
-
-    <!-- ═══════════════════════════════════════════════════ PHASE: QUIZ -->
-    <div id="phase-quiz">
-      <div class="progress-bar-wrap">
-        <div class="progress-bar-inner">
-          <div class="progress-fill" id="quiz-progress-fill" style="width:0%"></div>
-        </div>
-        <span class="progress-label" id="quiz-progress-label">Question 1 of 5</span>
-      </div>
-
-      <div id="quiz-questions-container">
-        {quizQuestions.map((q, qi) => (
-          <div
-            class={`question-block ${qi === 0 ? 'question-block--active' : ''}`}
-            id={`question-${q.id}`}
-            data-step={q.step}
-          >
-            <div class="question-inner">
-              <p class="question-num">Question {q.step} / {quizQuestions.length}</p>
-              <h2 class="question-text">{q.question}</h2>
-              <div class={`answers-grid ${q.type === 'image' ? 'answers-grid--image' : 'answers-grid--text'}`}>
-                {q.answers.map((a, ai) => (
-                  <button
-                    class={`answer-btn ${q.type === 'image' ? 'answer-btn--image' : ''}`}
-                    data-question={q.id}
-                    data-answer={ai}
-                    data-weights={JSON.stringify(a.weights)}
-                  >
-                    {q.type === 'image' && 'image' in a && (
-                      <div class="answer-img-wrap">
-                        <img src={(a as any).image} alt={a.label} loading="lazy" />
-                      </div>
-                    )}
-                    <span class="answer-label">{a.label}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
+  <!-- ═══════════════════════════════════════════════════ PAGE HEADER -->
+  <div class="wizard-page-header">
+    <div class="wizard-page-header-inner">
+      <a href="/design" class="wizard-back-link">&larr; Retake Style Quiz</a>
+      <div class="wizard-page-title-block">
+        <p class="wizard-page-eyebrow">Design Wizard</p>
+        <h1 id="wizard-page-style-name" class="wizard-page-style-name">Loading your style&hellip;</h1>
       </div>
     </div>
+  </div>
 
-    <!-- ══════════════════════════════════════════════════ PHASE: REVEAL -->
-    <div id="phase-reveal" style="display:none">
-      <div class="reveal-inner">
-        <p class="eyebrow">Your Style Profile</p>
-        <h2 id="reveal-name" class="reveal-name">—</h2>
-        <p id="reveal-tagline" class="reveal-tagline">—</p>
-        <div class="reveal-palette-wrap">
-          <div class="reveal-palette" id="reveal-palette"></div>
-        </div>
-        <p id="reveal-description" class="reveal-description">—</p>
-        <div class="reveal-dna-wrap">
-          <p class="reveal-dna-title">Your Style DNA</p>
-          <ul id="reveal-dna" class="reveal-dna"></ul>
-        </div>
-        <div class="reveal-actions">
-          <button id="start-wizard-btn" class="btn-primary">Start the Design Wizard &rarr;</button>
-          <button id="retake-quiz-btn" class="btn-outline">Retake Quiz</button>
-        </div>
-      </div>
-    </div>
+  <div id="wizard-app" class="wizard-app">
 
-    <!-- ═══════════════════════════════════════════════════ PHASE: WIZARD -->
-    <div id="phase-wizard" style="display:none">
+    <!-- ══════════════════════════════════════════════ PHASE: WIZARD -->
+    <div id="phase-wizard">
       <div class="wizard-style-header" id="wizard-style-header">
         <div class="wizard-style-header-inner">
           <div class="wizard-style-meta">
@@ -492,7 +342,7 @@ const wizardSteps = [
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════ PHASE: SUMMARY -->
+    <!-- ════════════════════════════════════════════════ PHASE: SUMMARY -->
     <div id="phase-summary" style="display:none">
       <div class="summary-inner">
         <p class="eyebrow">Your Design Summary</p>
@@ -523,165 +373,50 @@ const wizardSteps = [
     </div>
 
   </div>
-
-  <!-- How It Works (always visible) -->
-  <section class="how-it-works">
-    <div class="how-inner">
-      <p class="eyebrow">How It Works</p>
-      <h2>A starting point, not a contract.</h2>
-      <p>Your style profile and design selections give us a shared vocabulary — a reference point so that when we're choosing between two countertop materials or three cabinet hardware options, we're not starting from scratch. We'll refine and adapt based on your specific space, budget, and what's actually available.</p>
-      <div class="how-steps">
-        <div class="how-step">
-          <span class="how-num">01</span>
-          <h3>Find your style</h3>
-          <p>Answer five questions about how you want your home to feel.</p>
-        </div>
-        <div class="how-step">
-          <span class="how-num">02</span>
-          <h3>Work through the decisions</h3>
-          <p>The wizard walks you through every key design decision in the right order.</p>
-        </div>
-        <div class="how-step">
-          <span class="how-num">03</span>
-          <h3>Get your summary</h3>
-          <p>You leave with a clear starting point and a vocabulary for every design conversation.</p>
-        </div>
-        <div class="how-step">
-          <span class="how-num">04</span>
-          <h3>Build with confidence</h3>
-          <p>Every decision you make in the field has a reference point you already own.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 </Layout>
 
-<script define:vars={{ styles, quizQuestions, wizardSteps }}>
+<script define:vars={{ styles, wizardSteps }}>
+  // ─── Read style from URL ──────────────────────────────────────────────────
+  const params = new URLSearchParams(window.location.search);
+  const styleId = params.get('style');
+  const validStyle = styles.find(s => s.id === styleId);
+
+  if (!validStyle) {
+    window.location.href = '/design';
+  }
+
   // ─── State ────────────────────────────────────────────────────────────────
   const state = {
-    quizStep: 1,
-    scores: { 'organic-modern': 0, 'european-modern': 0, 'transitional-modern': 0 },
-    selectedStyle: null,
+    selectedStyle: styleId,
     wizardStep: 1,
-    wizardSelections: {},   // stepId → optionId
-    wizardLabels: {},       // stepId → option label string
+    wizardSelections: {},
+    wizardLabels: {},
   };
 
-  const TOTAL_QUIZ = 5;
   const TOTAL_WIZARD = 7;
 
   // ─── Element refs ─────────────────────────────────────────────────────────
-  const phaseQuiz    = document.getElementById('phase-quiz');
-  const phaseReveal  = document.getElementById('phase-reveal');
   const phaseWizard  = document.getElementById('phase-wizard');
   const phaseSummary = document.getElementById('phase-summary');
 
   // ─── Phase transitions ────────────────────────────────────────────────────
   function showPhase(phase) {
-    [phaseQuiz, phaseReveal, phaseWizard, phaseSummary].forEach(el => {
+    [phaseWizard, phaseSummary].forEach(el => {
       if (el) el.style.display = 'none';
     });
-    if (phase === 'quiz')    { phaseQuiz.style.display = 'block'; }
-    if (phase === 'reveal')  { phaseReveal.style.display = 'block'; }
-    if (phase === 'wizard')  { phaseWizard.style.display = 'block'; }
+    if (phase === 'wizard')  { phaseWizard.style.display  = 'block'; }
     if (phase === 'summary') { phaseSummary.style.display = 'block'; }
-    document.getElementById('selector-app').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('wizard-app').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-
-  // ─── QUIZ ─────────────────────────────────────────────────────────────────
-  function updateQuizProgress(step) {
-    const pct = ((step - 1) / TOTAL_QUIZ) * 100;
-    document.getElementById('quiz-progress-fill').style.width = pct + '%';
-    document.getElementById('quiz-progress-label').textContent =
-      step <= TOTAL_QUIZ ? `Question ${step} of ${TOTAL_QUIZ}` : 'Complete';
-  }
-
-  function showQuizQuestion(step) {
-    document.querySelectorAll('.question-block').forEach(el => el.classList.remove('question-block--active'));
-    const target = document.querySelector(`#quiz-questions-container [data-step="${step}"]`);
-    if (target) {
-      target.classList.add('question-block--active');
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  function finishQuiz() {
-    const best = Object.entries(state.scores).sort((a, b) => b[1] - a[1])[0][0];
-    state.selectedStyle = best;
-    showReveal(best);
-  }
-
-  document.querySelectorAll('.answer-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const questionId = btn.dataset.question;
-      const weights = JSON.parse(btn.dataset.weights);
-
-      document.querySelectorAll(`[data-question="${questionId}"]`).forEach(b => b.classList.remove('answer-btn--selected'));
-      btn.classList.add('answer-btn--selected');
-
-      Object.entries(weights).forEach(([id, w]) => {
-        state.scores[id] = (state.scores[id] || 0) + Number(w);
-      });
-
-      setTimeout(() => {
-        if (state.quizStep < TOTAL_QUIZ) {
-          state.quizStep++;
-          updateQuizProgress(state.quizStep);
-          showQuizQuestion(state.quizStep);
-        } else {
-          document.getElementById('quiz-progress-fill').style.width = '100%';
-          document.getElementById('quiz-progress-label').textContent = 'Complete';
-          setTimeout(finishQuiz, 300);
-        }
-      }, 280);
-    });
-  });
-
-  updateQuizProgress(1);
-
-  // ─── REVEAL ───────────────────────────────────────────────────────────────
-  function showReveal(styleId) {
-    const profile = styles.find(s => s.id === styleId);
-    if (!profile) return;
-
-    document.getElementById('reveal-name').textContent = profile.name;
-    document.getElementById('reveal-tagline').textContent = profile.tagline;
-    document.getElementById('reveal-description').textContent = profile.description;
-
-    const paletteEl = document.getElementById('reveal-palette');
-    paletteEl.innerHTML = profile.palette.map((c, i) => `
-      <div class="palette-swatch-wrap">
-        <span class="palette-swatch" style="background:${c}"></span>
-        <span class="palette-swatch-name">${profile.paletteNames[i]}</span>
-      </div>
-    `).join('');
-
-    const dnaEl = document.getElementById('reveal-dna');
-    dnaEl.innerHTML = profile.dna.map(d => `<li>${d}</li>`).join('');
-
-    showPhase('reveal');
-  }
-
-  document.getElementById('start-wizard-btn')?.addEventListener('click', () => {
-    initWizard(state.selectedStyle);
-    showPhase('wizard');
-  });
-
-  document.getElementById('retake-quiz-btn')?.addEventListener('click', () => {
-    state.scores = { 'organic-modern': 0, 'european-modern': 0, 'transitional-modern': 0 };
-    state.quizStep = 1;
-    state.selectedStyle = null;
-    document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('answer-btn--selected'));
-    document.querySelectorAll('.question-block').forEach(el => el.classList.remove('question-block--active'));
-    updateQuizProgress(1);
-    showQuizQuestion(1);
-    showPhase('quiz');
-  });
 
   // ─── WIZARD ───────────────────────────────────────────────────────────────
-  function initWizard(styleId) {
-    const profile = styles.find(s => s.id === styleId);
+  function initWizard(sid) {
+    const profile = styles.find(s => s.id === sid);
     if (!profile) return;
+
+    // Set page-level style name
+    const pageNameEl = document.getElementById('wizard-page-style-name');
+    if (pageNameEl) pageNameEl.textContent = profile.name;
 
     document.getElementById('wizard-style-name').textContent = profile.name;
 
@@ -694,10 +429,11 @@ const wizardSteps = [
     updateWizardProgress(1);
 
     wizardSteps.forEach(step => {
-      renderWizardOptions(step.id, styleId);
+      renderWizardOptions(step.id, sid);
     });
 
     showWizardStep(1);
+    showPhase('wizard');
   }
 
   function buildWizardDots() {
@@ -730,17 +466,17 @@ const wizardSteps = [
       const dotStep = parseInt(dot.dataset.gotoStep);
       dot.classList.remove('wizard-dot--active', 'wizard-dot--complete');
       if (dotStep === step) dot.classList.add('wizard-dot--active');
-      if (dotStep < step) dot.classList.add('wizard-dot--complete');
+      if (dotStep < step)  dot.classList.add('wizard-dot--complete');
     });
   }
 
-  function renderWizardOptions(stepId, styleId) {
+  function renderWizardOptions(stepId, sid) {
     const step = wizardSteps.find(s => s.id === stepId);
     if (!step) return;
     const container = document.getElementById(`wizard-options-${stepId}`);
     if (!container) return;
 
-    const options = step.options[styleId] || [];
+    const options = step.options[sid] || [];
     const currentSel = state.wizardSelections[stepId];
 
     container.innerHTML = options.map(opt => `
@@ -785,22 +521,13 @@ const wizardSteps = [
   }
 
   document.getElementById('wizard-steps-container')?.addEventListener('click', e => {
-    const backBtn = e.target.closest('.wizard-back-btn');
-    const nextBtn = e.target.closest('.wizard-next-btn');
+    const backBtn   = e.target.closest('.wizard-back-btn');
+    const nextBtn   = e.target.closest('.wizard-next-btn');
     const finishBtn = e.target.closest('.wizard-finish-btn');
 
-    if (backBtn) {
-      const target = parseInt(backBtn.dataset.targetStep);
-      goToWizardStep(target);
-    }
-    if (nextBtn) {
-      const target = parseInt(nextBtn.dataset.targetStep);
-      goToWizardStep(target);
-    }
-    if (finishBtn) {
-      showSummary();
-      showPhase('summary');
-    }
+    if (backBtn)   { goToWizardStep(parseInt(backBtn.dataset.targetStep)); }
+    if (nextBtn)   { goToWizardStep(parseInt(nextBtn.dataset.targetStep)); }
+    if (finishBtn) { showSummary(); showPhase('summary'); }
   });
 
   // ─── SUMMARY ──────────────────────────────────────────────────────────────
@@ -821,7 +548,7 @@ const wizardSteps = [
 
     const gridEl = document.getElementById('summary-grid');
     gridEl.innerHTML = wizardSteps.map(step => {
-      const label = state.wizardLabels[step.id] || '—';
+      const label    = state.wizardLabels[step.id] || '—';
       const selected = !!state.wizardSelections[step.id];
       return `
         <div class="summary-item ${selected ? 'summary-item--selected' : 'summary-item--empty'}">
@@ -844,193 +571,60 @@ const wizardSteps = [
   }
 
   document.getElementById('restart-btn')?.addEventListener('click', () => {
-    state.scores = { 'organic-modern': 0, 'european-modern': 0, 'transitional-modern': 0 };
-    state.quizStep = 1;
-    state.selectedStyle = null;
-    state.wizardStep = 1;
-    state.wizardSelections = {};
-    state.wizardLabels = {};
-    document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('answer-btn--selected'));
-    document.querySelectorAll('.question-block').forEach(el => el.classList.remove('question-block--active'));
-    updateQuizProgress(1);
-    showQuizQuestion(1);
-    showPhase('quiz');
+    window.location.href = '/design';
   });
+
+  // ─── Boot ─────────────────────────────────────────────────────────────────
+  if (validStyle) {
+    initWizard(state.selectedStyle);
+  }
 </script>
 
 <style>
-  /* ─── Hero ─────────────────────────────────────────────────────────────── */
-  .selector-hero {
-    padding: 6rem 1.5rem 4rem;
+  /* ─── Page header ───────────────────────────────────────────────────────── */
+  .wizard-page-header {
     border-bottom: 2px solid var(--color-border);
+    padding: 2.5rem 1.5rem;
   }
-  .selector-hero-inner { max-width: 1200px; margin: 0 auto; }
-  .eyebrow {
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-brand-red);
-    margin-bottom: 1rem;
-  }
-  .selector-hero h1 { font-size: var(--font-size-h1); margin-bottom: 1.25rem; }
-  .accent { color: var(--color-brand-red); }
-  .hero-sub { font-size: 1.1rem; opacity: 0.7; max-width: 560px; line-height: 1.6; }
-
-  /* ─── App container ────────────────────────────────────────────────────── */
-  .selector-app { max-width: 1200px; margin: 0 auto; padding: 0 0 5rem; }
-
-  /* ─── Quiz progress bar ─────────────────────────────────────────────────── */
-  .progress-bar-wrap {
+  .wizard-page-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-    position: sticky;
-    top: 64px;
-    background-color: var(--color-bg);
-    z-index: 9;
+    flex-direction: column;
+    gap: 1rem;
   }
-  .progress-bar-inner { flex: 1; height: 3px; background-color: var(--color-border); }
-  .progress-fill { height: 100%; background-color: var(--color-brand-red); transition: width 0.4s ease; }
-  .progress-label {
+  .wizard-back-link {
     font-family: var(--font-heading);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    opacity: 0.5;
-    white-space: nowrap;
+    color: var(--color-text);
+    opacity: 0.45;
+    transition: opacity 0.15s;
+    text-decoration: none;
+    display: inline-block;
   }
-
-  /* ─── Quiz questions ─────────────────────────────────────────────────────── */
-  .question-block { display: none; }
-  .question-block--active { display: block; }
-  .question-inner { padding: 4rem 1.5rem; max-width: 1000px; margin: 0 auto; }
-  .question-num {
+  .wizard-back-link:hover { opacity: 0.9; }
+  .wizard-page-eyebrow {
     font-family: var(--font-heading);
     font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-brand-red);
-    margin-bottom: 0.75rem;
-  }
-  .question-text { font-size: var(--font-size-h2); margin-bottom: 2.5rem; max-width: 700px; }
-
-  .answers-grid--text { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-  .answers-grid--image { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-
-  .answer-btn {
-    text-align: left;
-    background-color: var(--color-surface);
-    border: 2px solid var(--color-border);
-    color: var(--color-text);
-    padding: 1.5rem;
-    cursor: pointer;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    font-family: var(--font-body);
-  }
-  .answer-btn:hover { border-color: var(--color-brand-black); }
-  .answer-btn--selected {
-    border-color: var(--color-brand-red) !important;
-    box-shadow: 4px 4px 0 var(--color-brand-red);
-  }
-  .answer-label { font-size: 1rem; line-height: 1.4; display: block; }
-
-  .answer-btn--image { padding: 0; overflow: hidden; background: none; }
-  .answer-btn--image:hover .answer-img-wrap img { transform: scale(1.04); }
-  .answer-img-wrap { aspect-ratio: 4/3; overflow: hidden; }
-  .answer-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
-  .answer-btn--image .answer-label {
-    padding: 0.875rem 1rem;
-    font-size: 0.875rem;
-    opacity: 0.85;
-    background-color: var(--color-surface);
-    color: var(--color-text);
-    display: block;
-  }
-
-  /* ─── Reveal phase ───────────────────────────────────────────────────────── */
-  .reveal-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 5rem 1.5rem;
-  }
-  .reveal-name {
-    font-size: var(--font-size-h1);
-    color: var(--color-text);
-    margin-bottom: 0.5rem;
-  }
-  .reveal-tagline {
-    font-size: 1.25rem;
-    color: var(--color-brand-red);
-    font-family: var(--font-heading);
-    margin-bottom: 2rem;
-  }
-  .reveal-palette-wrap { margin-bottom: 2rem; }
-  .reveal-palette {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .palette-swatch-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-  .palette-swatch {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-    border: 1px solid rgba(0,0,0,0.08);
-    box-shadow: 3px 3px 0 var(--color-border);
-  }
-  .palette-swatch-name {
-    font-family: var(--font-heading);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.55;
-    text-align: center;
-    max-width: 60px;
-    line-height: 1.2;
-  }
-  .reveal-description { font-size: 1rem; line-height: 1.75; opacity: 0.8; margin-bottom: 2rem; max-width: 700px; }
-  .reveal-dna-wrap {
-    background-color: var(--color-surface);
-    border: 2px solid var(--color-border);
-    border-left: 4px solid var(--color-brand-red);
-    padding: 1.75rem 2rem;
-    margin-bottom: 2.5rem;
-  }
-  .reveal-dna-title {
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--color-brand-red);
-    margin-bottom: 1rem;
+    margin-bottom: 0.4rem;
   }
-  .reveal-dna {
-    list-style: none;
-    padding: 0;
+  .wizard-page-style-name {
+    font-size: var(--font-size-h2);
+    color: var(--color-text);
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
   }
-  .reveal-dna li {
-    font-size: 0.925rem;
-    line-height: 1.5;
-    opacity: 0.85;
-    padding-left: 1.25rem;
-    position: relative;
-  }
-  .reveal-dna li::before { content: '—'; position: absolute; left: 0; color: var(--color-brand-red); }
-  .reveal-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
 
-  /* ─── Wizard: sticky style header ──────────────────────────────────────── */
+  /* ─── App container ─────────────────────────────────────────────────────── */
+  .wizard-app { max-width: 1200px; margin: 0 auto; padding: 0 0 6rem; }
+
+  /* ─── Wizard sticky style header ────────────────────────────────────────── */
   .wizard-style-header {
     position: sticky;
     top: 64px;
@@ -1061,13 +655,6 @@ const wizardSteps = [
     color: var(--color-text);
   }
   .wizard-header-palette { display: flex; gap: 0.375rem; align-items: center; }
-  .wizard-palette-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    border: 1px solid rgba(0,0,0,0.1);
-    flex-shrink: 0;
-  }
   .wizard-step-count {
     margin-left: auto;
     font-family: var(--font-heading);
@@ -1086,43 +673,6 @@ const wizardSteps = [
     padding: 0 1.5rem;
     border-top: 1px solid var(--color-border);
   }
-  .wizard-dot {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.6rem 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-    opacity: 0.35;
-    transition: opacity 0.15s;
-    border-bottom: 2px solid transparent;
-    position: relative;
-    bottom: -1px;
-  }
-  .wizard-dot:hover { opacity: 0.7; }
-  .wizard-dot--active {
-    opacity: 1;
-    color: var(--color-brand-red);
-    border-bottom-color: var(--color-brand-red);
-  }
-  .wizard-dot--complete { opacity: 0.65; }
-  .wizard-dot-num {
-    display: inline-flex;
-    width: 18px;
-    height: 18px;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.65rem;
-    font-weight: 700;
-  }
-  .wizard-dot--complete .wizard-dot-num::after { content: ' ✓'; }
-
   .wizard-progress-bar { height: 2px; background-color: var(--color-border); }
   .wizard-progress-fill { height: 100%; background-color: var(--color-brand-red); transition: width 0.4s ease; }
 
@@ -1181,50 +731,8 @@ const wizardSteps = [
   }
   .wizard-options-sub { font-size: 0.85rem; opacity: 0.55; }
 
-  /* Option cards */
+  /* Option cards container */
   .wizard-options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
-  .wizard-option-card {
-    background-color: var(--color-surface);
-    border: 2px solid var(--color-border);
-    padding: 1.25rem 1.5rem;
-    text-align: left;
-    cursor: pointer;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    font-family: var(--font-body);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    color: var(--color-text);
-  }
-  .wizard-option-card:hover { border-color: var(--color-brand-black); }
-  .wizard-option-card--selected {
-    border-color: var(--color-brand-red) !important;
-    box-shadow: 4px 4px 0 var(--color-brand-red);
-    background-color: var(--color-bg);
-  }
-  .option-tag {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    font-family: var(--font-heading);
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background-color: var(--color-brand-red);
-    color: #fff;
-    padding: 0.2rem 0.5rem;
-  }
-  .option-card-label {
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-text);
-    display: block;
-    padding-right: 5rem;
-  }
-  .option-card-desc { font-size: 0.875rem; opacity: 0.7; line-height: 1.5; display: block; }
 
   /* Splurge vs Save */
   .wizard-splurge-save {
@@ -1259,6 +767,15 @@ const wizardSteps = [
   }
 
   /* ─── Summary phase ─────────────────────────────────────────────────────── */
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
   .summary-inner { max-width: 900px; margin: 0 auto; padding: 5rem 1.5rem; }
   .summary-headline { font-size: var(--font-size-h1); margin-bottom: 0.75rem; }
   .summary-sub { font-size: 1.05rem; opacity: 0.65; margin-bottom: 3rem; }
@@ -1282,62 +799,18 @@ const wizardSteps = [
     border: 2px solid var(--color-border);
     margin-bottom: 3.5rem;
   }
-  .summary-item {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-    align-items: center;
-  }
-  .summary-item:last-child { border-bottom: none; }
-  .summary-item--selected { background-color: var(--color-bg); }
-  .summary-item--empty { background-color: var(--color-surface); opacity: 0.6; }
-  .summary-item-step { display: flex; align-items: center; gap: 0.75rem; }
-  .summary-item-num {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-brand-red);
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .summary-item-title { font-family: var(--font-heading); font-size: 0.875rem; font-weight: 700; }
-  .summary-item-choice { font-size: 0.9rem; opacity: 0.8; line-height: 1.4; }
 
   .summary-guardrails-section {
     background-color: var(--color-surface);
     border: 2px solid var(--color-border);
     border-left: 4px solid var(--color-brand-red);
-    padding: 2rem 2rem 2rem;
+    padding: 2rem;
     margin-bottom: 3rem;
   }
   .summary-guardrails-title { font-size: 1.25rem; margin-bottom: 1.5rem; }
   .summary-guardrails-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.875rem; }
-  .guardrail-item {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    opacity: 0.85;
-  }
-  .guardrail-arrow { color: var(--color-brand-red); font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
 
   .summary-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-
-  /* ─── How It Works ─────────────────────────────────────────────────────── */
-  .how-it-works {
-    background-color: var(--color-surface);
-    border-top: 3px solid var(--color-brand-black);
-  }
-  .how-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem; }
-  .how-inner h2 { font-size: var(--font-size-h2); margin-bottom: 1.25rem; }
-  .how-inner > p { opacity: 0.7; max-width: 620px; line-height: 1.7; margin-bottom: 3rem; }
-  .how-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
-  .how-num { font-family: var(--font-heading); font-size: 2rem; font-weight: 700; color: var(--color-brand-red); display: block; margin-bottom: 0.75rem; }
-  .how-step h3 { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
-  .how-step p { font-size: 0.875rem; opacity: 0.65; line-height: 1.5; }
 
   /* ─── Shared buttons ────────────────────────────────────────────────────── */
   .btn-primary {
@@ -1354,6 +827,7 @@ const wizardSteps = [
     box-shadow: 4px 4px 0 var(--color-brand-black);
     transition: box-shadow 0.1s, transform 0.1s;
     cursor: pointer;
+    text-decoration: none;
   }
   .btn-primary:hover { box-shadow: 2px 2px 0 var(--color-brand-black); transform: translate(2px, 2px); }
   .btn-outline {
@@ -1374,29 +848,22 @@ const wizardSteps = [
 
   /* ─── Responsive ────────────────────────────────────────────────────────── */
   @media (max-width: 800px) {
-    .answers-grid--text,
-    .answers-grid--image { grid-template-columns: 1fr; }
     .wizard-splurge-save { grid-template-columns: 1fr; }
-    .summary-item { grid-template-columns: 1fr; gap: 0.35rem; }
-    .how-steps { grid-template-columns: 1fr 1fr; }
     .wizard-step-dots { overflow-x: auto; padding-bottom: 0; }
     .wizard-style-header-inner { gap: 1rem; }
+    .summary-actions { flex-direction: column; align-items: flex-start; }
   }
   @media (max-width: 560px) {
     .wizard-step-num { font-size: 2rem; }
-    .how-steps { grid-template-columns: 1fr; }
-    .reveal-actions { flex-direction: column; align-items: flex-start; }
-    .summary-actions { flex-direction: column; align-items: flex-start; }
     .wizard-nav { flex-direction: column; gap: 0.75rem; }
     .wizard-nav .btn-outline,
     .wizard-nav .btn-primary { width: 100%; text-align: center; }
   }
 </style>
 
-<!-- Global styles for classes applied only to dynamically-injected HTML (innerHTML) —
-     Astro scoped CSS does not reach elements inserted at runtime. -->
+<!-- Global styles for dynamically injected elements (innerHTML) — Astro scoped CSS does not reach these -->
 <style is:global>
-  /* Palette swatches — reveal, wizard header, summary */
+  /* Palette swatches */
   .palette-swatch-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
   .palette-swatch {
     width: 48px; height: 48px; flex-shrink: 0;

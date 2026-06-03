@@ -1,0 +1,470 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { services } from '../../data/services';
+
+export function getStaticPaths() {
+  return services.map(s => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+
+const { service: s } = Astro.props;
+---
+
+<Layout
+  title={s.label}
+  description={`Stronghold ${s.label.toLowerCase()} services across northern Arizona. ${s.tagline} Based in Flagstaff, AZ.`}
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">{s.label}</p>
+      <h1>{s.tagline}</h1>
+      <p class="hero-desc">{s.description}</p>
+      <a href="/contact" class="btn-primary">Get a Free Quote &rarr;</a>
+    </div>
+    <div class="hero-photo-wrap">
+      <img src={s.photo} alt={s.photoAlt} loading="eager" />
+    </div>
+  </section>
+
+  <!-- Detail callout -->
+  <section class="detail-section">
+    <div class="detail-inner">
+      <div class="detail-block">
+        <p class="detail-text">{s.detail}</p>
+      </div>
+      {s.designCta && (
+        <div class="detail-aside">
+          <p class="aside-label">Not sure where to start?</p>
+          <a href={s.designCta.href} class="btn-outline">{s.designCta.label} &rarr;</a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process-section">
+    <div class="process-inner">
+      <p class="eyebrow">Our Process</p>
+      <h2>How a {s.label.toLowerCase()} project works<br />with Stronghold.</h2>
+      <div class="steps-grid">
+        {s.steps.map(step => (
+          <div class="step">
+            <span class="step-num">{step.n}</span>
+            <div class="step-body">
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-desc">{step.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote CTA -->
+  <section class="quote-cta">
+    <div class="quote-cta-inner">
+      <div class="cta-text">
+        <p class="eyebrow eyebrow--light">Get Started</p>
+        <h2>Ready for an honest quote<br />on your {s.label.toLowerCase()} project?</h2>
+        <p class="cta-sub">We'll do a site walk, look at what's actually needed, and put together an itemized written quote. No lump sums, no surprises. We respond within one business day.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="tel:+19285550100" class="btn-phone">
+          <span class="btn-phone-label">Call us directly</span>
+          <span class="btn-phone-number">(928) 555-0100</span>
+        </a>
+        <a href="/contact" class="btn-quote">Request a Written Quote &rarr;</a>
+        <p class="cta-note">No obligation. Mon–Fri 7am–5pm, Sat by appointment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related services -->
+  <section class="related-section">
+    <div class="related-inner">
+      <p class="eyebrow">More Services</p>
+      <div class="related-links">
+        {services.filter(other => other.slug !== s.slug).map(other => (
+          <a href={`/services/${other.slug}`} class="related-card">
+            <span class="related-label">{other.label}</span>
+            <span class="related-tagline">{other.tagline}</span>
+            <span class="related-arrow">&rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 520px;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .hero-content {
+    padding: 5rem 3rem 5rem 1.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+  .hero-photo-wrap {
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .eyebrow--light {
+    color: rgba(255,255,255,0.6);
+  }
+  .hero h1 {
+    font-size: var(--font-size-h1);
+    line-height: 1.1;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.75;
+    max-width: 480px;
+  }
+
+  /* Detail */
+  .detail-section {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .detail-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem;
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+  }
+  .detail-block {
+    flex: 1;
+    border-left: 4px solid var(--color-brand-red);
+    padding-left: 1.5rem;
+  }
+  .detail-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    opacity: 0.8;
+  }
+  .detail-aside {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .aside-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  /* Process */
+  .process-section {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .process-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .process-inner h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 3rem;
+  }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+  }
+  .step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-brand-red);
+    line-height: 1;
+    flex-shrink: 0;
+    opacity: 0.9;
+  }
+  .step-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .step-desc {
+    font-size: 0.85rem;
+    opacity: 0.65;
+    line-height: 1.55;
+  }
+
+  /* Quote CTA */
+  .quote-cta {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+    border-bottom: 3px solid var(--color-brand-black);
+  }
+  .quote-cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .quote-cta h2 {
+    font-size: var(--font-size-h2);
+    color: var(--color-brand-white);
+    margin: 0.75rem 0 1rem;
+  }
+  .cta-sub {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 540px;
+  }
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    min-width: 260px;
+  }
+  .btn-phone {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-black);
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--color-brand-white);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+    transition: box-shadow 0.1s, transform 0.1s;
+    width: 100%;
+  }
+  .btn-phone:hover {
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+    transform: translate(2px, 2px);
+  }
+  .btn-phone-label {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .btn-phone-number {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .btn-quote {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-white);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    transition: background-color 0.15s, color 0.15s, box-shadow 0.1s, transform 0.1s;
+    width: 100%;
+    text-align: center;
+  }
+  .btn-quote:hover {
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-red);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    transform: translate(2px, 2px);
+  }
+  .cta-note {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.4;
+  }
+
+  /* Related services */
+  .related-section {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .related-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+  .related-inner > .eyebrow {
+    margin-bottom: 1.5rem;
+  }
+  .related-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    border: 2px solid var(--color-border);
+  }
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1.5rem;
+    border-right: 2px solid var(--color-border);
+    transition: background-color 0.15s;
+    position: relative;
+  }
+  .related-card:last-child {
+    border-right: none;
+  }
+  .related-card:hover {
+    background-color: var(--color-surface);
+  }
+  .related-label {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .related-tagline {
+    font-size: 0.8rem;
+    opacity: 0.55;
+    line-height: 1.4;
+  }
+  .related-arrow {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    color: var(--color-brand-red);
+    font-weight: 700;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-dark);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-dark);
+    transform: translate(2px, 2px);
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.75rem 1.25rem;
+    background-color: transparent;
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-brand-red);
+    background-color: var(--color-surface);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-content {
+      padding: 4rem 1.5rem 2.5rem;
+      max-width: 100%;
+      margin: 0;
+    }
+    .hero-photo-wrap {
+      height: 280px;
+    }
+    .detail-inner {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .detail-aside {
+      align-items: flex-start;
+    }
+    .quote-cta-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .cta-actions {
+      min-width: auto;
+      width: 100%;
+    }
+    .btn-phone,
+    .btn-quote {
+      width: 100%;
+    }
+    .related-links {
+      grid-template-columns: 1fr 1fr;
+    }
+    .related-card {
+      border-bottom: 2px solid var(--color-border);
+      border-right: 2px solid var(--color-border);
+    }
+    .related-card:nth-child(even) {
+      border-right: none;
+    }
+    .related-card:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .related-links {
+      grid-template-columns: 1fr;
+    }
+    .related-card {
+      border-right: none;
+      border-bottom: 2px solid var(--color-border);
+    }
+    .related-card:last-child {
+      border-bottom: none;
+    }
+  }
+</style>

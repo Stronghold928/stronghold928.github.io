@@ -2,7 +2,7 @@
 title: Cedar Ridge Single-Family Build
 type: new-build
 location: Williams, AZ
-description: A 2,200 sq ft single-family home on a wooded lot in Williams, Arizona. Designed to sit lightly on the land with a covered porch, open great room, and three bedrooms — built to exceed Arizona energy code with spray foam insulation and a high-efficiency HVAC system.
+description: A 2,200 sq ft single-family home on a wooded lot in Williams. Covered porch, open great room with exposed ridge beam, three bedrooms, and spray foam insulation throughout.
 completedDate: "2024-06"
 featured: true
 beforeImage: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=80"
@@ -20,8 +20,8 @@ highlights:
   - Full site prep, well coordination, and septic installation
 ---
 
-The clients had purchased their lot in Williams two years prior but hadn't found a builder they trusted to take the project from drawings to keys. They came to us with a set of architect drawings and a clear priority: build it right, don't cut corners on structure or envelope, and be honest when the budget needs a conversation.
+The clients had owned their lot in Williams for two years before they found a builder they felt comfortable with. They came to us with a finished set of architect drawings and one clear ask: build it right, be honest when the budget needs a conversation, and don't cut corners on the structure or envelope.
 
-We broke ground in January and delivered keys in June. The project came in on budget — with one owner-initiated upgrade (the wrap-around porch, added during framing when they saw how the trees framed the views).
+We broke ground in January and handed over keys in June. The project came in on budget. The one addition was a wrap-around porch that the owners decided to add during framing once they saw how the trees framed the view from that side of the house. That one we were happy to accommodate.
 
-This is the kind of project we love: a family getting exactly the home they planned, in a place they chose deliberately.
+There's something satisfying about a project where a family gets exactly what they planned in a place they chose carefully. This was that kind of job.

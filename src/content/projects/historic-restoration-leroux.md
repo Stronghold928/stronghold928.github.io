@@ -2,7 +2,7 @@
 title: Leroux Street Craftsman Restoration
 type: restoration
 location: Flagstaff, AZ
-description: A 1924 Craftsman bungalow in Flagstaff's Southside neighborhood, restored after years of deferred maintenance. Structural sill plate replacement, full roof tear-off, window restoration, and interior plaster repair — all done with attention to period character and modern performance.
+description: A 1924 Craftsman bungalow in Flagstaff's Southside, restored after years of sitting vacant. Sill plate replacement, full roof tear-off, window restoration, and interior plaster repair throughout.
 completedDate: "2025-02"
 featured: false
 beforeImage: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&auto=format&fit=crop&q=80"
@@ -19,8 +19,8 @@ highlights:
   - Original fir floors sanded and refinished in place
 ---
 
-The Leroux Street bungalow had been in the same family since the 1950s but had sat unoccupied for several years. The bones were strong — 1924 craftsmanship doesn't bluff — but years without heat, a failing roof, and wood rot at the foundation had created a list of repairs that felt overwhelming.
+The Leroux Street bungalow had been in the same family since the 1950s but sat vacant for several years before the new owners bought it. The structure was fundamentally sound — 1924 construction holds up well when it's been cared for — but deferred maintenance and a period without heat had created real problems at the roof, foundation perimeter, and windows.
 
-The new owners came to us asking a specific question: what does this house actually need versus what is someone trying to sell us? We walked the property and gave them a straight answer, item by item, with our honest priority order and cost range for each.
+The first conversation we had was the most useful one. The new owners wanted a straight answer: what does this house actually need, and what can wait? We walked every inch of the property and gave them a written priority list with honest cost ranges for each item. No pressure, no manufactured urgency.
 
-They chose to proceed with the structural and envelope work first — the right call. Six months later, the bungalow is sound, dry, and ready for the interior work they'll do themselves over the next few years.
+They chose to tackle the structural and envelope work first, which was the right call. Six months later the bungalow is dry, solid, and has a future. The interior work they're planning to do themselves over the next couple of years.

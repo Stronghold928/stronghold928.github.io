@@ -2,7 +2,7 @@
 title: Milton Road Deck Structural Repair
 type: repair
 location: Flagstaff, AZ
-description: An aging rear deck with significant ledger board rot and failing post bases. Full structural assessment, ledger replacement, post-base hardware upgrade, and decking board replacement. Done in four days without displacing the family.
+description: A rear deck with significant ledger board rot and failing post bases. Full structural assessment, ledger replacement, post-base hardware upgrade, and new decking boards. Done in four working days.
 completedDate: "2025-01"
 featured: false
 beforeImage: "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1200&auto=format&fit=crop&q=80"
@@ -19,8 +19,8 @@ highlights:
   - Passed Coconino County inspection first submission
 ---
 
-The homeowner noticed the deck felt springy in one corner and called us before hosting a family gathering. Smart call — what looked like a surface issue turned out to be advanced rot in the ledger board where it attached to the house, and two of the four post bases had failed at the concrete.
+The homeowner noticed the deck had some give in one corner and called before hosting a family gathering. The springiness turned out to be advanced rot in the ledger board where it attaches to the house, and two of the four post bases had failed at the concrete level. It looked like a surface issue from above and was a structural issue underneath.
 
-This is exactly the kind of repair where honest assessment matters: we told them what was actually wrong, what the code-correct fix looked like, and what it would cost. No upselling, no manufactured urgency beyond what the condition warranted.
+We gave them a straight assessment of what was wrong, what the code-compliant fix looked like, and what it would cost. No added scope beyond what the condition actually required.
 
-The deck is now solid, permitted, and inspected. The gathering happened on schedule.
+The deck was solid and inspected within four working days. The gathering went ahead as planned.
