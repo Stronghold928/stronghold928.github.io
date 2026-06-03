@@ -1,0 +1,514 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Formspree endpoint — create a separate form at formspree.io for quote requests
+// Use a different ID from the general contact form so they land in separate inboxes
+const FORMSPREE_URL = 'https://formspree.io/f/QUOTE_FORM_ID';
+
+const projectTypes = [
+  'Kitchen Remodel',
+  'Bathroom Remodel',
+  'Whole-Home Remodel',
+  'Room Addition',
+  'Restoration / Historic Repair',
+  'New Single-Family Build',
+  'New Multi-Family Build',
+  'Deck / Exterior Repair',
+  'Structural Repair',
+  'Other',
+  'Not sure yet',
+];
+
+const propertyTypes = [
+  'Single-Family Home',
+  'Multi-Family (2–4 units)',
+  'Historic Property',
+  'Commercial',
+  'Other',
+];
+
+const ownershipStatuses = [
+  'I own this property',
+  'I am in the process of purchasing it',
+  'I rent — owner has authorized the work',
+];
+
+const budgetRanges = [
+  'Under $25,000',
+  '$25,000 – $75,000',
+  '$75,000 – $150,000',
+  '$150,000 – $300,000',
+  '$300,000+',
+  'Not sure yet',
+];
+
+const timelines = [
+  'ASAP (this is urgent)',
+  'Within 1–3 months',
+  '3–6 months',
+  '6–12 months',
+  'Just exploring right now',
+];
+
+const hearAboutOptions = [
+  'Word of mouth / referral',
+  'Online search',
+  'Social media',
+  'Drive-by or yard sign',
+  'Previous client',
+  'Other',
+];
+---
+
+<Layout
+  title="Get a Quote"
+  description="Request a project quote from Stronghold. Tell us about your remodel, new build, or repair — we'll get back to you within one business day. Based in Flagstaff, AZ."
+>
+  <section class="quote-hero">
+    <div class="quote-hero-inner">
+      <p class="eyebrow">Get a Quote</p>
+      <h1>Ready to build?<br /><span class="accent">Let's get into the details.</span></h1>
+      <p class="hero-sub">The more detail you give us here, the more prepared we are when we call. We review every submission and get back to you within one business day. Rather just call: <a href="tel:+19285550100" class="phone-link">(928) 555-0100</a></p>
+    </div>
+  </section>
+
+  <div class="quote-layout">
+    <div class="quote-layout-inner">
+
+      <!-- Form -->
+      <div class="form-col">
+        <form
+          id="quote-form"
+          action={FORMSPREE_URL}
+          method="POST"
+          class="quote-form"
+          novalidate
+        >
+          <!-- Hidden source tracking field — populated by JS from ?ref= URL param -->
+          <input type="hidden" name="source" id="source-field" value="" />
+
+          <!-- ─── Contact info ──────────────────────────────────── -->
+          <div class="form-section">
+            <h2 class="form-section-title">About You</h2>
+
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="name" class="field-label">Your Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="Jane Smith" class="field-input" />
+              </div>
+              <div class="field-group">
+                <label for="phone" class="field-label">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="(928) 555-0100" class="field-input" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="email" class="field-label">Email Address <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required placeholder="jane@example.com" class="field-input" />
+            </div>
+          </div>
+
+          <!-- ─── Project info ──────────────────────────────────── -->
+          <div class="form-section">
+            <h2 class="form-section-title">The Project</h2>
+
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="project-type" class="field-label">Project Type <span class="required">*</span></label>
+                <select id="project-type" name="project_type" required class="field-input field-select">
+                  <option value="" disabled selected>Select a type...</option>
+                  {projectTypes.map(t => <option value={t}>{t}</option>)}
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="property-type" class="field-label">Property Type</label>
+                <select id="property-type" name="property_type" class="field-input field-select">
+                  <option value="" disabled selected>Select a type...</option>
+                  {propertyTypes.map(t => <option value={t}>{t}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="ownership" class="field-label">Your Relationship to the Property</label>
+                <select id="ownership" name="ownership" class="field-input field-select">
+                  <option value="" disabled selected>Select...</option>
+                  {ownershipStatuses.map(o => <option value={o}>{o}</option>)}
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="budget" class="field-label">Rough Budget</label>
+                <select id="budget" name="budget" class="field-input field-select">
+                  <option value="" disabled selected>Select a range...</option>
+                  {budgetRanges.map(b => <option value={b}>{b}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="address" class="field-label">Property Address or City <span class="required">*</span></label>
+                <input type="text" id="address" name="address" required placeholder="123 Ponderosa Dr, Flagstaff, AZ" class="field-input" />
+              </div>
+              <div class="field-group">
+                <label for="timeline" class="field-label">Rough Timeline</label>
+                <select id="timeline" name="timeline" class="field-input field-select">
+                  <option value="" disabled selected>When are you hoping to start?</option>
+                  {timelines.map(t => <option value={t}>{t}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label for="message" class="field-label">Describe the Project <span class="required">*</span></label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="8"
+                placeholder="Describe the project in as much detail as you can. What's broken, outdated, or missing? What's your ideal outcome? Any constraints we should know about — HOA rules, historic requirements, shared walls, active tenants, tight access? The more we know here, the more productive our first call will be."
+                class="field-input field-textarea"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- ─── Final details ─────────────────────────────────── -->
+          <div class="form-section form-section--last">
+            <div class="field-group">
+              <label for="hear-about" class="field-label">How did you hear about Stronghold?</label>
+              <select id="hear-about" name="hear_about" class="field-input field-select">
+                <option value="" disabled selected>Select...</option>
+                {hearAboutOptions.map(o => <option value={o}>{o}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <input type="hidden" name="_subject" value="Quote request — Stronghold" />
+          <input type="text" name="_gotcha" style="display:none" />
+
+          <div class="form-submit-row">
+            <button type="submit" class="btn-primary">Submit Quote Request &rarr;</button>
+            <p class="form-note">We review every submission and respond within one business day. Your info stays with us.</p>
+          </div>
+
+          <div id="form-success" class="form-success" style="display:none">
+            <h3>Quote request received.</h3>
+            <p>We'll review your project details and get back to you within one business day — usually to schedule a site walk. Thanks for reaching out.</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="quote-sidebar">
+
+        <div class="sidebar-block sidebar-block--next">
+          <h3 class="sidebar-title">What Happens Next</h3>
+          <div class="next-steps">
+            <div class="next-step">
+              <span class="next-num">01</span>
+              <div>
+                <p class="next-title">We review your submission</p>
+                <p class="next-body">Within one business day — usually same day.</p>
+              </div>
+            </div>
+            <div class="next-step">
+              <span class="next-num">02</span>
+              <div>
+                <p class="next-title">We call to confirm details</p>
+                <p class="next-body">A quick call to clarify scope and schedule a site walk.</p>
+              </div>
+            </div>
+            <div class="next-step">
+              <span class="next-num">03</span>
+              <div>
+                <p class="next-title">You receive an itemized quote</p>
+                <p class="next-body">Line-by-line. No lump sums. No surprises.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Rather Talk First?</h3>
+          <a href="tel:+19285550100" class="contact-item contact-item--link">
+            <span class="contact-item-label">Phone</span>
+            <span class="contact-item-value">(928) 555-0100</span>
+          </a>
+          <a href="mailto:hello@builtstronghold.com" class="contact-item contact-item--link">
+            <span class="contact-item-label">Email</span>
+            <span class="contact-item-value">hello@builtstronghold.com</span>
+          </a>
+          <div class="contact-item">
+            <span class="contact-item-label">Hours</span>
+            <span class="contact-item-value">Mon–Fri 7am–5pm<br />Sat by appointment</span>
+          </div>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Service Area</h3>
+          <p class="sidebar-note">Flagstaff, Williams, Sedona, Camp Verde, Winslow, Show Low, Payson, Prescott Valley, and surrounding northern Arizona communities.</p>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">License</h3>
+          <p class="sidebar-note">Arizona Registrar of Contractors</p>
+          <p class="license-num">ROC License: <span class="license-placeholder">[Pending]</span></p>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Populate hidden source field from ?ref= URL parameter (e.g., from the design quiz)
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('ref');
+  if (ref) {
+    const field = document.getElementById('source-field') as HTMLInputElement;
+    if (field) field.value = ref;
+  }
+
+  // Form submission
+  const form = document.getElementById('quote-form') as HTMLFormElement;
+  const success = document.getElementById('form-success');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const action = form.getAttribute('action') ?? '';
+
+    try {
+      const res = await fetch(action, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        if (success) success.style.display = 'block';
+      } else {
+        alert('Something went wrong. Please try calling us directly at (928) 555-0100.');
+      }
+    } catch {
+      alert('Unable to send. Please try calling us directly at (928) 555-0100.');
+    }
+  });
+</script>
+
+<style>
+  /* Hero */
+  .quote-hero {
+    padding: 6rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .quote-hero-inner { max-width: 1200px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .quote-hero h1 { font-size: var(--font-size-h1); margin-bottom: 1.25rem; }
+  .accent { color: var(--color-brand-red); }
+  .hero-sub { font-size: 1.1rem; opacity: 0.75; max-width: 620px; line-height: 1.6; }
+  .phone-link { color: var(--color-brand-red); font-weight: 700; text-decoration: underline; }
+
+  /* Layout */
+  .quote-layout { padding: 4rem 1.5rem 6rem; }
+  .quote-layout-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* Form sections */
+  .quote-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .form-section {
+    border: 2px solid var(--color-border);
+    border-bottom: none;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .form-section--last {
+    border-bottom: 2px solid var(--color-border);
+    margin-bottom: 2rem;
+  }
+  .form-section-title {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 0.25rem;
+  }
+  .form-row { display: flex; gap: 1rem; }
+  .form-row--2 > * { flex: 1; }
+  .field-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .required { color: var(--color-brand-red); }
+  .field-input {
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    color: var(--color-text);
+    padding: 0.875rem 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field-input::placeholder { opacity: 0.4; }
+  .field-input:focus {
+    outline: none;
+    border-color: var(--color-brand-red);
+    box-shadow: 3px 3px 0 var(--color-brand-red);
+  }
+  .field-select { cursor: pointer; }
+  .field-textarea { resize: vertical; min-height: 180px; }
+  .form-submit-row { display: flex; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; }
+  .form-note { font-size: 0.8rem; opacity: 0.45; line-height: 1.5; max-width: 260px; }
+
+  .form-success {
+    background-color: var(--color-surface);
+    border-left: 4px solid var(--color-brand-red);
+    padding: 2rem;
+    margin-top: 1rem;
+  }
+  .form-success h3 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .form-success p { opacity: 0.75; font-size: 0.9rem; line-height: 1.6; }
+
+  /* Sidebar */
+  .quote-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 2px solid var(--color-border);
+    position: sticky;
+    top: 80px;
+  }
+  .sidebar-block {
+    padding: 1.75rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .sidebar-block:last-child { border-bottom: none; }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+
+  /* What Happens Next */
+  .next-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .next-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .next-num {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-brand-red);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2rem;
+  }
+  .next-title {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+  }
+  .next-body {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    line-height: 1.5;
+  }
+
+  /* Contact items */
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-bottom: 1rem;
+  }
+  .contact-item:last-of-type { margin-bottom: 0; }
+  .contact-item--link { text-decoration: none; transition: opacity 0.15s; }
+  .contact-item--link:hover { opacity: 0.75; }
+  .contact-item-label {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+  .contact-item-value { font-size: 0.95rem; line-height: 1.4; }
+  .sidebar-note { font-size: 0.8rem; opacity: 0.6; line-height: 1.5; }
+  .license-num { font-size: 0.85rem; opacity: 0.7; margin-top: 0.25rem; }
+  .license-placeholder { color: var(--color-brand-red); }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-dark);
+    transition: box-shadow 0.1s, transform 0.1s;
+    cursor: pointer;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-dark);
+    transform: translate(2px, 2px);
+  }
+
+  @media (max-width: 900px) {
+    .quote-layout-inner { grid-template-columns: 1fr; }
+    .quote-sidebar { position: static; }
+    .form-row { flex-direction: column; }
+  }
+</style>

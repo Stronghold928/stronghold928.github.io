@@ -33,7 +33,8 @@ builtstronghold.com/
 ├── /projects                # Project showcase gallery
 ├── /design                  # Style quiz → style reveal → quote CTA (public)
 ├── /about                   # Company story, values, team
-├── /contact                 # Contact form + service area map
+├── /contact                 # General inquiries — name, email, message (lightweight)
+├── /quote                   # Project quote intake — full project details, budget, timeline
 │
 ├── /portal/login            # Phase 2 — unified login (client or worker)
 ├── /portal/client/          # Client dashboard
@@ -154,14 +155,22 @@ The MVP is a fully styled public-facing marketing site with no portal functional
 - [x] Team section — 3 placeholder cards (owner, PM, design coordinator)
 - [x] Community involvement section with 4 real initiatives listed
 
-#### Contact Page (`/contact`) ✓
-- [x] Contact form: name, phone, email, project type (dropdown), address, timeline (dropdown), message
-- [x] Async Formspree submission with success/error handling (no page reload)
-- [x] Phone and email displayed prominently in sidebar
-- [x] Service area tag list
-- [x] Design guide cross-link in sidebar
-- [x] License placeholder with clear [Pending] label
+#### Contact Page (`/contact`) ✓ — general inquiries only
+- [x] Lightweight 4-field form: name, phone, email, message
+- [x] Divert banner at top of form linking to `/quote` for project-specific requests
+- [x] Sidebar: direct contact, service area, license, design quiz CTA
+- [x] Async Formspree submission (no page reload); subject line: "General inquiry — Stronghold"
 - **Action required:** Replace `FORMSPREE_URL` in `src/pages/contact.astro` with real Formspree form ID
+
+#### Quote Page (`/quote`) ✓ — verbose project intake form
+- [x] Expanded form: name, phone, email, project type, property type, ownership status, budget range, address, timeline, project description, referral source
+- [x] Form grouped into labeled sections (About You / The Project / Final Details)
+- [x] Hidden `source` field populated from `?ref=` URL param (e.g., `?ref=design-quiz`)
+- [x] Sidebar: "What Happens Next" 3-step process, direct contact, service area, license
+- [x] Async Formspree submission; subject line: "Quote request — Stronghold"
+- [x] Reveal CTA on `/design` now routes to `/quote?ref=design-quiz`
+- [x] Nav "Get a Quote" and footer CTA both route to `/quote`
+- **Action required:** Create a *separate* Formspree form for quote requests; replace `QUOTE_FORM_ID` in `src/pages/quote.astro`
 
 #### Quality & Polish
 - [x] Open Graph meta tags (title, description, image) on all pages via Layout
@@ -364,10 +373,11 @@ Deployment: push to `main` → GitHub Actions builds → deploys to GitHub Pages
 
 | Item | File | Notes |
 |---|---|---|
-| Replace Formspree URL | `src/pages/contact.astro` | Sign up at formspree.io, get form ID |
-| Replace phone number | `src/components/Nav.astro`, `Footer.astro`, `contact.astro` | Currently `(928) 555-0100` |
-| Replace email | `src/components/Footer.astro`, `contact.astro` | Currently `hello@builtstronghold.com` |
-| Add AZ ROC license number | `src/components/Footer.astro`, `contact.astro` | Labeled `[Pending]` |
+| Replace general contact Formspree URL | `src/pages/contact.astro` | Sign up at formspree.io, create a form, replace `FORMSPREE_URL` |
+| Replace quote request Formspree URL | `src/pages/quote.astro` | Create a **separate** Formspree form; replace `QUOTE_FORM_ID` |
+| Replace phone number | `src/components/Nav.astro`, `Footer.astro`, `contact.astro`, `quote.astro` | Currently `(928) 555-0100` |
+| Replace email | `src/components/Footer.astro`, `contact.astro`, `quote.astro` | Currently `hello@builtstronghold.com` |
+| Add AZ ROC license number | `src/components/Footer.astro`, `contact.astro`, `quote.astro` | Labeled `[Pending]` |
 | Enable GitHub Pages | GitHub repo Settings → Pages | Set source to "GitHub Actions" |
 | Replace placeholder team photos | `src/pages/about.astro` | Unsplash placeholder images in team section |
 | Swap in real project photos | `src/content/projects/*.md` | Update `afterImage`/`beforeImage` in frontmatter |

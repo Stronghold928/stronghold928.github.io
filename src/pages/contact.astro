@@ -1,20 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const projectTypes = [
-  'Kitchen Remodel',
-  'Bathroom Remodel',
-  'Whole-Home Remodel',
-  'Room Addition',
-  'Restoration / Historic Repair',
-  'New Single-Family Build',
-  'New Multi-Family Build',
-  'Deck / Exterior Repair',
-  'Structural Repair',
-  'Other Repair',
-  'Not sure yet',
-];
-
 // Formspree endpoint — replace with your actual form ID after signing up at formspree.io
 const FORMSPREE_URL = 'https://formspree.io/f/xyzgtest';
 
@@ -26,13 +12,13 @@ const serviceAreas = [
 
 <Layout
   title="Contact"
-  description="Get in touch with Stronghold. Request a quote, describe a repair, or ask a question — based in Flagstaff, AZ serving northern Arizona."
+  description="Get in touch with Stronghold. Ask a question, check availability, or just say hello — based in Flagstaff, AZ serving northern Arizona."
 >
   <section class="contact-hero">
     <div class="contact-hero-inner">
       <p class="eyebrow">Let's Talk</p>
-      <h1>Real questions<br /><span class="accent">get real answers.</span></h1>
-      <p class="hero-sub">Fill this out and we will get back to you within one business day. Rather just call? We pick up: <a href="tel:+19285550100" class="phone-link">(928) 555-0100</a></p>
+      <h1>Questions welcome.<br /><span class="accent">We pick up the phone.</span></h1>
+      <p class="hero-sub">Not sure where to start? Have a quick question? Just want to know if we cover your area? Send a note — we respond within one business day. Prefer to call: <a href="tel:+19285550100" class="phone-link">(928) 555-0100</a></p>
     </div>
   </section>
 
@@ -41,6 +27,11 @@ const serviceAreas = [
 
       <!-- Form -->
       <div class="form-col">
+
+        <div class="form-divert">
+          <p>Ready to start a project? <a href="/quote" class="form-divert-link">Request a detailed project quote &rarr;</a></p>
+        </div>
+
         <form
           id="contact-form"
           action={FORMSPREE_URL}
@@ -54,8 +45,8 @@ const serviceAreas = [
               <input type="text" id="name" name="name" required placeholder="Jane Smith" class="field-input" />
             </div>
             <div class="field-group">
-              <label for="phone" class="field-label">Phone Number <span class="required">*</span></label>
-              <input type="tel" id="phone" name="phone" required placeholder="(928) 555-0100" class="field-input" />
+              <label for="phone" class="field-label">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="(928) 555-0100" class="field-input" />
             </div>
           </div>
 
@@ -65,58 +56,33 @@ const serviceAreas = [
           </div>
 
           <div class="field-group">
-            <label for="project-type" class="field-label">Project Type</label>
-            <select id="project-type" name="project_type" class="field-input field-select">
-              <option value="" disabled selected>Select a project type...</option>
-              {projectTypes.map(t => <option value={t}>{t}</option>)}
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label for="address" class="field-label">Property Address or City</label>
-            <input type="text" id="address" name="address" placeholder="123 Ponderosa Dr, Flagstaff, AZ" class="field-input" />
-          </div>
-
-          <div class="field-group">
-            <label for="timeline" class="field-label">Rough Timeline</label>
-            <select id="timeline" name="timeline" class="field-input field-select">
-              <option value="" disabled selected>When are you hoping to start?</option>
-              <option>ASAP (this is urgent)</option>
-              <option>Within 1–3 months</option>
-              <option>3–6 months</option>
-              <option>6–12 months</option>
-              <option>Just exploring right now</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label for="message" class="field-label">Tell us about the project <span class="required">*</span></label>
+            <label for="message" class="field-label">What's on your mind? <span class="required">*</span></label>
             <textarea
               id="message"
               name="message"
               required
               rows="6"
-              placeholder="Describe what you're hoping to do, what problem needs solving, or what questions you have. The more detail, the better we can prepare."
+              placeholder="Ask anything — availability, service area, whether we handle your type of project, how the process works. No question is too small."
               class="field-input field-textarea"
             ></textarea>
           </div>
 
-          <input type="hidden" name="_subject" value="New project inquiry: Stronghold" />
+          <input type="hidden" name="_subject" value="General inquiry — Stronghold" />
           <input type="text" name="_gotcha" style="display:none" />
 
           <div class="form-submit-row">
             <button type="submit" class="btn-primary">Send Message &rarr;</button>
-            <p class="form-note">We get back to you within one business day. Your info stays with us.</p>
+            <p class="form-note">We respond within one business day. Your info stays with us.</p>
           </div>
 
           <div id="form-success" class="form-success" style="display:none">
             <h3>Message received.</h3>
-            <p>We'll be in touch within one business day. Thank you for reaching out.</p>
+            <p>We'll get back to you within one business day. Thank you for reaching out.</p>
           </div>
         </form>
       </div>
 
-      <!-- Contact info sidebar -->
+      <!-- Sidebar -->
       <aside class="contact-sidebar">
         <div class="sidebar-block">
           <h3 class="sidebar-title">Direct Contact</h3>
@@ -151,8 +117,8 @@ const serviceAreas = [
         </div>
 
         <div class="sidebar-block sidebar-block--design">
-          <h3 class="sidebar-title">Not sure what you want?</h3>
-          <p>Not sure what you want the space to look like? Our design questionnaire takes about five minutes and gives you a starting point for every conversation.</p>
+          <h3 class="sidebar-title">Not sure what style you want?</h3>
+          <p>Our free design quiz takes five minutes and gives every design conversation a real starting point.</p>
           <a href="/design" class="btn-outline">Find Your Design Style &rarr;</a>
         </div>
       </aside>
@@ -191,7 +157,7 @@ const serviceAreas = [
   /* Hero */
   .contact-hero {
     padding: 6rem 1.5rem 4rem;
-    border-bottom: 2px solid var(--color-brand-gray);
+    border-bottom: 2px solid var(--color-border);
   }
   .contact-hero-inner { max-width: 1200px; margin: 0 auto; }
   .eyebrow {
@@ -205,8 +171,26 @@ const serviceAreas = [
   }
   .contact-hero h1 { font-size: var(--font-size-h1); margin-bottom: 1.25rem; }
   .accent { color: var(--color-brand-red); }
-  .hero-sub { font-size: 1.1rem; opacity: 0.75; max-width: 540px; line-height: 1.6; }
+  .hero-sub { font-size: 1.1rem; opacity: 0.75; max-width: 580px; line-height: 1.6; }
   .phone-link { color: var(--color-brand-red); font-weight: 700; text-decoration: underline; }
+
+  /* Divert banner */
+  .form-divert {
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    border-left: 4px solid var(--color-brand-red);
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+  .form-divert-link {
+    color: var(--color-brand-red);
+    font-weight: 700;
+    text-decoration: underline;
+    transition: opacity 0.15s;
+  }
+  .form-divert-link:hover { opacity: 0.7; }
 
   /* Layout */
   .contact-layout { padding: 4rem 1.5rem 6rem; }
@@ -255,8 +239,7 @@ const serviceAreas = [
     border-color: var(--color-brand-red);
     box-shadow: 3px 3px 0 var(--color-brand-red);
   }
-  .field-select { cursor: pointer; }
-  .field-textarea { resize: vertical; min-height: 140px; }
+  .field-textarea { resize: vertical; min-height: 160px; }
   .form-submit-row { display: flex; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; }
   .form-note { font-size: 0.8rem; opacity: 0.45; line-height: 1.5; max-width: 240px; }
 
@@ -364,13 +347,13 @@ const serviceAreas = [
     text-transform: uppercase;
     padding: 0.75rem 1.25rem;
     background-color: transparent;
-    color: var(--color-brand-white);
-    border: 2px solid var(--color-brand-white);
+    color: var(--color-text);
+    border: 2px solid var(--color-text);
     transition: background-color 0.15s, color 0.15s;
   }
   .btn-outline:hover {
-    background-color: var(--color-brand-white);
-    color: var(--color-brand-black);
+    background-color: var(--color-text);
+    color: var(--color-bg);
   }
 
   @media (max-width: 900px) {
