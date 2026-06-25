@@ -33,16 +33,18 @@
   const cv = document.getElementById('blueprint-canvas');
   if (!cv) return;
   const g = cv.getContext('2d');
-  let W = 0, H = 0, DPR = 1;
+  let W = 0, H = 0, DPR = 1, animStarted = false;
 
-  function resize() {
+  const ro = new ResizeObserver(() => {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
     W = cv.clientWidth; H = cv.clientHeight;
     cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
-  }
-  window.addEventListener('resize', resize);
-  function startLoop() { resize(); if (W > 0 && H > 0) { requestAnimationFrame(drawFrame); } else { requestAnimationFrame(startLoop); } }
-  requestAnimationFrame(startLoop);
+    if (!animStarted && W > 0 && H > 0) {
+      animStarted = true;
+      requestAnimationFrame(drawFrame);
+    }
+  });
+  ro.observe(cv);
 
   const CONFIG = { speed: 38, lineW: 1 };
   let INK = '#1a1a1a', GRAY = '#585858', DIM = '#686868';
