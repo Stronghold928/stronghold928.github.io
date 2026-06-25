@@ -283,7 +283,7 @@ document.querySelector('#quiz-questions-container [data-step="${step}"]')
 | `european-modern` | European Modern | Collected/timeless, White Dove, unlacquered brass, arched details |
 | `transitional-modern` | Transitional Modern | Classic meets modern, bold contrast moments, Pale Oak + Wrought Iron |
 
-Source material: Clear Creek Collective Quickstart Guide PDFs (purchased; individual-use license). Content in code is original — style names are generic industry terms, decision order is generic design advice. PDFs are not committed to the repo.
+Source material: Content in code is original — style names are generic industry terms, decision order is generic design advice. PDFs are not committed to the repo.
 
 #### Style decision order (same across all three styles)
 
