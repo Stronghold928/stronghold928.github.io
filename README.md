@@ -7,7 +7,7 @@ General contractor based in Flagstaff, AZ. Specializing in remodeling, restorati
 **Differentiator:** Guided design process for clients who want a remodel but don't know their style. ([/design](https://builtstronghold.com/design))
 - Phase 1 (complete): 5-photo style quiz → style reveal → quote CTA
 - Phase 2 (pending): 7-step design wizard added to client portal after login
-- Three style profiles: Organic Modern, European Modern, Transitional Modern (sourced from Clear Creek Collective guides)
+- Three style profiles: Organic Modern, European Modern, Transitional Modern
 
 ---
 
