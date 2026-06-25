@@ -9,16 +9,18 @@
 <style>
   .blueprint-wrap {
     position: absolute;
-    right: 2.5rem;
+    /* Left edge flush with hero-inner right edge (hero padding 2.5rem + box max-width 660px) */
+    left: calc(2.5rem + 660px);
+    right: 0;
     top: 0;
     bottom: 0;
-    width: 610px;
     overflow: visible;
     z-index: 1;
     pointer-events: none;
   }
   #blueprint-canvas {
     display: block;
+    /* Bleed 50px left so canvas slides from behind the box rather than hard-clipping */
     width: calc(100% + 100px);
     margin-left: -50px;
     height: 100%;

@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
 import { services } from '../data/services';
 ---
@@ -63,7 +63,7 @@ import { services } from '../data/services';
     {s.faqs && s.faqs.length > 0 && (
       <section class="service-faq" id={`${s.slug}-faq`}>
         <div class="service-faq-inner">
-          <h3 class="faq-title">{s.label} — Common Questions</h3>
+          <h3 class="faq-title">{s.label} â€” Common Questions</h3>
           <div class="faq-list">
             {s.faqs.map(faq => (
               <details class="faq-item" name={`faq-${s.slug}`}>
@@ -319,7 +319,7 @@ import { services } from '../data/services';
     flex-shrink: 0;
     margin-left: 1rem;
   }
-  details[open] .faq-question::after { content: '−'; }
+  details[open] .faq-question::after { content: 'âˆ’'; }
   .faq-answer {
     font-size: 0.9rem;
     line-height: 1.7;
@@ -331,6 +331,7 @@ import { services } from '../data/services';
   .service-area {
     background-color: var(--color-brand-red);
     border-top: 3px solid var(--color-brand-black);
+    color: var(--color-brand-white);
   }
   .service-area-inner {
     max-width: 1200px;

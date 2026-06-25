@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
@@ -37,7 +37,7 @@ const breadcrumbSchema = {
 
 <Layout
   title="Blog | Stronghold Construction Flagstaff AZ"
-  description="Construction tips, cost guides, and hiring advice for homeowners in Flagstaff and northern Arizona. From kitchen remodels to new builds — straight answers from a local GC."
+  description="Construction tips, cost guides, and hiring advice for homeowners in Flagstaff and northern Arizona. From kitchen remodels to new builds â€” straight answers from a local GC."
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
@@ -82,7 +82,7 @@ const breadcrumbSchema = {
   <section class="blog-cta">
     <div class="blog-cta-inner">
       <h2>Ready to start<br />your project?</h2>
-      <p>Tell us what you're thinking. We'll give you a straight read on scope, cost, and timeline — no obligation.</p>
+      <p>Tell us what you're thinking. We'll give you a straight read on scope, cost, and timeline â€” no obligation.</p>
       <a href="/quote" class="btn-primary">Get a Quote &rarr;</a>
     </div>
   </section>
@@ -226,6 +226,7 @@ const breadcrumbSchema = {
   .blog-cta {
     background-color: var(--color-brand-red);
     border-top: 3px solid var(--color-brand-black);
+    color: var(--color-brand-white);
   }
   .blog-cta-inner {
     max-width: 1200px;
