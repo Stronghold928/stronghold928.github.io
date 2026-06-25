@@ -1,7 +1,5 @@
 ---
 // Scrolling architectural blueprint animation — purely decorative.
-// Ported from the Claude Design handoff (Stronghold Blueprint Hero.html).
-// Tweaks/React panel stripped; CONFIG defaults are hardcoded for production.
 ---
 
 <div class="blueprint-wrap" aria-hidden="true">
@@ -11,15 +9,22 @@
 <style>
   .blueprint-wrap {
     position: absolute;
-    inset: 0;
-    overflow: hidden;
-    background-color: #fff;
-    z-index: 0;
+    right: 2.5rem;
+    top: 0;
+    bottom: 0;
+    width: 610px;
+    overflow: visible;
+    z-index: 1;
+    pointer-events: none;
   }
   #blueprint-canvas {
     display: block;
-    width: 100%;
+    width: calc(100% + 100px);
+    margin-left: -50px;
     height: 100%;
+  }
+  @media (max-width: 900px) {
+    .blueprint-wrap { display: none; }
   }
 </style>
 
@@ -39,17 +44,17 @@
   function startLoop() { resize(); if (W > 0 && H > 0) { requestAnimationFrame(drawFrame); } else { requestAnimationFrame(startLoop); } }
   requestAnimationFrame(startLoop);
 
-  const CONFIG = { speed: 38, lineW: 1, showClouds: true, showAnnotations: true, palette: ['#1a1a1a', '#585858', '#686868'] };
+  const CONFIG = { speed: 38, lineW: 1 };
   let INK = '#1a1a1a', GRAY = '#585858', DIM = '#686868';
   const RED = '#be231a', REDF = 'rgba(190,35,26,0.07)', BG = '#fff';
   const SW = 2900;
   let sx = 0, lt = null;
 
   // ── Primitives ────────────────────────────────────────────────
-  function L(x1,y1,x2,y2,lw=1,c=INK){g.save();g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.lineWidth=lw;g.strokeStyle=c;g.stroke();g.restore();}
-  function Rf(x,y,w,h,c=BG){g.fillStyle=c;g.fillRect(x,y,w,h);}
-  function Rs(x,y,w,h,lw,c=INK){g.save();g.strokeStyle=c;g.lineWidth=lw;g.strokeRect(x,y,w,h);g.restore();}
-  function Tx(s,x,y,sz,c=DIM,al='center'){g.save();g.font=`${sz}px "Courier New",monospace`;g.fillStyle=c;g.textAlign=al;g.textBaseline='middle';g.fillText(s,x,y);g.restore();}
+  function L(x1,y1,x2,y2,lw,c){g.save();g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.lineWidth=lw||1;g.strokeStyle=c||INK;g.stroke();g.restore();}
+  function Rf(x,y,w,h,c){g.fillStyle=c||BG;g.fillRect(x,y,w,h);}
+  function Rs(x,y,w,h,lw,c){g.save();g.strokeStyle=c||INK;g.lineWidth=lw||1;g.strokeRect(x,y,w,h);g.restore();}
+  function Tx(s,x,y,sz,c,al){g.save();g.font=`${sz}px "Courier New",monospace`;g.fillStyle=c||DIM;g.textAlign=al||'center';g.textBaseline='middle';g.fillText(s,x,y);g.restore();}
   function Ar(cx,cy,r,a1,a2,ccw,lw,c,dash){g.save();g.beginPath();g.arc(cx,cy,r,a1,a2,ccw);g.lineWidth=lw;g.strokeStyle=c;if(dash)g.setLineDash(dash);g.stroke();g.setLineDash([]);g.restore();}
 
   // ── Windows ───────────────────────────────────────────────────
@@ -81,6 +86,9 @@
   function stove(x,y,w,h,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);Rs(x,y,w,h,1);const r=Math.min(w,h)*.16;[[.28,.28],[.72,.28],[.28,.72],[.72,.72]].forEach(([fx,fy])=>{g.beginPath();g.arc(x+w*fx,y+h*fy,r,0,Math.PI*2);g.strokeStyle=INK;g.lineWidth=0.75;g.stroke();g.beginPath();g.arc(x+w*fx,y+h*fy,r*.4,0,Math.PI*2);g.stroke();});g.restore();}
   function fridge(x,y,w,h,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);Rs(x,y,w,h,1);L(x,y+h*.32,x+w,y+h*.32,.7,DIM);g.restore();}
   function stair(x,y,w,h,n,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);Rs(x,y,w,h,.75,DIM);const s=h/n;for(let i=1;i<n;i++)L(x,y+i*s,x+w,y+i*s,.45,DIM);const ax=x+w/2;L(ax,y+h*.82,ax,y+h*.18,1,DIM);L(ax-5,y+h*.28,ax,y+h*.18,1,DIM);L(ax+5,y+h*.28,ax,y+h*.18,1,DIM);Tx('UP',ax,y+h*.6,7,DIM);g.restore();}
+  function showerStall(x,y,w,h,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);Rs(x,y,w,h,1);const step=8;for(let xi=x+step;xi<x+w;xi+=step)L(xi,y,xi-(h),y+h,.35,DIM);g.restore();}
+  function closetRod(x,y,len,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);L(x,y,x+len,y,.85,DIM);for(let xi=x+6;xi<x+len;xi+=10)L(xi,y,xi,y+8,.5,DIM);g.restore();}
+  function fireplace(x,y,w,h,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);Rs(x,y,w,h,1.2);const m=6;Rf(x+m,y+m,w-m*2,h-m*2,'#e8e8e8');Rs(x+m,y+m,w-m*2,h-m*2,.65);L(x,y,x+w,y+h,.65,DIM);L(x+w,y,x,y+h,.65,DIM);g.restore();}
 
   // ── Furniture ─────────────────────────────────────────────────
   function sofa(x,y,w,h,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*.9);Rs(x,y,w,h,.5,DIM);Rs(x,y,w,h*.28,.4,DIM);L(x+w/2,y+h*.28,x+w/2,y+h,.4,DIM);g.restore();}
@@ -88,50 +96,15 @@
   function bed(x,y,w,h,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*.85);Rs(x,y,w,h,.5,DIM);Rs(x,y,w,h*.2,.4,DIM);g.beginPath();g.ellipse(x+w/2,y+h*.6,w*.3,h*.24,0,0,Math.PI*2);g.lineWidth=.4;g.strokeStyle=DIM;g.stroke();g.restore();}
 
   // ── Dimensions ────────────────────────────────────────────────
-  function dimH(x1,x2,y,lbl,p,off=14){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*1.5);g.strokeStyle=DIM;g.lineWidth=.75;g.beginPath();g.moveTo(x1,y+3);g.lineTo(x1,y-off-3);g.moveTo(x2,y+3);g.lineTo(x2,y-off-3);g.stroke();const xe=x1+(x2-x1)*Math.min(1,p*1.1);L(x1,y-off,xe,y-off,.75,DIM);if(p>.84){L(x1,y-off-2,x1+7,y-off+2,.75,DIM);L(x2-7,y-off-2,x2,y-off+2,.75,DIM);}if(p>.92){g.save();g.globalAlpha=(p-.92)*13;Tx(lbl,(x1+x2)/2,y-off-9,7.5,DIM);g.restore();}g.restore();}
-  function dimV(x,y1,y2,lbl,p,off=14){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*1.5);g.strokeStyle=DIM;g.lineWidth=.75;g.beginPath();g.moveTo(x+3,y1);g.lineTo(x-off-3,y1);g.moveTo(x+3,y2);g.lineTo(x-off-3,y2);g.stroke();const ye=y1+(y2-y1)*Math.min(1,p*1.1);L(x-off,y1,x-off,ye,.75,DIM);if(p>.84){L(x-off-2,y1,x-off+2,y1+7,.75,DIM);L(x-off+2,y2-7,x-off-2,y2,.75,DIM);}if(p>.92){g.save();g.globalAlpha=(p-.92)*13;g.translate(x-off-9,(y1+y2)/2);g.rotate(-Math.PI/2);Tx(lbl,0,0,7.5,DIM);g.restore();}g.restore();}
+  function dimH(x1,x2,y,lbl,p,off){off=off||14;if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*1.5);g.strokeStyle=DIM;g.lineWidth=.75;g.beginPath();g.moveTo(x1,y+3);g.lineTo(x1,y-off-3);g.moveTo(x2,y+3);g.lineTo(x2,y-off-3);g.stroke();const xe=x1+(x2-x1)*Math.min(1,p*1.1);L(x1,y-off,xe,y-off,.75,DIM);if(p>.84){L(x1,y-off-2,x1+7,y-off+2,.75,DIM);L(x2-7,y-off-2,x2,y-off+2,.75,DIM);}if(p>.92){g.save();g.globalAlpha=(p-.92)*13;Tx(lbl,(x1+x2)/2,y-off-9,7.5,DIM);g.restore();}g.restore();}
+  function dimV(x,y1,y2,lbl,p,off){off=off||14;if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*1.5);g.strokeStyle=DIM;g.lineWidth=.75;g.beginPath();g.moveTo(x+3,y1);g.lineTo(x-off-3,y1);g.moveTo(x+3,y2);g.lineTo(x-off-3,y2);g.stroke();const ye=y1+(y2-y1)*Math.min(1,p*1.1);L(x-off,y1,x-off,ye,.75,DIM);if(p>.84){L(x-off-2,y1,x-off+2,y1+7,.75,DIM);L(x-off+2,y2-7,x-off-2,y2,.75,DIM);}if(p>.92){g.save();g.globalAlpha=(p-.92)*13;g.translate(x-off-9,(y1+y2)/2);g.rotate(-Math.PI/2);Tx(lbl,0,0,7.5,DIM);g.restore();}g.restore();}
   function rlabel(lines,x,y,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*3.5);lines.forEach((s,i)=>Tx(s,x,y+i*10,8,GRAY));g.restore();}
+  function dimSub(x1,x2,y,lbl,p){if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*1.2);g.strokeStyle=DIM;g.lineWidth=.5;const off=8;g.beginPath();g.moveTo(x1,y-2);g.lineTo(x1,y-off-2);g.moveTo(x2,y-2);g.lineTo(x2,y-off-2);g.stroke();L(x1,y-off,x2,y-off,.5,DIM);Tx(lbl,(x1+x2)/2,y-off-7,6,DIM);g.restore();}
 
-  // ── Revision cloud ────────────────────────────────────────────
-  function revCloud(x,y,w,h,p,tag){
-    if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p);
-    const r=7;
-    function seg(x1,y1,x2,y2,n){const dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy),nx=dy/len*r,ny=-dx/len*r;for(let i=0;i<n;i++){const tm=(2*i+1)/(2*n);g.quadraticCurveTo(x1+dx*tm+nx,y1+dy*tm+ny,x1+dx*(i+1)/n,y1+dy*(i+1)/n);}}
-    const nh=Math.max(3,Math.round(w/19)),nv=Math.max(2,Math.round(h/19));
-    g.beginPath();g.moveTo(x,y);seg(x,y,x+w,y,nh);seg(x+w,y,x+w,y+h,nv);seg(x+w,y+h,x,y+h,nh);seg(x,y+h,x,y,nv);g.closePath();
-    g.fillStyle=REDF;g.fill();g.strokeStyle=RED;g.lineWidth=1.5;g.stroke();
-    if(p>.8&&tag){g.save();g.globalAlpha=(p-.8)*5;Tx(tag,x+w/2,y-9,6.5,RED);g.restore();}
-    g.restore();
-  }
-
-  // ── Red handwriting + markup ──────────────────────────────────
-  function handNote(lines,x,y,p,angle=0){
-    if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);
-    g.translate(x,y);if(angle)g.rotate(angle);
-    g.font="600 12px 'Caveat',cursive";g.fillStyle=RED;g.textAlign='left';g.textBaseline='top';
-    lines.forEach((line,i)=>g.fillText(line,0,i*15));
-    g.restore();
-  }
-  function redArrow(x1,y1,x2,y2,p){
-    if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);
-    L(x1,y1,x2,y2,1,RED);
-    const a=Math.atan2(y2-y1,x2-x1);
-    g.beginPath();g.moveTo(x2,y2);g.lineTo(x2-8*Math.cos(a-.38),y2-8*Math.sin(a-.38));g.moveTo(x2,y2);g.lineTo(x2-8*Math.cos(a+.38),y2-8*Math.sin(a+.38));
-    g.strokeStyle=RED;g.lineWidth=1;g.stroke();g.restore();
-  }
-  function revDelta(cx,cy,num,p){
-    if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);
-    g.beginPath();g.moveTo(cx,cy-9);g.lineTo(cx-7.5,cy+4);g.lineTo(cx+7.5,cy+4);g.closePath();
-    g.fillStyle=RED;g.fill();
-    g.font='bold 7px "Courier New",monospace';g.fillStyle='#fff';g.textAlign='center';g.textBaseline='middle';g.fillText(String(num),cx,cy+1);
-    g.restore();
-  }
-  function sectionLine(x1,y1,x2,y2,label,p){
-    if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*1.5);
-    g.setLineDash([6,3]);L(x1,y1,x2,y2,.7,DIM);g.setLineDash([]);
-    [[x1,y1],[x2,y2]].forEach(([cx,cy])=>{g.beginPath();g.arc(cx,cy,10,0,Math.PI*2);g.strokeStyle=DIM;g.lineWidth=.65;g.stroke();Tx(label,cx,cy,7,DIM);});
-    g.restore();
-  }
+  // ── Progress ──────────────────────────────────────────────────
+  function getProg(screenX){const st=W*.9,en=W*.08;if(screenX>st)return 0;if(screenX<en)return 1;return(st-screenX)/(st-en);}
+  // Red markup draws in as element scrolls into view — starts at right edge, fully drawn by mid-screen
+  function getRedProg(screenX){const s=W*.85,e=W*.35;if(screenX>s)return 0;if(screenX<e)return 1;return(s-screenX)/(s-e);}
 
   // ── Structural column grid ────────────────────────────────────
   function colGrid(ox,oy,planH,xs,labels){
@@ -144,216 +117,449 @@
     });
     g.restore();
   }
+  function sectionLine(x1,y1,x2,y2,label,p){
+    if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*1.5);
+    g.setLineDash([6,3]);L(x1,y1,x2,y2,.7,DIM);g.setLineDash([]);
+    [[x1,y1],[x2,y2]].forEach(([cx,cy])=>{g.beginPath();g.arc(cx,cy,10,0,Math.PI*2);g.strokeStyle=DIM;g.lineWidth=.65;g.stroke();Tx(label,cx,cy,7,DIM);});
+    g.restore();
+  }
 
-  // ── Progress ──────────────────────────────────────────────────
-  function getProg(screenX){const st=W*.9,en=W*.08;if(screenX>st)return 0;if(screenX<en)return 1;return(st-screenX)/(st-en);}
+  // ── Dynamic red markup ────────────────────────────────────────
+  // revCloudDyn: draws arcs progressively as rp goes 0→1
+  function revCloudDyn(x,y,w,h,rp,tag){
+    if(rp<=0)return;
+    g.save();g.globalAlpha=Math.min(1,rp*1.4);
+    const r=7;
+    const nh=Math.max(3,Math.round(w/19)),nv=Math.max(2,Math.round(h/19));
+    const totalSegs=nh*2+nv*2;
+    const drawSegs=Math.floor(rp*totalSegs);
+
+    // collect all arc midpoints and endpoints for each segment of the cloud
+    function buildArcs(x1,y1,x2,y2,n,out){
+      const dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy),nx=dy/len*r,ny=-dx/len*r;
+      for(let i=0;i<n;i++){
+        const tm=(2*i+1)/(2*n);
+        out.push({cpx:x1+dx*tm+nx,cpy:y1+dy*tm+ny,ex:x1+dx*(i+1)/n,ey:y1+dy*(i+1)/n});
+      }
+    }
+    const arcs=[];
+    buildArcs(x,y,x+w,y,nh,arcs);
+    buildArcs(x+w,y,x+w,y+h,nv,arcs);
+    buildArcs(x+w,y+h,x,y+h,nh,arcs);
+    buildArcs(x,y+h,x,y,nv,arcs);
+
+    const drawCount=Math.min(drawSegs,arcs.length);
+    if(drawCount<=0){g.restore();return;}
+
+    // fill: only draw fill when cloud is mostly complete
+    if(rp>.7){g.save();g.globalAlpha=Math.min(1,(rp-.7)*3.3)*0.65;g.fillStyle=REDF;g.beginPath();g.moveTo(x,y);arcs.forEach(a=>g.quadraticCurveTo(a.cpx,a.cpy,a.ex,a.ey));g.closePath();g.fill();g.restore();}
+
+    g.beginPath();g.moveTo(x,y);
+    for(let i=0;i<drawCount;i++) g.quadraticCurveTo(arcs[i].cpx,arcs[i].cpy,arcs[i].ex,arcs[i].ey);
+    g.strokeStyle=RED;g.lineWidth=1.5;g.stroke();
+
+    if(rp>.85&&tag){g.save();g.globalAlpha=(rp-.85)*6.5;Tx(tag,x+w/2,y-9,6.5,RED);g.restore();}
+    g.restore();
+  }
+
+  // handNoteDyn: text reveals left-to-right via clipping rect
+  function handNoteDyn(lines,x,y,rp,angle){
+    if(rp<=0)return;
+    const maxW=180;
+    g.save();g.globalAlpha=Math.min(1,rp*1.8);
+    g.translate(x,y);if(angle)g.rotate(angle);
+    g.beginPath();g.rect(0,-2,maxW*Math.min(1,rp*1.3),lines.length*15+4);g.clip();
+    g.font="600 12px 'Caveat',cursive";g.fillStyle=RED;g.textAlign='left';g.textBaseline='top';
+    lines.forEach((line,i)=>g.fillText(line,0,i*15));
+    g.restore();
+  }
+
+  // redArrDyn: grows arrow from tail to head
+  function redArrDyn(x1,y1,x2,y2,rp){
+    if(rp<=0)return;
+    g.save();g.globalAlpha=Math.min(1,rp*2);
+    const xe=x1+(x2-x1)*Math.min(1,rp),ye=y1+(y2-y1)*Math.min(1,rp);
+    L(x1,y1,xe,ye,1,RED);
+    if(rp>.85){
+      const a=Math.atan2(y2-y1,x2-x1),fa=(rp-.85)*6.5;
+      g.globalAlpha=Math.min(1,fa);
+      g.beginPath();g.moveTo(x2,y2);g.lineTo(x2-8*Math.cos(a-.38),y2-8*Math.sin(a-.38));g.moveTo(x2,y2);g.lineTo(x2-8*Math.cos(a+.38),y2-8*Math.sin(a+.38));
+      g.strokeStyle=RED;g.lineWidth=1;g.stroke();
+    }
+    g.restore();
+  }
+
+  // revDeltaDyn: scales in from center
+  function revDeltaDyn(cx,cy,num,rp){
+    if(rp<=0)return;
+    const sc=Math.min(1,rp*1.5);
+    g.save();g.globalAlpha=Math.min(1,rp*2);g.translate(cx,cy);g.scale(sc,sc);
+    g.beginPath();g.moveTo(0,-9);g.lineTo(-7.5,4);g.lineTo(7.5,4);g.closePath();
+    g.fillStyle=RED;g.fill();
+    g.font='bold 7px "Courier New",monospace';g.fillStyle='#fff';g.textAlign='center';g.textBaseline='middle';g.fillText(String(num),0,1);
+    g.restore();
+  }
 
   // ═════════════════════════════════════════════════════════════
-  // PLAN 1 — Colonial First Floor  560 × 270
+  // PLAN 1 — Craftsman Ranch  564 × 330
   // ═════════════════════════════════════════════════════════════
-  const P1W=560,P1H=270;
+  const P1W=564,P1H=330;
   function plan1(ox,oy,p){
-    const ap=CONFIG.showAnnotations?p:0,cp=CONFIG.showClouds?p:0;
+    // outer shell
     Rf(ox,oy,P1W,P1H,INK);
-    Rf(ox+5,oy+5,145,260);
-    Rf(ox+154,oy+5,68,127);
-    Rf(ox+226,oy+5,120,127);
-    Rf(ox+350,oy+5,120,127);
-    Rf(ox+474,oy+5,81,127);
-    Rf(ox+154,oy+136,68,129);
-    Rf(ox+226,oy+136,240,129);
-    Rf(ox+470,oy+136,85,129);
-    colGrid(ox,oy,P1H,[0,150,226,350,474,560],['A','B','C','D','E','F']);
-    sectionLine(ox-12,oy+95,ox+P1W+12,oy+95,'1',ap);
-    L(ox+228,oy+248,ox+464,oy+248,1.8,INK);
-    L(ox+462,oy+138,ox+462,oy+265,1.8,INK);
-    stove(ox+418,oy+208,40,42,ap);
-    fridge(ox+420,oy+155,28,42,ap);
-    lav(ox+272,oy+249,46,15,ap);
-    g.save();g.globalAlpha=Math.min(1,ap*2);Rs(ox+320,oy+249,30,15,.75);Tx('DW',ox+335,oy+256.5,6,DIM);g.restore();
-    Rs(ox+282,oy+185,96,40,1.5);
-    Tx("ISLAND",ox+330,oy+205,6.5,DIM);
-    stair(ox+473,oy+140,76,52,9,ap);
-    Rf(ox+470,oy+206,4,59,INK);
-    Rf(ox+474,oy+206,80,59);
-    toilet(ox+538,oy+225,0,ap);
-    lav(ox+480,oy+248,28,16,ap);
-    sofa(ox+234,oy+145,100,40,ap);
-    diningSet(ox+362,oy+25,84,62,ap);
-    sofa(ox+232,oy+10,104,40,ap);
-    winH(ox+246,oy+5,60);winH(ox+368,oy+5,58);winH(ox+488,oy+5,48);
-    winV(ox+P1W-5,oy+22,50);winV(ox+P1W-5,oy+148,44);
-    winH(ox+258,oy+P1H-5,80);winH(ox+412,oy+P1H-5,48);
-    winV(ox+5,oy+48,58);
-    Rf(ox+22,oy+P1H-5,114,5);
-    L(ox+22,oy+P1H,ox+22,oy+P1H-8,.75,INK);L(ox+136,oy+P1H,ox+136,oy+P1H-8,.75,INK);
-    doorH(ox+168,oy+P1H,34,true,true);
-    doorV(ox+226,oy+60,30,true,true);
-    Rf(ox+346,oy+35,4,65);
-    doorV(ox+470,oy+52,30,true,true);
-    doorH(ox+160,oy+136,30,false,true);
-    doorV(ox+150,oy+178,28,false,false);
-    doorH(ox+474,oy+206,30,false,true);
-    rlabel(['GARAGE'],ox+78,oy+130,ap);
-    rlabel(['ENTRY /','FOYER'],ox+188,oy+65,ap);
-    rlabel(['LIVING ROOM'],ox+286,oy+68,ap);
-    rlabel(['DINING ROOM'],ox+410,oy+68,ap);
-    rlabel(['STUDY /','OFFICE'],ox+514,oy+68,ap);
-    rlabel(['MUD /','LAUNDRY'],ox+188,oy+200,ap);
-    rlabel(['FAMILY ROOM'],ox+274,oy+195,ap);
-    rlabel(['KITCHEN'],ox+388,oy+195,ap);
-    rlabel(['BACK HALL /','POWDER'],ox+513,oy+185,ap);
-    light(ox+78,oy+128,ap);light(ox+188,oy+65,ap);light(ox+286,oy+65,ap);
-    light(ox+410,oy+65,ap);light(ox+514,oy+65,ap);light(ox+274,oy+195,ap);light(ox+388,oy+195,ap);
-    outlet(ox+238,oy+127,ap);outlet(ox+362,oy+127,ap);outlet(ox+478,oy+127,ap);
-    outlet(ox+233,oy+140,ap);outlet(ox+463,oy+260,ap);
-    swsym(ox+214,oy+123,ap);swsym(ox+340,oy+123,ap);
-    smoke(ox+286,oy+18,ap);smoke(ox+340,oy+150,ap);
-    dimH(ox,ox+P1W,oy,"56'-0\"",ap);
-    dimV(ox,oy,oy+P1H,"54'-0\"",ap);
-    g.save();g.globalAlpha=Math.min(1,ap*1.2);g.strokeStyle=DIM;g.lineWidth=.65;
-    g.beginPath();g.moveTo(ox,oy-28);g.lineTo(ox+150,oy-28);g.stroke();
-    Tx("30'-0\"",ox+75,oy-35,6.5,DIM);
+    // Garage (left block) 162 × 240
+    Rf(ox+6,oy+6,156,234);
+    // Storage/Mech below garage
+    Rf(ox+6,oy+246,156,78);
+    // Covered porch strip across top
+    Rf(ox+168,oy,390,36,'#f0f0ec');
+    Rs(ox+168,oy,390,36,.5,DIM);
+    // Entry/Foyer
+    Rf(ox+168,oy+42,66,84);
+    // Powder bath
+    Rf(ox+168,oy+132,66,54);
+    // Laundry/Mud
+    Rf(ox+168,oy+192,66,72);
+    // Rear hall
+    Rf(ox+168,oy+270,66,54);
+    // Great Room (LR+DR combined)
+    Rf(ox+240,oy+42,162,180);
+    // Kitchen
+    Rf(ox+240,oy+228,162,96);
+    // Master Bedroom
+    Rf(ox+408,oy+42,150,132);
+    // WIC
+    Rf(ox+408,oy+180,66,78);
+    // Master Bath
+    Rf(ox+480,oy+180,78,78);
+    // Hall corridor
+    Rf(ox+408,oy+264,150,12);
+    // Bed 2
+    Rf(ox+408,oy+282,96,42);
+    // Bath 2
+    Rf(ox+510,oy+282,48,42);
+
+    // column grid
+    colGrid(ox,oy,P1H,[0,168,240,402,480,564],['A','B','C','D','E','F']);
+    sectionLine(ox-12,oy+135,ox+P1W+12,oy+135,'1',p);
+
+    // sub-dimension ticks across top
+    dimSub(ox+6,ox+162,oy-18,"26'-0\"",p);
+    dimSub(ox+168,ox+402,oy-18,"39'-0\"",p);
+    dimSub(ox+402,ox+558,oy-18,"26'-0\"",p);
+
+    // interior walls / structural accents
+    L(ox+402,oy+42,ox+402,oy+P1H-6,1.8,INK);   // main bedroom wall
+    L(ox+240,oy+222,ox+402,oy+222,1.8,INK);    // kitchen separation
+
+    // porch hatch marks
+    g.save();g.globalAlpha=.35;g.strokeStyle=DIM;g.lineWidth=.4;
+    for(let xi=ox+178;xi<ox+558;xi+=14)L(xi,oy+2,xi-28,oy+34,.35,DIM);
     g.restore();
-    revCloud(ox+350,oy+5,124,127,cp);
-    revDelta(ox+440,oy+13,1,cp);
-    handNote(["VERIFY WINDOW TYPE w/ owner","confirm casement vs. fixed glass","→ see submittal log 18"],ox+354,oy+16,cp);
-    revCloud(ox+226,oy+136,240,129,cp);
-    revDelta(ox+332,oy+140,2,cp);
-    handNote(["ADD ISLAND per SK-03","hood vent above range—see mech.","owner wants pot-filler too"],ox+230,oy+143,cp);
-    redArrow(ox+82,oy+P1H+12,ox+68,oy+P1H-3,cp);
-    handNote(["2-car door = 16'-0\" RO"],ox+86,oy+P1H+8,cp);
+
+    // garage door gap + label
+    Rf(ox+24,oy,112,6,BG);
+    L(ox+24,oy,ox+24,oy-6,.75,INK);L(ox+136,oy,ox+136,oy-6,.75,INK);
+    Tx("18'-0\" O.H. DOOR",ox+80,oy-14,6.5,DIM);
+
+    // fixtures — kitchen
+    stove(ox+276,oy+280,40,38,p);
+    fridge(ox+354,oy+230,26,44,p);
+    lav(ox+244,oy+300,40,14,p);
+    g.save();g.globalAlpha=Math.min(1,p*2);Rs(ox+292,oy+300,56,14,.75);Tx('DW',ox+320,oy+307,6,DIM);g.restore();
+    // island
+    Rs(ox+266,oy+238,100,42,1.5);Tx("ISLAND",ox+316,oy+259,6.5,DIM);
+
+    // fixtures — master bath
+    tub(ox+482,oy+182,72,40,p);
+    showerStall(ox+484,oy+228,44,28,p);
+    toilet(ox+536,oy+258,0,p);
+    lav(ox+484,oy+258,30,18,p);
+
+    // fixtures — powder
+    toilet(ox+184,oy+154,0,p);
+    lav(ox+170,oy+134,28,16,p);
+
+    // fixtures — bath 2
+    lav(ox+512,oy+284,28,16,p);
+    toilet(ox+545,oy+310,-Math.PI/2,p);
+
+    // WIC rods
+    closetRod(ox+412,oy+192,58,p);
+    closetRod(ox+412,oy+208,58,p);
+
+    // fireplace in great room
+    fireplace(ox+314,oy+44,36,22,p);
+
+    // stair to attic in storage
+    stair(ox+12,oy+250,80,68,9,p);
+
+    // furniture
+    sofa(ox+248,oy+60,130,44,p);
+    diningSet(ox+256,oy+158,100,52,p);
+    bed(ox+416,oy+54,126,108,p);
+
+    // windows
+    winH(ox+192,oy,60); winH(ox+300,oy,60); winH(ox+430,oy,55);
+    winV(ox+P1W-6,oy+56,52); winV(ox+P1W-6,oy+190,44);
+    winH(ox+252,oy+P1H-6,80); winH(ox+420,oy+P1H-6,48);
+    winV(ox+6,oy+52,64);
+    winH(ox+240,oy+42,50);
+
+    // doors
+    doorH(ox+186,oy+42,32,false,true);      // front entry
+    doorV(ox+240,oy+80,28,true,true);       // great room entry
+    doorH(ox+196,oy+132,28,false,true);     // powder
+    doorV(ox+168,oy+220,28,false,false);    // laundry
+    doorV(ox+402,oy+68,32,false,true);      // master
+    doorH(ox+420,oy+180,28,false,true);     // WIC
+    doorH(ox+480,oy+180,28,false,false);    // master bath
+    doorV(ox+408,oy+290,28,true,true);      // bed 2
+    doorH(ox+510,oy+282,24,false,true);     // bath 2
+
+    // room labels
+    rlabel(['GARAGE'],ox+84,oy+126,p);
+    rlabel(['STORAGE','/ MECH'],ox+84,oy+276,p);
+    rlabel(['COVERED','PORCH'],ox+354,oy+18,p);
+    rlabel(['FOYER'],ox+200,oy+84,p);
+    rlabel(['PWD'],ox+200,oy+158,p);
+    rlabel(['LAUNDRY','/ MUD'],ox+200,oy+228,p);
+    rlabel(['GREAT ROOM'],ox+322,oy+100,p);
+    rlabel(['DINING'],ox+322,oy+180,p);
+    rlabel(['KITCHEN'],ox+322,oy+270,p);
+    rlabel(['MASTER','BEDROOM'],ox+484,oy+108,p);
+    rlabel(['WIC'],ox+440,oy+218,p);
+    rlabel(['M.BATH'],ox+518,oy+218,p);
+    rlabel(['BED 2'],ox+456,oy+300,p);
+    rlabel(['BATH 2'],ox+534,oy+300,p);
+
+    // electrical
+    light(ox+84,oy+126,p); light(ox+200,oy+84,p); light(ox+322,oy+100,p);
+    light(ox+322,oy+270,p); light(ox+484,oy+108,p); light(ox+518,oy+218,p);
+    outlet(ox+246,oy+218,p); outlet(ox+398,oy+218,p); outlet(ox+400,oy+280,p);
+    swsym(ox+226,oy+218,p); swsym(ox+384,oy+42,p);
+    smoke(ox+322,oy+54,p); smoke(ox+484,oy+54,p); smoke(ox+84,oy+54,p);
+
+    // overall dims
+    dimH(ox,ox+P1W,oy,"56'-4\"",p);
+    dimV(ox,oy,oy+P1H,"33'-0\"",p);
+
+    // dynamic red annotations
+    const r1=getRedProg(ox+408);
+    revCloudDyn(ox+408,oy+42,150,132,r1,'△1');
+    revDeltaDyn(ox+484,oy+50,1,r1);
+    handNoteDyn(["VERIFY MASTER BED DIM","owner wants 14'-0\" min","→ check struct. per SE-02"],ox+412,oy+52,r1);
+
+    const r2=getRedProg(ox+240);
+    revCloudDyn(ox+240,oy+228,162,96,r2,'△2');
+    revDeltaDyn(ox+322,oy+232,2,r2);
+    handNoteDyn(["CONFIRM ISLAND SIZE","hood vent above range","owner req. pot-filler"],ox+244,oy+238,r2);
+
+    const r3=getRedProg(ox+24);
+    redArrDyn(ox+80,oy+P1H+16,ox+80,oy+P1H-4,r3);
+    handNoteDyn(["18'-0\" O.H. door RO","verify header per struct."],ox+88,oy+P1H+10,r3);
   }
 
   // ═════════════════════════════════════════════════════════════
-  // PLAN 2 — Ranch / Craftsman  610 × 192
+  // PLAN 2 — Ranch / Craftsman  610 × 210
   // ═════════════════════════════════════════════════════════════
-  const P2W=610,P2H=192;
+  const P2W=610,P2H=210;
   function plan2(ox,oy,p){
-    const ap=CONFIG.showAnnotations?p:0,cp=CONFIG.showClouds?p:0;
     Rf(ox,oy,P2W,P2H,INK);
-    Rf(ox+5,oy+5,168,182);
-    Rf(ox+177,oy+5,162,182);
-    Rf(ox+343,oy+5,138,100);
-    Rf(ox+343,oy+109,138,78);
-    Rf(ox+485,oy+5,120,100);
-    Rf(ox+485,oy+109,120,78);
-    colGrid(ox,oy,P2H,[0,177,343,485,610],['A','B','C','D','E']);
-    sectionLine(ox-12,oy+96,ox+P2W+12,oy+96,'2',ap);
-    L(ox+179,oy+170,ox+320,oy+170,1.8,INK);
-    L(ox+318,oy+109,ox+318,oy+187,1.8,INK);
-    stove(ox+258,oy+167,38,18,ap);
-    fridge(ox+298,oy+158,24,30,ap);
-    lav(ox+188,oy+171,36,15,ap);
-    Rs(ox+210,oy+100,100,38,1.5);
-    Tx("ISLAND",ox+260,oy+119,7,DIM);
-    tub(ox+347,oy+112,60,44,ap);
-    toilet(ox+415,oy+155,0,ap);
-    lav(ox+350,oy+165,28,18,ap);
-    lav(ox+488,oy+115,24,18,ap);
-    toilet(ox+527,oy+115,Math.PI/2,ap);
-    bed(ox+350,oy+18,110,75,ap);
-    bed(ox+492,oy+18,100,70,ap);
-    sofa(ox+184,oy+18,130,42,ap);
-    winH(ox+202,oy+5,70);winH(ox+358,oy+5,65);winH(ox+498,oy+5,60);
-    winV(ox+5,oy+25,60);winV(ox+P2W-5,oy+20,60);
-    winH(ox+198,oy+P2H-5,75);winH(ox+358,oy+P2H-5,55);winH(ox+495,oy+P2H-5,50);
-    Rf(ox+24,oy+P2H-5,128,5);
-    L(ox+24,oy+P2H,ox+24,oy+P2H-8,.75,INK);L(ox+152,oy+P2H,ox+152,oy+P2H-8,.75,INK);
-    Rf(ox+206,oy,110,5);
-    g.save();g.setLineDash([5,4]);L(ox+206,oy,ox+316,oy,.8,INK);g.restore();
-    doorH(ox+225,oy+P2H,36,true,true);
-    doorV(ox+177,oy+155,28,false,false);
-    doorV(ox+343,oy+38,30,true,true);
-    doorV(ox+485,oy+36,28,true,true);
-    doorH(ox+348,oy+109,28,false,true);
-    rlabel(['GARAGE'],ox+89,oy+94,ap);
-    rlabel(['GREAT ROOM','+ KITCHEN'],ox+258,oy+90,ap);
-    rlabel(['MASTER','BEDROOM'],ox+412,oy+52,ap);
-    rlabel(['MASTER','BATH'],ox+412,oy+148,ap);
-    rlabel(['BED 2'],ox+545,oy+52,ap);
-    rlabel(['BATH 2'],ox+545,oy+148,ap);
-    light(ox+89,oy+94,ap);light(ox+230,oy+66,ap);light(ox+412,oy+52,ap);
-    light(ox+545,oy+52,ap);light(ox+412,oy+148,ap);light(ox+545,oy+148,ap);
-    outlet(ox+183,oy+100,ap);outlet(ox+335,oy+100,ap);outlet(ox+340,oy+108,ap);
-    swsym(ox+196,oy+96,ap);swsym(ox+350,oy+30,ap);
-    smoke(ox+260,oy+18,ap);smoke(ox+412,oy+14,ap);
-    dimH(ox,ox+P2W,oy,"61'-0\"",ap);
-    dimV(ox,oy,oy+P2H,"38'-6\"",ap);
-    revCloud(ox+343,oy+5,138,100,cp);
-    revDelta(ox+448,oy+12,1,cp);
-    handNote(["RELOCATE DOOR 2'-0\" east","per owner—see RFI-014"],ox+348,oy+15,cp);
-    revCloud(ox+177,oy+5,162,182,cp);
-    revDelta(ox+258,oy+10,2,cp);
-    handNote(["CONFIRM floor-to-CLG ht","min 10'-0\" cathedral at ridge","→ check w/ structural"],ox+182,oy+13,cp);
-    redArrow(ox+88,oy+P2H+12,ox+90,oy+P2H-3,cp);
-    handNote(["2-car 16'-0\" RO"],ox+93,oy+P2H+9,cp);
+    Rf(ox+6,oy+6,160,198);          // garage
+    Rf(ox+170,oy+6,164,198);        // great room + kitchen
+    Rf(ox+338,oy+6,142,108);        // master bed
+    Rf(ox+338,oy+118,142,86);       // master bath
+    Rf(ox+484,oy+6,120,108);        // bed 2
+    Rf(ox+484,oy+118,120,86);       // bath 2
+    colGrid(ox,oy,P2H,[0,170,338,484,610],['A','B','C','D','E']);
+    sectionLine(ox-12,oy+105,ox+P2W+12,oy+105,'2',p);
+
+    // kitchen area walls
+    L(ox+172,oy+162,ox+332,oy+162,1.8,INK);
+    L(ox+330,oy+118,ox+330,oy+204,1.8,INK);
+
+    // garage door
+    Rf(ox+22,oy,120,6,BG);
+    L(ox+22,oy,ox+22,oy-6,.75,INK);L(ox+142,oy,ox+142,oy-6,.75,INK);
+    Tx("20'-0\" O.H. DOOR",ox+82,oy-13,6.5,DIM);
+
+    // covered front porch dashed
+    g.save();g.setLineDash([6,4]);Rs(ox+170,oy-38,340,36,.6,DIM);
+    Tx('COVERED PORCH',ox+340,oy-20,6.5,DIM);g.restore();
+    Rf(ox+170,oy,172,6,BG);
+    g.save();g.setLineDash([5,4]);L(ox+170,oy,ox+342,oy,.8,INK);g.restore();
+
+    // fixtures
+    stove(ox+256,oy+166,38,18,p);
+    fridge(ox+296,oy+148,24,30,p);
+    lav(ox+180,oy+168,38,14,p);
+    Rs(ox+208,oy+100,110,38,1.5); Tx("ISLAND",ox+263,oy+119,7,DIM);
+    tub(ox+340,oy+120,62,44,p);
+    showerStall(ox+404,oy+122,50,30,p);
+    toilet(ox+420,oy+168,0,p);
+    lav(ox+342,oy+166,30,18,p);
+    lav(ox+486,oy+120,26,18,p);
+    toilet(ox+540,oy+120,Math.PI/2,p);
+    closetRod(ox+342,oy+118,92,p);
+    fireplace(ox+327,oy+54,18,28,p);
+    bed(ox+344,oy+14,118,80,p);
+    bed(ox+490,oy+14,106,76,p);
+    sofa(ox+178,oy+16,138,44,p);
+    diningSet(ox+178,oy+100,112,50,p);
+
+    // windows
+    winH(ox+196,oy+6,80); winH(ox+354,oy+6,70); winH(ox+496,oy+6,66);
+    winV(ox+6,oy+24,62); winV(ox+P2W-6,oy+22,60);
+    winH(ox+196,oy+P2H-6,78); winH(ox+354,oy+P2H-6,60); winH(ox+494,oy+P2H-6,54);
+
+    // doors
+    doorH(ox+228,oy+P2H,36,true,true);
+    doorV(ox+170,oy+160,28,false,false);
+    doorV(ox+338,oy+40,32,true,true);
+    doorV(ox+484,oy+38,28,true,true);
+    doorH(ox+342,oy+118,28,false,true);
+    doorH(ox+486,oy+118,26,false,true);
+
+    // labels
+    rlabel(['GARAGE'],ox+86,oy+102,p);
+    rlabel(['GREAT ROOM'],ox+252,oy+60,p);
+    rlabel(['KITCHEN'],ox+252,oy+178,p);
+    rlabel(['MASTER','BEDROOM'],ox+408,oy+58,p);
+    rlabel(['MASTER','BATH'],ox+408,oy+164,p);
+    rlabel(['BED 2'],ox+544,oy+58,p);
+    rlabel(['BATH 2'],ox+544,oy+164,p);
+
+    light(ox+86,oy+102,p); light(ox+252,oy+60,p); light(ox+408,oy+58,p);
+    light(ox+544,oy+58,p); light(ox+408,oy+164,p); light(ox+544,oy+164,p);
+    outlet(ox+180,oy+100,p); outlet(ox+332,oy+100,p); outlet(ox+336,oy+118,p);
+    swsym(ox+192,oy+96,p); swsym(ox+348,oy+28,p);
+    smoke(ox+252,oy+18,p); smoke(ox+408,oy+14,p);
+
+    dimH(ox,ox+P2W,oy,"61'-0\"",p);
+    dimV(ox,oy,oy+P2H,"42'-0\"",p);
+    dimSub(ox+6,ox+170,oy-18,"22'-8\"",p);
+    dimSub(ox+170,ox+338,oy-18,"22'-8\"",p);
+    dimSub(ox+338,ox+610,oy-18,"22'-8\"×2",p);
+
+    // dynamic red
+    const r1=getRedProg(ox+338);
+    revCloudDyn(ox+338,oy+6,142,108,r1,'△1');
+    revDeltaDyn(ox+408,oy+14,1,r1);
+    handNoteDyn(["RELOCATE DOOR 2'-0\" east","per owner — see RFI-014","verify swing clearance"],ox+342,oy+16,r1);
+
+    const r2=getRedProg(ox+170);
+    revCloudDyn(ox+170,oy+6,164,210,r2,'△2');
+    revDeltaDyn(ox+252,oy+12,2,r2);
+    handNoteDyn(["CONFIRM flr-to-CLG ht","min 10'-0\" cathedral ridge","→ check w/ structural"],ox+174,oy+15,r2);
+
+    const r3=getRedProg(ox+82);
+    redArrDyn(ox+86,oy+P2H+14,ox+86,oy+P2H-4,r3);
+    handNoteDyn(["20'-0\" O.H. — upgrade to","insulated door — owner req."],ox+94,oy+P2H+9,r3);
   }
 
   // ═════════════════════════════════════════════════════════════
-  // PLAN 3 — Modern Open Concept  460 × 278
+  // PLAN 3 — Modern Open Concept  470 × 290
   // ═════════════════════════════════════════════════════════════
-  const P3W=460,P3H=278;
+  const P3W=470,P3H=290;
   function plan3(ox,oy,p){
-    const ap=CONFIG.showAnnotations?p:0,cp=CONFIG.showClouds?p:0;
     Rf(ox,oy,P3W,P3H,INK);
-    Rf(ox+5,oy+5,310,178);
-    Rf(ox+319,oy+5,136,178);
-    Rf(ox+5,oy+187,170,86);
-    Rf(ox+179,oy+187,132,86);
-    Rf(ox+315,oy+187,140,86);
-    colGrid(ox,oy,P3H,[0,319,460],['A','B','C']);
-    g.save();g.setLineDash([5,4]);Rs(ox+5,oy-42,310,40,.75,DIM);g.restore();
-    g.save();g.globalAlpha=.55;Tx('DECK / PATIO',ox+160,oy-22,8,DIM);g.restore();
-    Rf(ox+5,oy,226,5);
-    g.save();g.setLineDash([6,4]);L(ox+5,oy,ox+231,oy,.85,INK);g.restore();
-    L(ox+7,oy+165,ox+310,oy+165,1.8,INK);
-    L(ox+260,oy+7,ox+260,oy+165,1.8,INK);
-    stove(ox+218,oy+162,42,18,ap);
-    fridge(ox+262,oy+130,24,34,ap);
-    lav(ox+80,oy+162,40,16,ap);
-    g.save();g.globalAlpha=Math.min(1,ap*2);Rs(ox+122,oy+162,32,16,.75);Tx('DW',ox+138,oy+170,6,DIM);g.restore();
-    Rs(ox+80,oy+95,160,46,1.6);
-    Tx("KITCHEN ISLAND",ox+160,oy+118,7,DIM);
-    tub(ox+8,oy+195,80,52,ap);
-    toilet(ox+100,oy+245,0,ap);
-    lav(ox+112,oy+190,46,22,ap);
-    lav(ox+160,oy+190,46,22,ap);
-    g.save();g.globalAlpha=Math.min(1,ap*1.5);
-    L(ox+185,oy+198,ox+300,oy+198,.75,DIM);L(ox+185,oy+205,ox+300,oy+205,.75,DIM);
-    L(ox+185,oy+240,ox+300,oy+240,.75,DIM);L(ox+185,oy+247,ox+300,oy+247,.75,DIM);
-    g.restore();
-    bed(ox+320,oy+196,130,70,ap);
-    bed(ox+326,oy+18,120,90,ap);
-    sofa(ox+14,oy+25,120,44,ap);
-    doorH(ox+38,oy+187,32,false,true);
-    doorH(ox+194,oy+187,30,false,true);
-    doorV(ox+315,oy+195,28,false,true);
-    doorV(ox+319,oy+40,32,true,true);
-    winV(ox+P3W-5,oy+20,55);winV(ox+P3W-5,oy+100,60);
-    winH(ox+38,oy+P3H-5,60);winH(ox+160,oy+P3H-5,55);winH(ox+328,oy+P3H-5,60);
-    winV(ox+5,oy+20,55);winV(ox+5,oy+100,60);
-    winH(ox+238,oy+5,55);
-    rlabel(['GREAT ROOM','+ OPEN KITCHEN'],ox+155,oy+68,ap);
-    rlabel(['MASTER','BEDROOM'],ox+387,oy+90,ap);
-    rlabel(['MASTER BATH'],ox+90,oy+230,ap);
-    rlabel(['WALK-IN','CLOSET'],ox+245,oy+230,ap);
-    rlabel(['BED 2 /','GUEST'],ox+385,oy+230,ap);
-    [ox+80,ox+155,ox+230].forEach(lx=>light(lx,oy+25,ap));
-    light(ox+387,oy+90,ap);light(ox+90,oy+230,ap);light(ox+385,oy+230,ap);
-    outlet(ox+12,oy+180,ap);outlet(ox+172,oy+180,ap);outlet(ox+310,oy+180,ap);
-    swsym(ox+30,oy+182,ap);swsym(ox+310,oy+30,ap);
-    smoke(ox+155,oy+14,ap);smoke(ox+387,oy+14,ap);
-    dimH(ox,ox+P3W,oy,"46'-0\"",ap);
-    dimV(ox,oy,oy+P3H,"55'-6\"",ap);
-    revCloud(ox+5,oy+5,226,30,cp);
-    revDelta(ox+118,oy+10,1,cp);
-    handNote(["SLIDE/FOLD DOOR SYSTEM","→ verify structural header ht","confirm RO w/ mfr before framing"],ox+9,oy+14,cp);
-    revCloud(ox+319,oy+5,136,178,cp);
-    revDelta(ox+387,oy+12,2,cp);
-    handNote(["owner req. larger master","→ push wall 4'-0\" west","needs struct. review first"],ox+322,oy+16,cp);
-    redArrow(ox+162,oy+P3H+12,ox+240,oy+P3H-3,cp);
-    handNote(["wet room tile—owner to approve","see interior finish schedule"],ox+110,oy+P3H+8,cp);
+    Rf(ox+6,oy+6,316,180);          // great room + kitchen open
+    Rf(ox+326,oy+6,138,180);        // master bed
+    Rf(ox+6,oy+190,172,94);         // master bath
+    Rf(ox+182,oy+190,136,94);       // walk-in closet
+    Rf(ox+322,oy+190,142,94);       // bed 2 / guest
+
+    colGrid(ox,oy,P3H,[0,182,322,470],['A','B','C','D']);
+
+    // deck/patio above
+    g.save();g.setLineDash([5,4]);Rs(ox+6,oy-44,310,42,.65,DIM);g.restore();
+    g.save();g.globalAlpha=.5;Tx('DECK / PATIO',ox+161,oy-23,7.5,DIM);g.restore();
+    Rf(ox+6,oy,230,6,BG);
+    g.save();g.setLineDash([6,4]);L(ox+6,oy,ox+236,oy,.85,INK);g.restore();
+
+    // kitchen/LR dividers
+    L(ox+8,oy+168,ox+318,oy+168,1.8,INK);
+    L(ox+264,oy+8,ox+264,oy+168,1.8,INK);
+
+    // island
+    Rs(ox+84,oy+96,162,48,1.6);Tx("KITCHEN ISLAND",ox+165,oy+120,7,DIM);
+
+    // kitchen fixtures
+    stove(ox+220,oy+164,44,18,p);
+    fridge(ox+266,oy+130,26,36,p);
+    lav(ox+80,oy+164,42,16,p);
+    g.save();g.globalAlpha=Math.min(1,p*2);Rs(ox+126,oy+164,36,16,.75);Tx('DW',ox+144,oy+172,6,DIM);g.restore();
+
+    // master bath
+    tub(ox+8,oy+196,84,52,p);
+    showerStall(ox+96,oy+196,60,36,p);
+    toilet(ox+104,oy+250,0,p);
+    lav(ox+116,oy+192,48,22,p);
+
+    // walk-in closet
+    closetRod(ox+186,oy+196,80,p);
+    closetRod(ox+186,oy+214,80,p);
+    closetRod(ox+186,oy+232,80,p);
+
+    // bed 2
+    bed(ox+326,oy+196,134,76,p);
+
+    // master bed
+    bed(ox+330,oy+16,124,100,p);
+
+    // living furniture
+    sofa(ox+14,oy+24,122,46,p);
+    fireplace(ox+6,oy+100,18,34,p);
+    diningSet(ox+20,oy+112,108,50,p);
+
+    // doors
+    doorH(ox+40,oy+190,32,false,true);
+    doorV(ox+182,oy+220,30,true,true);
+    doorH(ox+196,oy+190,30,false,true);
+    doorV(ox+322,oy+200,28,false,true);
+    doorV(ox+326,oy+40,34,true,true);
+    doorH(ox+144,oy+6,34,false,false);  // patio door (dashed)
+
+    // windows
+    winV(ox+P3W-6,oy+18,58); winV(ox+P3W-6,oy+104,58);
+    winH(ox+40,oy+P3H-6,64); winH(ox+164,oy+P3H-6,58); winH(ox+332,oy+P3H-6,64);
+    winV(ox+6,oy+18,58); winV(ox+6,oy+100,62);
+    winH(ox+248,oy+6,56);
+
+    // labels
+    rlabel(['GREAT ROOM'],ox+130,oy+60,p);
+    rlabel(['KITCHEN'],ox+130,oy+148,p);
+    rlabel(['MASTER','BEDROOM'],ox+394,oy+96,p);
+    rlabel(['MASTER BATH'],ox+90,oy+240,p);
+    rlabel(['WALK-IN','CLOSET'],ox+250,oy+240,p);
+    rlabel(['BED 2 /','GUEST'],ox+392,oy+240,p);
+
+    [ox+82,ox+160,ox+238].forEach(lx=>light(lx,oy+24,p));
+    light(ox+394,oy+96,p); light(ox+90,oy+240,p); light(ox+392,oy+240,p);
+    outlet(ox+14,oy+184,p); outlet(ox+174,oy+184,p); outlet(ox+314,oy+184,p);
+    swsym(ox+30,oy+186,p); swsym(ox+314,oy+30,p);
+    smoke(ox+160,oy+14,p); smoke(ox+394,oy+14,p);
+
+    dimH(ox,ox+P3W,oy,"47'-0\"",p);
+    dimV(ox,oy,oy+P3H,"58'-0\"",p);
+    dimSub(ox+6,ox+322,oy-18,"31'-8\"",p);
+    dimSub(ox+322,ox+470,oy-18,"14'-8\"",p);
+
+    // dynamic red
+    const r1=getRedProg(ox+6);
+    revCloudDyn(ox+6,oy+6,230,30,r1,'△1');
+    revDeltaDyn(ox+118,oy+12,1,r1);
+    handNoteDyn(["SLIDE/FOLD DOOR SYSTEM","→ verify struct. header ht","confirm RO w/ mfr before framing"],ox+10,oy+14,r1);
+
+    const r2=getRedProg(ox+326);
+    revCloudDyn(ox+326,oy+6,138,180,r2,'△2');
+    revDeltaDyn(ox+394,oy+14,2,r2);
+    handNoteDyn(["owner req. larger master","→ push wall 4'-0\" west","needs struct. review"],ox+330,oy+18,r2);
+
+    const r3=getRedProg(ox+164);
+    redArrDyn(ox+165,oy+P3H+14,ox+244,oy+P3H-4,r3);
+    handNoteDyn(["wet room tile — owner to approve","see interior finish schedule"],ox+112,oy+P3H+8,r3);
   }
 
   // ── Filler elements ───────────────────────────────────────────
@@ -372,7 +578,7 @@
   }
   function elecLegend(x,y,p){
     if(p<=0)return;g.save();g.globalAlpha=Math.min(1,p*2);Tx('ELECTRICAL LEGEND',x+68,y,7.5,INK);
-    [['light','CEILING FIXTURE'],['outlet','DUPLEX OUTLET'],['smoke','SMOKE DETECTOR'],['switch','SINGLE-POLE SW']].forEach(([t,lbl],i)=>{
+    [['light','CEILING FIXTURE'],['outlet','DUPLEX OUTLET'],['smoke','SMOKE DETECTOR'],['sw','SINGLE-POLE SW']].forEach(([t,lbl],i)=>{
       const ix=x+10,iy=y+18+i*22;g.strokeStyle=INK;g.lineWidth=.75;
       if(t==='light'){g.beginPath();g.arc(ix,iy,6,0,Math.PI*2);g.stroke();g.beginPath();g.moveTo(ix-6,iy);g.lineTo(ix+6,iy);g.moveTo(ix,iy-6);g.lineTo(ix,iy+6);g.stroke();}
       else if(t==='outlet'){g.beginPath();g.arc(ix,iy,4.5,0,Math.PI*2);g.stroke();g.beginPath();g.moveTo(ix-1.5,iy-3);g.lineTo(ix-1.5,iy-.5);g.moveTo(ix+1.5,iy-3);g.lineTo(ix+1.5,iy-.5);g.stroke();}
@@ -406,7 +612,6 @@
   function drawFrame(ts){
     if(lt!==null) sx+=(ts-lt)/1000*CONFIG.speed;
     lt=ts;
-    [INK,GRAY,DIM]=CONFIG.palette;
 
     g.save();g.scale(DPR,DPR);
     Rf(0,0,W,H);
@@ -420,19 +625,19 @@
       const oy2=Math.round((H-P2H)/2);
       const oy3=Math.round((H-P3H)/2);
 
-      const p1x=tox+80;
+      const p1x=tox+60;
       if(p1x+P1W>-200&&p1x<W+200) plan1(p1x,oy1,getProg(p1x));
 
-      const fa=getProg(tox+710);
-      northArrow(tox+720,H/2,fa);
-      scaleBar(tox+748,H/2+14,fa);
+      const fa=getProg(tox+700);
+      northArrow(tox+710,H/2,fa);
+      scaleBar(tox+738,H/2+14,fa);
 
-      const p2x=tox+890;
+      const p2x=tox+870;
       if(p2x+P2W>-200&&p2x<W+200) plan2(p2x,oy2,getProg(p2x));
 
-      elecLegend(tox+1568,H/2-46,getProg(tox+1548));
+      elecLegend(tox+1558,H/2-46,getProg(tox+1538));
 
-      const p3x=tox+1730;
+      const p3x=tox+1720;
       if(p3x+P3W>-200&&p3x<W+200) plan3(p3x,oy3,getProg(p3x));
 
       wallSection(tox+2268,H/2,getProg(tox+2248));

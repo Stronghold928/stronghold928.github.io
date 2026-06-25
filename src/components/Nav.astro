@@ -15,7 +15,7 @@ const isServicesActive = currentPath.startsWith('/services');
 <header class="nav-header">
   <nav class="nav-inner">
     <a href="/" class="nav-logo" aria-label="Stronghold Home">
-      <span class="logo-mark">SH</span>
+      <img src="/logo-white.png" alt="" class="logo-mark" aria-hidden="true" />
       <span class="logo-text">STRONGHOLD</span>
     </a>
 
@@ -165,25 +165,24 @@ const isServicesActive = currentPath.startsWith('/services');
 
   .nav-logo {
     display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.625rem;
     text-decoration: none;
     flex-shrink: 0;
   }
 
   .logo-mark {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--color-brand-red);
-    letter-spacing: -0.05em;
+    height: 38px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
   }
 
   .logo-text {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 0.75rem;
-    color: var(--color-brand-white);
+    font-size: 1rem;
+    color: var(--color-brand-red);
     letter-spacing: 0.15em;
   }
 

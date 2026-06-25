@@ -20,7 +20,7 @@ const company = [
   <div class="footer-inner">
     <div class="footer-brand">
       <a href="/" class="footer-logo" aria-label="Stronghold Home">
-        <span class="logo-mark">SH</span>
+        <img src="/logo-white.png" alt="" class="logo-mark" aria-hidden="true" />
         <span class="logo-text">STRONGHOLD</span>
       </a>
       <p class="footer-tagline">
@@ -85,24 +85,24 @@ const company = [
 
   .footer-logo {
     display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
+    align-items: center;
+    gap: 0.625rem;
     margin-bottom: 1rem;
+    text-decoration: none;
   }
 
   .logo-mark {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 2rem;
-    color: var(--color-brand-red);
-    letter-spacing: -0.05em;
+    height: 44px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
   }
 
   .logo-text {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 0.875rem;
-    color: var(--color-brand-white);
+    font-size: 1rem;
+    color: var(--color-brand-red);
     letter-spacing: 0.15em;
   }
 
