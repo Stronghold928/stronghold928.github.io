@@ -4,8 +4,8 @@ import { services } from '../data/services';
 ---
 
 <Layout
-  title="Services"
-  description="Stronghold offers remodeling, restoration, new construction, and repair services across northern Arizona. Based in Flagstaff, AZ."
+  title="Construction & Remodeling Services in Flagstaff AZ | Stronghold"
+  description="Stronghold Construction offers remodeling, historic restoration, new home builds, and repairs across northern Arizona. Based in Flagstaff, serving Williams, Sedona, Show Low, and beyond."
 >
   <section class="page-hero">
     <div class="page-hero-inner">
@@ -22,6 +22,7 @@ import { services } from '../data/services';
   </nav>
 
   {services.map((s, i) => (
+    <>
     <section id={s.slug} class={`service-section ${i % 2 === 1 ? 'service-section--alt' : ''}`}>
       <div class="service-inner">
         <div class="service-photo-col">
@@ -59,6 +60,34 @@ import { services } from '../data/services';
         </div>
       </div>
     </section>
+    {s.faqs && s.faqs.length > 0 && (
+      <section class="service-faq" id={`${s.slug}-faq`}>
+        <div class="service-faq-inner">
+          <h3 class="faq-title">{s.label} — Common Questions</h3>
+          <div class="faq-list">
+            {s.faqs.map(faq => (
+              <details class="faq-item" name={`faq-${s.slug}`}>
+                <summary class="faq-question">{faq.q}</summary>
+                <p class="faq-answer">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+          <script type="application/ld+json" set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": s.faqs.map(faq => ({
+              "@type": "Question",
+              "name": faq.q,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+              }
+            }))
+          })} />
+        </div>
+      </section>
+    )}
+    </>
   ))}
 
   <section class="service-area">
@@ -238,6 +267,64 @@ import { services } from '../data/services';
     font-size: 0.8rem;
     opacity: 0.65;
     line-height: 1.5;
+  }
+
+  /* FAQ sections */
+  .service-faq {
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .service-faq-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+  .faq-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1.5rem;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--color-border);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-brand-white);
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-question {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-question::after {
+    content: '+';
+    color: var(--color-brand-red);
+    font-size: 1.25rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  details[open] .faq-question::after { content: '−'; }
+  .faq-answer {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    opacity: 0.75;
+    padding: 0 1.5rem 1.25rem;
   }
 
   /* Service area */

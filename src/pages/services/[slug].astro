@@ -11,7 +11,7 @@ const { service: s } = Astro.props;
 
 <Layout
   title={s.label}
-  description={`Stronghold ${s.label.toLowerCase()} services across northern Arizona. ${s.tagline} Based in Flagstaff, AZ.`}
+  description={`${s.label} services in Flagstaff, AZ and northern Arizona by Stronghold Construction. ${s.tagline} Licensed general contractor serving Williams, Sedona, Show Low, and beyond.`}
 >
   <!-- Hero -->
   <section class="hero">
@@ -69,6 +69,7 @@ const { service: s } = Astro.props;
         <p class="cta-sub">We'll do a site walk, look at what's actually needed, and put together an itemized written quote. No lump sums, no surprises. We respond within one business day.</p>
       </div>
       <div class="cta-actions">
+        <!-- TODO: Replace (928) 555-0100 with real business phone number -->
         <a href="tel:+19285550100" class="btn-phone">
           <span class="btn-phone-label">Call us directly</span>
           <span class="btn-phone-number">(928) 555-0100</span>
@@ -78,6 +79,33 @@ const { service: s } = Astro.props;
       </div>
     </div>
   </section>
+
+  <!-- FAQ -->
+  {s.faqs && s.faqs.length > 0 && (
+    <section class="service-faq">
+      <div class="service-faq-inner">
+        <p class="eyebrow">Common Questions</p>
+        <h2>Questions about {s.label.toLowerCase()} in northern Arizona.</h2>
+        <div class="faq-list">
+          {s.faqs.map(faq => (
+            <details class="faq-item">
+              <summary class="faq-question">{faq.q}</summary>
+              <p class="faq-answer">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": s.faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.q,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+      }))
+    })} />
+  )}
 
   <!-- Related services -->
   <section class="related-section">
@@ -94,6 +122,18 @@ const { service: s } = Astro.props;
       </div>
     </div>
   </section>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `How a ${s.label} project works with Stronghold Construction`,
+    "description": s.description,
+    "step": s.steps.map(step => ({
+      "@type": "HowToStep",
+      "position": parseInt(step.n),
+      "name": step.title,
+      "text": step.body
+    }))
+  })} />
 </Layout>
 
 <style>
@@ -317,6 +357,46 @@ const { service: s } = Astro.props;
     color: rgba(255,255,255,0.55);
     line-height: 1.4;
   }
+
+  /* FAQ section */
+  .service-faq {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .service-faq-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .service-faq h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 2.5rem;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--color-border);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-question {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-question::after { content: '+'; color: var(--color-brand-red); font-size: 1.25rem; font-weight: 700; flex-shrink: 0; margin-left: 1rem; }
+  details[open] .faq-question::after { content: '−'; }
+  .faq-answer { font-size: 0.9rem; line-height: 1.7; opacity: 0.75; padding: 0 1.5rem 1.25rem; }
 
   /* Related services */
   .related-section {
