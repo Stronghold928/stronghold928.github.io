@@ -19,6 +19,7 @@ const typeLabels: Record<string, string> = {
 
 <Layout title="Home" description="Stronghold — General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and repairs across northern Arizona.">
   <section class="hero">
+    <BlueprintCanvas />
     <div class="hero-inner">
       <p class="hero-eyebrow">Northern Arizona &bull; Flagstaff, AZ</p>
       <h1 class="hero-headline">
@@ -35,8 +36,6 @@ const typeLabels: Record<string, string> = {
       </div>
     </div>
   </section>
-
-  <BlueprintCanvas />
 
   <section class="services-strip">
     <div class="services-inner">
@@ -125,19 +124,23 @@ const typeLabels: Record<string, string> = {
   /* ---- Hero ---- */
   .hero {
     position: relative;
+    overflow: hidden;
+    min-height: 82vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 6rem 1.5rem 5rem;
-    background-color: var(--color-bg);
+    padding: 5rem 2.5rem;
+    border-bottom: 2px solid var(--color-border);
   }
 
   .hero-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
     position: relative;
     z-index: 1;
+    background: #ffffff;
+    border: 2px solid var(--color-border);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.06);
+    padding: 3rem 3.5rem 3.5rem;
+    max-width: 660px;
   }
 
   .hero-eyebrow {
