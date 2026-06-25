@@ -18,7 +18,7 @@ const serviceAreas = [
     <div class="contact-hero-inner">
       <p class="eyebrow">Let's Talk</p>
       <h1>Questions welcome.<br /><span class="accent">We pick up the phone.</span></h1>
-      <p class="hero-sub">Not sure where to start? Have a quick question? Just want to know if we cover your area? Send a note — we respond within one business day. Prefer to call: <a href="tel:+19285550100" class="phone-link">(928) 555-0100</a></p>
+      <p class="hero-sub">Not sure where to start? Have a quick question? Just want to know if we cover your area? Send a note — we respond within one business day. Prefer to call: <a href="tel:+19283007345" class="phone-link">(928) 300-7345</a></p>
     </div>
   </section>
 
@@ -46,7 +46,7 @@ const serviceAreas = [
             </div>
             <div class="field-group">
               <label for="phone" class="field-label">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="(928) 555-0100" class="field-input" />
+              <input type="tel" id="phone" name="phone" placeholder="(928) 300-7345" class="field-input" />
             </div>
           </div>
 
@@ -86,14 +86,18 @@ const serviceAreas = [
       <aside class="contact-sidebar">
         <div class="sidebar-block">
           <h3 class="sidebar-title">Direct Contact</h3>
-          <a href="tel:+19285550100" class="contact-item contact-item--link">
+          <a href="tel:+19283007345" class="contact-item contact-item--link">
             <span class="contact-item-label">Phone</span>
-            <span class="contact-item-value">(928) 555-0100</span>
+            <span class="contact-item-value">(928) 300-7345</span>
           </a>
           <a href="mailto:hello@builtstronghold.com" class="contact-item contact-item--link">
             <span class="contact-item-label">Email</span>
             <span class="contact-item-value">hello@builtstronghold.com</span>
           </a>
+          <div class="contact-item">
+            <span class="contact-item-label">Address</span>
+            <span class="contact-item-value">13447 King John Road<br />Parks, AZ 86018</span>
+          </div>
           <div class="contact-item">
             <span class="contact-item-label">Hours</span>
             <span class="contact-item-value">Mon–Fri 7am–5pm<br />Sat by appointment</span>
@@ -113,7 +117,7 @@ const serviceAreas = [
         <div class="sidebar-block">
           <h3 class="sidebar-title">License</h3>
           <p class="sidebar-note">Arizona Registrar of Contractors</p>
-          <p class="license-num">ROC License: <span class="license-placeholder">[Pending]</span></p>
+          <p class="license-num">ROC License: 354006</p>
         </div>
 
         <div class="sidebar-block sidebar-block--design">
@@ -145,10 +149,10 @@ const serviceAreas = [
         form.style.display = 'none';
         if (success) success.style.display = 'block';
       } else {
-        alert('Something went wrong. Please try calling us directly at (928) 555-0100.');
+        alert('Something went wrong. Please try calling us directly at (928) 300-7345.');
       }
     } catch {
-      alert('Unable to send. Please try calling us directly at (928) 555-0100.');
+      alert('Unable to send. Please try calling us directly at (928) 300-7345.');
     }
   });
 </script>
@@ -310,7 +314,6 @@ const serviceAreas = [
     opacity: 0.8;
   }
   .license-num { font-size: 0.85rem; opacity: 0.7; }
-  .license-placeholder { color: var(--color-brand-red); }
   .sidebar-block--design p {
     font-size: 0.875rem;
     opacity: 0.7;
