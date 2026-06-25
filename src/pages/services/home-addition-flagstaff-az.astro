@@ -1,0 +1,583 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const faqItems = [
+  {
+    question: "Do home additions require permits in Flagstaff?",
+    answer: "Yes — always. Structural additions, electrical, plumbing, and mechanical work all require permits through the City of Flagstaff or Coconino County."
+  },
+  {
+    question: "How long does a home addition take?",
+    answer: "A typical addition takes 4–8 months from permit application to completion, depending on size and complexity."
+  },
+  {
+    question: "Can you match the existing exterior materials?",
+    answer: "We do our best and usually succeed, but exact matches on older siding or roofing materials aren't always possible. We'll be straight with you about what's achievable before the project starts."
+  },
+  {
+    question: "Does adding square footage affect my property taxes?",
+    answer: "Adding permitted square footage typically increases your assessed value, which can affect property taxes. We'd encourage you to check with your assessor — it's worth knowing before you build."
+  }
+];
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Home Addition in Flagstaff, AZ",
+  "provider": {
+    "@type": "GeneralContractor",
+    "name": "Stronghold Construction",
+    "url": "https://builtstronghold.com"
+  },
+  "areaServed": "Flagstaff, AZ and Northern Arizona",
+  "description": "Room additions, garage conversions, and square-footage expansions in Flagstaff, AZ by Stronghold Construction. Licensed general contractor serving northern Arizona."
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+---
+
+<Layout
+  title="Home Addition in Flagstaff, AZ | Stronghold Construction"
+  description="Room additions, garage conversions, and square-footage expansions in Flagstaff, AZ by Stronghold Construction. Licensed general contractor serving northern Arizona."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Home Additions</p>
+      <h1>Home Addition in Flagstaff, AZ</h1>
+      <p class="hero-desc">Adding square footage is one of the most complex residential projects a homeowner can undertake — it involves foundation work, structural integration with an existing building, and mechanical/electrical coordination across old and new. We've done it enough to know where it goes wrong.</p>
+      <div class="hero-actions">
+        <a href="/contact" class="btn-primary">Get a Free Quote &rarr;</a>
+        <a href="/quote" class="btn-outline">Start Your Project &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Types of Additions -->
+  <section class="includes-section">
+    <div class="section-inner">
+      <div class="includes-content">
+        <div class="includes-text">
+          <p class="eyebrow">Types of Additions</p>
+          <h2>What we handle</h2>
+          <p class="section-desc">We take on the full scope of residential additions — from straightforward room additions to more complex ADUs and structural expansions.</p>
+        </div>
+        <div class="two-col-lists">
+          <div>
+            <p class="list-label">Addition types</p>
+            <ul class="includes-list">
+              <li>Room additions (bedroom, living space, office)</li>
+              <li>Garage conversions to living space</li>
+              <li>Attached ADUs (accessory dwelling units)</li>
+              <li>Master suite expansions</li>
+              <li>Sunroom and four-season additions</li>
+            </ul>
+          </div>
+          <div>
+            <p class="list-label">Key considerations</p>
+            <ul class="includes-list">
+              <li>Integration with existing structure</li>
+              <li>Foundation matching and tie-in</li>
+              <li>Roof tie-in and weatherproofing</li>
+              <li>Matching exterior materials</li>
+              <li>HVAC extension or new zone</li>
+              <li>Permit and setback compliance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process-section">
+    <div class="section-inner">
+      <p class="eyebrow">Our Process</p>
+      <h2>How it works with Stronghold</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <h3 class="step-title">Discovery & Design</h3>
+            <p class="step-desc">We walk the space, talk budget, and figure out what you actually want.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <h3 class="step-title">Detailed Quote</h3>
+            <p class="step-desc">Line-itemized, written before any work starts.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <h3 class="step-title">Permitted Build</h3>
+            <p class="step-desc">Permits pulled, inspections scheduled. Crew shows up on time.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <div class="step-body">
+            <h3 class="step-title">Walkthrough & Punch</h3>
+            <p class="step-desc">We go through every item together before we call it done.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cost Guidance -->
+  <section class="cost-section">
+    <div class="section-inner">
+      <div class="cost-inner">
+        <div class="cost-text">
+          <p class="eyebrow">Cost Guidance</p>
+          <h2>What does a home addition cost in Flagstaff?</h2>
+          <p>Home additions in Flagstaff typically run $150–$250 per square foot depending on complexity. A simple 400 sq ft room addition might run $65,000–$100,000. A fully finished suite addition with bathroom adds to that.</p>
+          <p>The structural complexity of integrating with an existing home is where most of the cost variation lives.</p>
+        </div>
+        <div class="cost-note">
+          <p class="note-label">These are ranges, not quotes.</p>
+          <p>Every addition is different. The only way to get a real number is a site walk and a look at your existing structure. We don't charge for that.</p>
+          <a href="/contact" class="btn-primary">Schedule a Site Walk &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-inner">
+      <p class="eyebrow">Common Questions</p>
+      <h2>Home addition FAQ</h2>
+      <div class="faq-list">
+        {faqItems.map(item => (
+          <div class="faq-item">
+            <h3 class="faq-q">{item.question}</h3>
+            <p class="faq-a">{item.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-inner cta-inner">
+      <div class="cta-text">
+        <p class="eyebrow eyebrow--light">Get Started</p>
+        <h2>Ready for an honest quote on your addition?</h2>
+        <p class="cta-sub">We'll do a site walk, look at what's actually needed, and put together an itemized written quote. No lump sums, no surprises. We respond within one business day.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="tel:+19285550100" class="btn-phone">
+          <span class="btn-phone-label">Call us directly</span>
+          <span class="btn-phone-number">(928) 555-0100</span>
+        </a>
+        <a href="/contact" class="btn-quote">Request a Written Quote &rarr;</a>
+        <p class="cta-note">No obligation. Mon–Fri 7am–5pm, Sat by appointment.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+  }
+  .hero-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+  }
+  .hero h1 {
+    font-size: var(--font-size-h1);
+    line-height: 1.1;
+    margin: 0.75rem 0 1.25rem;
+    color: var(--color-brand-white);
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    opacity: 0.75;
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Shared */
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .eyebrow--light {
+    color: rgba(255,255,255,0.6);
+  }
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+
+  /* Includes */
+  .includes-section {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .includes-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .includes-text h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1rem;
+  }
+  .section-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.7;
+  }
+  .two-col-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .list-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+  }
+  .includes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 2px solid var(--color-border);
+  }
+  .includes-list li {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.95rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+  .includes-list li:last-child {
+    border-bottom: none;
+  }
+  .includes-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0.75rem;
+    color: var(--color-brand-red);
+    font-weight: 700;
+  }
+
+  /* Process */
+  .process-section {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .process-section h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 3rem;
+  }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+  }
+  .step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-brand-red);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .step-desc {
+    font-size: 0.85rem;
+    opacity: 0.65;
+    line-height: 1.55;
+  }
+
+  /* Cost */
+  .cost-section {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .cost-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: start;
+  }
+  .cost-text h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1.25rem;
+  }
+  .cost-text p {
+    font-size: 0.975rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+  .cost-note {
+    background-color: var(--color-brand-white);
+    border: 2px solid var(--color-border);
+    padding: 2rem;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .note-label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .cost-note p:not(.note-label) {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    opacity: 0.7;
+  }
+
+  /* FAQ */
+  .faq-section {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .faq-section h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 2.5rem;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 2px solid var(--color-border);
+  }
+  .faq-item {
+    padding: 1.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+  .faq-q {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .faq-a {
+    font-size: 0.925rem;
+    line-height: 1.7;
+    opacity: 0.72;
+  }
+
+  /* CTA */
+  .cta-section {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+    border-bottom: 3px solid var(--color-brand-black);
+  }
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .cta-text h2 {
+    font-size: var(--font-size-h2);
+    color: var(--color-brand-white);
+    margin: 0.75rem 0 1rem;
+  }
+  .cta-sub {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 540px;
+  }
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    min-width: 260px;
+  }
+  .btn-phone {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-black);
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--color-brand-white);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+    transition: box-shadow 0.1s, transform 0.1s;
+    width: 100%;
+  }
+  .btn-phone:hover {
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+    transform: translate(2px, 2px);
+  }
+  .btn-phone-label {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .btn-phone-number {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .btn-quote {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-white);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    transition: background-color 0.15s, color 0.15s, box-shadow 0.1s, transform 0.1s;
+    width: 100%;
+    text-align: center;
+  }
+  .btn-quote:hover {
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-red);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    transform: translate(2px, 2px);
+  }
+  .cta-note {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.4;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-dark);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-dark);
+    transform: translate(2px, 2px);
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-brand-white);
+    background-color: rgba(255,255,255,0.1);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .two-col-lists {
+      grid-template-columns: 1fr;
+    }
+    .cost-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .cost-note {
+      min-width: auto;
+      width: 100%;
+    }
+    .cta-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .cta-actions {
+      min-width: auto;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-actions {
+      flex-direction: column;
+    }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-outline {
+      width: 100%;
+      text-align: center;
+    }
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

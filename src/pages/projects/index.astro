@@ -16,8 +16,8 @@ const typeLabels: Record<string, string> = {
 ---
 
 <Layout
-  title="Projects"
-  description="A portfolio of Stronghold's remodeling, restoration, new construction, and repair projects across northern Arizona."
+  title="Construction & Remodeling Projects | Stronghold Construction Flagstaff AZ"
+  description="Browse Stronghold Construction's portfolio of remodeling, restoration, new builds, and repair projects across northern Arizona. Real before-and-after results."
 >
   <section class="page-hero">
     <div class="page-hero-inner">
@@ -50,6 +50,8 @@ const typeLabels: Record<string, string> = {
               src={project.data.afterImage}
               alt={project.data.title}
               loading="lazy"
+              width="800"
+              height="500"
             />
             <span class="project-type-badge">{typeLabels[project.data.type]}</span>
           </div>

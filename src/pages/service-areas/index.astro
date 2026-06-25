@@ -1,0 +1,124 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { serviceAreas } from '../../data/service-areas';
+---
+
+<Layout
+  title="Service Areas | Stronghold Construction — Northern Arizona"
+  description="Stronghold Construction serves Flagstaff and all of northern Arizona — Williams, Sedona, Camp Verde, Winslow, Show Low, Payson, and Prescott Valley. Licensed general contractor."
+>
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">Where We Work</p>
+      <h1>Northern Arizona<br /><span class="accent">is our territory.</span></h1>
+      <p class="hero-sub">Flagstaff is home base. We work throughout northern Arizona — from the Verde Valley to the White Mountains. Here's everywhere we go.</p>
+    </div>
+  </section>
+
+  <section class="areas-grid-section">
+    <div class="areas-inner">
+      {serviceAreas.map(area => (
+        <a href={`/service-areas/${area.slug}`} class="area-card">
+          <div class="area-card-header">
+            <h2 class="area-name">{area.cityName}, {area.stateAbbr}</h2>
+            <p class="area-county">{area.county} County</p>
+          </div>
+          <p class="area-distance">{area.distanceFromFlagstaff}</p>
+          <p class="area-desc">{area.description.slice(0, 120)}...</p>
+          <span class="area-arrow">&rarr;</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="areas-cta">
+    <div class="areas-cta-inner">
+      <h2>Not sure if we cover your area?</h2>
+      <p>Ask us. If you're in northern Arizona and we haven't listed your town, there's a good chance we still travel to you — especially for larger projects.</p>
+      <a href="/contact" class="btn-primary">Get in Touch &rarr;</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 6rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .page-hero h1 { font-size: var(--font-size-h1); margin-bottom: 1.25rem; }
+  .accent { color: var(--color-brand-red); }
+  .hero-sub { font-size: 1.1rem; opacity: 0.7; max-width: 500px; line-height: 1.6; }
+
+  .areas-grid-section { padding: 5rem 1.5rem; }
+  .areas-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    border: 2px solid var(--color-border);
+  }
+  .area-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 2rem;
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    transition: border-color 0.15s, background-color 0.15s;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .area-card:hover {
+    border-color: var(--color-brand-red);
+    background-color: var(--color-brand-white, #fff);
+  }
+  .area-card:hover .area-arrow { color: var(--color-brand-red); transform: translateX(4px); }
+  .area-name {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    border-bottom: 2px solid var(--color-brand-red);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+  .area-county { font-size: 0.75rem; opacity: 0.5; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.1em; }
+  .area-distance { font-size: 0.8rem; opacity: 0.5; }
+  .area-desc { font-size: 0.875rem; opacity: 0.65; line-height: 1.55; flex: 1; }
+  .area-arrow { font-size: 1.25rem; opacity: 0.4; transition: color 0.15s, transform 0.15s, opacity 0.15s; align-self: flex-start; }
+  .area-card:hover .area-arrow { opacity: 1; }
+
+  .areas-cta {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+  }
+  .areas-cta-inner { max-width: 1200px; margin: 0 auto; padding: 5rem 1.5rem; }
+  .areas-cta h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; color: #fff; }
+  .areas-cta p { color: rgba(255,255,255,0.85); max-width: 480px; line-height: 1.7; margin-bottom: 2rem; }
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-black);
+    color: #fff;
+    border: 2px solid var(--color-brand-black);
+    box-shadow: 4px 4px 0 rgba(255,255,255,0.4);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover { box-shadow: 2px 2px 0 rgba(255,255,255,0.4); transform: translate(2px,2px); }
+</style>

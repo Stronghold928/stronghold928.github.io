@@ -1,0 +1,335 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqs = [
+  // GENERAL
+  {
+    category: 'About Stronghold',
+    items: [
+      {
+        q: "What areas of northern Arizona do you serve?",
+        a: "We're based in Flagstaff and regularly work throughout northern Arizona — Williams, Sedona, Camp Verde, Winslow, Show Low, Payson, and Prescott Valley. If you're in the region and not sure whether we travel to you, just ask."
+      },
+      {
+        q: "Are you licensed in Arizona?",
+        a: "Yes. Stronghold Construction holds an Arizona Registrar of Contractors (ROC) license for residential and light commercial work. We can provide our license number on request — and you can verify any Arizona contractor at the ROC's public lookup at roc.az.gov."
+      },
+      {
+        q: "Are you insured?",
+        a: "Yes. We carry general liability insurance and workers' compensation coverage. We're happy to provide certificates of insurance before any work begins."
+      },
+      {
+        q: "How long have you been in business?",
+        a: "Stronghold was founded in 2015 by a third-generation builder who grew up in Flagstaff. We're owner-operated, which means the person you shake hands with at the start is still responsible when the job is done."
+      },
+      {
+        q: "Do you do commercial work?",
+        a: "Our primary focus is residential — single-family homes, multi-family properties up to 4 units, and historic residential structures. For projects that fall outside that scope, we'll tell you honestly rather than overextend."
+      }
+    ]
+  },
+  // PROCESS
+  {
+    category: 'Process & Quotes',
+    items: [
+      {
+        q: "How do I get a quote?",
+        a: "Fill out our quote request form or call us directly. We'll have a quick conversation about your project, schedule a site walk, and put together a written itemized quote — no lump sums, no verbal estimates we can change later."
+      },
+      {
+        q: "How long does it take to get a quote?",
+        a: "We typically respond to all inquiries within one business day. After a site walk, written quotes are usually ready within 3–5 business days depending on project complexity."
+      },
+      {
+        q: "What does a quote from Stronghold include?",
+        a: "Our quotes are line-itemized — labor, materials, subcontractors, permits, and any allowances are called out separately. You should know exactly what you're paying for before you sign anything."
+      },
+      {
+        q: "Do you charge for estimates?",
+        a: "Initial consultations and site walks are free. For very complex projects requiring detailed pre-construction planning work, we'll be transparent about any fees before they apply."
+      },
+      {
+        q: "What happens if the scope changes mid-project?",
+        a: "Any scope change gets communicated before it shows up on an invoice. We issue written change orders — you approve the cost and the work before it happens. We don't surprise people."
+      }
+    ]
+  },
+  // SERVICES
+  {
+    category: 'Services',
+    items: [
+      {
+        q: "Do you do kitchen and bathroom remodels?",
+        a: "Yes. Kitchen and bathroom remodeling is a significant part of our work. We handle the full scope — design coordination, demolition, plumbing and electrical rough-in, tile, cabinetry, countertops, and finish work."
+      },
+      {
+        q: "Do you build new homes?",
+        a: "Yes. We build single-family and multi-family new construction across northern Arizona. We can work from your architect's drawings or connect you with designers we trust. We get involved early to review plans for buildability and build an accurate schedule before breaking ground."
+      },
+      {
+        q: "Do you do home additions?",
+        a: "Yes. Room additions, garage conversions, ADUs, and attached structures. We handle permitting, foundation work, framing, and full finish."
+      },
+      {
+        q: "Can you help with historic home restoration?",
+        a: "Yes. We have experience with northern Arizona's older homes and understand the structural priorities — sill plates, foundations, roof systems, and windows first. We'll tell you what a structure actually needs, not what generates the most work for us."
+      },
+      {
+        q: "Do you do handyman-type repairs?",
+        a: "We focus on repairs that require a licensed contractor — structural, electrical, plumbing, and permitted work. For tasks that genuinely don't need a GC (painting a room, installing a ceiling fan), we'll tell you that rather than take the job unnecessarily."
+      }
+    ]
+  },
+  // PERMITS & LEGAL
+  {
+    category: 'Permits & Compliance',
+    items: [
+      {
+        q: "Do you handle permits?",
+        a: "Yes. We pull all required permits and manage the inspection schedule. For any structural, electrical, or plumbing work in Flagstaff and Coconino County, permits are required — we handle them as part of the project, not as an add-on."
+      },
+      {
+        q: "Why does permitted work matter?",
+        a: "Permitted work is inspected and documented. When you sell your home, unpermitted work can cause financing issues, delay closings, or require expensive remediation. We pull permits because it protects you."
+      },
+      {
+        q: "Do you work with HOAs?",
+        a: "Yes. We're familiar with HOA requirements in Flagstaff and surrounding communities. We'll review your HOA guidelines before work starts and can help prepare the documentation HOAs typically require for approval."
+      }
+    ]
+  },
+  // NORTHERN AZ SPECIFICS
+  {
+    category: 'Building in Northern Arizona',
+    items: [
+      {
+        q: "What's different about building at Flagstaff's elevation?",
+        a: "At 6,900 feet, Flagstaff has specific building requirements: roof snow load design (up to 55 lbs per square foot), freeze-thaw cycles that stress foundations and exterior materials, intense UV exposure that degrades roofing and siding faster than lower elevations, and Arizona Energy Code insulation minimums. We build to these requirements as standard practice."
+      },
+      {
+        q: "Can you build on a wooded or rural lot?",
+        a: "Yes. We have experience with rural lot builds in the Williams and northern Arizona area — including well and septic coordination, site prep on uneven terrain, and wildland-urban interface (WUI) fire code compliance."
+      },
+      {
+        q: "How do weather and seasons affect construction timelines?",
+        a: "Flagstaff's monsoon season (July–September) and winter snowfall can affect outdoor work schedules. We build realistic schedules that account for weather — not optimistic ones that assume perfect conditions."
+      }
+    ]
+  }
+];
+
+// Flatten for JSON-LD
+const allFaqs = faqs.flatMap(cat => cat.items);
+---
+
+<Layout
+  title="FAQ | Stronghold Construction — Flagstaff, AZ General Contractor"
+  description="Common questions about hiring a general contractor in northern Arizona. Stronghold Construction answers questions about licensing, permits, service areas, remodeling costs, and building in Flagstaff, AZ."
+>
+  <section class="faq-hero">
+    <div class="faq-hero-inner">
+      <p class="eyebrow">Common Questions</p>
+      <h1>Answers to the questions<br /><span class="accent">people actually ask us.</span></h1>
+      <p class="hero-sub">If you don't see your question here, call or send a message — we respond within one business day.</p>
+    </div>
+  </section>
+
+  <nav class="faq-nav" aria-label="Jump to FAQ category">
+    {faqs.map(cat => (
+      <a href={`#${cat.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/-$/, '')}`} class="faq-nav-link">{cat.category}</a>
+    ))}
+  </nav>
+
+  <section class="faq-body">
+    <div class="faq-body-inner">
+      {faqs.map(cat => (
+        <div class="faq-category" id={cat.category.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/-$/, '')}>
+          <h2 class="category-title">{cat.category}</h2>
+          <div class="faq-list">
+            {cat.items.map(faq => (
+              <details class="faq-item">
+                <summary class="faq-question">{faq.q}</summary>
+                <p class="faq-answer">{faq.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="faq-cta">
+    <div class="faq-cta-inner">
+      <h2>Still have questions?</h2>
+      <p>We're a real company run by real people in Flagstaff. Call us, send an email, or fill out the contact form — we'll give you a straight answer.</p>
+      <div class="cta-row">
+        <a href="/contact" class="btn-primary">Get in Touch &rarr;</a>
+        <a href="/quote" class="btn-outline">Request a Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": allFaqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  })} />
+
+</Layout>
+
+<style>
+  .faq-hero {
+    padding: 6rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .faq-hero-inner { max-width: 1200px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .faq-hero h1 { font-size: var(--font-size-h1); margin-bottom: 1.25rem; }
+  .accent { color: var(--color-brand-red); }
+  .hero-sub { font-size: 1.1rem; opacity: 0.7; max-width: 520px; line-height: 1.6; }
+
+  .faq-nav {
+    display: flex;
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+    overflow-x: auto;
+  }
+  .faq-nav-link {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+    color: var(--color-text);
+    opacity: 0.6;
+    white-space: nowrap;
+    border-right: 1px solid var(--color-border);
+    transition: opacity 0.15s, background-color 0.15s;
+  }
+  .faq-nav-link:hover { opacity: 1; background-color: var(--color-surface-2, #f5f5f5); }
+
+  .faq-body { padding: 5rem 1.5rem; }
+  .faq-body-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .category-title {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--color-border);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-question {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-text);
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-question::after {
+    content: '+';
+    color: var(--color-brand-red);
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  details[open] > .faq-question::after { content: '−'; }
+  .faq-answer {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    opacity: 0.75;
+    padding: 0 1.5rem 1.5rem;
+    max-width: 700px;
+  }
+
+  .faq-cta {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+  }
+  .faq-cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .faq-cta h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; color: #fff; }
+  .faq-cta p { color: rgba(255,255,255,0.85); max-width: 480px; line-height: 1.7; margin-bottom: 2rem; }
+  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-black);
+    color: #fff;
+    border: 2px solid var(--color-brand-black);
+    box-shadow: 4px 4px 0 rgba(255,255,255,0.4);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover { box-shadow: 2px 2px 0 rgba(255,255,255,0.4); transform: translate(2px,2px); }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.6);
+    transition: background-color 0.15s, border-color 0.15s;
+  }
+  .btn-outline:hover { background-color: rgba(255,255,255,0.1); border-color: #fff; }
+
+  @media (max-width: 600px) {
+    .faq-question { font-size: 0.9rem; }
+  }
+</style>

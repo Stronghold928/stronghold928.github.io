@@ -1,0 +1,260 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts.sort((a, b) =>
+  b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://builtstronghold.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Blog',
+      item: 'https://builtstronghold.com/blog',
+    },
+  ],
+};
+---
+
+<Layout
+  title="Blog | Stronghold Construction Flagstaff AZ"
+  description="Construction tips, cost guides, and hiring advice for homeowners in Flagstaff and northern Arizona. From kitchen remodels to new builds — straight answers from a local GC."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Blog</span>
+      </nav>
+      <p class="eyebrow">Resources</p>
+      <h1>Straight answers<br /><span class="accent">from a local GC.</span></h1>
+      <p class="hero-sub">Cost guides, hiring advice, and project insights for homeowners in Flagstaff and northern Arizona. No filler.</p>
+    </div>
+  </section>
+
+  <section class="posts-section">
+    <div class="posts-inner">
+      <div class="posts-grid">
+        {posts.map(post => (
+          <a href={`/blog/${post.id}`} class="post-card">
+            <div class="post-img">
+              <img
+                src={post.data.image}
+                alt={post.data.imageAlt}
+                loading="lazy"
+              />
+              <span class="post-category-badge">{post.data.category}</span>
+            </div>
+            <div class="post-body">
+              <p class="post-date">{formatDate(post.data.pubDate)}</p>
+              <h2 class="post-title">{post.data.title}</h2>
+              <p class="post-desc">{post.data.description}</p>
+              <span class="post-link">Read More &rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="blog-cta">
+    <div class="blog-cta-inner">
+      <h2>Ready to start<br />your project?</h2>
+      <p>Tell us what you're thinking. We'll give you a straight read on scope, cost, and timeline — no obligation.</p>
+      <a href="/quote" class="btn-primary">Get a Quote &rarr;</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 5rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .page-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+  .breadcrumb a { transition: opacity 0.15s; }
+  .breadcrumb a:hover { opacity: 1; }
+  .breadcrumb-sep { opacity: 0.4; }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .page-hero h1 { font-size: var(--font-size-h1); margin-bottom: 1.25rem; }
+  .accent { color: var(--color-brand-red); }
+  .hero-sub { font-size: 1.1rem; opacity: 0.7; max-width: 500px; line-height: 1.6; }
+
+  .posts-section {
+    padding: 3rem 1.5rem 5rem;
+  }
+  .posts-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2px;
+    border: 2px solid var(--color-border);
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    transition: border-color 0.2s;
+    text-decoration: none;
+    color: var(--color-text);
+  }
+  .post-card:hover {
+    border-color: var(--color-brand-red);
+    z-index: 1;
+  }
+
+  .post-img {
+    position: relative;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+  }
+  .post-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .post-card:hover .post-img img {
+    transform: scale(1.05);
+  }
+  .post-category-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    padding: 0.25rem 0.6rem;
+  }
+
+  .post-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .post-date {
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--color-brand-red);
+    opacity: 0.8;
+  }
+  .post-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 0.25rem;
+  }
+  .post-desc {
+    font-size: 0.875rem;
+    opacity: 0.65;
+    line-height: 1.55;
+    flex: 1;
+    margin-top: 0.25rem;
+  }
+  .post-link {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-top: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .post-card:hover .post-link { opacity: 1; }
+
+  .blog-cta {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+  }
+  .blog-cta-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .blog-cta h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; }
+  .blog-cta p { opacity: 0.85; max-width: 480px; line-height: 1.7; margin-bottom: 2rem; }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-dark);
+    color: #fff;
+    border: 2px solid var(--color-dark);
+    box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.4);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.4);
+    transform: translate(2px, 2px);
+  }
+
+  @media (max-width: 600px) {
+    .posts-grid { grid-template-columns: 1fr; }
+  }
+</style>
