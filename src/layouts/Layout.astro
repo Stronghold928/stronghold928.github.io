@@ -11,11 +11,71 @@ interface Props {
 
 const {
   title,
-  description = 'Stronghold — General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and repairs across northern Arizona.',
-  ogImage = '/og-default.jpg',
+  description = 'Stronghold Construction — Licensed general contractor in Flagstaff, AZ. Remodeling, restoration, new home builds, and repairs across northern Arizona.',
+  ogImage = '/og-default.svg',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// Resolve ogImage to an absolute URL so social crawlers can fetch it
+const ogImageURL = new URL(ogImage, Astro.site).toString();
+
+// LocalBusiness schema — omit placeholder fields until real values are known
+const localBusinessSchema: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "Stronghold Construction",
+  "alternateName": "Stronghold",
+  "description": "Licensed general contractor in Flagstaff, AZ specializing in remodeling, restoration, new home builds, and repairs across northern Arizona.",
+  "url": Astro.site?.toString().replace(/\/$/, '') ?? "https://builtstronghold.com",
+  "logo": new URL('/logo-black.png', Astro.site).toString(),
+  "image": new URL('/og-default.svg', Astro.site).toString(),
+  "email": "hello@builtstronghold.com",
+  // TODO: Uncomment and fill in when real values are available:
+  // "telephone": "+1-928-XXX-XXXX",
+  // "address": {
+  //   "@type": "PostalAddress",
+  //   "streetAddress": "123 Main St",
+  //   "addressLocality": "Flagstaff",
+  //   "addressRegion": "AZ",
+  //   "postalCode": "86001",
+  //   "addressCountry": "US"
+  // },
+  // "hasCredential": "AZ ROC License: XXXXXX",
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 35.1983,
+    "longitude": -111.6513
+  },
+  "areaServed": [
+    "Flagstaff, AZ",
+    "Williams, AZ",
+    "Sedona, AZ",
+    "Camp Verde, AZ",
+    "Winslow, AZ",
+    "Show Low, AZ",
+    "Payson, AZ",
+    "Prescott Valley, AZ",
+    "Northern Arizona"
+  ],
+  "openingHours": ["Mo-Fr 07:00-17:00", "Sa 09:00-13:00"],
+  "foundingDate": "2015",
+  "knowsAbout": [
+    "Residential remodeling",
+    "Kitchen remodeling",
+    "Bathroom remodeling",
+    "Home restoration",
+    "Historic home restoration",
+    "New home construction",
+    "Custom home building",
+    "Home repairs",
+    "Deck construction and repair",
+    "Home additions"
+  ],
+  "priceRange": "$$",
+  "currenciesAccepted": "USD",
+  "paymentAccepted": "Check, Bank Transfer",
+  "sameAs": []
+};
 ---
 
 <!doctype html>
@@ -32,9 +92,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={`${title} | Stronghold`} />
+    <meta property="og:title" content={`${title} | Stronghold Construction`} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageURL} />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Stronghold Construction`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="/logo-black.png" />
@@ -48,6 +114,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap"
       rel="stylesheet"
     />
+
+    <!-- TODO: Add telephone, address, and hasCredential to localBusinessSchema in frontmatter when real values are available -->
+    <!-- LocalBusiness Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
   </head>
   <body>
     <Nav />
