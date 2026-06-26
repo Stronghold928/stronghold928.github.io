@@ -6,7 +6,7 @@ const styles = [
     id: 'organic-modern',
     name: 'Organic Modern',
     tagline: 'Warm. Natural. Grounded.',
-    description: 'Your home should feel alive, not constructed. Natural materials lead every decision — light oak, quartzite, linen, clay. Clean modern lines keep it current without feeling cold. Texture does the work that color usually does. The result is a home that is warm without being heavy, refined without feeling formal.',
+    description: 'Your home should feel alive, not assembled. Natural materials lead every decision: light oak, quartzite, linen, clay. Clean modern lines keep it current without going cold. Texture does the work that color usually does. Warm without tipping into rustic. Current without going sterile.',
     palette: ['#F0EBE1', '#C4B99A', '#6B7B5A', '#888880', '#2A2A2A'],
     paletteNames: ['Alabaster', 'Warm Taupe', 'Pewter Green', 'Warm Gray', 'Charcoal'],
     dna: [
@@ -26,7 +26,7 @@ const styles = [
     id: 'european-modern',
     name: 'European Modern',
     tagline: 'Timeless. Layered. Quietly Sophisticated.',
-    description: 'Your home should feel collected — like it has always been there. Warm plaster, timeless tile, unlacquered brass, and arched details create a home with real soul. Nothing trendy. Nothing stark. Every surface carries character, every room invites you to stay.',
+    description: 'Your home should feel collected, like it has always been there. Warm plaster, classic tile, unlacquered brass, and arched details create a home with real soul. Not trendy. Not stark. Every surface carries something worth looking at. Every room invites you to stay longer than you meant to.',
     palette: ['#EEE8DE', '#B4A48C', '#6B5E4C', '#8A8880', '#2A2A2A'],
     paletteNames: ['White Dove', 'Stone Hearth', 'Warm Umber', 'Warm Gray', 'Charcoal'],
     dna: [
@@ -46,7 +46,7 @@ const styles = [
     id: 'transitional-modern',
     name: 'Transitional Modern',
     tagline: 'Classic Bones. Modern Edge. Built to Last.',
-    description: 'Your home should feel elevated and livable at the same time. Classic proportions, clean modern lines, and bold contrast moments that anchor each space. Nothing overdone, nothing cold. One or two dramatic decisions — dark cabinetry, a statement tile — surrounded by warm, grounded neutrals.',
+    description: 'Your home should feel elevated without feeling untouchable. Classic proportions, clean lines, and one or two intentional contrast moments that anchor each space. Dark cabinetry, a statement tile. Those bold calls land because everything around them stays warm and grounded.',
     palette: ['#EEE8DE', '#D0C9B4', '#3D3D3A', '#5A6673', '#4A5042'],
     paletteNames: ['White Dove', 'Pale Oak', 'Wrought Iron', 'Ocean Floor', 'Dark Olive'],
     dna: [
@@ -58,7 +58,7 @@ const styles = [
     guardrails: [
       'Does this feel elevated and timeless, or trendy and dated?',
       'Does it balance classic character with a clean modern edge?',
-      'Does it add contrast intentionally — or just visual confusion?',
+      'Does it add contrast intentionally, or just create visual confusion?',
       'Could this piece live comfortably here for twenty years?',
     ],
   },
@@ -72,17 +72,17 @@ const quizQuestions = [
     question: 'Which living room speaks to you?',
     answers: [
       {
-        label: 'Natural oak, warm textiles, earthy materials — grounded and alive',
+        label: 'Natural oak, warm textiles, earthy materials: grounded and alive',
         image: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&auto=format&fit=crop&q=80',
         weights: { 'organic-modern': 3 },
       },
       {
-        label: 'Layered, collected, warm plaster walls — timeless and full of character',
+        label: 'Layered, collected, warm plaster walls: timeless and full of character',
         image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&auto=format&fit=crop&q=80',
         weights: { 'european-modern': 3 },
       },
       {
-        label: 'High contrast, bold accent, clean lines — elevated and intentional',
+        label: 'High contrast, bold accent, clean lines: elevated and intentional',
         image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&auto=format&fit=crop&q=80',
         weights: { 'transitional-modern': 3 },
       },
@@ -115,7 +115,7 @@ const quizQuestions = [
         weights: { 'transitional-modern': 3 },
       },
       {
-        label: 'Warm two-tone — natural oak base, painted upper cabinets, clean shaker profile',
+        label: 'Warm two-tone: natural oak base, painted upper cabinets, clean shaker profile',
         image: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&auto=format&fit=crop&q=80',
         weights: { 'european-modern': 2, 'transitional-modern': 1 },
       },
@@ -128,7 +128,7 @@ const quizQuestions = [
     question: 'Which bathroom do you love?',
     answers: [
       {
-        label: 'Oak vanity, warm stone, matte black fixtures — organic and calm',
+        label: 'Oak vanity, warm stone, matte black fixtures: organic and calm',
         image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&auto=format&fit=crop&q=80',
         weights: { 'organic-modern': 3 },
       },
@@ -151,7 +151,7 @@ const quizQuestions = [
     question: 'Which bedroom resonates with you?',
     answers: [
       {
-        label: 'Linen bedding, oak tones, natural textures — warm and effortlessly calm',
+        label: 'Linen bedding, oak tones, natural textures: warm and effortlessly calm',
         image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&auto=format&fit=crop&q=80',
         weights: { 'organic-modern': 3 },
       },
@@ -174,17 +174,17 @@ const quizQuestions = [
     question: 'Which dining space catches your eye?',
     answers: [
       {
-        label: 'Raw wood table, natural chairs, earthy warmth — material-forward and grounded',
+        label: 'Raw wood table, natural chairs, earthy warmth: material-forward and grounded',
         image: 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=600&auto=format&fit=crop&q=80',
         weights: { 'organic-modern': 3 },
       },
       {
-        label: 'Warm plaster, arched details, collected objects — soul and timeless character',
+        label: 'Warm plaster, arched details, collected objects: soul and timeless character',
         image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop&q=80',
         weights: { 'european-modern': 3 },
       },
       {
-        label: 'Dramatic pendant, bold dark table, clean proportions — elevated and intentional',
+        label: 'Dramatic pendant, bold dark table, clean proportions: elevated and intentional',
         image: 'https://images.unsplash.com/photo-1556742212-5b16f0811177?w=600&auto=format&fit=crop&q=80',
         weights: { 'transitional-modern': 3 },
       },
@@ -214,12 +214,12 @@ const quizQuestions = [
             <div class="hero-value-item">
               <span class="hero-value-num">01</span>
               <h3 class="hero-value-title">Style Clarity</h3>
-              <p class="hero-value-desc">Walk away knowing exactly what style you want — not just "modern-ish" or "warm but clean." A real profile with a palette and design principles you can point to in every material conversation.</p>
+              <p class="hero-value-desc">You leave with a real answer, not just "modern-ish" or "warm but clean." A style name, a palette, and design principles you can point to in every material conversation.</p>
             </div>
             <div class="hero-value-item">
               <span class="hero-value-num">02</span>
               <h3 class="hero-value-title">Right Decision Order</h3>
-              <p class="hero-value-desc">The Design Wizard guides you through every key material decision in the same sequence professional designers use — so nothing has to be undone because something upstream changed.</p>
+              <p class="hero-value-desc">The Design Wizard walks you through the same decision sequence professional designers use, so nothing has to be undone because something upstream changed.</p>
             </div>
             <div class="hero-value-item">
               <span class="hero-value-num">03</span>
@@ -234,7 +234,7 @@ const quizQuestions = [
             <source srcset="/moodboard.webp" type="image/webp" />
             <img
               src="/moodboard.jpg"
-              alt="Interior design mood board — warm materials, organic textures, and elevated finishes"
+              alt="Interior design mood board with warm materials, organic textures, and elevated finishes"
               loading="eager"
               decoding="async"
               width="995"
@@ -252,22 +252,22 @@ const quizQuestions = [
     <div class="how-inner">
       <p class="eyebrow">How It Works</p>
       <h2>A starting point, not a contract.</h2>
-      <p>Your style profile and design selections give us a shared vocabulary — a reference point so that when we are choosing between two countertop materials or three hardware options, we are not starting from scratch. We will refine and adapt based on your specific space, budget, and what is available.</p>
+      <p>Your style profile and design selections give us a shared vocabulary: a reference point so that when we are choosing between two countertop materials or three hardware options, we are not starting from scratch. We will refine and adapt based on your specific space, budget, and what is available.</p>
       <div class="how-steps">
         <div class="how-step">
           <span class="how-num">01</span>
           <h3>Take the photo quiz</h3>
-          <p>Five photo-based questions about the spaces and styles that speak to you. No right or wrong answers — just what resonates.</p>
+          <p>Five photo-based questions about the spaces and styles that speak to you. No right or wrong answers. Just what resonates.</p>
         </div>
         <div class="how-step">
           <span class="how-num">02</span>
           <h3>See your style profile</h3>
-          <p>Get your full profile — palette, design DNA, and the guardrail questions that filter every purchase decision you will ever make.</p>
+          <p>Get your full profile: palette, design DNA, and the guardrail questions that filter every purchase decision you will ever make.</p>
         </div>
         <div class="how-step">
           <span class="how-num">03</span>
           <h3>Work through the wizard</h3>
-          <p>The Design Wizard guides you through 7 key decisions — flooring, cabinetry, countertops, tile, lighting, paint, and decor — in the order that prevents costly reversals.</p>
+          <p>The Design Wizard guides you through 7 key decisions (flooring, cabinetry, countertops, tile, lighting, paint, and decor) in the order that prevents costly reversals.</p>
         </div>
         <div class="how-step">
           <span class="how-num">04</span>
@@ -287,7 +287,7 @@ const quizQuestions = [
         <div class="quiz-section-header-inner">
           <p class="eyebrow">Style Quiz</p>
           <h2>Find your style in five photos.</h2>
-          <p>Each question shows real rooms in the three design styles Stronghold specializes in. Pick the space that feels like home — not what you think you should want.</p>
+          <p>Each question shows real rooms in the three design styles Stronghold specializes in. Pick the space that feels like home, not what you think you should want.</p>
         </div>
       </div>
 
@@ -347,7 +347,7 @@ const quizQuestions = [
         </div>
         <div class="reveal-cta-callout">
           <p class="reveal-cta-callout-text">
-            You now have a clear starting point — your style, your palette, and the design
+            You now have a clear starting point: your style, your palette, and the design
             principles that will guide every material decision. Bring this to your first
             conversation with Stronghold and we will know exactly how to build it.
           </p>
