@@ -200,29 +200,48 @@ const quizQuestions = [
   <!-- ═══════════════════════════════════════════════════════════ HERO -->
   <section class="selector-hero">
     <div class="selector-hero-inner">
-      <p class="eyebrow">Guided Design</p>
-      <h1>Know what you want<br /><span class="accent">before we break ground.</span></h1>
-      <p class="hero-sub">
-        Most people start a remodel with a vague idea and a Pinterest board. Stronghold's guided design
-        process gives you something more useful: a clear style profile, a vocabulary to use in every material
-        conversation, and decisions made in the right order before any work starts.
-      </p>
+      <div class="hero-content">
+        <div class="hero-text">
+          <p class="eyebrow">Guided Design</p>
+          <h1>Know what you want<br /><span class="accent">before we break ground.</span></h1>
+          <p class="hero-sub">
+            Most people start a remodel with a vague idea and a Pinterest board. Stronghold's guided design
+            process gives you something more useful: a clear style profile, a vocabulary to use in every material
+            conversation, and decisions made in the right order before any work starts.
+          </p>
 
-      <div class="hero-value-grid">
-        <div class="hero-value-item">
-          <span class="hero-value-num">01</span>
-          <h3 class="hero-value-title">Style Clarity</h3>
-          <p class="hero-value-desc">Walk away knowing exactly what style you want — not just "modern-ish" or "warm but clean." A real profile with a palette and design principles you can point to in every material conversation.</p>
+          <div class="hero-value-grid">
+            <div class="hero-value-item">
+              <span class="hero-value-num">01</span>
+              <h3 class="hero-value-title">Style Clarity</h3>
+              <p class="hero-value-desc">Walk away knowing exactly what style you want — not just "modern-ish" or "warm but clean." A real profile with a palette and design principles you can point to in every material conversation.</p>
+            </div>
+            <div class="hero-value-item">
+              <span class="hero-value-num">02</span>
+              <h3 class="hero-value-title">Right Decision Order</h3>
+              <p class="hero-value-desc">The Design Wizard guides you through every key material decision in the same sequence professional designers use — so nothing has to be undone because something upstream changed.</p>
+            </div>
+            <div class="hero-value-item">
+              <span class="hero-value-num">03</span>
+              <h3 class="hero-value-title">Shared Vocabulary</h3>
+              <p class="hero-value-desc">You and your contractor walk into every meeting aligned. No miscommunication, no costly surprises, no "I thought you meant something else" when the tile is already on the wall.</p>
+            </div>
+          </div>
         </div>
-        <div class="hero-value-item">
-          <span class="hero-value-num">02</span>
-          <h3 class="hero-value-title">Right Decision Order</h3>
-          <p class="hero-value-desc">The Design Wizard guides you through every key material decision in the same sequence professional designers use — so nothing has to be undone because something upstream changed.</p>
-        </div>
-        <div class="hero-value-item">
-          <span class="hero-value-num">03</span>
-          <h3 class="hero-value-title">Shared Vocabulary</h3>
-          <p class="hero-value-desc">You and your contractor walk into every meeting aligned. No miscommunication, no costly surprises, no "I thought you meant something else" when the tile is already on the wall.</p>
+
+        <div class="hero-moodboard">
+          <picture>
+            <source srcset="/moodboard.webp" type="image/webp" />
+            <img
+              src="/moodboard.jpg"
+              alt="Interior design mood board — warm materials, organic textures, and elevated finishes"
+              loading="eager"
+              decoding="async"
+              width="995"
+              height="968"
+            />
+          </picture>
+          <p class="moodboard-caption">Sample mood board</p>
         </div>
       </div>
     </div>
@@ -461,6 +480,37 @@ const quizQuestions = [
     border-bottom: 2px solid var(--color-border);
   }
   .selector-hero-inner { max-width: 1200px; margin: 0 auto; }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .hero-moodboard {
+    position: sticky;
+    top: 88px;
+  }
+  .hero-moodboard picture { display: block; }
+  .hero-moodboard img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 2px solid var(--color-border);
+    box-shadow: 8px 8px 0 var(--color-border);
+  }
+  .moodboard-caption {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.35;
+    margin-top: 0.75rem;
+    text-align: right;
+  }
+
   .eyebrow {
     font-family: var(--font-heading);
     font-size: 0.75rem;
@@ -482,15 +532,15 @@ const quizQuestions = [
 
   .hero-value-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     gap: 0;
     border: 2px solid var(--color-border);
   }
   .hero-value-item {
-    padding: 2rem;
-    border-right: 2px solid var(--color-border);
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid var(--color-border);
   }
-  .hero-value-item:last-child { border-right: none; }
+  .hero-value-item:last-child { border-bottom: none; }
   .hero-value-num {
     font-family: var(--font-heading);
     font-size: 0.75rem;
@@ -719,10 +769,14 @@ const quizQuestions = [
   .btn-outline:hover { background-color: var(--color-text); color: var(--color-bg); }
 
   /* ─── Responsive ────────────────────────────────────────────────────────── */
-  @media (max-width: 900px) {
-    .hero-value-grid { grid-template-columns: 1fr; }
-    .hero-value-item { border-right: none; border-bottom: 2px solid var(--color-border); }
-    .hero-value-item:last-child { border-bottom: none; }
+  @media (max-width: 1024px) {
+    .hero-content { grid-template-columns: 1fr 340px; gap: 2.5rem; }
+  }
+  @media (max-width: 800px) {
+    .hero-content { grid-template-columns: 1fr; }
+    .hero-moodboard { position: static; order: -1; }
+    .hero-moodboard img { max-height: 420px; object-fit: cover; object-position: top; }
+    .moodboard-caption { text-align: left; }
   }
   @media (max-width: 800px) {
     .answers-grid--text,
