@@ -19,7 +19,7 @@ highlights:
   - Original fir floors sanded and refinished in place
 ---
 
-The Leroux Street bungalow had been in the same family since the 1950s but sat vacant for several years before the new owners bought it. The structure was fundamentally sound — 1924 construction holds up well when it's been cared for — but deferred maintenance and a period without heat had created real problems at the roof, foundation perimeter, and windows.
+The Leroux Street bungalow had been in the same family since the 1950s but sat vacant for several years before the new owners bought it. The structure was fundamentally sound (1924 construction holds up well when it's been cared for), but deferred maintenance and a period without heat had created real problems at the roof, foundation perimeter, and windows.
 
 The first conversation we had was the most useful one. The new owners wanted a straight answer: what does this house actually need, and what can wait? We walked every inch of the property and gave them a written priority list with honest cost ranges for each item. No pressure, no manufactured urgency.
 

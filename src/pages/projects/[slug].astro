@@ -23,7 +23,7 @@ const typeLabels: Record<string, string> = {
 
 <Layout
   title={project.data.title}
-  description={`${project.data.description} — A ${project.data.type.replaceAll('-', ' ')} project by Stronghold Construction in ${project.data.location}, northern Arizona.`}
+  description={`${project.data.description} A ${project.data.type.replaceAll('-', ' ')} project by Stronghold Construction in ${project.data.location}, northern Arizona.`}
   ogImage={project.data.afterImage}
 >
   <nav aria-label="Breadcrumb" class="breadcrumb">
@@ -60,13 +60,13 @@ const typeLabels: Record<string, string> = {
         <div class="ba-col">
           <p class="ba-label">Before</p>
           <div class="ba-img-wrap">
-            <img src={project.data.beforeImage} alt={`${project.data.title} — before`} loading="lazy" width="1200" height="750" />
+            <img src={project.data.beforeImage} alt={`${project.data.title}, before`} loading="lazy" width="1200" height="750" />
           </div>
         </div>
         <div class="ba-col">
           <p class="ba-label ba-label--after">After</p>
           <div class="ba-img-wrap ba-img-wrap--after">
-            <img src={project.data.afterImage} alt={`${project.data.title} — after`} loading="lazy" width="1200" height="750" />
+            <img src={project.data.afterImage} alt={`${project.data.title}, after`} loading="lazy" width="1200" height="750" />
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@ const typeLabels: Record<string, string> = {
         <div class="gallery-grid">
           {project.data.gallery.map((img, i) => (
             <div class="gallery-img-wrap">
-              <img src={img} alt={`${project.data.title} — photo ${i + 1}`} loading="lazy" width="800" height="600" />
+              <img src={img} alt={`${project.data.title}, photo ${i + 1}`} loading="lazy" width="800" height="600" />
             </div>
           ))}
         </div>
