@@ -1,8 +1,8 @@
-﻿---
+---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection('news');
 const posts = allPosts.sort((a, b) =>
   b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
@@ -28,16 +28,16 @@ const breadcrumbSchema = {
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Blog',
-      item: 'https://builtstronghold.com/blog',
+      name: 'News',
+      item: 'https://builtstronghold.com/news',
     },
   ],
 };
 ---
 
 <Layout
-  title="Blog | Stronghold Construction Flagstaff AZ"
-  description="Construction tips, cost guides, and hiring advice for homeowners in Flagstaff and northern Arizona. From kitchen remodels to new builds â€” straight answers from a local GC."
+  title="News | Stronghold Construction Flagstaff AZ"
+  description="Construction tips, cost guides, and hiring advice for homeowners in Flagstaff and northern Arizona. From kitchen remodels to new builds — straight answers from a local GC."
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
@@ -46,7 +46,7 @@ const breadcrumbSchema = {
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-sep">/</span>
-        <span>Blog</span>
+        <span>News</span>
       </nav>
       <p class="eyebrow">Resources</p>
       <h1>Straight answers<br /><span class="accent">from a local GC.</span></h1>
@@ -58,7 +58,7 @@ const breadcrumbSchema = {
     <div class="posts-inner">
       <div class="posts-grid">
         {posts.map(post => (
-          <a href={`/blog/${post.id}`} class="post-card">
+          <a href={`/news/${post.id}`} class="post-card">
             <div class="post-img">
               <img
                 src={post.data.image}
@@ -79,10 +79,10 @@ const breadcrumbSchema = {
     </div>
   </section>
 
-  <section class="blog-cta">
-    <div class="blog-cta-inner">
+  <section class="news-cta">
+    <div class="news-cta-inner">
       <h2>Ready to start<br />your project?</h2>
-      <p>Tell us what you're thinking. We'll give you a straight read on scope, cost, and timeline â€” no obligation.</p>
+      <p>Tell us what you're thinking. We'll give you a straight read on scope, cost, and timeline — no obligation.</p>
       <a href="/quote" class="btn-primary">Get a Quote &rarr;</a>
     </div>
   </section>
@@ -223,18 +223,18 @@ const breadcrumbSchema = {
   }
   .post-card:hover .post-link { opacity: 1; }
 
-  .blog-cta {
+  .news-cta {
     background-color: var(--color-brand-red);
     border-top: 3px solid var(--color-brand-black);
     color: var(--color-brand-white);
   }
-  .blog-cta-inner {
+  .news-cta-inner {
     max-width: 1200px;
     margin: 0 auto;
     padding: 5rem 1.5rem;
   }
-  .blog-cta h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; }
-  .blog-cta p { opacity: 0.85; max-width: 480px; line-height: 1.7; margin-bottom: 2rem; }
+  .news-cta h2 { font-size: var(--font-size-h2); margin-bottom: 1rem; }
+  .news-cta p { opacity: 0.85; max-width: 480px; line-height: 1.7; margin-bottom: 2rem; }
 
   .btn-primary {
     display: inline-block;
