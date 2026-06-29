@@ -64,6 +64,13 @@ const company = [
   <div class="footer-bottom">
     <div class="footer-bottom-inner">
       <p>&copy; {year} Stronghold. All rights reserved.</p>
+      <nav class="footer-legal-links" aria-label="Legal">
+        <a href="/privacy" class="footer-legal-link">Privacy Policy</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="/terms" class="footer-legal-link">Terms of Use</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="/accessibility" class="footer-legal-link">Accessibility</a>
+      </nav>
       <p class="footer-values">Integrity &bull; Honesty &bull; Community</p>
     </div>
   </div>
@@ -201,6 +208,26 @@ const company = [
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-size: 0.7rem;
+  }
+
+  .footer-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .footer-legal-link {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .footer-legal-link:hover {
+    opacity: 1;
   }
 
   @media (max-width: 768px) {
