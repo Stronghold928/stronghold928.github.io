@@ -1,0 +1,233 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Accessibility Statement | Stronghold Construction"
+  description="Stronghold Construction is committed to making builtstronghold.com accessible to all users. Learn about our WCAG 2.1 AA efforts, known limitations, and how to report accessibility issues."
+>
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <p class="eyebrow">Legal</p>
+      <h1>Accessibility <span class="accent">Statement</span></h1>
+      <p class="hero-sub">Last reviewed January 2026</p>
+    </div>
+  </section>
+
+  <section class="legal-content">
+    <div class="legal-inner">
+
+      <div class="legal-section">
+        <h2>Our Commitment</h2>
+        <p>Stronghold Construction is committed to ensuring that <strong>builtstronghold.com</strong> is accessible to people with disabilities. We aim to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 at Level AA — the internationally recognized standard for accessible web content.</p>
+        <p>This isn't a checkbox exercise. We want every person who visits this site to be able to get the information they need, request a quote, and reach us without running into barriers.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>What We've Done</h2>
+        <p>We've built this site with accessibility as a design consideration from the start. Specific measures include:</p>
+        <ul>
+          <li>Semantic HTML5 elements used throughout — headings, landmarks, lists, and navigation are properly marked up so assistive technologies can interpret page structure.</li>
+          <li>Keyboard navigation is supported site-wide. All interactive elements — links, buttons, and form fields — are reachable and operable without a mouse.</li>
+          <li>Images include descriptive <code>alt</code> text so screen readers can convey visual content to users who can't see it.</li>
+          <li>Color contrast in our design system meets WCAG 2.1 AA minimums for both normal and large text.</li>
+          <li>The layout is fully responsive, adapting to a wide range of viewport sizes including mobile devices and browser zoom levels up to 200%.</li>
+          <li>The site is designed to work with common screen readers, including JAWS, NVDA, and VoiceOver, as well as keyboard-only navigation workflows.</li>
+        </ul>
+      </div>
+
+      <div class="legal-section">
+        <h2>Known Limitations</h2>
+        <p>We're being straightforward here: this site is a work in progress and there are areas we're still improving.</p>
+        <ul>
+          <li>Some older content and images may not yet have complete or fully descriptive alt text. We're working through these systematically.</li>
+          <li>Third-party embedded content — specifically our contact and quote forms, which are handled by Formspree — may have their own accessibility limitations that are outside our direct control. We've selected Formspree in part for its accessibility commitments, but we cannot guarantee parity with our own conformance targets.</li>
+        </ul>
+        <p>If you encounter a specific issue, please tell us. We'd rather know about it and fix it than leave it unaddressed.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>How to Report an Accessibility Issue</h2>
+        <p>If you encounter an accessibility barrier on this website — something you can't reach, read, or operate — please contact us:</p>
+        <ul class="contact-list">
+          <li>
+            <span class="contact-label">Email</span>
+            <a href="mailto:hello@builtstronghold.com">hello@builtstronghold.com</a>
+          </li>
+          <li>
+            <span class="contact-label">Phone</span>
+            <a href="tel:+19283007345">(928) 300-7345</a>
+          </li>
+        </ul>
+        <p>When you reach out, it helps to describe what page you were on, what you were trying to do, and what assistive technology or browser you were using — though any report is welcome. We commit to responding within <strong>2 business days</strong>.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>Formal Feedback Process</h2>
+        <p>If you report an accessibility issue and aren't satisfied with the response, or if the issue hasn't been resolved to your satisfaction, you can escalate directly to the business owner. Contact us by phone at <a href="tel:+19283007345">(928) 300-7345</a> or by email at <a href="mailto:hello@builtstronghold.com">hello@builtstronghold.com</a> and request that your concern be escalated to the owner. We take these seriously and will follow up personally.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>Non-Discrimination Statement</h2>
+        <p>Stronghold Construction does not discriminate on the basis of disability in its services, communications, or digital presence. We are committed to providing equal access to information about our services and to the services themselves, consistent with the Americans with Disabilities Act (ADA) and applicable Arizona law.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>About This Statement</h2>
+        <p>This accessibility statement was last reviewed in January 2026. We review and update it periodically as the site evolves. Stronghold Construction holds Arizona ROC License 354006 and is based in Flagstaff, AZ.</p>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .page-hero {
+    padding: 6rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .page-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .page-hero h1 {
+    font-size: var(--font-size-h1);
+    margin-bottom: 1rem;
+  }
+  .accent {
+    color: var(--color-brand-red);
+  }
+  .hero-sub {
+    font-size: 1rem;
+    opacity: 0.6;
+    font-family: var(--font-heading);
+    letter-spacing: 0.05em;
+  }
+
+  /* Legal content */
+  .legal-content {
+    padding: 5rem 1.5rem;
+  }
+  .legal-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  .legal-section h2 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    border-left: 3px solid var(--color-brand-red);
+    padding-left: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .legal-section p {
+    font-size: 1rem;
+    line-height: 1.75;
+    opacity: 0.85;
+    margin-bottom: 1rem;
+  }
+  .legal-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .legal-section ul {
+    margin: 0.75rem 0 1rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .legal-section ul li {
+    font-size: 1rem;
+    line-height: 1.75;
+    opacity: 0.85;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .legal-section ul li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    color: var(--color-brand-red);
+    font-weight: 700;
+    font-family: var(--font-heading);
+  }
+
+  .legal-section code {
+    font-size: 0.875em;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 0.1em 0.35em;
+    border-radius: 2px;
+  }
+
+  /* Contact list — more specific selectors override the generic ul/li rules above */
+  .legal-section ul.contact-list {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 1.25rem 1.5rem;
+    gap: 0.5rem;
+  }
+  .legal-section ul.contact-list li {
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    opacity: 1;
+  }
+  .legal-section ul.contact-list li::before {
+    display: none;
+  }
+  .contact-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    min-width: 3.5rem;
+  }
+  .contact-list a {
+    color: var(--color-text);
+    opacity: 0.85;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 1rem;
+  }
+  .contact-list a:hover {
+    opacity: 1;
+    color: var(--color-brand-red);
+  }
+
+  .legal-section a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .legal-section a:hover {
+    color: var(--color-brand-red);
+  }
+
+  @media (max-width: 600px) {
+    .page-hero { padding: 4rem 1.5rem 3rem; }
+    .legal-content { padding: 3rem 1.5rem; }
+    .legal-inner { gap: 2.5rem; }
+  }
+</style>
