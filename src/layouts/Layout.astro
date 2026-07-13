@@ -118,6 +118,16 @@ const localBusinessSchema: Record<string, unknown> = {
     <!-- TODO: Add telephone, address, and hasCredential to localBusinessSchema in frontmatter when real values are available -->
     <!-- LocalBusiness Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B3NH363HYC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-B3NH363HYC');
+    </script>
   </head>
   <body>
     <Nav />
