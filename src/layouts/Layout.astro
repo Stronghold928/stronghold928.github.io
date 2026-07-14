@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title,
-  description = 'Stronghold Construction: Licensed general contractor in Flagstaff, AZ. Remodeling, restoration, new home builds, and repairs across northern Arizona.',
+  description = 'Stronghold Construction: Licensed general contractor in Flagstaff, AZ. Remodeling, restoration, new home builds, and handyman services across northern Arizona.',
   ogImage = '/og-default.svg',
 } = Astro.props;
 
@@ -25,7 +25,7 @@ const localBusinessSchema: Record<string, unknown> = {
   "@type": "GeneralContractor",
   "name": "Stronghold Construction",
   "alternateName": "Stronghold",
-  "description": "Licensed general contractor in Flagstaff, AZ specializing in remodeling, restoration, new home builds, and repairs across northern Arizona.",
+  "description": "Licensed general contractor in Flagstaff, AZ specializing in remodeling, restoration, new home builds, and handyman services across northern Arizona.",
   "url": Astro.site?.toString().replace(/\/$/, '') ?? "https://builtstronghold.com",
   "logo": new URL('/logo-black.png', Astro.site).toString(),
   "image": new URL('/og-default.svg', Astro.site).toString(),
@@ -40,7 +40,7 @@ const localBusinessSchema: Record<string, unknown> = {
   //   "postalCode": "86001",
   //   "addressCountry": "US"
   // },
-  // "hasCredential": "AZ ROC License: XXXXXX",
+  "hasCredential": "AZ ROC License: 354046",
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": 35.1983,
@@ -58,7 +58,7 @@ const localBusinessSchema: Record<string, unknown> = {
     "Northern Arizona"
   ],
   "openingHours": ["Mo-Fr 07:00-17:00", "Sa 09:00-13:00"],
-  "foundingDate": "2015",
+  "foundingDate": "2022",
   "knowsAbout": [
     "Residential remodeling",
     "Kitchen remodeling",
@@ -67,7 +67,7 @@ const localBusinessSchema: Record<string, unknown> = {
     "Historic home restoration",
     "New home construction",
     "Custom home building",
-    "Home repairs",
+    "Handyman services",
     "Deck construction and repair",
     "Home additions"
   ],
@@ -115,7 +115,7 @@ const localBusinessSchema: Record<string, unknown> = {
       rel="stylesheet"
     />
 
-    <!-- TODO: Add telephone, address, and hasCredential to localBusinessSchema in frontmatter when real values are available -->
+    <!-- TODO: Add telephone and address to localBusinessSchema in frontmatter when real values are available -->
     <!-- LocalBusiness Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 
