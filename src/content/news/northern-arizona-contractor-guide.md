@@ -84,6 +84,6 @@ A contractor with **no physical address** (just a phone number or a P.O. box) ha
 
 ## Working with Stronghold
 
-Stronghold Construction is a licensed, insured general contractor based in northern Arizona. We work across Flagstaff and the surrounding region on remodeling, restoration, new construction, and repair projects.
+Stronghold Construction is a licensed, insured general contractor based in northern Arizona. We work across Flagstaff and the surrounding region on remodeling, restoration, new construction, and handyman projects.
 
 If you're starting to think through a project and want a straight conversation about what it involves and what it costs, no pressure and no pitch, [contact us](/contact) and we'll set up a time to talk.
