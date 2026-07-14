@@ -34,6 +34,7 @@ const typeLabels: Record<string, string> = {
         <a href="/quote" class="btn-primary">Get a Quote</a>
         <a href="/projects" class="btn-secondary">See Our Work</a>
       </div>
+      <a href="tel:+19283007345" class="hero-phone">Call or Text: <span class="hero-phone-number">(928) 300-7345</span></a>
     </div>
   </section>
 
@@ -186,6 +187,29 @@ const typeLabels: Record<string, string> = {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  .hero-phone {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1.25rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .hero-phone-number {
+    font-weight: 700;
+    color: var(--color-brand-red);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .hero-phone:hover {
+    opacity: 0.75;
   }
 
   /* ---- Buttons ---- */
