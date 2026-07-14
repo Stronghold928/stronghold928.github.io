@@ -69,27 +69,22 @@ const quizQuestions = [
     id: 'q1',
     step: 1,
     type: 'image',
-    question: 'Which living room speaks to you?',
+    question: 'Which exterior speaks to you?',
     answers: [
       {
-        label: 'Natural oak, warm textiles, earthy materials: grounded and alive',
-        image: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&auto=format&fit=crop&q=80',
+        label: 'Black-framed gables, warm stone, natural unfussy landscaping',
+        image: '/design/organic-modern/exterior.webp',
         weights: { 'organic-modern': 3 },
       },
       {
-        label: 'Layered, collected, warm plaster walls: timeless and full of character',
-        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&auto=format&fit=crop&q=80',
+        label: 'White stucco, dark roofline, arched black-framed windows',
+        image: '/design/european-modern/exterior.webp',
         weights: { 'european-modern': 3 },
       },
       {
-        label: 'High contrast, bold accent, clean lines: elevated and intentional',
-        image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&auto=format&fit=crop&q=80',
+        label: 'Modern farmhouse lines, wood accents, walls of glass',
+        image: '/design/transitional-modern/exterior.webp',
         weights: { 'transitional-modern': 3 },
-      },
-      {
-        label: 'Warm whites, simple modern silhouettes, light and airy throughout',
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&auto=format&fit=crop&q=80',
-        weights: { 'transitional-modern': 2, 'european-modern': 1 },
       },
     ],
   },
@@ -97,27 +92,22 @@ const quizQuestions = [
     id: 'q2',
     step: 2,
     type: 'image',
-    question: 'Which kitchen is your dream kitchen?',
+    question: 'Which living room feels like home?',
     answers: [
       {
-        label: 'Light oak cabinetry, leathered stone countertop, simple matte hardware',
-        image: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=600&auto=format&fit=crop&q=80',
+        label: 'Stacked stone fireplace, exposed beams, arched built-ins',
+        image: '/design/organic-modern/livingroom.webp',
         weights: { 'organic-modern': 3 },
       },
       {
-        label: 'White shaker cabinets, warm stone counters, brass pendants',
-        image: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=600&auto=format&fit=crop&q=80',
+        label: 'Brass chandelier, gallery wall, warm collected furnishings',
+        image: '/design/european-modern/livingroom.webp',
         weights: { 'european-modern': 3 },
       },
       {
-        label: 'Dark charcoal island, white perimeter, marble countertop, black window frames',
-        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&auto=format&fit=crop&q=80',
+        label: 'Moody accent wall, linear fireplace, clean modern lines',
+        image: '/design/transitional-modern/livingroom.webp',
         weights: { 'transitional-modern': 3 },
-      },
-      {
-        label: 'Warm two-tone: natural oak base, painted upper cabinets, clean shaker profile',
-        image: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&auto=format&fit=crop&q=80',
-        weights: { 'european-modern': 2, 'transitional-modern': 1 },
       },
     ],
   },
@@ -125,21 +115,21 @@ const quizQuestions = [
     id: 'q3',
     step: 3,
     type: 'image',
-    question: 'Which bathroom do you love?',
+    question: 'Which kitchen is your dream kitchen?',
     answers: [
       {
-        label: 'Oak vanity, warm stone, matte black fixtures: organic and calm',
-        image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&auto=format&fit=crop&q=80',
+        label: 'Light oak cabinetry, glass uppers, honed quartzite counters',
+        image: '/design/organic-modern/kitchen.webp',
         weights: { 'organic-modern': 3 },
       },
       {
-        label: 'White marble, unlacquered brass fixtures, soft warm whites throughout',
-        image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&auto=format&fit=crop&q=80',
+        label: 'Arched range hood, brass pendants, oak island with stools',
+        image: '/design/european-modern/kitchen.webp',
         weights: { 'european-modern': 3 },
       },
       {
-        label: 'Crisp marble, dark accent moments, clean modern proportions',
-        image: 'https://images.unsplash.com/photo-1620626011761-996317702149?w=600&auto=format&fit=crop&q=80',
+        label: 'Dark cabinetry, soapstone counters, black hood over the range',
+        image: '/design/transitional-modern/kitchen.webp',
         weights: { 'transitional-modern': 3 },
       },
     ],
@@ -148,21 +138,21 @@ const quizQuestions = [
     id: 'q4',
     step: 4,
     type: 'image',
-    question: 'Which bedroom resonates with you?',
+    question: 'Which bathroom do you love?',
     answers: [
       {
-        label: 'Linen bedding, oak tones, natural textures: warm and effortlessly calm',
-        image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&auto=format&fit=crop&q=80',
+        label: 'Reeded wood vanity, walk-in shower, unlacquered brass',
+        image: '/design/organic-modern/bathroom.webp',
         weights: { 'organic-modern': 3 },
       },
       {
-        label: 'Layered whites, warm textiles, soft arched or curved detail',
-        image: 'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=600&auto=format&fit=crop&q=80',
-        weights: { 'european-modern': 3, 'transitional-modern': 1 },
+        label: 'Vessel sink, aged mirror, soft warm plaster walls',
+        image: '/design/european-modern/bathroom.webp',
+        weights: { 'european-modern': 3 },
       },
       {
-        label: 'Bold dark feature wall, crisp contrast, confident and grounded',
-        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&auto=format&fit=crop&q=80',
+        label: 'Marble soaking tub, fluted tile, brushed brass fixtures',
+        image: '/design/transitional-modern/bathroom.webp',
         weights: { 'transitional-modern': 3 },
       },
     ],
@@ -171,21 +161,67 @@ const quizQuestions = [
     id: 'q5',
     step: 5,
     type: 'image',
-    question: 'Which dining space catches your eye?',
+    question: 'Which bedroom resonates with you?',
     answers: [
       {
-        label: 'Raw wood table, natural chairs, earthy warmth: material-forward and grounded',
-        image: 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=600&auto=format&fit=crop&q=80',
+        label: 'Stone fireplace, wood mantle, linen bedding, soft light',
+        image: '/design/organic-modern/bedroom.webp',
         weights: { 'organic-modern': 3 },
       },
       {
-        label: 'Warm plaster, arched details, collected objects: soul and timeless character',
-        image: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&auto=format&fit=crop&q=80',
+        label: 'Arched window, brass sconce, layered warm neutrals',
+        image: '/design/european-modern/bedroom.webp',
         weights: { 'european-modern': 3 },
       },
       {
-        label: 'Dramatic pendant, bold dark table, clean proportions: elevated and intentional',
-        image: 'https://images.unsplash.com/photo-1556742212-5b16f0811177?w=600&auto=format&fit=crop&q=80',
+        label: 'Dark fireplace wall, marble accent, crisp white linens',
+        image: '/design/transitional-modern/bedroom.webp',
+        weights: { 'transitional-modern': 3 },
+      },
+    ],
+  },
+  {
+    id: 'q6',
+    step: 6,
+    type: 'image',
+    question: 'Which pantry catches your eye?',
+    answers: [
+      {
+        label: 'Dark glass-front cabinetry, brass hardware, checkered floor',
+        image: '/design/organic-modern/pantry.webp',
+        weights: { 'organic-modern': 3 },
+      },
+      {
+        label: 'Warm oak shelving, woven baskets, brass pendant light',
+        image: '/design/european-modern/pantry.webp',
+        weights: { 'european-modern': 3 },
+      },
+      {
+        label: 'Glass sliding door, marble backsplash, patterned tile floor',
+        image: '/design/transitional-modern/pantry.webp',
+        weights: { 'transitional-modern': 3 },
+      },
+    ],
+  },
+  {
+    id: 'q7',
+    step: 7,
+    type: 'image',
+    question: 'Which laundry room fits your style?',
+    answers: [
+      {
+        label: 'Navy cabinetry, open shelving, brass fixtures, natural light',
+        image: '/design/organic-modern/laundry.webp',
+        weights: { 'organic-modern': 3 },
+      },
+      {
+        label: 'Marble backsplash, fluted pendant, soft warm cabinetry',
+        image: '/design/european-modern/laundry.webp',
+        weights: { 'european-modern': 3 },
+      },
+      {
+        label: 'Light shaker cabinets, brass hardware, woven basket storage',
+        image: '/design/transitional-modern/laundry.webp',
         weights: { 'transitional-modern': 3 },
       },
     ],
@@ -257,7 +293,7 @@ const quizQuestions = [
         <div class="how-step">
           <span class="how-num">01</span>
           <h3>Take the photo quiz</h3>
-          <p>Five photo-based questions about the spaces and styles that speak to you. No right or wrong answers. Just what resonates.</p>
+          <p>Seven photo-based questions about the spaces and styles that speak to you. No right or wrong answers. Just what resonates.</p>
         </div>
         <div class="how-step">
           <span class="how-num">02</span>
@@ -286,7 +322,7 @@ const quizQuestions = [
       <div class="quiz-section-header">
         <div class="quiz-section-header-inner">
           <p class="eyebrow">Style Quiz</p>
-          <h2>Find your style in five photos.</h2>
+          <h2>Find your style in seven photos.</h2>
           <p>Each question shows real rooms in the three design styles Stronghold specializes in. Pick the space that feels like home, not what you think you should want.</p>
         </div>
       </div>
@@ -295,7 +331,7 @@ const quizQuestions = [
         <div class="progress-bar-inner">
           <div class="progress-fill" id="quiz-progress-fill" style="width:0%"></div>
         </div>
-        <span class="progress-label" id="quiz-progress-label">Question 1 of 5</span>
+        <span class="progress-label" id="quiz-progress-label">Question 1 of 7</span>
       </div>
 
       <div id="quiz-questions-container">
@@ -337,6 +373,9 @@ const quizQuestions = [
         <p class="eyebrow">Your Style Profile</p>
         <h2 id="reveal-name" class="reveal-name">—</h2>
         <p id="reveal-tagline" class="reveal-tagline">—</p>
+        <div class="reveal-cover-wrap">
+          <img id="reveal-cover" class="reveal-cover" src="" alt="" />
+        </div>
         <div class="reveal-palette-wrap">
           <div class="reveal-palette" id="reveal-palette"></div>
         </div>
@@ -371,7 +410,7 @@ const quizQuestions = [
     selectedStyle: null,
   };
 
-  const TOTAL_QUIZ = 5;
+  const TOTAL_QUIZ = quizQuestions.length;
 
   // ─── Element refs ─────────────────────────────────────────────────────────
   const phaseQuiz   = document.getElementById('phase-quiz');
@@ -446,6 +485,10 @@ const quizQuestions = [
     document.getElementById('reveal-name').textContent = profile.name;
     document.getElementById('reveal-tagline').textContent = profile.tagline;
     document.getElementById('reveal-description').textContent = profile.description;
+
+    const coverEl = document.getElementById('reveal-cover');
+    coverEl.src = `/design/${profile.id}/cover.webp`;
+    coverEl.alt = `${profile.name} mood board: room photos and paint palette`;
 
     const paletteEl = document.getElementById('reveal-palette');
     paletteEl.innerHTML = profile.palette.map((c, i) => `
@@ -665,6 +708,15 @@ const quizQuestions = [
     color: var(--color-brand-red);
     font-family: var(--font-heading);
     margin-bottom: 2rem;
+  }
+  .reveal-cover-wrap { margin-bottom: 2.5rem; }
+  .reveal-cover {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border: 2px solid var(--color-border);
+    box-shadow: 8px 8px 0 var(--color-border);
   }
   .reveal-palette-wrap { margin-bottom: 2rem; }
   .reveal-palette {
