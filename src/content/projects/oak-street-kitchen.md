@@ -5,11 +5,11 @@ location: Flagstaff, AZ
 description: A full gut-and-rebuild of a 1990s galley kitchen into an open, functional space. White shaker cabinets, quartz countertops, waterfall island edge, and unlacquered brass hardware throughout.
 completedDate: "2024-09"
 featured: true
-beforeImage: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&auto=format&fit=crop&q=80"
-afterImage: "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200&auto=format&fit=crop&q=80"
+beforeImage: "/projects/oak-street-kitchen/before.webp"
+afterImage: "/projects/oak-street-kitchen/after.webp"
 gallery:
-  - "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200&auto=format&fit=crop&q=80"
-  - "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&auto=format&fit=crop&q=80"
+  - "/projects/oak-street-kitchen/after.webp"
+  - "/projects/oak-street-kitchen/before.webp"
 highlights:
   - Removed load-bearing wall, engineered flush beam to open kitchen to dining room
   - Custom shaker cabinetry with floor-to-ceiling pantry storage
