@@ -17,17 +17,18 @@ const typeLabels: Record<string, string> = {
 };
 ---
 
-<Layout title="Home" description="Stronghold: General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and repairs across northern Arizona.">
+<Layout title="Home" description="Stronghold: General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and handyman services across northern Arizona.">
   <section class="hero">
     <BlueprintCanvas />
     <div class="hero-inner">
-      <p class="hero-eyebrow">Northern Arizona &bull; Flagstaff, AZ</p>
+      <p class="hero-eyebrow">General Contractor &bull; Flagstaff, Arizona</p>
       <h1 class="hero-headline">
-        Built with <span class="hero-accent">integrity.</span><br />
-        Finished with care.
+        You got a<br />
+        <span class="hero-accent" id="hero-slot-word">construction</span><br />
+        guy.
       </h1>
       <p class="hero-sub">
-        Based in Flagstaff, specializing in remodels, restoration, new builds, and repairs all across northern Arizona.
+        Based in Flagstaff, specializing in remodels, restoration, new builds, and handyman services all across northern Arizona.
       </p>
       <div class="hero-actions">
         <a href="/quote" class="btn-primary">Get a Quote</a>
@@ -42,7 +43,7 @@ const typeLabels: Record<string, string> = {
         { title: 'Remodeling', desc: 'A good remodel changes how your whole family lives. We make the process clear and the result worth it.', href: '/services#remodeling' },
         { title: 'Restoration', desc: "Northern Arizona's older homes have real character. We help preserve it while fixing what needs fixing.", href: '/services#restoration' },
         { title: 'New Construction', desc: 'Building something new? We take it from foundation to front door, with no surprises along the way.', href: '/services#new-builds' },
-        { title: 'Repairs', desc: 'When something is broken, we figure out why and fix it right the first time.', href: '/services#repairs' },
+        { title: 'Handyman', desc: 'From a sticking door to a shelf that needs hanging, we handle the small jobs right the first time.', href: '/services#handyman' },
       ].map(s => (
         <a href={s.href} class="service-tile">
           <h3 class="service-title">{s.title}</h3>
@@ -139,7 +140,7 @@ const typeLabels: Record<string, string> = {
     border: 2px solid var(--color-border);
     box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.06);
     padding: 3rem 3.5rem 3.5rem;
-    max-width: 660px;
+    max-width: 520px;
   }
 
   .hero-eyebrow {
@@ -169,11 +170,14 @@ const typeLabels: Record<string, string> = {
     border-bottom: 4px solid var(--color-brand-red);
   }
 
+  .hero-accent.is-spinning {
+    filter: blur(2px);
+  }
+
   .hero-sub {
     font-size: 1.125rem;
     color: var(--color-text);
     opacity: 0.65;
-    max-width: 500px;
     margin-bottom: 2rem;
     line-height: 1.6;
   }
@@ -518,3 +522,57 @@ const typeLabels: Record<string, string> = {
     .projects-grid { grid-template-columns: 1fr; }
   }
 </style>
+
+<script>
+  const slotWords = ['remodel', 'restoration', 'repair', 'bathroom', 'kitchen', 'deck'];
+  const slotEl = document.getElementById('hero-slot-word');
+
+  if (slotEl) {
+    const roundCount = 4 + Math.floor(Math.random() * 2); // land on "construction" after 4 or 5 rounds
+    const flickerDelays = [60, 80, 100, 130, 160];
+    const holdDuration = 2000; // stay on each landed word for 2 seconds before spinning again
+    let round = 0;
+    let lastWord = '';
+
+    function pickWord(): string {
+      let word = slotWords[Math.floor(Math.random() * slotWords.length)];
+      while (word === lastWord) {
+        word = slotWords[Math.floor(Math.random() * slotWords.length)];
+      }
+      lastWord = word;
+      return word;
+    }
+
+    function spinTo(word: string, onLanded: () => void) {
+      slotEl!.classList.add('is-spinning');
+      let i = 0;
+
+      function flicker() {
+        if (i < flickerDelays.length) {
+          slotEl!.textContent = pickWord();
+          const delay = flickerDelays[i];
+          i++;
+          setTimeout(flicker, delay);
+        } else {
+          slotEl!.textContent = word;
+          slotEl!.classList.remove('is-spinning');
+          onLanded();
+        }
+      }
+
+      flicker();
+    }
+
+    function nextRound() {
+      if (round < roundCount) {
+        round++;
+        const word = pickWord();
+        spinTo(word, () => setTimeout(nextRound, holdDuration));
+      } else {
+        spinTo('construction', () => {});
+      }
+    }
+
+    nextRound();
+  }
+</script>
