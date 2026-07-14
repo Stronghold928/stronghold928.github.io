@@ -104,27 +104,27 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: 'repairs',
-    label: 'Repairs',
-    tagline: 'Find the real problem. Fix it properly.',
+    slug: 'handyman',
+    label: 'Handyman',
+    tagline: 'No job too small to do right.',
     description:
-      "Sometimes a deck is failing, a roof keeps leaking, or a floor is soft somewhere it shouldn't be. We do repair work correctly, with permits where required, without inflating the scope to make the job worth our while.",
+      "A sticking door, a leaky faucet, a shelf that needs hanging, a fence board that needs replacing. Most of what a home needs day to day isn't a big project, it's a small fix from someone who shows up and does it properly the first time.",
     detail:
-      "Diagnostic work is something we're genuinely good at. A recurring leak has a root cause. A soft floor has a story. We'd rather spend an extra hour figuring out the actual problem than patch the visible symptom and come back in two years.",
+      "We treat small jobs with the same care as big ones. Same licensed crew, same straight answers, same clean site when we leave. If a small job turns out to be bigger than it looked, we'll tell you before we keep going, not after.",
     photo:
-      'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&auto=format&fit=crop&q=80',
-    photoAlt: 'Contractor doing structural repair work',
+      'https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=1400&auto=format&fit=crop&q=80',
+    photoAlt: 'Handyman tools laid out: hammer, screwdriver, nails, and pliers',
     steps: [
-      { n: '01', title: 'Honest Assessment', body: "We look at what's actually happening, tell you the cause, and give you a straight number on what a proper fix costs." },
-      { n: '02', title: 'Scope Agreement', body: "Written scope before any work starts. No verbal understandings, no surprise additions without your approval." },
-      { n: '03', title: 'Permitted Work', body: 'Structural repairs, electrical, and plumbing get permitted and inspected when the code requires it.' },
-      { n: '04', title: 'Clean Site', body: 'We leave the property cleaner than we found it.' },
+      { n: '01', title: 'Tell Us the Issue', body: "Call, email, or text a quick description of what needs fixing. No formal quote process required for small jobs." },
+      { n: '02', title: 'Straight Timing', body: "We give you a real window for when we can get there, based on what you actually need done." },
+      { n: '03', title: 'Fix It Right', body: 'We do the job properly, using the same standards we hold ourselves to on every project, regardless of size.' },
+      { n: '04', title: 'Clean Site', body: 'We leave the property cleaner than we found it, every time.' },
     ],
     faqs: [
-      { q: "What kinds of repairs do you handle?", a: "Structural repairs (foundation, sill plates, beams), roof repairs, deck repair and replacement, water damage remediation, window and door replacements, soft floors, and recurring leaks where the root cause needs diagnosis, not just patching." },
-      { q: "Do you do small jobs or only large projects?", a: "We do repair work at any scope if it requires a licensed contractor. We won't take a job just to inflate the invoice, but we also won't turn away a legitimate repair because it's small." },
-      { q: "Do repairs require permits?", a: "Structural repairs, electrical, and plumbing work require permits under Arizona code. We pull them when required and handle the inspection. We won't skip the permit to save time; it protects you when you sell." },
-      { q: "How quickly can you respond to a repair need?", a: "We respond within one business day for all inquiries. For urgent structural or safety issues, call us directly and we'll prioritize accordingly." },
+      { q: "What kinds of handyman jobs do you take?", a: "Small repairs and fixes around the house: sticking doors, leaky faucets, shelving and TV mounting, fence and gate repair, drywall patches, minor electrical and plumbing fixes, and general small jobs that need a licensed contractor's attention." },
+      { q: "Is there a job too small to call about?", a: "Reach out and ask. If it's something we can genuinely help with, we'll schedule it. If it's not, we'll tell you that too rather than waste your time." },
+      { q: "Do handyman jobs still get done to code?", a: "Yes. Small jobs get the same attention as large ones. If something requires a permit under Arizona code, we'll handle it rather than skip the step to save time." },
+      { q: "How quickly can you get to a small repair?", a: "We respond within one business day for all inquiries and give you a real timeframe based on the job and our schedule. For urgent issues, call us directly." },
     ],
   },
 ];

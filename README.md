@@ -375,11 +375,8 @@ Deployment: push to `main` → GitHub Actions builds → deploys to GitHub Pages
 |---|---|---|
 | Replace general contact Formspree URL | `src/pages/contact.astro` | Sign up at formspree.io, create a form, replace `FORMSPREE_URL` |
 | Replace quote request Formspree URL | `src/pages/quote.astro` | Create a **separate** Formspree form; replace `QUOTE_FORM_ID` |
-| Replace phone number | `src/components/Nav.astro`, `Footer.astro`, `contact.astro`, `quote.astro` | Currently `(928) 555-0100` |
 | Replace email | `src/components/Footer.astro`, `contact.astro`, `quote.astro` | Currently `hello@builtstronghold.com` |
-| Add AZ ROC license number | `src/components/Footer.astro`, `contact.astro`, `quote.astro` | Labeled `[Pending]` |
 | Enable GitHub Pages | GitHub repo Settings → Pages | Set source to "GitHub Actions" |
-| Replace placeholder team photos | `src/pages/about.astro` | Unsplash placeholder images in team section |
 | Swap in real project photos | `src/content/projects/*.md` | Update `afterImage`/`beforeImage` in frontmatter |
 | Real favicon | `public/favicon.svg` | Brand mark SVG needed |
 
@@ -391,4 +388,3 @@ Deployment: push to `main` → GitHub Actions builds → deploys to GitHub Pages
 - `src/pages/design-wizard.astro` is built and complete but intentionally has no public nav entry or inbound links. It is reserved for the Phase 2 client portal.
 - All portal routes (Phase 2) must be auth-gated; no sensitive data exposed publicly.
 - The `completedDate` field in project frontmatter controls sort order. Format: `"YYYY-MM"`.
-- License number placeholder intentional — replace when AZ ROC number is confirmed.
