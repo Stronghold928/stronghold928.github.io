@@ -5,7 +5,7 @@ pubDate: 2026-06-25
 author: "Stronghold Construction"
 category: "Cost Guides"
 tags: ["kitchen remodel", "Flagstaff AZ", "remodeling costs", "northern Arizona"]
-image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&auto=format&fit=crop&q=80"
+image: "/news/kitchen-remodel-cost-flagstaff-az.webp"
 imageAlt: "Modern kitchen remodel with white cabinets and stone countertops"
 ---
 

@@ -1,0 +1,175 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const REDIRECT_SECONDS = 10;
+const REDIRECT_URL = '/';
+---
+
+<Layout
+  title="Thank You"
+  description="Your submission was received. Stronghold Construction will be in touch within one business day."
+  noindex
+>
+  <section class="thanks">
+    <div class="thanks-card">
+      <div class="thanks-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 12.5L9.5 18L20 6" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" />
+        </svg>
+      </div>
+
+      <p class="thanks-eyebrow">Submission Received</p>
+      <h1 class="thanks-headline">Thank you.</h1>
+      <p class="thanks-sub">
+        We've got your information and will be in touch within one business day.
+        If it's urgent, call or text us directly at
+        <a href="tel:+19289627535" class="thanks-phone">(928) 962-7535</a>.
+      </p>
+
+      <div class="thanks-redirect">
+        <p class="thanks-redirect-text">
+          Redirecting to the homepage in <span id="thanks-countdown">{REDIRECT_SECONDS}</span> seconds&hellip;
+        </p>
+        <div class="thanks-progress-track">
+          <div class="thanks-progress-fill" id="thanks-progress-fill"></div>
+        </div>
+      </div>
+
+      <a href={REDIRECT_URL} class="btn-primary">Return to Homepage Now &rarr;</a>
+      <p class="thanks-fallback-note">If nothing happens automatically, click the link above.</p>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ REDIRECT_SECONDS, REDIRECT_URL }}>
+  let remaining = REDIRECT_SECONDS;
+  const countdownEl = document.getElementById('thanks-countdown');
+  const progressEl = document.getElementById('thanks-progress-fill');
+
+  const timer = setInterval(() => {
+    remaining -= 1;
+    if (countdownEl) countdownEl.textContent = String(Math.max(remaining, 0));
+    if (progressEl) progressEl.style.width = `${((REDIRECT_SECONDS - remaining) / REDIRECT_SECONDS) * 100}%`;
+
+    if (remaining <= 0) {
+      clearInterval(timer);
+      window.location.href = REDIRECT_URL;
+    }
+  }, 1000);
+</script>
+
+<style>
+  .thanks {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+  }
+
+  .thanks-card {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-border);
+    box-shadow: 8px 8px 0 var(--color-brand-red);
+    padding: 3.5rem 2.5rem;
+  }
+
+  .thanks-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-black);
+  }
+  .thanks-icon svg { width: 32px; height: 32px; }
+
+  .thanks-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 0.75rem;
+  }
+
+  .thanks-headline {
+    font-size: var(--font-size-h1);
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
+  }
+
+  .thanks-sub {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    opacity: 0.75;
+    margin-bottom: 2.5rem;
+  }
+  .thanks-phone {
+    color: var(--color-brand-red);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  .thanks-redirect { margin-bottom: 2rem; }
+  .thanks-redirect-text {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 0.75rem;
+  }
+  #thanks-countdown {
+    color: var(--color-brand-red);
+    font-size: 1rem;
+  }
+  .thanks-progress-track {
+    height: 4px;
+    background-color: var(--color-border);
+    overflow: hidden;
+  }
+  .thanks-progress-fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--color-brand-red);
+    transition: width 1s linear;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-brand-black);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-black);
+    transform: translate(2px, 2px);
+  }
+
+  .thanks-fallback-note {
+    font-size: 0.8rem;
+    opacity: 0.45;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 560px) {
+    .thanks-card { padding: 2.5rem 1.5rem; }
+  }
+</style>

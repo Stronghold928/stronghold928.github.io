@@ -1,9 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Formspree endpoint — create a separate form at formspree.io for quote requests
-// Use a different ID from the general contact form so they land in separate inboxes
-const FORMSPREE_URL = 'https://formspree.io/f/QUOTE_FORM_ID';
+// Formspree endpoint for quote requests — separate form from the general contact form
+const FORMSPREE_URL = 'https://formspree.io/f/xpqvwrob';
 
 const projectTypes = [
   'Kitchen Remodel',
@@ -58,17 +57,38 @@ const hearAboutOptions = [
   'Previous client',
   'Other',
 ];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://builtstronghold.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Get a Quote',
+      item: 'https://builtstronghold.com/quote',
+    },
+  ],
+};
 ---
 
 <Layout
-  title="Request a Free Quote | Stronghold Construction Flagstaff AZ"
+  title="Request a Free Quote | Flagstaff, AZ"
   description="Get a free, itemized quote from Stronghold Construction. We serve Flagstaff, Williams, Sedona, Show Low, and all of northern Arizona. No surprises, no lump sums."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
   <section class="quote-hero">
     <div class="quote-hero-inner">
       <p class="eyebrow">Get a Quote</p>
       <h1>Ready to build?<br /><span class="accent">Let's get into the details.</span></h1>
-      <p class="hero-sub">The more detail you give us here, the more prepared we are when we call. We review every submission and get back to you within one business day. Rather just call: <a href="tel:+19283007345" class="phone-link">(928) 300-7345</a></p>
+      <p class="hero-sub">The more detail you give us here, the more prepared we are when we call. We review every submission and get back to you within one business day. Rather just call: <a href="tel:+19289627535" class="phone-link">(928) 962-7535</a></p>
     </div>
   </section>
 
@@ -98,7 +118,7 @@ const hearAboutOptions = [
               </div>
               <div class="field-group">
                 <label for="phone" class="field-label">Phone Number <span class="required">*</span></label>
-                <input type="tel" id="phone" name="phone" required placeholder="(928) 300-7345" class="field-input" />
+                <input type="tel" id="phone" name="phone" required placeholder="(928) 962-7535" class="field-input" />
               </div>
             </div>
 
@@ -185,6 +205,7 @@ const hearAboutOptions = [
           </div>
 
           <input type="hidden" name="_subject" value="Quote request, Stronghold" />
+          <input type="hidden" name="_next" value="https://builtstronghold.com/thank-you" />
           <input type="text" name="_gotcha" style="display:none" />
 
           <div class="form-submit-row">
@@ -231,9 +252,9 @@ const hearAboutOptions = [
 
         <div class="sidebar-block">
           <h3 class="sidebar-title">Rather Talk First?</h3>
-          <a href="tel:+19283007345" class="contact-item contact-item--link">
+          <a href="tel:+19289627535" class="contact-item contact-item--link">
             <span class="contact-item-label">Phone</span>
-            <span class="contact-item-value">(928) 300-7345</span>
+            <span class="contact-item-value">(928) 962-7535</span>
           </a>
           <a href="mailto:hello@builtstronghold.com" class="contact-item contact-item--link">
             <span class="contact-item-label">Email</span>
@@ -241,7 +262,7 @@ const hearAboutOptions = [
           </a>
           <div class="contact-item">
             <span class="contact-item-label">Hours</span>
-            <span class="contact-item-value">Mon–Fri 7am–5pm<br />Sat by appointment</span>
+            <span class="contact-item-value">Mon–Fri 9am–4pm</span>
           </div>
         </div>
 
@@ -289,10 +310,10 @@ const hearAboutOptions = [
         form.style.display = 'none';
         if (success) success.style.display = 'block';
       } else {
-        alert('Something went wrong. Please try calling us directly at (928) 300-7345.');
+        alert('Something went wrong. Please try calling us directly at (928) 962-7535.');
       }
     } catch {
-      alert('Unable to send. Please try calling us directly at (928) 300-7345.');
+      alert('Unable to send. Please try calling us directly at (928) 962-7535.');
     }
   });
 </script>

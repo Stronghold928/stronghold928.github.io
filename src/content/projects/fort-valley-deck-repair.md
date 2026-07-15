@@ -1,15 +1,15 @@
 ---
-title: Milton Road Deck Structural Repair
+title: Fort Valley Road Deck Repair Project
 type: repair
 location: Flagstaff, AZ
 description: A rear deck with significant ledger board rot and failing post bases. Full structural assessment, ledger replacement, post-base hardware upgrade, and new decking boards. Done in four working days.
 completedDate: "2025-01"
 featured: false
-beforeImage: "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1200&auto=format&fit=crop&q=80"
-afterImage: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&auto=format&fit=crop&q=80"
+beforeImage: "/projects/fort-valley-deck-repair/before.webp"
+afterImage: "/projects/fort-valley-deck-repair/after.webp"
 gallery:
-  - "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&auto=format&fit=crop&q=80"
-  - "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=1200&auto=format&fit=crop&q=80"
+  - "/projects/fort-valley-deck-repair/after.webp"
+  - "/projects/fort-valley-deck-repair/before.webp"
 highlights:
   - Full ledger board replacement with proper flashing and lag pattern
   - Post base hardware upgraded to current code (Simpson Strong-Tie)

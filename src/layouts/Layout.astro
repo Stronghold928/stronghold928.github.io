@@ -7,19 +7,20 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
   description = 'Stronghold Construction: Licensed general contractor in Flagstaff, AZ. Remodeling, restoration, new home builds, and handyman services across northern Arizona.',
   ogImage = '/og-default.svg',
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // Resolve ogImage to an absolute URL so social crawlers can fetch it
 const ogImageURL = new URL(ogImage, Astro.site).toString();
 
-// LocalBusiness schema — omit placeholder fields until real values are known
 const localBusinessSchema: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
@@ -30,16 +31,15 @@ const localBusinessSchema: Record<string, unknown> = {
   "logo": new URL('/logo-black.png', Astro.site).toString(),
   "image": new URL('/og-default.svg', Astro.site).toString(),
   "email": "hello@builtstronghold.com",
-  // TODO: Uncomment and fill in when real values are available:
-  // "telephone": "+1-928-XXX-XXXX",
-  // "address": {
-  //   "@type": "PostalAddress",
-  //   "streetAddress": "123 Main St",
-  //   "addressLocality": "Flagstaff",
-  //   "addressRegion": "AZ",
-  //   "postalCode": "86001",
-  //   "addressCountry": "US"
-  // },
+  "telephone": "+1-928-962-7535",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "13447 King John Road",
+    "addressLocality": "Parks",
+    "addressRegion": "AZ",
+    "postalCode": "86018",
+    "addressCountry": "US"
+  },
   "hasCredential": "AZ ROC License: 354046",
   "geo": {
     "@type": "GeoCoordinates",
@@ -57,7 +57,7 @@ const localBusinessSchema: Record<string, unknown> = {
     "Prescott Valley, AZ",
     "Northern Arizona"
   ],
-  "openingHours": ["Mo-Fr 07:00-17:00", "Sa 09:00-13:00"],
+  "openingHours": ["Mo-Fr 09:00-16:00"],
   "foundingDate": "2022",
   "knowsAbout": [
     "Residential remodeling",
@@ -88,6 +88,7 @@ const localBusinessSchema: Record<string, unknown> = {
     <title>{title} | Stronghold</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -111,11 +112,23 @@ const localBusinessSchema: Record<string, unknown> = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=Caveat:wght@600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
-    <!-- TODO: Add telephone and address to localBusinessSchema in frontmatter when real values are available -->
     <!-- LocalBusiness Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 
