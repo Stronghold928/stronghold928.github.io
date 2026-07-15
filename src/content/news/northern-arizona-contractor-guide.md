@@ -5,7 +5,7 @@ pubDate: 2026-06-20
 author: "Stronghold Construction"
 category: "Hiring Guides"
 tags: ["general contractor", "northern Arizona", "Flagstaff", "hiring guide", "ROC license"]
-image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&auto=format&fit=crop&q=80"
+image: "/news/northern-arizona-contractor-guide.webp"
 imageAlt: "General contractor reviewing blueprints at a job site"
 ---
 
