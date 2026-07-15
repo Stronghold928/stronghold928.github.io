@@ -13,12 +13,33 @@ const typeLabels: Record<string, string> = {
   'new-build': 'New Build',
   repair: 'Repair',
 };
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://builtstronghold.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Projects',
+      item: 'https://builtstronghold.com/projects',
+    },
+  ],
+};
 ---
 
 <Layout
-  title="Construction & Remodeling Projects | Stronghold Construction Flagstaff AZ"
+  title="Construction & Remodeling Projects | Flagstaff, AZ"
   description="Browse Stronghold Construction's portfolio of remodeling, restoration, new builds, and repair projects across northern Arizona. Real before-and-after results."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
   <section class="page-hero">
     <div class="page-hero-inner">
       <p class="eyebrow">Our Work</p>
