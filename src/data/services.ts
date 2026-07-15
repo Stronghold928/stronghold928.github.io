@@ -30,7 +30,7 @@ export const services: Service[] = [
     description:
       "A good remodel changes the way a family uses their home. We've seen it happen on every project we're proud of. The key is being honest up front about what the space can do and what the budget can actually cover.",
     detail:
-      "If you know you want a change but haven't figured out the look yet, our guided design process helps you get there. It's a series of conversations and visual exercises that gets you to a clear style and scope before any work starts.",
+      "If you know you want a change but haven't figured out the look yet, our free design tool gets you there fast: a seven-question quiz that hands you a real design plan, a named style, a proven material palette, and the finishes that make it work, before any work starts.",
     photo:
       'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1400&auto=format&fit=crop&q=80',
     photoAlt: 'Modern kitchen remodel with white cabinetry and quartz countertops',
@@ -42,7 +42,7 @@ export const services: Service[] = [
       { n: '05', title: 'Build', body: "Your project gets a dedicated crew, weekly check-ins, and a point of contact you can actually reach." },
       { n: '06', title: 'Walkthrough', body: "We go through every item on the punch list together. Nothing gets checked off until you're satisfied." },
     ],
-    designCta: { label: 'Find Your Design Style', href: '/design' },
+    designCta: { label: 'Get Your Design Plan', href: '/design' },
     faqs: [
       { q: "How long does a home remodel take in Flagstaff, AZ?", a: "Most kitchen remodels take 6–10 weeks; bathroom remodels 3–5 weeks; full home remodels 3–6 months. Timing depends on scope, permit schedules, and material lead times. We give you a real schedule before work starts, not an optimistic guess." },
       { q: "Do you handle permits for remodeling projects?", a: "Yes. We pull all required permits and manage the inspection schedule. Structural changes, electrical, and plumbing work require permits in Flagstaff under the Coconino County building codes. We handle it so you don't have to." },
