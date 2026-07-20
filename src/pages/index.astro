@@ -20,21 +20,23 @@ const typeLabels: Record<string, string> = {
 <Layout title="Home" description="Stronghold: General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and handyman services across northern Arizona.">
   <section class="hero">
     <BlueprintCanvas />
-    <div class="hero-inner">
-      <p class="hero-eyebrow">General Contractor &bull; Flagstaff, Arizona</p>
-      <h1 class="hero-headline">
-        You got a<br />
-        <span class="hero-accent" id="hero-slot-word">construction</span><br />
-        guy.
-      </h1>
-      <p class="hero-sub">
-        Based in Flagstaff, specializing in remodels, restoration, new builds, and handyman services all across northern Arizona.
-      </p>
-      <div class="hero-actions">
-        <a href="/quote" class="btn-primary">Get a Quote</a>
-        <a href="/projects" class="btn-secondary">See Our Work</a>
+    <div class="hero-content-wrap">
+      <div class="hero-inner">
+        <p class="hero-eyebrow">General Contractor &bull; Flagstaff, Arizona</p>
+        <h1 class="hero-headline">
+          You got a<br />
+          <span class="hero-accent" id="hero-slot-word">construction</span><br />
+          guy.
+        </h1>
+        <p class="hero-sub">
+          Based in Flagstaff, specializing in remodels, restoration, new builds, and handyman services all across northern Arizona.
+        </p>
+        <div class="hero-actions">
+          <a href="/quote" class="btn-primary">Get a Quote</a>
+          <a href="/projects" class="btn-secondary">See Our Work</a>
+        </div>
+        <a href="tel:+19289627535" class="hero-phone">Call or Text: <span class="hero-phone-number">(928) 962-7535</span></a>
       </div>
-      <a href="tel:+19289627535" class="hero-phone">Call or Text: <span class="hero-phone-number">(928) 962-7535</span></a>
     </div>
   </section>
 
@@ -134,9 +136,19 @@ const typeLabels: Record<string, string> = {
     border-bottom: 2px solid var(--color-border);
   }
 
-  .hero-inner {
+  /* Centers hero content within the site's standard 1200px column, so on
+     wide/maximized viewports the box sits left-of-center with real margin
+     instead of hugging the raw screen edge, while BlueprintCanvas (a sibling
+     positioned absolute against .hero) still spans the full viewport width. */
+  .hero-content-wrap {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-inner {
     background: #ffffff;
     border: 2px solid var(--color-border);
     box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.06);
