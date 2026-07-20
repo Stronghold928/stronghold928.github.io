@@ -9,8 +9,10 @@
 <style>
   .blueprint-wrap {
     position: absolute;
-    /* Left edge flush with hero-inner right edge (hero padding 2.5rem + box max-width 520px) */
-    left: calc(2.5rem + 520px);
+    /* Spans the full hero width; the hero-inner box (higher in DOM order,
+       opaque background) sits on top of it via z-index, so the blueprint
+       reads as continuing underneath the box all the way to the left edge. */
+    left: 0;
     right: 0;
     top: 0;
     bottom: 0;
@@ -20,9 +22,7 @@
   }
   #blueprint-canvas {
     display: block;
-    /* Bleed 50px left so canvas slides from behind the box rather than hard-clipping */
-    width: calc(100% + 100px);
-    margin-left: -50px;
+    width: 100%;
     height: 100%;
   }
   @media (max-width: 900px) {
