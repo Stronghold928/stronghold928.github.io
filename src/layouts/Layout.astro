@@ -1,6 +1,8 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import MinimalHeader from '../components/MinimalHeader.astro';
+import MinimalFooter from '../components/MinimalFooter.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -8,6 +10,9 @@ interface Props {
   description?: string;
   ogImage?: string;
   noindex?: boolean;
+  // Swaps the full site Nav/Footer for a slim logo+phone header and a license-only
+  // footer — for single-purpose campaign landing pages where every extra link is an exit.
+  minimalChrome?: boolean;
 }
 
 const {
@@ -15,6 +20,7 @@ const {
   description = 'Stronghold Construction: Licensed general contractor in Flagstaff, AZ. Remodeling, restoration, new home builds, and handyman services across northern Arizona.',
   ogImage = '/og-default.svg',
   noindex = false,
+  minimalChrome = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -143,10 +149,10 @@ const localBusinessSchema: Record<string, unknown> = {
     </script>
   </head>
   <body>
-    <Nav />
+    {minimalChrome ? <MinimalHeader /> : <Nav />}
     <main>
       <slot />
     </main>
-    <Footer />
+    {minimalChrome ? <MinimalFooter /> : <Footer />}
   </body>
 </html>
