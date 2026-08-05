@@ -1,0 +1,79 @@
+---
+// Slim footer for single-purpose campaign landing pages: license + legal only.
+// No service/company nav columns — keeps the page's only exits as call or submit.
+const year = new Date().getFullYear();
+---
+
+<footer class="min-footer">
+  <div class="min-footer-inner">
+    <div class="min-footer-brand">
+      <p class="min-footer-license">AZ ROC License: 354046</p>
+      <p class="min-footer-location">Flagstaff, AZ &bull; Serving Northern Arizona</p>
+    </div>
+    <div class="min-footer-legal">
+      <p>&copy; {year} Stronghold. All rights reserved.</p>
+      <nav class="min-footer-legal-links" aria-label="Legal">
+        <a href="/privacy" class="min-footer-legal-link">Privacy Policy</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="/terms" class="min-footer-legal-link">Terms of Use</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .min-footer {
+    background-color: var(--color-dark);
+    border-top: 3px solid var(--color-brand-red);
+    color: #f5f5f5;
+  }
+
+  .min-footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+
+  .min-footer-license,
+  .min-footer-location {
+    opacity: 0.6;
+    margin: 0;
+  }
+  .min-footer-license { margin-bottom: 0.15rem; }
+
+  .min-footer-legal {
+    text-align: right;
+    opacity: 0.6;
+  }
+  .min-footer-legal p { margin: 0 0 0.35rem; }
+
+  .min-footer-legal-links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .min-footer-legal-link {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .min-footer-legal-link:hover { opacity: 1; }
+
+  @media (max-width: 560px) {
+    .min-footer-inner { flex-direction: column; text-align: center; }
+    .min-footer-legal { text-align: center; }
+    .min-footer-legal-links { justify-content: center; }
+  }
+</style>

@@ -1,0 +1,445 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Formspree endpoint — reusing the quote form's endpoint so leads land in the same
+// inbox. The hidden "source" field tags each submission with the channel (card,
+// door-hanger, mailer, yard-sign, car-decal) so they're easy to filter/report on.
+// Swap this for a dedicated Formspree endpoint later if cleaner separation is wanted.
+const FORMSPREE_URL = 'https://formspree.io/f/xpqvwrob';
+
+const allProjects = await getCollection('projects');
+
+// Real examples chosen to show the $5,000 minimum isn't just for whole-home remodels —
+// figures pulled from the published cost ranges on the corresponding service pages.
+const qualifyingExamples = [
+  {
+    slug: 'ponderosa-bathroom-suite',
+    label: 'Bathroom Refresh',
+    range: 'A basic bathroom refresh (tile, fixtures, same footprint) typically runs $12,000–$22,000.',
+  },
+  {
+    slug: 'fort-valley-deck-repair',
+    label: 'Deck Repair & Rebuild',
+    range: 'Structural repairs start around $3,000; full rebuilds typically run $18,000+.',
+  },
+]
+  .map(ex => ({ ...ex, project: allProjects.find(p => p.id === ex.slug) }))
+  .filter((ex): ex is typeof ex & { project: NonNullable<typeof ex.project> } => Boolean(ex.project));
+---
+
+<Layout
+  title="Priority Evaluation Offer"
+  description="Scan-exclusive offer from Stronghold Construction: priority scheduling on your on-site evaluation, plus 10% off if you sign within 7 days. Flagstaff, AZ and northern Arizona."
+  minimalChrome
+  noindex
+>
+  <section class="offer-hero">
+    <div class="offer-hero-inner">
+      <p class="eyebrow">Scan-Exclusive Offer</p>
+      <h1>You found us.<br /><span class="accent">Here's what that's worth.</span></h1>
+      <p class="hero-sub">
+        Two things, no catch: priority scheduling on your on-site evaluation, and 10% off your
+        project if you sign within 7 days of your estimate. Works for a single-room refresh just
+        as well as a full remodel.
+      </p>
+      <div class="hero-actions">
+        <a href="tel:+19289627535" class="btn-primary">Call Now: (928) 962-7535</a>
+        <a href="#claim-form" class="btn-secondary">Or Fill Out the 20-Second Form &darr;</a>
+      </div>
+    </div>
+  </section>
+
+  {qualifyingExamples.length > 0 && (
+    <section class="qualify-section">
+      <div class="qualify-inner">
+        <p class="eyebrow">Not Just for Big Remodels</p>
+        <h2>Smaller projects clear the minimum too.</h2>
+        <div class="qualify-grid">
+          {qualifyingExamples.map(ex => (
+            <div class="qualify-card">
+              <div class="qualify-img-wrap">
+                <img src={ex.project.data.afterImage} alt={ex.project.data.title} loading="lazy" />
+              </div>
+              <h3 class="qualify-card-title">{ex.label}</h3>
+              <p class="qualify-card-body">{ex.range}</p>
+            </div>
+          ))}
+        </div>
+        <p class="qualify-caveat">
+          Handyman-scale jobs (a door, a faucet, a shelf) usually don't clear $5,000 on their own.
+          Ask us and we'll tell you straight whether your project qualifies.
+        </p>
+      </div>
+    </section>
+  )}
+
+  <section class="offer-cards-section">
+    <div class="offer-cards-inner">
+      <div class="offer-card">
+        <span class="offer-card-num">01</span>
+        <h2 class="offer-card-title">Priority Scheduling</h2>
+        <p class="offer-card-body">
+          Most evaluation requests join a queue. Yours won't. We move you to the front and get
+          someone out to walk the property fast.
+        </p>
+      </div>
+      <div class="offer-card offer-card--accent">
+        <span class="offer-card-num">02</span>
+        <h2 class="offer-card-title">10% Off — Sign Within 7 Days</h2>
+        <p class="offer-card-body">
+          Get your itemized estimate. Sign within 7 days and 10% comes off the total project
+          cost.
+        </p>
+      </div>
+    </div>
+    <p class="offer-fineprint">
+      Offer valid for new evaluation requests submitted through this page. Discount applies to
+      signed contracts over $5,000, one discount per household, and can't be combined with other
+      offers. Ask your estimator for details.
+    </p>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-strip-inner">
+      <div class="trust-pillars">
+        <div class="trust-pillar">
+          <h3>Integrity</h3>
+          <p>Scope changes get communicated before they show up on an invoice.</p>
+        </div>
+        <div class="trust-pillar">
+          <h3>Honesty</h3>
+          <p>You get our real read, not the one optimized to win the job.</p>
+        </div>
+        <div class="trust-pillar">
+          <h3>Community</h3>
+          <p>We live and work here. Licensed AZ ROC #354046.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="claim-section" id="claim-form">
+    <div class="claim-inner">
+      <p class="eyebrow">Claim Your Priority Slot</p>
+      <h2>Just your name and number.</h2>
+      <p class="claim-sub">We'll call within one business day to schedule your evaluation. No spam, no obligation.</p>
+
+      <form id="offer-form" action={FORMSPREE_URL} method="POST" class="offer-form" novalidate>
+        <input type="hidden" name="source" id="source-field" value="offer-direct" />
+        <input type="hidden" name="_subject" value="Priority Evaluation Request — Offer Page" />
+        <input type="hidden" name="_next" value="https://builtstronghold.com/thank-you" />
+        <input type="text" name="_gotcha" style="display:none" />
+
+        <div class="field-group">
+          <label for="name" class="field-label">Your Name <span class="required">*</span></label>
+          <input type="text" id="name" name="name" required placeholder="Jane Smith" class="field-input" />
+        </div>
+        <div class="field-group">
+          <label for="phone" class="field-label">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone" required placeholder="(928) 962-7535" class="field-input" />
+        </div>
+
+        <button type="submit" class="btn-primary btn-full">Claim My Priority Slot &rarr;</button>
+        <p class="form-note">No spam. No obligation. Just a call to schedule your evaluation.</p>
+      </form>
+
+      <div id="form-success" class="form-success" style="display:none">
+        <h3>You're on the priority list.</h3>
+        <p>We'll call within one business day to schedule your evaluation. If it's urgent, call or text us directly at <a href="tel:+19289627535" class="phone-link">(928) 962-7535</a>.</p>
+      </div>
+
+      <p class="claim-call-alt">
+        Prefer to talk now? Call or text <a href="tel:+19289627535" class="phone-link">(928) 962-7535</a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Populate hidden source field from ?ref= URL parameter (card, door-hanger, mailer, yard-sign, car-decal)
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('ref');
+  if (ref) {
+    const field = document.getElementById('source-field') as HTMLInputElement;
+    if (field) field.value = ref;
+  }
+
+  const form = document.getElementById('offer-form') as HTMLFormElement;
+  const success = document.getElementById('form-success');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const action = form.getAttribute('action') ?? '';
+
+    try {
+      const res = await fetch(action, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        if (success) success.style.display = 'block';
+      } else {
+        alert('Something went wrong. Please try calling us directly at (928) 962-7535.');
+      }
+    } catch {
+      alert('Unable to send. Please try calling us directly at (928) 962-7535.');
+    }
+  });
+</script>
+
+<style>
+  /* Hero */
+  .offer-hero {
+    padding: 3.5rem 1.5rem 3rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .offer-hero-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .offer-hero h1 {
+    font-size: var(--font-size-h1);
+    margin-bottom: 1.25rem;
+  }
+  .accent { color: var(--color-brand-red); }
+  .hero-sub {
+    font-size: 1.125rem;
+    opacity: 0.75;
+    line-height: 1.6;
+    margin: 0 auto 2rem;
+    max-width: 480px;
+  }
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 1.125rem 2rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-dark);
+    transition: box-shadow 0.1s, transform 0.1s;
+    cursor: pointer;
+    text-align: center;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-dark);
+    transform: translate(2px, 2px);
+  }
+  .btn-full { width: 100%; }
+  .btn-secondary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    opacity: 0.65;
+    text-decoration: underline;
+    transition: opacity 0.15s;
+  }
+  .btn-secondary:hover { opacity: 1; }
+
+  /* Qualifying examples */
+  .qualify-section {
+    padding: 3rem 1.5rem;
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .qualify-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .qualify-inner h2 { font-size: var(--font-size-h3); margin-bottom: 2rem; }
+  .qualify-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+  .qualify-card {
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-border);
+  }
+  .qualify-img-wrap { aspect-ratio: 4/3; overflow: hidden; }
+  .qualify-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .qualify-card-title {
+    font-size: 1.05rem;
+    padding: 1rem 1.25rem 0.25rem;
+  }
+  .qualify-card-body {
+    font-size: 0.85rem;
+    opacity: 0.65;
+    line-height: 1.5;
+    padding: 0 1.25rem 1.25rem;
+  }
+  .qualify-caveat {
+    font-size: 0.8rem;
+    opacity: 0.55;
+    line-height: 1.5;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* Offer cards */
+  .offer-cards-section { padding: 3rem 1.5rem 2rem; }
+  .offer-cards-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .offer-card {
+    border: 2px solid var(--color-border);
+    padding: 2rem;
+  }
+  .offer-card--accent {
+    border-color: var(--color-brand-red);
+    box-shadow: 6px 6px 0 var(--color-brand-red);
+  }
+  .offer-card-num {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-brand-red);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .offer-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .offer-card-body {
+    opacity: 0.7;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+  .offer-fineprint {
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+    font-size: 0.78rem;
+    opacity: 0.45;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* Trust strip */
+  .trust-strip {
+    background-color: var(--color-surface);
+    border-top: 2px solid var(--color-border);
+    border-bottom: 2px solid var(--color-border);
+    padding: 3.5rem 1.5rem;
+  }
+  .trust-strip-inner { max-width: 1000px; margin: 0 auto; }
+  .trust-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .trust-pillar h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  .trust-pillar p {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    line-height: 1.5;
+  }
+  /* Claim form */
+  .claim-section { padding: 4rem 1.5rem 5rem; }
+  .claim-inner { max-width: 480px; margin: 0 auto; text-align: center; }
+  .claim-inner h2 { font-size: var(--font-size-h2); margin-bottom: 0.75rem; }
+  .claim-sub {
+    opacity: 0.7;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  .offer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: left;
+    border: 2px solid var(--color-border);
+    padding: 2rem;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.06);
+  }
+  .field-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .required { color: var(--color-brand-red); }
+  .field-input {
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    color: var(--color-text);
+    padding: 1rem;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    width: 100%;
+    transition: border-color 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field-input::placeholder { opacity: 0.4; }
+  .field-input:focus {
+    outline: none;
+    border-color: var(--color-brand-red);
+    box-shadow: 3px 3px 0 var(--color-brand-red);
+  }
+  .form-note {
+    font-size: 0.78rem;
+    opacity: 0.45;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .form-success {
+    background-color: var(--color-surface);
+    border-left: 4px solid var(--color-brand-red);
+    padding: 2rem;
+    text-align: left;
+  }
+  .form-success h3 { font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .form-success p { opacity: 0.75; font-size: 0.9rem; line-height: 1.6; }
+  .phone-link { color: var(--color-brand-red); font-weight: 700; text-decoration: underline; }
+
+  .claim-call-alt {
+    margin-top: 1.75rem;
+    font-size: 0.95rem;
+    opacity: 0.65;
+  }
+
+  @media (max-width: 640px) {
+    .qualify-grid { grid-template-columns: 1fr; }
+    .offer-cards-inner { grid-template-columns: 1fr; }
+    .trust-pillars { grid-template-columns: 1fr; gap: 1.75rem; }
+  }
+</style>
