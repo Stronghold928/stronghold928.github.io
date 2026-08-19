@@ -58,7 +58,7 @@ const breadcrumbSchema = {
     <div class="posts-inner">
       <div class="posts-grid">
         {posts.map(post => (
-          <a href={`/news/${post.id}`} class="post-card">
+          <a href={`/news/${post.id}/`} class="post-card">
             <div class="post-img">
               <img
                 src={post.data.image}
@@ -83,7 +83,7 @@ const breadcrumbSchema = {
     <div class="news-cta-inner">
       <h2>Ready to start<br />your project?</h2>
       <p>Tell us what you're thinking. We'll give you a straight read on scope, cost, and timeline — no obligation.</p>
-      <a href="/quote" class="btn-primary">Get a Quote &rarr;</a>
+      <a href="/quote/" class="btn-primary">Get a Quote &rarr;</a>
     </div>
   </section>
 </Layout>

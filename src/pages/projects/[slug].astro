@@ -1,16 +1,18 @@
 ﻿---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { serviceAreas } from '../../data/service-areas';
+import { landingPages } from '../../data/services';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   return projects.map(project => ({
     params: { slug: project.id },
-    props: { project },
+    props: { project, siblings: projects.filter(other => other.id !== project.id).slice(0, 3) },
   }));
 }
 
-const { project } = Astro.props;
+const { project, siblings } = Astro.props;
 const { Content } = await render(project);
 
 const typeLabels: Record<string, string> = {
@@ -26,6 +28,32 @@ function truncateForMeta(text: string, maxLen = 155): string {
   return truncated.slice(0, truncated.lastIndexOf(' ')) + '…';
 }
 const metaDescription = truncateForMeta(project.data.description);
+
+// Case studies were dead ends: breadcrumb up, CTA out, nothing sideways. These
+// give each one a link to the service it demonstrates and the city it's in.
+const serviceForType: Record<string, string> = {
+  remodeling: 'remodeling',
+  restoration: 'restoration',
+  'new-build': 'new-construction',
+  repair: 'handyman',
+};
+const relatedServiceSlug = serviceForType[project.data.type];
+const relatedServiceLabel = typeLabels[project.data.type];
+
+const cityName = project.data.location.split(',')[0].trim();
+const relatedArea = serviceAreas.find(
+  a => a.cityName.toLowerCase() === cityName.toLowerCase()
+);
+
+// Match a keyword landing page off the project title where one genuinely fits.
+const titleLower = project.data.title.toLowerCase();
+const relatedLanding = landingPages.find(l => {
+  if (l.slug.startsWith('kitchen')) return titleLower.includes('kitchen');
+  if (l.slug.startsWith('bathroom')) return titleLower.includes('bath');
+  if (l.slug.startsWith('deck')) return titleLower.includes('deck');
+  if (l.slug.startsWith('home-addition')) return titleLower.includes('addition');
+  return false;
+});
 ---
 
 <Layout
@@ -38,7 +66,7 @@ const metaDescription = truncateForMeta(project.data.description);
       <ol class="breadcrumb-list">
         <li><a href="/">Home</a></li>
         <li aria-hidden="true">/</li>
-        <li><a href="/projects">Projects</a></li>
+        <li><a href="/projects/">Projects</a></li>
         <li aria-hidden="true">/</li>
         <li aria-current="page">{project.data.title}</li>
       </ol>
@@ -46,7 +74,7 @@ const metaDescription = truncateForMeta(project.data.description);
   </nav>
 
   <div class="project-back">
-    <a href="/projects" class="back-link">&larr; All Projects</a>
+    <a href="/projects/" class="back-link">&larr; All Projects</a>
   </div>
 
   <section class="project-hero">
@@ -94,7 +122,7 @@ const metaDescription = truncateForMeta(project.data.description);
     <div class="project-body-inner">
       {project.data.highlights && project.data.highlights.length > 0 && (
         <aside class="highlights">
-          <h3 class="highlights-title">Project Highlights</h3>
+          <h2 class="highlights-title">Project Highlights</h2>
           <ul>
             {project.data.highlights.map(h => (
               <li>{h}</li>
@@ -111,7 +139,7 @@ const metaDescription = truncateForMeta(project.data.description);
   {project.data.gallery && project.data.gallery.length > 1 && (
     <section class="gallery-section">
       <div class="gallery-inner">
-        <h3 class="gallery-title">Gallery</h3>
+        <h2 class="gallery-title">Gallery</h2>
         <div class="gallery-grid">
           {project.data.gallery.map((img, i) => (
             <div class="gallery-img-wrap">
@@ -123,13 +151,60 @@ const metaDescription = truncateForMeta(project.data.description);
     </section>
   )}
 
+  <section class="related-section">
+    <div class="related-inner">
+      <p class="related-eyebrow">Related</p>
+      <div class="related-links">
+        {relatedServiceSlug && (
+          <a href={`/services/${relatedServiceSlug}/`} class="related-card">
+            <span class="related-kind">Service</span>
+            <span class="related-name">{relatedServiceLabel} in northern Arizona</span>
+          </a>
+        )}
+        {relatedLanding && (
+          <a href={`/services/${relatedLanding.slug}/`} class="related-card">
+            <span class="related-kind">Service</span>
+            <span class="related-name">{relatedLanding.label}</span>
+          </a>
+        )}
+        {relatedArea && (
+          <a href={`/service-areas/${relatedArea.slug}/`} class="related-card">
+            <span class="related-kind">Service Area</span>
+            <span class="related-name">{relatedArea.headline}</span>
+          </a>
+        )}
+      </div>
+
+      {siblings.length > 0 && (
+        <div class="sibling-block">
+          <p class="related-eyebrow">More Projects</p>
+          <div class="sibling-grid">
+            {siblings.map(sib => (
+              <a href={`/projects/${sib.id}/`} class="sibling-card">
+                <img
+                  src={sib.data.afterImage}
+                  alt={sib.data.title}
+                  loading="lazy"
+                  width="1200"
+                  height="750"
+                />
+                <span class="sibling-title">{sib.data.title}</span>
+                <span class="sibling-loc">{sib.data.location}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
   <section class="project-footer-cta">
     <div class="project-footer-inner">
       <h2>Ready to talk<br />about your project?</h2>
       <p>Every project starts with a straightforward conversation. No obligation, no pressure.</p>
       <div class="cta-row">
-        <a href="/contact" class="btn-primary">Get a Quote &rarr;</a>
-        <a href="/projects" class="btn-outline">More Projects</a>
+        <a href="/contact/" class="btn-primary">Get a Quote &rarr;</a>
+        <a href="/projects/" class="btn-outline">More Projects</a>
       </div>
     </div>
   </section>
@@ -405,5 +480,92 @@ const metaDescription = truncateForMeta(project.data.description);
     .before-after-inner { grid-template-columns: 1fr; }
     .project-body-inner { grid-template-columns: 1fr; }
     .highlights { position: static; }
+  }
+  /* Related links */
+  .related-section {
+    background-color: var(--color-surface);
+    border-top: 2px solid var(--color-border);
+  }
+  .related-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+  .related-eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1.25rem;
+  }
+  .related-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.25rem;
+    background-color: var(--color-brand-white);
+    border: 2px solid var(--color-border);
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .related-card:hover {
+    border-color: var(--color-brand-red);
+    transform: translateY(-2px);
+  }
+  .related-kind {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .related-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  .sibling-block {
+    margin-top: 3rem;
+  }
+  .sibling-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+  }
+  .sibling-card {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--color-border);
+    background-color: var(--color-brand-white);
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .sibling-card:hover {
+    border-color: var(--color-brand-red);
+    transform: translateY(-2px);
+  }
+  .sibling-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+  }
+  .sibling-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 0.75rem 0.875rem 0.2rem;
+  }
+  .sibling-loc {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    padding: 0 0.875rem 0.875rem;
   }
 </style>

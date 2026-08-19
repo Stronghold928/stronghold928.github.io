@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import BlueprintCanvas from '../components/BlueprintCanvas.astro';
 import { getCollection } from 'astro:content';
+import { services, landingPages } from '../data/services';
+import { serviceAreas } from '../data/service-areas';
 
 const allProjects = await getCollection('projects');
 const featured = allProjects
@@ -32,8 +34,8 @@ const typeLabels: Record<string, string> = {
           Based in Flagstaff, specializing in remodels, restoration, new builds, and handyman services all across northern Arizona.
         </p>
         <div class="hero-actions">
-          <a href="/quote" class="btn-primary">Get a Quote</a>
-          <a href="/projects" class="btn-secondary">See Our Work</a>
+          <a href="/quote/" class="btn-primary">Get a Quote</a>
+          <a href="/projects/" class="btn-secondary">See Our Work</a>
         </div>
         <a href="tel:+19289627535" class="hero-phone">Call or Text: <span class="hero-phone-number">(928) 962-7535</span></a>
       </div>
@@ -42,18 +44,27 @@ const typeLabels: Record<string, string> = {
 
   <section class="services-strip">
     <div class="services-inner">
-      {[
-        { title: 'Remodeling', desc: 'A good remodel changes how your whole family lives. We make the process clear and the result worth it.', href: '/services#remodeling' },
-        { title: 'Restoration', desc: "Northern Arizona's older homes have real character. We help preserve it while fixing what needs fixing.", href: '/services#restoration' },
-        { title: 'New Construction', desc: 'Building something new? We take it from foundation to front door, with no surprises along the way.', href: '/services#new-builds' },
-        { title: 'Handyman', desc: 'From a sticking door to a shelf that needs hanging, we handle the small jobs right the first time.', href: '/services#handyman' },
-      ].map(s => (
-        <a href={s.href} class="service-tile">
-          <h3 class="service-title">{s.title}</h3>
-          <p class="service-desc">{s.desc}</p>
-          <span class="service-arrow">&rarr;</span>
-        </a>
-      ))}
+      <h2 class="services-strip-title">General contracting services in Flagstaff and northern Arizona</h2>
+      <div class="services-tiles">
+        {[
+          { title: 'Remodeling', slug: 'remodeling', desc: 'A good remodel changes how your whole family lives. We make the process clear and the result worth it.' },
+          { title: 'Restoration', slug: 'restoration', desc: "Northern Arizona's older homes have real character. We help preserve it while fixing what needs fixing." },
+          { title: 'New Construction', slug: 'new-construction', desc: 'Building something new? We take it from foundation to front door, with no surprises along the way.' },
+          { title: 'Handyman', slug: 'handyman', desc: 'From a sticking door to a shelf that needs hanging, we handle the small jobs right the first time.' },
+        ].map(s => (
+          <a href={`/services/${s.slug}/`} class="service-tile">
+            <h3 class="service-title">{s.title}</h3>
+            <p class="service-desc">{s.desc}</p>
+            <span class="service-arrow">&rarr;</span>
+          </a>
+        ))}
+      </div>
+      <div class="services-strip-popular">
+        <span class="popular-lead">Most requested:</span>
+        {landingPages.map(l => (
+          <a href={`/services/${l.slug}/`} class="popular-pill">{l.label}</a>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -68,7 +79,7 @@ const typeLabels: Record<string, string> = {
         <p>
           And you'll always know where things stand.
         </p>
-        <a href="/about" class="btn-outline-dark">Our Story &rarr;</a>
+        <a href="/about/" class="btn-outline-dark">Our Story &rarr;</a>
       </div>
       <div class="values-pillars">
         {[
@@ -92,7 +103,25 @@ const typeLabels: Record<string, string> = {
       <p>
         Most people haven't. Answer seven questions and get back a real design plan: a named style, a proven palette, and the exact materials that make it work, ready for your first project conversation.
       </p>
-      <a href="/design" class="btn-dark">Get Your Design Plan &rarr;</a>
+      <a href="/design/" class="btn-dark">Get Your Design Plan &rarr;</a>
+    </div>
+  </section>
+
+  <section class="areas-teaser">
+    <div class="areas-teaser-inner">
+      <p class="section-eyebrow">Where We Work</p>
+      <h2>Flagstaff is home base. We cover the rest of northern Arizona.</h2>
+      <ul class="areas-list">
+        {serviceAreas.map(a => (
+          <li>
+            <a href={`/service-areas/${a.slug}/`}>
+              <span class="areas-city">{a.cityName}, {a.stateAbbr}</span>
+              <span class="areas-county">{a.county} Co.</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="/service-areas/" class="btn-outline-dark">All Service Areas &rarr;</a>
     </div>
   </section>
 
@@ -103,11 +132,11 @@ const typeLabels: Record<string, string> = {
           <p class="section-eyebrow">Our Work</p>
           <h2>Projects built to last.</h2>
         </div>
-        <a href="/projects" class="btn-outline-dark">View All Projects &rarr;</a>
+        <a href="/projects/" class="btn-outline-dark">View All Projects &rarr;</a>
       </div>
       <div class="projects-grid">
         {featured.map(project => (
-          <a href={`/projects/${project.id}`} class="project-card">
+          <a href={`/projects/${project.id}/`} class="project-card">
             <div class="project-img-wrap">
               <img src={project.data.afterImage} alt={project.data.title} loading="lazy" />
             </div>
@@ -309,8 +338,14 @@ const typeLabels: Record<string, string> = {
   .services-inner {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 3rem 0;
+  }
+
+  .services-tiles {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    border-top: 2px solid var(--color-border);
+    border-bottom: 2px solid var(--color-border);
   }
 
   .service-tile {
@@ -540,7 +575,7 @@ const typeLabels: Record<string, string> = {
   /* ---- Responsive ---- */
   @media (max-width: 900px) {
     .hero-headline { font-size: 2.75rem; }
-    .services-inner { grid-template-columns: repeat(2, 1fr); }
+    .services-tiles { grid-template-columns: repeat(2, 1fr); }
     .service-tile:nth-child(2) { border-right: none; }
     .service-tile:nth-child(1),
     .service-tile:nth-child(2) { border-bottom: 2px solid var(--color-border); }
@@ -551,11 +586,90 @@ const typeLabels: Record<string, string> = {
   @media (max-width: 600px) {
     .hero { min-height: 80vh; padding: 4rem 1.5rem 3rem; }
     .hero-headline { font-size: 2.25rem; }
-    .services-inner { grid-template-columns: 1fr; }
+    .services-tiles { grid-template-columns: 1fr; }
     .service-tile { border-right: none; border-bottom: 2px solid var(--color-border); }
     .service-tile:last-child { border-bottom: none; }
     .projects-teaser-header { flex-direction: column; align-items: flex-start; }
     .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---- Services strip additions ---- */
+  .services-strip-title {
+    font-size: var(--font-size-h3);
+    max-width: 30ch;
+    padding: 0 1.5rem 2rem;
+  }
+  .services-strip-popular {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem 1.5rem 0;
+  }
+  .popular-lead {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .popular-pill {
+    font-size: 0.82rem;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--color-border);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .popular-pill:hover {
+    border-color: var(--color-brand-red);
+    color: var(--color-brand-red);
+  }
+
+  /* ---- Service areas teaser ---- */
+  .areas-teaser {
+    background-color: var(--color-surface);
+    border-top: 2px solid var(--color-border);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .areas-teaser-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .areas-teaser h2 {
+    font-size: var(--font-size-h2);
+    max-width: 24ch;
+    margin-bottom: 2.5rem;
+  }
+  .areas-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+  }
+  .areas-list a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.875rem 1rem;
+    background-color: var(--color-brand-white);
+    border: 1px solid var(--color-border);
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .areas-list a:hover {
+    border-color: var(--color-brand-red);
+    transform: translateY(-2px);
+  }
+  .areas-city {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .areas-county {
+    font-size: 0.72rem;
+    opacity: 0.55;
   }
 </style>
 

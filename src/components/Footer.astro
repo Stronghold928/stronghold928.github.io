@@ -1,21 +1,22 @@
 ---
+import { services as serviceData, landingPages } from '../data/services';
+import { serviceAreas } from '../data/service-areas';
+
 const year = new Date().getFullYear();
 
 const services = [
-  { href: '/services/remodeling', label: 'Remodeling' },
-  { href: '/services/restoration', label: 'Restoration' },
-  { href: '/services/new-construction', label: 'New Construction' },
-  { href: '/services/handyman', label: 'Handyman' },
+  ...serviceData.map(s => ({ href: `/services/${s.slug}/`, label: s.label })),
+  ...landingPages.map(l => ({ href: `/services/${l.slug}/`, label: l.navLabel })),
 ];
 
 const company = [
-  { href: '/about', label: 'About' },
-  { href: '/projects', label: 'Projects' },
-  { href: '/design', label: 'Design' },
-  { href: '/contact', label: 'Contact' },
-  { href: '/faq', label: 'FAQ' },
-  { href: '/news', label: 'News' },
-  { href: '/service-areas', label: 'Service Areas' },
+  { href: '/about/', label: 'About' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/design/', label: 'Design' },
+  { href: '/contact/', label: 'Contact' },
+  { href: '/faq/', label: 'FAQ' },
+  { href: '/news/', label: 'News' },
+  { href: '/service-areas/', label: 'Service Areas' },
 ];
 ---
 
@@ -29,13 +30,19 @@ const company = [
       <p class="footer-tagline">
         Building better homes and stronger communities across northern Arizona.
       </p>
-      <p class="footer-location">Flagstaff, AZ / Serving Northern Arizona</p>
+      <address class="footer-address">
+        <span class="footer-address-name">Stronghold Construction</span>
+        <span>13447 King John Road</span>
+        <span>Parks, AZ 86018</span>
+        <a href="tel:+19289627535">(928) 962-7535</a>
+      </address>
+      <p class="footer-location">Serving Flagstaff &amp; Northern Arizona</p>
       <p class="footer-license">AZ ROC License: 354046</p>
     </div>
 
     <div class="footer-nav">
       <div class="footer-col">
-        <h3 class="footer-col-title">Services</h3>
+        <h2 class="footer-col-title">Services</h2>
         <ul>
           {services.map(link => (
             <li><a href={link.href} class="footer-link">{link.label}</a></li>
@@ -43,7 +50,7 @@ const company = [
         </ul>
       </div>
       <div class="footer-col">
-        <h3 class="footer-col-title">Company</h3>
+        <h2 class="footer-col-title">Company</h2>
         <ul>
           {company.map(link => (
             <li><a href={link.href} class="footer-link">{link.label}</a></li>
@@ -51,12 +58,20 @@ const company = [
         </ul>
       </div>
       <div class="footer-col">
-        <h3 class="footer-col-title">Contact</h3>
+        <h2 class="footer-col-title">Service Areas</h2>
+        <ul>
+          {serviceAreas.map(a => (
+            <li><a href={`/service-areas/${a.slug}/`} class="footer-link">{a.cityName}, {a.stateAbbr}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2 class="footer-col-title">Contact</h2>
         <ul>
           <li><a href="tel:+19289627535" class="footer-link">(928) 962-7535</a></li>
           <li><a href="mailto:hello@builtstronghold.com" class="footer-link">hello@builtstronghold.com</a></li>
         </ul>
-        <a href="/quote" class="footer-cta">Get a Quote &rarr;</a>
+        <a href="/quote/" class="footer-cta">Get a Quote &rarr;</a>
       </div>
     </div>
   </div>
@@ -65,11 +80,11 @@ const company = [
     <div class="footer-bottom-inner">
       <p>&copy; {year} Stronghold. All rights reserved.</p>
       <nav class="footer-legal-links" aria-label="Legal">
-        <a href="/privacy" class="footer-legal-link">Privacy Policy</a>
+        <a href="/privacy/" class="footer-legal-link">Privacy Policy</a>
         <span aria-hidden="true">&middot;</span>
-        <a href="/terms" class="footer-legal-link">Terms of Use</a>
+        <a href="/terms/" class="footer-legal-link">Terms of Use</a>
         <span aria-hidden="true">&middot;</span>
-        <a href="/accessibility" class="footer-legal-link">Accessibility</a>
+        <a href="/accessibility/" class="footer-legal-link">Accessibility</a>
       </nav>
       <p class="footer-values">Integrity &bull; Honesty &bull; Community</p>
     </div>
@@ -91,6 +106,24 @@ const company = [
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 4rem;
+  }
+
+  .footer-address {
+    font-style: normal;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    opacity: 0.75;
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-address-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    opacity: 1;
+  }
+  .footer-address a:hover {
+    color: var(--color-brand-red);
   }
 
   .footer-logo {
@@ -134,7 +167,7 @@ const company = [
 
   .footer-nav {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
   }
 

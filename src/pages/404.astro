@@ -1,0 +1,175 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { services, landingPages } from '../data/services';
+import { serviceAreas } from '../data/service-areas';
+---
+
+<Layout
+  title="Page Not Found"
+  description="That page doesn't exist. Find our services, service areas, and project archive here, or get in touch with Stronghold Construction directly."
+  noindex
+>
+  <section class="notfound">
+    <div class="notfound-inner">
+      <p class="eyebrow">404</p>
+      <h1>That page isn't here.</h1>
+      <p class="lead">
+        The link may be old or mistyped. Everything we publish is one of the links
+        below, or call us and we'll point you at it.
+      </p>
+      <div class="actions">
+        <a href="/quote/" class="btn-primary">Get a Quote &rarr;</a>
+        <a href="tel:+19289627535" class="btn-outline">(928) 962-7535</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="directory">
+    <div class="directory-inner">
+      <div class="dir-col">
+        <h2>Services</h2>
+        <ul>
+          {services.map(s => (
+            <li><a href={`/services/${s.slug}/`}>{s.label}</a></li>
+          ))}
+          {landingPages.map(l => (
+            <li><a href={`/services/${l.slug}/`}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="dir-col">
+        <h2>Service Areas</h2>
+        <ul>
+          {serviceAreas.map(a => (
+            <li><a href={`/service-areas/${a.slug}/`}>{a.cityName}, {a.stateAbbr}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div class="dir-col">
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/projects/">Projects</a></li>
+          <li><a href="/news/">News</a></li>
+          <li><a href="/design/">Design</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .notfound {
+    padding: 7rem 1.5rem 4rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .notfound-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .notfound h1 {
+    font-size: var(--font-size-h1);
+    margin-bottom: 1.25rem;
+  }
+  .lead {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    opacity: 0.75;
+    margin-bottom: 2rem;
+    max-width: 48ch;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .directory {
+    background-color: var(--color-surface);
+  }
+  .directory-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+  .dir-col h2 {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1rem;
+  }
+  .dir-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .dir-col a {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: color 0.15s, opacity 0.15s;
+  }
+  .dir-col a:hover {
+    color: var(--color-brand-red);
+    opacity: 1;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-dark);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-dark);
+    transform: translate(2px, 2px);
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    padding: 0.875rem 1.75rem;
+    border: 2px solid var(--color-border);
+    transition: border-color 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-brand-red);
+  }
+
+  @media (max-width: 800px) {
+    .directory-inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .directory-inner { grid-template-columns: 1fr; }
+  }
+</style>
