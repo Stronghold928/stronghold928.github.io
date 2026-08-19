@@ -1,101 +1,111 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
-import { services } from '../data/services';
+import { services, landingPages } from '../data/services';
+import { serviceAreas } from '../data/service-areas';
+
+const site = 'https://builtstronghold.com';
+
+// Hub page: an ItemList pointing at the child service pages. The full copy,
+// process steps, and FAQs live on those pages — duplicating them here put five
+// URLs in competition for the same terms.
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Construction and remodeling services in Flagstaff, AZ',
+  itemListElement: [
+    ...services.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: s.label,
+      url: `${site}/services/${s.slug}/`,
+    })),
+    ...landingPages.map((l, i) => ({
+      '@type': 'ListItem',
+      position: services.length + i + 1,
+      name: l.label,
+      url: `${site}/services/${l.slug}/`,
+    })),
+  ],
+};
 ---
 
 <Layout
   title="Construction & Remodeling Services in Flagstaff AZ"
   description="Remodeling, historic restoration, new home builds, and handyman services from Stronghold Construction, based in Flagstaff, serving all of northern Arizona."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+
   <section class="page-hero">
     <div class="page-hero-inner">
       <p class="eyebrow">What We Do</p>
-      <h1>What we do,<br /><span class="accent">and how we do it.</span></h1>
+      <h1>What we do, <br /><span class="accent">and how we do it.</span></h1>
       <p class="hero-sub">Every project starts with an honest conversation about what you actually need. From there you get a real quote, a real crew, and someone you can reach when you have questions.</p>
     </div>
   </section>
 
-  <nav class="service-nav" aria-label="Jump to service">
+  <nav class="service-nav" aria-label="Services">
     {services.map(s => (
-      <a href={`#${s.slug}`} class="service-nav-link">{s.label}</a>
+      <a href={`/services/${s.slug}/`} class="service-nav-link">{s.label}</a>
     ))}
   </nav>
 
   {services.map((s, i) => (
-    <>
     <section id={s.slug} class={`service-section ${i % 2 === 1 ? 'service-section--alt' : ''}`}>
       <div class="service-inner">
         <div class="service-photo-col">
-          <div class="service-photo-wrap">
-            <img src={s.photo} alt={s.photoAlt} loading="lazy" />
-          </div>
+          <a href={`/services/${s.slug}/`} class="service-photo-wrap">
+            <img src={s.photo} alt={s.photoAlt} loading="lazy" width="1200" height="900" />
+          </a>
         </div>
         <div class="service-content-col">
           <p class="eyebrow">{s.label}</p>
-          <h2>{s.tagline}</h2>
-          <p class="service-desc">{s.description}</p>
-          <p class="service-detail">{s.detail}</p>
+          <h2><a href={`/services/${s.slug}/`}>{s.tagline}</a></h2>
+          <p class="service-desc">{s.hubSummary}</p>
+          <ul class="service-sublinks">
+            {landingPages.filter(l => l.parentService === s.slug).map(l => (
+              <li>
+                <a href={`/services/${l.slug}/`}>{l.label}</a>
+              </li>
+            ))}
+          </ul>
           <div class="service-cta-row">
-            <a href={`/services/${s.slug}`} class="btn-primary">Learn More &rarr;</a>
+            <a href={`/services/${s.slug}/`} class="btn-primary">{s.label} Details &rarr;</a>
             {s.designCta && (
               <a href={s.designCta.href} class="btn-outline">{s.designCta.label}</a>
             )}
           </div>
         </div>
       </div>
-      <div class="service-process">
-        <div class="service-process-inner">
-          <h3 class="process-title">Our Process</h3>
-          <div class="process-steps">
-            {s.steps.map(step => (
-              <div class="process-step">
-                <span class="step-num">{step.n}</span>
-                <div>
-                  <h4 class="step-title">{step.title}</h4>
-                  <p class="step-body">{step.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </section>
-    {s.faqs && s.faqs.length > 0 && (
-      <section class="service-faq" id={`${s.slug}-faq`}>
-        <div class="service-faq-inner">
-          <h3 class="faq-title">{s.label} — Common Questions</h3>
-          <div class="faq-list">
-            {s.faqs.map(faq => (
-              <details class="faq-item" name={`faq-${s.slug}`}>
-                <summary class="faq-question">{faq.q}</summary>
-                <p class="faq-answer">{faq.a}</p>
-              </details>
-            ))}
-          </div>
-          <script type="application/ld+json" set:html={JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": s.faqs.map(faq => ({
-              "@type": "Question",
-              "name": faq.q,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.a
-              }
-            }))
-          })} />
-        </div>
-      </section>
-    )}
-    </>
   ))}
+
+  <section class="popular-section">
+    <div class="popular-inner">
+      <p class="eyebrow">Most Requested</p>
+      <h2>The projects we get called about most.</h2>
+      <div class="popular-grid">
+        {landingPages.map(l => (
+          <a href={`/services/${l.slug}/`} class="popular-card">
+            <span class="popular-label">{l.label}</span>
+            <span class="popular-blurb">{l.blurb}</span>
+            <span class="popular-arrow">&rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
   <section class="service-area">
     <div class="service-area-inner">
       <p class="eyebrow">Where We Work</p>
-      <h2>We work all over<br />northern Arizona.</h2>
-      <p>Flagstaff is home base, but we regularly work in Williams, Sedona, Winslow, Show Low, Camp Verde, and the communities in between. If you're in the region and wondering whether we travel to you, just ask.</p>
-      <a href="/contact" class="btn-primary">Get in Touch &rarr;</a>
+      <h2>We work all over <br />northern Arizona.</h2>
+      <p>Flagstaff is home base, but we regularly work in the communities below. If you're in the region and wondering whether we travel to you, just ask.</p>
+      <ul class="area-links">
+        {serviceAreas.map(a => (
+          <li><a href={`/service-areas/${a.slug}/`}>{a.cityName}, {a.stateAbbr}</a></li>
+        ))}
+      </ul>
+      <a href="/contact/" class="btn-primary">Get in Touch &rarr;</a>
     </div>
   </section>
 </Layout>
@@ -220,113 +230,6 @@ import { services } from '../data/services';
     align-items: center;
   }
 
-  /* Process strip */
-  .service-process {
-    background-color: var(--color-surface);
-    border-top: 1px solid var(--color-border);
-  }
-  .service-process-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem;
-  }
-  .process-title {
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-brand-red);
-    margin-bottom: 1.75rem;
-  }
-  .process-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-  }
-  .process-step {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-  .step-num {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-brand-red);
-    line-height: 1;
-    flex-shrink: 0;
-  }
-  .step-title {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-  }
-  .step-body {
-    font-size: 0.8rem;
-    opacity: 0.65;
-    line-height: 1.5;
-  }
-
-  /* FAQ sections */
-  .service-faq {
-    background-color: var(--color-surface);
-    border-bottom: 2px solid var(--color-border);
-  }
-  .service-faq-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem;
-  }
-  .faq-title {
-    font-family: var(--font-heading);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-brand-red);
-    margin-bottom: 1.5rem;
-  }
-  .faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border: 1px solid var(--color-border);
-  }
-  .faq-item {
-    border-bottom: 1px solid var(--color-border);
-    background-color: var(--color-brand-white);
-  }
-  .faq-item:last-child { border-bottom: none; }
-  .faq-question {
-    font-family: var(--font-heading);
-    font-size: 0.95rem;
-    font-weight: 700;
-    padding: 1.25rem 1.5rem;
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .faq-question::-webkit-details-marker { display: none; }
-  .faq-question::after {
-    content: '+';
-    color: var(--color-brand-red);
-    font-size: 1.25rem;
-    font-weight: 700;
-    flex-shrink: 0;
-    margin-left: 1rem;
-  }
-  details[open] .faq-question::after { content: 'âˆ’'; }
-  .faq-answer {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    opacity: 0.75;
-    padding: 0 1.5rem 1.25rem;
-  }
-
   /* Service area */
   .service-area {
     background-color: var(--color-brand-red);
@@ -392,6 +295,110 @@ import { services } from '../data/services';
   }
   .btn-outline:hover {
     border-color: var(--color-brand-red);
+  }
+
+  .service-content-col h2 a {
+    color: inherit;
+  }
+  .service-content-col h2 a:hover {
+    color: var(--color-brand-red);
+  }
+  .service-sublinks {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .service-sublinks a {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .service-sublinks a:hover {
+    border-color: var(--color-brand-red);
+    color: var(--color-brand-red);
+  }
+
+  /* Most requested */
+  .popular-section {
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .popular-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .popular-inner h2 {
+    font-size: var(--font-size-h2);
+    margin-bottom: 2.5rem;
+  }
+  .popular-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .popular-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background-color: var(--color-brand-white);
+    border: 2px solid var(--color-border);
+    box-shadow: 4px 4px 0 var(--color-dark);
+    transition: box-shadow 0.1s, transform 0.1s, border-color 0.15s;
+  }
+  .popular-card:hover {
+    border-color: var(--color-brand-red);
+    box-shadow: 2px 2px 0 var(--color-dark);
+    transform: translate(2px, 2px);
+  }
+  .popular-label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+  .popular-blurb {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    opacity: 0.7;
+  }
+  .popular-arrow {
+    color: var(--color-brand-red);
+    font-weight: 700;
+    margin-top: 0.25rem;
+  }
+
+  /* Area links */
+  .area-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .area-links a {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: background-color 0.15s;
+  }
+  .area-links a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
   }
 
   /* Responsive */

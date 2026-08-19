@@ -48,9 +48,10 @@ const breadcrumbSchema = {
 
       <!-- Form -->
       <div class="form-col">
+        <h2 class="form-heading">Send us a message</h2>
 
         <div class="form-divert">
-          <p>Ready to start a project? <a href="/quote" class="form-divert-link">Request a detailed project quote &rarr;</a></p>
+          <p>Ready to start a project? <a href="/quote/" class="form-divert-link">Request a detailed project quote &rarr;</a></p>
         </div>
 
         <form
@@ -98,14 +99,15 @@ const breadcrumbSchema = {
           </div>
 
           <div id="form-success" class="form-success" style="display:none">
-            <h3>Message received.</h3>
+            <p class="form-success-title">Message received.</p>
             <p>We'll get back to you within one business day. Thank you for reaching out.</p>
           </div>
         </form>
       </div>
 
       <!-- Sidebar -->
-      <aside class="contact-sidebar">
+      <aside class="contact-sidebar" aria-labelledby="sidebar-heading">
+        <h2 id="sidebar-heading" class="sidebar-heading">Reach Stronghold directly</h2>
         <div class="sidebar-block">
           <h3 class="sidebar-title">Direct Contact</h3>
           <a href="tel:+19289627535" class="contact-item contact-item--link">
@@ -162,7 +164,7 @@ const breadcrumbSchema = {
         <div class="sidebar-block sidebar-block--design">
           <h3 class="sidebar-title">Not sure what style you want?</h3>
           <p>Our free design quiz takes a few minutes and hands you back a real plan: a named style, a proven palette, and the materials that make it work.</p>
-          <a href="/design" class="btn-outline">Get Your Design Plan &rarr;</a>
+          <a href="/design/" class="btn-outline">Get Your Design Plan &rarr;</a>
         </div>
       </aside>
     </div>

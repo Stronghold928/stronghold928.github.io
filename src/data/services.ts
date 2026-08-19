@@ -27,6 +27,8 @@ export const services: Service[] = [
     slug: 'remodeling',
     label: 'Remodeling',
     tagline: 'A remodel you actually love to come home to.',
+    hubSummary:
+      "Kitchens, baths, and whole-home reworks across Flagstaff and the surrounding high country. Itemized quotes, permitted work, a crew you can reach.",
     description:
       "A good remodel changes the way a family uses their home. We've seen it happen on every project we're proud of. The key is being honest up front about what the space can do and what the budget can actually cover.",
     detail:
@@ -41,7 +43,7 @@ export const services: Service[] = [
       { n: '05', title: 'Build', body: "Your project gets a dedicated crew, weekly check-ins, and a point of contact you can actually reach." },
       { n: '06', title: 'Walkthrough', body: "We go through every item on the punch list together. Nothing gets checked off until you're satisfied." },
     ],
-    designCta: { label: 'Get Your Design Plan', href: '/design' },
+    designCta: { label: 'Get Your Design Plan', href: '/design/' },
     faqs: [
       { q: "How long does a home remodel take in Flagstaff, AZ?", a: "Most kitchen remodels take 6–10 weeks; bathroom remodels 3–5 weeks; full home remodels 3–6 months. Timing depends on scope, permit schedules, and material lead times. We give you a real schedule before work starts, not an optimistic guess." },
       { q: "Do you handle permits for remodeling projects?", a: "Yes. We pull all required permits and manage the inspection schedule. Structural changes, electrical, and plumbing work require permits in Flagstaff under the Coconino County building codes. We handle it so you don't have to." },
@@ -54,6 +56,8 @@ export const services: Service[] = [
     slug: 'restoration',
     label: 'Restoration',
     tagline: "Old houses deserve honest contractors.",
+    hubSummary:
+      "Foundations, sill plates, roof systems, and windows on northern Arizona's older homes. We fix what's failing and leave the character alone.",
     description:
       "Northern Arizona's older homes have something most new builds don't: character that took decades to earn. Restoration work is about keeping that while fixing what's actually broken and being straight about which is which.",
     detail:
@@ -78,6 +82,8 @@ export const services: Service[] = [
     slug: 'new-construction',
     label: 'New Construction',
     tagline: 'From empty lot to front door.',
+    hubSummary:
+      "Ground-up single-family and multi-family builds at elevation, from lot review and permitting through final inspection.",
     description:
       "We build single-family and multi-family homes across northern Arizona. Custom owner-occupied builds, small investment properties, spec homes. Every project gets the same attention to structure, envelope, and systems regardless of size.",
     detail:
@@ -104,6 +110,8 @@ export const services: Service[] = [
     slug: 'handyman',
     label: 'Handyman',
     tagline: 'No job too small to do right.',
+    hubSummary:
+      "Small repairs handled by the same licensed crew that runs our large projects. Doors, fixtures, drywall, fences, and the rest of the list.",
     description:
       "A sticking door, a leaky faucet, a shelf that needs hanging, a fence board that needs replacing. Most of what a home needs day to day isn't a big project, it's a small fix from someone who shows up and does it properly the first time.",
     detail:
@@ -122,5 +130,50 @@ export const services: Service[] = [
       { q: "Do handyman jobs still get done to code?", a: "Yes. Small jobs get the same attention as large ones. If something requires a permit under Arizona code, we'll handle it rather than skip the step to save time." },
       { q: "How quickly can you get to a small repair?", a: "We respond within one business day for all inquiries and give you a real timeframe based on the job and our schedule. For urgent issues, call us directly." },
     ],
+  },
+];
+
+/**
+ * City + service keyword landing pages. These live as standalone .astro files
+ * rather than in the `services` collection, so they need an explicit registry
+ * to be reachable from the nav, footer, services hub, and city pages.
+ */
+export interface LandingPage {
+  slug: string;
+  label: string;
+  navLabel: string;
+  blurb: string;
+  /** Slug of the parent service in `services`, for cross-linking. */
+  parentService: string;
+}
+
+export const landingPages: LandingPage[] = [
+  {
+    slug: 'kitchen-remodel-flagstaff-az',
+    label: 'Kitchen Remodel in Flagstaff, AZ',
+    navLabel: 'Kitchen Remodel',
+    blurb: 'Layout changes, cabinets, counters, and the plumbing and electrical behind them.',
+    parentService: 'remodeling',
+  },
+  {
+    slug: 'bathroom-remodel-flagstaff-az',
+    label: 'Bathroom Remodel in Flagstaff, AZ',
+    navLabel: 'Bathroom Remodel',
+    blurb: 'Walk-in showers, soaking tubs, dual vanities, and the waterproofing that makes them last.',
+    parentService: 'remodeling',
+  },
+  {
+    slug: 'home-addition-flagstaff-az',
+    label: 'Home Addition in Flagstaff, AZ',
+    navLabel: 'Home Additions',
+    blurb: 'Room additions, garage conversions, and square-footage expansions that match the existing house.',
+    parentService: 'new-construction',
+  },
+  {
+    slug: 'deck-repair-flagstaff-az',
+    label: 'Deck Repair & Construction in Flagstaff, AZ',
+    navLabel: 'Deck Repair',
+    blurb: 'Structural diagnosis first, then repair or replacement built for snow load and freeze-thaw.',
+    parentService: 'handyman',
   },
 ];

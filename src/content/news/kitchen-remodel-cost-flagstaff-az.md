@@ -69,12 +69,14 @@ The better framing: if you're planning to stay in the home for 5–10 years, you
 
 **Unusually low bids.** A bid that's 30–40% below the others isn't a deal. It's a signal that something is being excluded, underestimated, or the contractor plans to make it up in change orders. Ask for a line-item breakdown and compare apples to apples.
 
-**No ROC license.** Arizona contractors are required to hold a Registrar of Contractors (ROC) license for work above a certain dollar threshold. You can look up any contractor's license at roc.az.gov. No license means no recourse if something goes wrong.
+**No ROC license.** Arizona contractors are required to hold a Registrar of Contractors (ROC) license for work above a certain dollar threshold. You can look up any contractor's license at the [Arizona ROC public license search](https://roc.az.gov/). No license means no recourse if something goes wrong. Our guide to [hiring a general contractor in northern Arizona](/news/northern-arizona-contractor-guide/) covers what else to verify before you sign.
 
 ## Getting an Accurate Quote
 
 The only way to get a number you can trust is a site visit with a written estimate. Kitchen remodeling bids that happen over the phone or via email photos are guesswork. A contractor who looks at your kitchen, measures it, asks about your goals, and comes back with a line-item proposal is doing it right.
 
-Stronghold Construction offers no-obligation quotes for kitchen remodels across northern Arizona. We'll walk the space with you, give you an honest read on scope and cost, and tell you what we'd actually do, not just what you want to hear.
+Stronghold Construction offers no-obligation quotes for [kitchen remodels in Flagstaff, AZ](/services/kitchen-remodel-flagstaff-az/) and across northern Arizona. We'll walk the space with you, give you an honest read on scope and cost, and tell you what we'd actually do, not just what you want to hear.
 
-[Request a quote](/quote) and we'll set up a time to look at your kitchen.
+If your project extends past the kitchen, our [remodeling services](/services/remodeling/) page covers full-home scope, and the [Oak Street Kitchen Remodel](/projects/oak-street-kitchen/) case study shows what a finished Flagstaff kitchen looks like start to finish. Working outside town? See [where we work](/service-areas/).
+
+[Request a quote](/quote/) and we'll set up a time to look at your kitchen.

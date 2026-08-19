@@ -1,6 +1,8 @@
 ﻿---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 import { serviceAreas } from '../../data/service-areas';
+import { landingPages } from '../../data/services';
 
 export function getStaticPaths() {
   return serviceAreas.map(area => ({
@@ -11,14 +13,27 @@ export function getStaticPaths() {
 
 const { area } = Astro.props;
 
+// Projects completed in this city, so each city page links to real proof.
+const allProjects = await getCollection('projects');
+const localProjects = allProjects.filter(
+  pr => pr.data.location.toLowerCase().startsWith(area.cityName.toLowerCase())
+);
+
+// Nearby areas, for lateral links between city pages.
+const nearbyAreas = serviceAreas.filter(a => a.slug !== area.slug).slice(0, 4);
+
+// The keyword landing pages are Flagstaff-specific, so they only belong on the
+// Flagstaff page — surfacing them on Winslow would promise the wrong location.
+const showLandingPages = area.slug === 'flagstaff';
+
 // For multi-county areas (e.g. "Yavapai / Coconino"), skip appending "County"
 const countyLabel = area.county.includes('/') ? `${area.county} Counties` : `${area.county} County`;
 
 const services = [
-  { title: 'Remodeling', desc: 'Kitchen, bathroom, whole-home, and room remodels.', href: '/services/remodeling' },
-  { title: 'Restoration', desc: 'Structural repair and restoration of older homes.', href: '/services/restoration' },
-  { title: 'New Construction', desc: 'Custom single-family homes from foundation to keys.', href: '/services/new-construction' },
-  { title: 'Handyman', desc: 'Small jobs and fixes around the house, done right.', href: '/services/handyman' },
+  { title: 'Remodeling', desc: 'Kitchen, bathroom, whole-home, and room remodels.', href: '/services/remodeling/' },
+  { title: 'Restoration', desc: 'Structural repair and restoration of older homes.', href: '/services/restoration/' },
+  { title: 'New Construction', desc: 'Custom single-family homes from foundation to keys.', href: '/services/new-construction/' },
+  { title: 'Handyman', desc: 'Small jobs and fixes around the house, done right.', href: '/services/handyman/' },
 ];
 ---
 
@@ -32,8 +47,8 @@ const services = [
       <h1>{area.headline}</h1>
       <p class="hero-desc">{area.description}</p>
       <div class="hero-actions">
-        <a href="/quote" class="btn-primary">Get a Free Quote &rarr;</a>
-        <a href="/contact" class="btn-outline">Contact Us</a>
+        <a href="/quote/" class="btn-primary">Get a Free Quote &rarr;</a>
+        <a href="/contact/" class="btn-outline">Contact Us</a>
       </div>
     </div>
   </section>
@@ -41,6 +56,7 @@ const services = [
   <section class="services-strip">
     <div class="services-inner">
       <p class="section-eyebrow">What We Do in {area.cityName}</p>
+      <h2 class="section-title">Construction and remodeling services in {area.cityName}, {area.stateAbbr}</h2>
       <div class="services-grid">
         {services.map(s => (
           <a href={s.href} class="service-tile">
@@ -66,6 +82,49 @@ const services = [
     </section>
   )}
 
+  {showLandingPages && (
+    <section class="local-popular">
+      <div class="local-popular-inner">
+        <p class="section-eyebrow">Most Requested in {area.cityName}</p>
+        <h2 class="section-title">Popular {area.cityName} projects</h2>
+        <div class="local-popular-grid">
+          {landingPages.map(l => (
+            <a href={`/services/${l.slug}/`} class="local-popular-card">
+              <span class="local-popular-label">{l.label}</span>
+              <span class="local-popular-blurb">{l.blurb}</span>
+              <span class="service-arrow">&rarr;</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {localProjects.length > 0 && (
+    <section class="local-projects">
+      <div class="local-projects-inner">
+        <p class="section-eyebrow">Recent Work</p>
+        <h2 class="section-title">Projects we've completed in {area.cityName}</h2>
+        <div class="local-projects-grid">
+          {localProjects.map(pr => (
+            <a href={`/projects/${pr.id}/`} class="local-project-card">
+              <img
+                src={pr.data.afterImage}
+                alt={pr.data.title}
+                loading="lazy"
+                width="1200"
+                height="750"
+              />
+              <span class="local-project-title">{pr.data.title}</span>
+              <span class="local-project-loc">{pr.data.location}</span>
+            </a>
+          ))}
+        </div>
+        <a href="/projects/" class="btn-outline">See All Projects &rarr;</a>
+      </div>
+    </section>
+  )}
+
   <section class="area-note">
     <div class="area-note-inner">
       <p class="note-label">Travel & Logistics</p>
@@ -78,7 +137,7 @@ const services = [
     <div class="area-cta-inner">
       <h2>Ready to talk about your {area.cityName} project?</h2>
       <p>Every project starts with a straight conversation. No pitch, no pressure. We'll tell you what's involved and what it costs.</p>
-      <a href="/contact" class="btn-cta">Get in Touch &rarr;</a>
+      <a href="/contact/" class="btn-cta">Get in Touch &rarr;</a>
     </div>
   </section>
 
@@ -232,5 +291,128 @@ const services = [
   @media (max-width: 600px) {
     .services-grid { grid-template-columns: 1fr; }
     .service-tile { border-right: none; }
+  }
+  /* Section headings */
+  .section-title {
+    font-size: var(--font-size-h3);
+    margin-bottom: 2rem;
+    max-width: 32ch;
+  }
+
+  /* Most requested */
+  .local-popular {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .local-popular-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+  .local-popular-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .local-popular-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    border: 2px solid var(--color-border);
+    background-color: var(--color-brand-white);
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .local-popular-card:hover {
+    border-color: var(--color-brand-red);
+    transform: translateY(-2px);
+  }
+  .local-popular-label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  .local-popular-blurb {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    opacity: 0.7;
+  }
+
+  /* Local projects */
+  .local-projects {
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .local-projects-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+  .local-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .local-project-card {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--color-border);
+    background-color: var(--color-brand-white);
+    transition: border-color 0.15s, transform 0.1s;
+  }
+  .local-project-card:hover {
+    border-color: var(--color-brand-red);
+    transform: translateY(-2px);
+  }
+  .local-project-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+  .local-project-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.875rem 1rem 0.25rem;
+  }
+  .local-project-loc {
+    font-size: 0.78rem;
+    opacity: 0.6;
+    padding: 0 1rem 1rem;
+  }
+
+  /* Nearby areas */
+  .nearby-areas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+  }
+  .nearby-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-right: 0.25rem;
+  }
+  .nearby-link {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: background-color 0.15s;
+  }
+  .nearby-link:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  .nearby-link--all {
+    border-color: transparent;
+    text-decoration: underline;
   }
 </style>

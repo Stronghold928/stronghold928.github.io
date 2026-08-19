@@ -62,7 +62,7 @@ const breadcrumbSchema = {
     <div class="projects-grid" id="projects-grid">
       {sorted.map(project => (
         <a
-          href={`/projects/${project.id}`}
+          href={`/projects/${project.id}/`}
           class="project-card"
           data-type={project.data.type}
         >
@@ -91,7 +91,7 @@ const breadcrumbSchema = {
     <div class="projects-cta-inner">
       <h2>Ready to start<br />your project?</h2>
       <p>Tell us about your project. We'll give you a straight read on what it involves and what it costs, and you can decide where to go from there.</p>
-      <a href="/contact" class="btn-primary">Get a Quote &rarr;</a>
+      <a href="/contact/" class="btn-primary">Get a Quote &rarr;</a>
     </div>
   </section>
 </Layout>

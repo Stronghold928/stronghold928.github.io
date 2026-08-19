@@ -1,5 +1,5 @@
 ---
-import { services } from '../data/services';
+import { services, landingPages } from '../data/services';
 import { serviceAreas } from '../data/service-areas';
 
 // Major service areas in Northern AZ without dedicated pages yet — see TODO.md
@@ -11,10 +11,10 @@ const pendingAreas = [
 ];
 
 const otherLinks = [
-  { href: '/projects', label: 'Projects' },
-  { href: '/design', label: 'Design' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/design/', label: 'Design' },
+  { href: '/about/', label: 'About' },
+  { href: '/contact/', label: 'Contact' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -52,8 +52,8 @@ const isAreasActive = currentPath.startsWith('/service-areas');
           <div class="dropdown-services">
             {services.map(s => (
               <a
-                href={`/services/${s.slug}`}
-                class={`dropdown-service-link ${currentPath === `/services/${s.slug}` ? 'dropdown-service-link--active' : ''}`}
+                href={`/services/${s.slug}/`}
+                class={`dropdown-service-link ${currentPath === `/services/${s.slug}/` ? 'dropdown-service-link--active' : ''}`}
                 role="menuitem"
               >
                 <span class="dropdown-service-label">{s.label}</span>
@@ -61,8 +61,20 @@ const isAreasActive = currentPath.startsWith('/service-areas');
               </a>
             ))}
           </div>
+          <div class="dropdown-popular">
+            <p class="dropdown-popular-title">Most Requested</p>
+            {landingPages.map(l => (
+              <a
+                href={`/services/${l.slug}/`}
+                class={`dropdown-popular-link ${currentPath === `/services/${l.slug}/` ? 'dropdown-popular-link--active' : ''}`}
+                role="menuitem"
+              >
+                {l.navLabel}
+              </a>
+            ))}
+          </div>
           <div class="dropdown-footer">
-            <a href="/services" class="dropdown-all-link" role="menuitem">
+            <a href="/services/" class="dropdown-all-link" role="menuitem">
               View All Services &rarr;
             </a>
           </div>
@@ -73,15 +85,25 @@ const isAreasActive = currentPath.startsWith('/service-areas');
           {services.map(s => (
             <li>
               <a
-                href={`/services/${s.slug}`}
-                class={`mobile-sub-link ${currentPath === `/services/${s.slug}` ? 'mobile-sub-link--active' : ''}`}
+                href={`/services/${s.slug}/`}
+                class={`mobile-sub-link ${currentPath === `/services/${s.slug}/` ? 'mobile-sub-link--active' : ''}`}
               >
                 {s.label}
               </a>
             </li>
           ))}
+          {landingPages.map(l => (
+            <li>
+              <a
+                href={`/services/${l.slug}/`}
+                class={`mobile-sub-link mobile-sub-link--nested ${currentPath === `/services/${l.slug}/` ? 'mobile-sub-link--active' : ''}`}
+              >
+                {l.navLabel}
+              </a>
+            </li>
+          ))}
           <li>
-            <a href="/services" class="mobile-sub-link mobile-sub-link--all">All Services &rarr;</a>
+            <a href="/services/" class="mobile-sub-link mobile-sub-link--all">All Services &rarr;</a>
           </li>
         </ul>
       </li>
@@ -104,8 +126,8 @@ const isAreasActive = currentPath.startsWith('/service-areas');
           <div class="dropdown-areas-grid">
             {serviceAreas.map(a => (
               <a
-                href={`/service-areas/${a.slug}`}
-                class={`dropdown-area-link ${currentPath === `/service-areas/${a.slug}` ? 'dropdown-area-link--active' : ''}`}
+                href={`/service-areas/${a.slug}/`}
+                class={`dropdown-area-link ${currentPath === `/service-areas/${a.slug}/` ? 'dropdown-area-link--active' : ''}`}
                 role="menuitem"
               >
                 <span class="dropdown-area-city">{a.cityName}</span>
@@ -120,7 +142,7 @@ const isAreasActive = currentPath.startsWith('/service-areas');
             ))}
           </div>
           <div class="dropdown-footer">
-            <a href="/service-areas" class="dropdown-all-link" role="menuitem">
+            <a href="/service-areas/" class="dropdown-all-link" role="menuitem">
               View All Service Areas &rarr;
             </a>
           </div>
@@ -131,8 +153,8 @@ const isAreasActive = currentPath.startsWith('/service-areas');
           {serviceAreas.map(a => (
             <li>
               <a
-                href={`/service-areas/${a.slug}`}
-                class={`mobile-sub-link ${currentPath === `/service-areas/${a.slug}` ? 'mobile-sub-link--active' : ''}`}
+                href={`/service-areas/${a.slug}/`}
+                class={`mobile-sub-link ${currentPath === `/service-areas/${a.slug}/` ? 'mobile-sub-link--active' : ''}`}
               >
                 {a.cityName}
               </a>
@@ -144,7 +166,7 @@ const isAreasActive = currentPath.startsWith('/service-areas');
             </li>
           ))}
           <li>
-            <a href="/service-areas" class="mobile-sub-link mobile-sub-link--all">All Areas &rarr;</a>
+            <a href="/service-areas/" class="mobile-sub-link mobile-sub-link--all">All Areas &rarr;</a>
           </li>
         </ul>
       </li>
@@ -161,7 +183,7 @@ const isAreasActive = currentPath.startsWith('/service-areas');
       ))}
 
       <li>
-        <a href="/quote" class="nav-cta">Get a Quote</a>
+        <a href="/quote/" class="nav-cta">Get a Quote</a>
       </li>
     </ul>
   </nav>
@@ -438,6 +460,42 @@ const isAreasActive = currentPath.startsWith('/service-areas');
   .dropdown-area-county--pending {
     color: rgba(255,255,255,0.3);
     font-style: italic;
+  }
+
+  .dropdown-popular {
+    border-top: 1px solid var(--color-border);
+    padding: 0.875rem 1rem 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+  .dropdown-popular-title {
+    width: 100%;
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 0.5rem;
+  }
+  .dropdown-popular-link {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--color-border);
+    white-space: nowrap;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .dropdown-popular-link:hover,
+  .dropdown-popular-link--active {
+    border-color: var(--color-brand-red);
+    color: var(--color-brand-red);
+  }
+  .mobile-sub-link--nested {
+    padding-left: 2.25rem;
+    opacity: 0.75;
   }
 
   .dropdown-footer {

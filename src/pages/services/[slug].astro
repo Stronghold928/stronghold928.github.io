@@ -19,7 +19,7 @@ const { service: s } = Astro.props;
       <p class="eyebrow">{s.label}</p>
       <h1>{s.tagline}</h1>
       <p class="hero-desc">{s.description}</p>
-      <a href="/contact" class="btn-primary">Get a Free Quote &rarr;</a>
+      <a href="/contact/" class="btn-primary">Get a Free Quote &rarr;</a>
     </div>
     <div class="hero-photo-wrap">
       <img src={s.photo} alt={s.photoAlt} loading="eager" />
@@ -73,7 +73,7 @@ const { service: s } = Astro.props;
           <span class="btn-phone-label">Call us directly</span>
           <span class="btn-phone-number">(928) 962-7535</span>
         </a>
-        <a href="/contact" class="btn-quote">Request a Written Quote &rarr;</a>
+        <a href="/contact/" class="btn-quote">Request a Written Quote &rarr;</a>
         <p class="cta-note">No obligation. Mon–Fri 9am–4pm.</p>
       </div>
     </div>
@@ -112,7 +112,7 @@ const { service: s } = Astro.props;
       <p class="eyebrow">More Services</p>
       <div class="related-links">
         {services.filter(other => other.slug !== s.slug).map(other => (
-          <a href={`/services/${other.slug}`} class="related-card">
+          <a href={`/services/${other.slug}/`} class="related-card">
             <span class="related-label">{other.label}</span>
             <span class="related-tagline">{other.tagline}</span>
             <span class="related-arrow">&rarr;</span>
