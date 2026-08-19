@@ -66,13 +66,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://builtstronghold.com',
+      item: 'https://builtstronghold.com/',
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'Get a Quote',
-      item: 'https://builtstronghold.com/quote',
+      item: 'https://builtstronghold.com/quote/',
     },
   ],
 };
@@ -80,14 +80,14 @@ const breadcrumbSchema = {
 
 <Layout
   title="Request a Free Quote | Flagstaff, AZ"
-  description="Get a free, itemized quote from Stronghold Construction. We serve Flagstaff, Williams, Sedona, Show Low, and all of northern Arizona. No surprises, no lump sums."
+  description="Get a free, itemized quote from Stronghold Construction. Flagstaff, Williams, Sedona, Show Low, and all of northern Arizona."
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
   <section class="quote-hero">
     <div class="quote-hero-inner">
       <p class="eyebrow">Get a Quote</p>
-      <h1>Ready to build?<br /><span class="accent">Let's get into the details.</span></h1>
+      <h1>Ready to build? <br /><span class="accent">Let's get into the details.</span></h1>
       <p class="hero-sub">The more detail you give us here, the more prepared we are when we call. We review every submission and get back to you within one business day. Rather just call: <a href="tel:+19289627535" class="phone-link">(928) 962-7535</a></p>
     </div>
   </section>
@@ -205,7 +205,7 @@ const breadcrumbSchema = {
           </div>
 
           <input type="hidden" name="_subject" value="Quote request, Stronghold" />
-          <input type="hidden" name="_next" value="https://builtstronghold.com/thank-you" />
+          <input type="hidden" name="_next" value="https://builtstronghold.com/thank-you/" />
           <input type="text" name="_gotcha" style="display:none" />
 
           <div class="form-submit-row">

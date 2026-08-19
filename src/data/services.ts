@@ -13,6 +13,12 @@ export interface Service {
   slug: string;
   label: string;
   tagline: string;
+  /** Short, hub-only blurb. Must not repeat `description` - the hub and the child page are separate URLs. */
+  hubSummary: string;
+  /** Title tag. `label` alone is too short and carries no location. */
+  metaTitle: string;
+  /** Meta description, kept under 160 characters. */
+  metaDescription: string;
   description: string;
   detail: string;
   photo: string;
@@ -27,6 +33,9 @@ export const services: Service[] = [
     slug: 'remodeling',
     label: 'Remodeling',
     tagline: 'A remodel you actually love to come home to.',
+    metaTitle: "Home Remodeling in Flagstaff, AZ",
+    metaDescription:
+      "Kitchen, bathroom, and whole-home remodeling in Flagstaff and northern Arizona. Itemized quotes, permits handled, a crew you can reach.",
     hubSummary:
       "Kitchens, baths, and whole-home reworks across Flagstaff and the surrounding high country. Itemized quotes, permitted work, a crew you can reach.",
     description:
@@ -56,6 +65,9 @@ export const services: Service[] = [
     slug: 'restoration',
     label: 'Restoration',
     tagline: "Old houses deserve honest contractors.",
+    metaTitle: "Historic Home Restoration in Flagstaff, AZ",
+    metaDescription:
+      "Structural repair and restoration for older northern Arizona homes. Foundations, sill plates, roofs, and windows, done without stripping the character.",
     hubSummary:
       "Foundations, sill plates, roof systems, and windows on northern Arizona's older homes. We fix what's failing and leave the character alone.",
     description:
@@ -82,6 +94,9 @@ export const services: Service[] = [
     slug: 'new-construction',
     label: 'New Construction',
     tagline: 'From empty lot to front door.',
+    metaTitle: "New Home Construction in Flagstaff, AZ",
+    metaDescription:
+      "Ground-up single-family and multi-family builds across northern Arizona. Lot review, permitting, and construction at elevation, start to finish.",
     hubSummary:
       "Ground-up single-family and multi-family builds at elevation, from lot review and permitting through final inspection.",
     description:
@@ -110,6 +125,9 @@ export const services: Service[] = [
     slug: 'handyman',
     label: 'Handyman',
     tagline: 'No job too small to do right.',
+    metaTitle: "Handyman Services in Flagstaff, AZ",
+    metaDescription:
+      "Small home repairs in Flagstaff and northern Arizona, handled by the same licensed crew that runs our large projects. Doors, fixtures, drywall, fences.",
     hubSummary:
       "Small repairs handled by the same licensed crew that runs our large projects. Doors, fixtures, drywall, fences, and the rest of the list.",
     description:

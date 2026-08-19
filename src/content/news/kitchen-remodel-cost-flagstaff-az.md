@@ -1,6 +1,6 @@
 ---
 title: "How Much Does a Kitchen Remodel Cost in Flagstaff, AZ? (2026 Guide)"
-description: "Kitchen remodel costs in Flagstaff, AZ range from $18,000 to $80,000+. Learn what drives price in northern Arizona, what to budget for, and how to get an accurate quote."
+description: "Kitchen remodels in Flagstaff, AZ run $18,000 to $80,000+. What drives the price in northern Arizona and what to budget for."
 pubDate: 2026-06-25
 author: "Stronghold Construction"
 category: "Cost Guides"

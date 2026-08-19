@@ -19,14 +19,17 @@ const typeLabels: Record<string, string> = {
 };
 ---
 
-<Layout title="Home" description="Stronghold: General contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and handyman services across northern Arizona.">
+<Layout
+  title="General Contractor in Flagstaff, AZ"
+  description="Licensed general contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and handyman work across northern Arizona."
+>
   <section class="hero">
     <BlueprintCanvas />
     <div class="hero-content-wrap">
       <div class="hero-inner">
-        <p class="hero-eyebrow">General Contractor &bull; Flagstaff, Arizona</p>
         <h1 class="hero-headline">
-          You got a<br />
+          <span class="hero-eyebrow">General Contractor &bull; Flagstaff, Arizona</span>
+          You got a <br />
           <span class="hero-accent" id="hero-slot-word">construction</span><br />
           guy.
         </h1>
@@ -186,10 +189,12 @@ const typeLabels: Record<string, string> = {
   }
 
   .hero-eyebrow {
+    display: block;
     font-family: var(--font-heading);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.2em;
+    line-height: 1.4;
     text-transform: uppercase;
     color: var(--color-brand-red);
     margin-bottom: 0.75rem;

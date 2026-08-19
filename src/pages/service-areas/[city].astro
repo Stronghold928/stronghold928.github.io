@@ -39,7 +39,7 @@ const services = [
 
 <Layout
   title={area.headline}
-  description={`Stronghold Construction serves ${area.cityName}, AZ. Licensed general contractor for home remodeling, restoration, new construction, and handyman services. ${countyLabel}.`}
+  description={`Licensed general contractor in ${area.cityName}, AZ (${countyLabel}). Home remodeling, restoration, new construction, and handyman services.`}
 >
   <section class="area-hero">
     <div class="area-hero-inner">
@@ -143,9 +143,11 @@ const services = [
 
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
-    "name": "Stronghold Construction",
-    "url": "https://builtstronghold.com",
+    "@type": "Service",
+    "@id": `https://builtstronghold.com/service-areas/${area.slug}/#service`,
+    "name": `General contracting in ${area.cityName}, ${area.stateAbbr}`,
+    "serviceType": ["Residential remodeling", "Home restoration", "New home construction", "Handyman services"],
+    "provider": { "@id": "https://builtstronghold.com/#organization" },
     "areaServed": {
       "@type": "City",
       "name": area.cityName,
@@ -153,8 +155,16 @@ const services = [
         "@type": "State",
         "name": "Arizona"
       }
-    },
-    "serviceType": ["Residential remodeling", "Home restoration", "New home construction", "Handyman services"]
+    }
+  })} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://builtstronghold.com/service-areas/"},
+      {"@type": "ListItem", "position": 3, "name": `${area.cityName}, ${area.stateAbbr}`, "item": `https://builtstronghold.com/service-areas/${area.slug}/`}
+    ]
   })} />
 
 </Layout>

@@ -24,13 +24,20 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Bathroom Remodel in Flagstaff, AZ",
-  "provider": {
-    "@type": "GeneralContractor",
-    "name": "Stronghold Construction",
-    "url": "https://builtstronghold.com"
-  },
+  "@id": "https://builtstronghold.com/services/bathroom-remodel-flagstaff-az/#service",
+  "provider": { "@id": "https://builtstronghold.com/#organization" },
   "areaServed": "Flagstaff, AZ and Northern Arizona",
   "description": "Custom bathroom remodeling in Flagstaff, AZ by Stronghold Construction. Walk-in showers, soaking tubs, dual vanities. Full scope, licensed work, honest pricing across northern Arizona."
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://builtstronghold.com/services/" },
+    { "@type": "ListItem", "position": 3, "name": "Bathroom Remodel in Flagstaff, AZ", "item": "https://builtstronghold.com/services/bathroom-remodel-flagstaff-az/" }
+  ]
 };
 
 const faqSchema = {
@@ -52,6 +59,7 @@ const faqSchema = {
   description="Custom bathroom remodeling in Flagstaff, AZ: walk-in showers, soaking tubs, dual vanities. Full scope, licensed work, honest pricing."
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero -->

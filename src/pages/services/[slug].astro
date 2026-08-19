@@ -10,8 +10,8 @@ const { service: s } = Astro.props;
 ---
 
 <Layout
-  title={s.label}
-  description={`${s.label} services in Flagstaff, AZ and northern Arizona by Stronghold Construction. ${s.tagline} Licensed general contractor serving Williams, Sedona, Show Low, and beyond.`}
+  title={s.metaTitle}
+  description={s.metaDescription}
 >
   <!-- Hero -->
   <section class="hero">
@@ -45,7 +45,7 @@ const { service: s } = Astro.props;
   <section class="process-section">
     <div class="process-inner">
       <p class="eyebrow">Our Process</p>
-      <h2>How a {s.label.toLowerCase()} project works<br />with Stronghold.</h2>
+      <h2>How a {s.label.toLowerCase()} project works <br />with Stronghold.</h2>
       <div class="steps-grid">
         {s.steps.map(step => (
           <div class="step">
@@ -65,7 +65,7 @@ const { service: s } = Astro.props;
     <div class="quote-cta-inner">
       <div class="cta-text">
         <p class="eyebrow eyebrow--light">Get Started</p>
-        <h2>Ready for an honest quote<br />on your {s.label.toLowerCase()} project?</h2>
+        <h2>Ready for an honest quote <br />on your {s.label.toLowerCase()} project?</h2>
         <p class="cta-sub">We'll do a site walk, look at what's actually needed, and put together an itemized written quote. No lump sums, no surprises. We respond within one business day.</p>
       </div>
       <div class="cta-actions">
@@ -80,6 +80,25 @@ const { service: s } = Astro.props;
   </section>
 
   <!-- FAQ -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `https://builtstronghold.com/services/${s.slug}/#service`,
+    "name": s.label,
+    "description": s.description,
+    "provider": { "@id": "https://builtstronghold.com/#organization" },
+    "areaServed": "Flagstaff, AZ and Northern Arizona"
+  })} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://builtstronghold.com/services/"},
+      {"@type": "ListItem", "position": 3, "name": s.label, "item": `https://builtstronghold.com/services/${s.slug}/`}
+    ]
+  })} />
+
   {s.faqs && s.faqs.length > 0 && (
     <section class="service-faq">
       <div class="service-faq-inner">
@@ -121,18 +140,6 @@ const { service: s } = Astro.props;
       </div>
     </div>
   </section>
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": `How a ${s.label} project works with Stronghold Construction`,
-    "description": s.description,
-    "step": s.steps.map(step => ({
-      "@type": "HowToStep",
-      "position": parseInt(step.n),
-      "name": step.title,
-      "text": step.body
-    }))
-  })} />
 </Layout>
 
 <style>

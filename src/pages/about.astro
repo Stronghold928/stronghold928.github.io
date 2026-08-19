@@ -46,13 +46,13 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://builtstronghold.com',
+      item: 'https://builtstronghold.com/',
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'About',
-      item: 'https://builtstronghold.com/about',
+      item: 'https://builtstronghold.com/about/',
     },
   ],
 };
@@ -60,7 +60,7 @@ const breadcrumbSchema = {
 
 <Layout
   title="About | Flagstaff, AZ General Contractor"
-  description="Stronghold Construction is a family-owned general contractor based in Flagstaff, AZ. Third-generation builders serving northern Arizona with integrity since 2022."
+  description="Family-owned general contractor in Flagstaff, AZ. Third-generation builders serving northern Arizona with integrity since 2022."
 >
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
@@ -69,7 +69,7 @@ const breadcrumbSchema = {
     <div class="mission-inner">
       <div class="mission-text">
         <p class="eyebrow">Who We Are</p>
-        <h1>Your contractor.<br /><span class="accent">Your neighbor.</span></h1>
+        <h1>Your contractor. <br /><span class="accent">Your neighbor.</span></h1>
         <p class="mission-lead">Stronghold started with a pretty simple question: what would it feel like to hire a contractor who just talked to you straight? No sales pitch, no inflated scope, no runaround on why something cost twice what you expected.</p>
         <p>We're a small, owner-operated general contractor out of Flagstaff. We work on residential remodeling, restoration, new construction, and handyman services across northern Arizona. Being small is a choice. It means the person you shake hands with at the start is still the one responsible when the job is done.</p>
       </div>
@@ -95,7 +95,7 @@ const breadcrumbSchema = {
     <div class="values-inner">
       <div class="values-header">
         <p class="eyebrow">What We Stand For</p>
-        <h2>What we actually<br />believe in.</h2>
+        <h2>What we actually <br />believe in.</h2>
       </div>
       <div class="values-grid">
         {values.map(v => (
@@ -112,7 +112,7 @@ const breadcrumbSchema = {
   <section class="team-section">
     <div class="team-inner">
       <p class="eyebrow">The Team</p>
-      <h2>People who build things<br />and answer their phones.</h2>
+      <h2>People who build things <br />and answer their phones.</h2>
       <div class="team-grid">
         {team.map(member => (
           <div class="team-card">
@@ -135,7 +135,7 @@ const breadcrumbSchema = {
     <div class="community-inner">
       <div class="community-text">
         <p class="eyebrow">Giving Back</p>
-        <h2>Northern Arizona<br />is our community too.</h2>
+        <h2>Northern Arizona <br />is our community too.</h2>
         <p>We've got roots here and we try to act like it. Some of it is formal, some of it is just showing up when someone needs help.</p>
         <ul class="community-list">
           {community.map(item => (

@@ -13,26 +13,33 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
+const SITE = 'https://builtstronghold.com';
+const ORG_ID = `${SITE}/#organization`;
+const postURL = `${SITE}/news/${post.id}/`;
+
 const pubDateISO = post.data.pubDate.toISOString();
+const modDate = post.data.updatedDate ?? post.data.pubDate;
+const modDateISO = modDate.toISOString();
 
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
+  '@id': `${postURL}#article`,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': postURL },
   headline: post.data.title,
   description: post.data.description,
-  image: post.data.image,
+  // Structured data requires absolute URLs — a relative path here meant Google
+  // discarded the image and the Article rich result lost its thumbnail.
+  image: {
+    '@type': 'ImageObject',
+    url: `${SITE}${post.data.image}`,
+    width: 1200,
+    height: 630,
+  },
   datePublished: pubDateISO,
-  dateModified: pubDateISO,
-  author: {
-    '@type': 'Organization',
-    name: 'Stronghold Construction',
-    url: 'https://builtstronghold.com',
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'Stronghold Construction',
-    url: 'https://builtstronghold.com',
-  },
+  dateModified: modDateISO,
+  author: { '@id': ORG_ID },
+  publisher: { '@id': ORG_ID },
 };
 
 const breadcrumbSchema = {
@@ -43,19 +50,19 @@ const breadcrumbSchema = {
       '@type': 'ListItem',
       position: 1,
       name: 'Home',
-      item: 'https://builtstronghold.com',
+      item: `${SITE}/`,
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: 'News',
-      item: 'https://builtstronghold.com/news',
+      item: `${SITE}/news/`,
     },
     {
       '@type': 'ListItem',
       position: 3,
       name: post.data.title,
-      item: `https://builtstronghold.com/news/${post.id}`,
+      item: postURL,
     },
   ],
 };
@@ -73,6 +80,10 @@ function formatDate(date: Date): string {
   title={post.data.title}
   description={post.data.description}
   ogImage={post.data.image}
+  ogImageAlt={post.data.imageAlt}
+  ogType="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={modDate}
 >
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -139,7 +150,7 @@ function formatDate(date: Date): string {
 
   <section class="post-footer-cta">
     <div class="post-footer-inner">
-      <h2>Ready to start<br />your project?</h2>
+      <h2>Ready to start <br />your project?</h2>
       <p>Every project starts with a straightforward conversation. No obligation, no pressure. Just an honest look at what your project involves.</p>
       <div class="cta-row">
         <a href="/quote/" class="btn-primary">Get a Quote &rarr;</a>
