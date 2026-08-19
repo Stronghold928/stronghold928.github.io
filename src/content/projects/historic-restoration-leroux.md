@@ -5,11 +5,11 @@ location: Flagstaff, AZ
 description: A 1924 Craftsman bungalow in Flagstaff's Southside, restored after years of sitting vacant. Sill plate replacement, full roof tear-off, window restoration, and interior plaster repair throughout.
 completedDate: "2025-02"
 featured: false
-beforeImage: "/projects/historic-restoration-leroux/before.webp"
-afterImage: "/projects/historic-restoration-leroux/after.webp"
+beforeImage: "../../assets/projects/historic-restoration-leroux/before.webp"
+afterImage: "../../assets/projects/historic-restoration-leroux/after.webp"
 gallery:
-  - "/projects/historic-restoration-leroux/after.webp"
-  - "/projects/historic-restoration-leroux/before.webp"
+  - "../../assets/projects/historic-restoration-leroux/after.webp"
+  - "../../assets/projects/historic-restoration-leroux/before.webp"
 highlights:
   - Full mudsill and sill plate replacement, termite remediation
   - Roof tear-off and replacement with 50-year architectural shingle

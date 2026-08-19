@@ -1,4 +1,5 @@
 ﻿---
+import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { serviceAreas } from '../../data/service-areas';
@@ -28,6 +29,10 @@ function truncateForMeta(text: string, maxLen = 155): string {
   return truncated.slice(0, truncated.lastIndexOf(' ')) + '…';
 }
 const metaDescription = truncateForMeta(project.data.description);
+
+const SITE = 'https://builtstronghold.com';
+const ORG_ID = `${SITE}/#organization`;
+const projectURL = `${SITE}/projects/${project.id}/`;
 
 // Case studies were dead ends: breadcrumb up, CTA out, nothing sideways. These
 // give each one a link to the service it demonstrates and the city it's in.
@@ -59,7 +64,8 @@ const relatedLanding = landingPages.find(l => {
 <Layout
   title={project.data.title}
   description={metaDescription}
-  ogImage={project.data.afterImage}
+  ogImage={project.data.afterImage.src}
+  ogImageAlt={`${project.data.title} — completed project by Stronghold Construction`}
 >
   <nav aria-label="Breadcrumb" class="breadcrumb">
     <div class="breadcrumb-inner">
@@ -95,13 +101,25 @@ const relatedLanding = landingPages.find(l => {
         <div class="ba-col">
           <p class="ba-label">Before</p>
           <div class="ba-img-wrap">
-            <img src={project.data.beforeImage} alt={`${project.data.title}, before`} loading="lazy" width="1200" height="750" />
+            <Image
+              src={project.data.beforeImage}
+              alt={`${project.data.title}, before`}
+              widths={[600, 900, 1200]}
+              sizes="(max-width: 900px) 100vw, 600px"
+              loading="lazy"
+            />
           </div>
         </div>
         <div class="ba-col">
           <p class="ba-label ba-label--after">After</p>
           <div class="ba-img-wrap ba-img-wrap--after">
-            <img src={project.data.afterImage} alt={`${project.data.title}, after`} loading="lazy" width="1200" height="750" />
+            <Image
+              src={project.data.afterImage}
+              alt={`${project.data.title}, after`}
+              widths={[600, 900, 1200]}
+              sizes="(max-width: 900px) 100vw, 600px"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
@@ -112,7 +130,14 @@ const relatedLanding = landingPages.find(l => {
     <section class="single-image">
       <div class="single-image-inner">
         <div class="single-img-wrap">
-          <img src={project.data.afterImage} alt={project.data.title} loading="lazy" width="1200" height="750" />
+          <Image
+            src={project.data.afterImage}
+            alt={project.data.title}
+            widths={[600, 900, 1200]}
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
       </div>
     </section>
@@ -143,7 +168,13 @@ const relatedLanding = landingPages.find(l => {
         <div class="gallery-grid">
           {project.data.gallery.map((img, i) => (
             <div class="gallery-img-wrap">
-              <img src={img} alt={`${project.data.title}, photo ${i + 1}`} loading="lazy" width="800" height="600" />
+              <Image
+                src={img}
+                alt={`${project.data.title}, photo ${i + 1}`}
+                widths={[400, 800]}
+                sizes="(max-width: 700px) 100vw, 400px"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>
@@ -181,12 +212,12 @@ const relatedLanding = landingPages.find(l => {
           <div class="sibling-grid">
             {siblings.map(sib => (
               <a href={`/projects/${sib.id}/`} class="sibling-card">
-                <img
+                <Image
                   src={sib.data.afterImage}
                   alt={sib.data.title}
+                  widths={[400, 800]}
+                  sizes="(max-width: 700px) 100vw, 400px"
                   loading="lazy"
-                  width="1200"
-                  height="750"
                 />
                 <span class="sibling-title">{sib.data.title}</span>
                 <span class="sibling-loc">{sib.data.location}</span>
@@ -200,7 +231,7 @@ const relatedLanding = landingPages.find(l => {
 
   <section class="project-footer-cta">
     <div class="project-footer-inner">
-      <h2>Ready to talk<br />about your project?</h2>
+      <h2>Ready to talk <br />about your project?</h2>
       <p>Every project starts with a straightforward conversation. No obligation, no pressure.</p>
       <div class="cta-row">
         <a href="/contact/" class="btn-primary">Get a Quote &rarr;</a>
@@ -211,11 +242,33 @@ const relatedLanding = landingPages.find(l => {
 
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${projectURL}#article`,
+    "mainEntityOfPage": { "@type": "WebPage", "@id": projectURL },
+    "headline": project.data.title,
+    "description": project.data.description,
+    "image": [project.data.beforeImage, project.data.afterImage]
+      .filter(Boolean)
+      .map(img => `${SITE}${img!.src}`),
+    "author": { "@id": ORG_ID },
+    "publisher": { "@id": ORG_ID },
+    "about": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": project.data.location.split(',')[0].trim(),
+        "addressRegion": "AZ",
+        "addressCountry": "US"
+      }
+    }
+  })} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com"},
-      {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://builtstronghold.com/projects"},
-      {"@type": "ListItem", "position": 3, "name": project.data.title, "item": `https://builtstronghold.com/projects/${project.id}`}
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": `${SITE}/`},
+      {"@type": "ListItem", "position": 2, "name": "Projects", "item": `${SITE}/projects/`},
+      {"@type": "ListItem", "position": 3, "name": project.data.title, "item": projectURL}
     ]
   })} />
 </Layout>

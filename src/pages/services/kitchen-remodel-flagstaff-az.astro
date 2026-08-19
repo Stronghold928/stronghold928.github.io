@@ -24,13 +24,20 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Kitchen Remodel in Flagstaff, AZ",
-  "provider": {
-    "@type": "GeneralContractor",
-    "name": "Stronghold Construction",
-    "url": "https://builtstronghold.com"
-  },
+  "@id": "https://builtstronghold.com/services/kitchen-remodel-flagstaff-az/#service",
+  "provider": { "@id": "https://builtstronghold.com/#organization" },
   "areaServed": "Flagstaff, AZ and Northern Arizona",
   "description": "Stronghold Construction specializes in kitchen remodeling in Flagstaff, AZ and across northern Arizona. Full scope: layout changes, plumbing and electrical rough-in, cabinets and countertops, tile and flooring, lighting, and finish work."
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://builtstronghold.com/services/" },
+    { "@type": "ListItem", "position": 3, "name": "Kitchen Remodel in Flagstaff, AZ", "item": "https://builtstronghold.com/services/kitchen-remodel-flagstaff-az/" }
+  ]
 };
 
 const faqSchema = {
@@ -52,6 +59,7 @@ const faqSchema = {
   description="Kitchen remodeling in Flagstaff, AZ by Stronghold Construction. Honest quotes, real timelines, licensed work across northern Arizona."
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero -->

@@ -5,11 +5,11 @@ location: Williams, AZ
 description: A 2,200 sq ft single-family home on a wooded lot in Williams. Covered porch, open great room with exposed ridge beam, three bedrooms, and spray foam insulation throughout.
 completedDate: "2024-06"
 featured: true
-beforeImage: "/projects/cedar-ridge-new-build/before.webp"
-afterImage: "/projects/cedar-ridge-new-build/after.webp"
+beforeImage: "../../assets/projects/cedar-ridge-new-build/before.webp"
+afterImage: "../../assets/projects/cedar-ridge-new-build/after.webp"
 gallery:
-  - "/projects/cedar-ridge-new-build/after.webp"
-  - "/projects/cedar-ridge-new-build/before.webp"
+  - "../../assets/projects/cedar-ridge-new-build/after.webp"
+  - "../../assets/projects/cedar-ridge-new-build/before.webp"
 highlights:
   - 2,200 sq ft, 3 bed / 2 bath on 1.2-acre wooded lot
   - Spray foam insulation exceeding Arizona Energy Code

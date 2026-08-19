@@ -5,11 +5,11 @@ location: Flagstaff, AZ
 description: A cramped 1970s master bathroom transformed into a full spa suite. Walk-in shower with bench, freestanding soaking tub, dual vanity, and radiant-heat floor tile, all within the original footprint by reclaiming a closet.
 completedDate: "2024-11"
 featured: true
-beforeImage: "/projects/ponderosa-bathroom-suite/before.webp"
-afterImage: "/projects/ponderosa-bathroom-suite/after.webp"
+beforeImage: "../../assets/projects/ponderosa-bathroom-suite/before.webp"
+afterImage: "../../assets/projects/ponderosa-bathroom-suite/after.webp"
 gallery:
-  - "/projects/ponderosa-bathroom-suite/after.webp"
-  - "/projects/ponderosa-bathroom-suite/before.webp"
+  - "../../assets/projects/ponderosa-bathroom-suite/after.webp"
+  - "../../assets/projects/ponderosa-bathroom-suite/before.webp"
 highlights:
   - Absorbed adjacent closet to expand footprint by 42 sq ft
   - Curbless walk-in shower with linear drain, full-height tile

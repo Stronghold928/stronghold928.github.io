@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoMark from '../assets/logo-white.png';
 import { services, landingPages } from '../data/services';
 import { serviceAreas } from '../data/service-areas';
 
@@ -25,7 +27,15 @@ const isAreasActive = currentPath.startsWith('/service-areas');
 <header class="nav-header">
   <nav class="nav-inner">
     <a href="/" class="nav-logo" aria-label="Stronghold Home">
-      <img src="/logo-white.png" alt="" class="logo-mark" aria-hidden="true" />
+      <Image
+        src={logoMark}
+        alt=""
+        class="logo-mark"
+        aria-hidden="true"
+        width={51}
+        densities={[1, 2]}
+        loading="eager"
+      />
       <span class="logo-text">STRONGHOLD</span>
     </a>
 

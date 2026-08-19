@@ -1,11 +1,11 @@
 ---
 title: "What to Look for When Hiring a General Contractor in Northern Arizona"
-description: "Hiring a general contractor in Flagstaff or northern Arizona? Learn what licenses to verify, what questions to ask, and the red flags that signal a contractor to avoid."
+description: "Hiring a contractor in Flagstaff or northern Arizona? What licenses to verify, what to ask, and the red flags worth walking away from."
 pubDate: 2026-06-20
 author: "Stronghold Construction"
 category: "Hiring Guides"
 tags: ["general contractor", "northern Arizona", "Flagstaff", "hiring guide", "ROC license"]
-image: "/news/northern-arizona-contractor-guide.webp"
+image: "../../assets/news/northern-arizona-contractor-guide.webp"
 imageAlt: "General contractor reviewing blueprints at a job site"
 ---
 

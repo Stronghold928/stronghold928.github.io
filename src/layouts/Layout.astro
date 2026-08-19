@@ -9,19 +9,52 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  ogImageAlt?: string;
   noindex?: boolean;
   // Swaps the full site Nav/Footer for a slim logo+phone header and a license-only
   // footer — for single-purpose campaign landing pages where every extra link is an exit.
   minimalChrome?: boolean;
+  /** 'article' for news posts; everything else stays 'website'. */
+  ogType?: 'website' | 'article';
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  /**
+   * Use `title` verbatim as the <title>, with no brand suffix appended. For
+   * pages that spell out their own branding — the homepage does — or whose
+   * title is already at the truncation limit.
+   */
+  bareTitle?: boolean;
 }
 
 const {
   title,
   description = 'Stronghold Construction: Licensed general contractor in Flagstaff, AZ. Remodeling, restoration, new home builds, and handyman services across northern Arizona.',
-  ogImage = '/og-default.svg',
+  ogImage = '/og-default.png',
+  ogImageAlt = 'Stronghold Construction — general contractor in Flagstaff, Arizona',
   noindex = false,
   minimalChrome = false,
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
+  bareTitle = false,
 } = Astro.props;
+
+const SITE = 'https://builtstronghold.com';
+const ORG_ID = `${SITE}/#organization`;
+
+// "Stronghold Construction" is the legal name and what we want recognised, but
+// it costs 13 more characters than "Stronghold" and titles get truncated around
+// 60. Appending the long form sitewide would cut 16 of 39 titles, so search
+// results take the short form and pages that need the full name spell it out
+// themselves via bareTitle. Social cards have no such limit and always get the
+// full name.
+const BRAND = 'Stronghold';
+const BRAND_FULL = 'Stronghold Construction';
+
+const fullTitle = bareTitle || title.length > 48 ? title : `${title} | ${BRAND}`;
+// Without the bareTitle check this would append the brand to a title that
+// already ends in it.
+const socialTitle = bareTitle ? title : `${title} | ${BRAND_FULL}`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // Resolve ogImage to an absolute URL so social crawlers can fetch it
@@ -30,23 +63,42 @@ const ogImageURL = new URL(ogImage, Astro.site).toString();
 const localBusinessSchema: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
+  // Stable @id so page-level schema can reference this entity rather than
+  // declaring a second, competing copy of the business.
+  "@id": ORG_ID,
   "name": "Stronghold Construction",
   "alternateName": "Stronghold",
   "description": "Licensed general contractor in Flagstaff, AZ specializing in remodeling, restoration, new home builds, and handyman services across northern Arizona.",
-  "url": Astro.site?.toString().replace(/\/$/, '') ?? "https://builtstronghold.com",
-  "logo": new URL('/logo-black.png', Astro.site).toString(),
-  "image": new URL('/og-default.svg', Astro.site).toString(),
+  "url": `${SITE}/`,
+  "logo": {
+    "@type": "ImageObject",
+    "url": new URL('/logo-black.png', Astro.site).toString()
+  },
+  "image": new URL('/og-default.png', Astro.site).toString(),
   "email": "hello@builtstronghold.com",
   "telephone": "+1-928-962-7535",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "13447 King John Road",
-    "addressLocality": "Parks",
+    "streetAddress": "1155 W Kaibab Lane",
+    "addressLocality": "Flagstaff",
     "addressRegion": "AZ",
-    "postalCode": "86018",
+    "postalCode": "86001",
     "addressCountry": "US"
   },
-  "hasCredential": "AZ ROC License: 354046",
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Arizona ROC License 354046",
+    "recognizedBy": {
+      "@type": "GovernmentOrganization",
+      "name": "Arizona Registrar of Contractors",
+      "url": "https://roc.az.gov/"
+    }
+  },
+  // TODO(geo): Flagstaff city-centre coordinates, not the parcel at 1155 W Kaibab
+  // Lane. Replace with the exact lat/long from the Google Business Profile once it
+  // is live. City and region already agree with the address, so this is a
+  // precision fix rather than the address/geo mismatch it used to be.
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": 35.1983,
@@ -63,7 +115,14 @@ const localBusinessSchema: Record<string, unknown> = {
     "Prescott Valley, AZ",
     "Northern Arizona"
   ],
-  "openingHours": ["Mo-Fr 09:00-16:00"],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "16:00"
+    }
+  ],
   "foundingDate": "2022",
   "knowsAbout": [
     "Residential remodeling",
@@ -79,8 +138,10 @@ const localBusinessSchema: Record<string, unknown> = {
   ],
   "priceRange": "$$",
   "currenciesAccepted": "USD",
-  "paymentAccepted": "Check, Bank Transfer",
-  "sameAs": []
+  "paymentAccepted": "Check, Bank Transfer"
+  // TODO(sameAs): add the Google Business Profile, Facebook, Instagram, and
+  // Houzz URLs here. Google uses sameAs to reconcile this site with the GBP
+  // listing; the previous empty array was worse than omitting the property.
 };
 ---
 
@@ -90,29 +151,42 @@ const localBusinessSchema: Record<string, unknown> = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0A0A0A" />
 
-    <title>{title} | Stronghold</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Stronghold Construction" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={`${title} | Stronghold Construction`} />
+    <meta property="og:title" content={socialTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    {ogType === 'article' && publishedTime && (
+      <meta property="article:published_time" content={publishedTime.toISOString()} />
+    )}
+    {ogType === 'article' && modifiedTime && (
+      <meta property="article:modified_time" content={modifiedTime.toISOString()} />
+    )}
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | Stronghold Construction`} />
+    <meta name="twitter:title" content={socialTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/logo-black.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/logo-black.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

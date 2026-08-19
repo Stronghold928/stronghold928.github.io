@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 // Formspree endpoint — reusing the quote form's endpoint so leads land in the same
@@ -62,7 +63,13 @@ const qualifyingExamples = [
           {qualifyingExamples.map(ex => (
             <div class="qualify-card">
               <div class="qualify-img-wrap">
-                <img src={ex.project.data.afterImage} alt={ex.project.data.title} loading="lazy" />
+                <Image
+                  src={ex.project.data.afterImage}
+                  alt={ex.project.data.title}
+                  widths={[300, 600]}
+                  sizes="(max-width: 700px) 100vw, 320px"
+                  loading="lazy"
+                />
               </div>
               <h3 class="qualify-card-title">{ex.label}</h3>
               <p class="qualify-card-body">{ex.range}</p>
@@ -132,7 +139,7 @@ const qualifyingExamples = [
       <form id="offer-form" action={FORMSPREE_URL} method="POST" class="offer-form" novalidate>
         <input type="hidden" name="source" id="source-field" value="offer-direct" />
         <input type="hidden" name="_subject" value="Priority Evaluation Request — Offer Page" />
-        <input type="hidden" name="_next" value="https://builtstronghold.com/thank-you" />
+        <input type="hidden" name="_next" value="https://builtstronghold.com/thank-you/" />
         <input type="text" name="_gotcha" style="display:none" />
 
         <div class="field-group">

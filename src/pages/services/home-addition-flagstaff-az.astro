@@ -24,13 +24,20 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Home Addition in Flagstaff, AZ",
-  "provider": {
-    "@type": "GeneralContractor",
-    "name": "Stronghold Construction",
-    "url": "https://builtstronghold.com"
-  },
+  "@id": "https://builtstronghold.com/services/home-addition-flagstaff-az/#service",
+  "provider": { "@id": "https://builtstronghold.com/#organization" },
   "areaServed": "Flagstaff, AZ and Northern Arizona",
   "description": "Room additions, garage conversions, and square-footage expansions in Flagstaff, AZ by Stronghold Construction. Licensed general contractor serving northern Arizona."
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://builtstronghold.com/services/" },
+    { "@type": "ListItem", "position": 3, "name": "Home Addition in Flagstaff, AZ", "item": "https://builtstronghold.com/services/home-addition-flagstaff-az/" }
+  ]
 };
 
 const faqSchema = {
@@ -52,6 +59,7 @@ const faqSchema = {
   description="Room additions, garage conversions, and square-footage expansions in Flagstaff, AZ. Licensed general contractor serving northern Arizona."
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Hero -->
