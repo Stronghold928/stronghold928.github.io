@@ -18,7 +18,11 @@ interface Props {
   ogType?: 'website' | 'article';
   publishedTime?: Date;
   modifiedTime?: Date;
-  /** Suppress the " | Stronghold" suffix when the base title is already long. */
+  /**
+   * Use `title` verbatim as the <title>, with no brand suffix appended. For
+   * pages that spell out their own branding — the homepage does — or whose
+   * title is already at the truncation limit.
+   */
   bareTitle?: boolean;
 }
 
@@ -38,9 +42,19 @@ const {
 const SITE = 'https://builtstronghold.com';
 const ORG_ID = `${SITE}/#organization`;
 
-// Titles over ~60 characters get truncated in results. Anything already long
-// enough to be cut keeps its own words rather than spending them on the brand.
-const fullTitle = bareTitle || title.length > 48 ? title : `${title} | Stronghold`;
+// "Stronghold Construction" is the legal name and what we want recognised, but
+// it costs 13 more characters than "Stronghold" and titles get truncated around
+// 60. Appending the long form sitewide would cut 16 of 39 titles, so search
+// results take the short form and pages that need the full name spell it out
+// themselves via bareTitle. Social cards have no such limit and always get the
+// full name.
+const BRAND = 'Stronghold';
+const BRAND_FULL = 'Stronghold Construction';
+
+const fullTitle = bareTitle || title.length > 48 ? title : `${title} | ${BRAND}`;
+// Without the bareTitle check this would append the brand to a title that
+// already ends in it.
+const socialTitle = bareTitle ? title : `${title} | ${BRAND_FULL}`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // Resolve ogImage to an absolute URL so social crawlers can fetch it
@@ -149,7 +163,7 @@ const localBusinessSchema: Record<string, unknown> = {
     <meta property="og:site_name" content="Stronghold Construction" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={`${title} | Stronghold Construction`} />
+    <meta property="og:title" content={socialTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
     <meta property="og:image:width" content="1200" />
@@ -164,7 +178,7 @@ const localBusinessSchema: Record<string, unknown> = {
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | Stronghold Construction`} />
+    <meta name="twitter:title" content={socialTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
     <meta name="twitter:image:alt" content={ogImageAlt} />
