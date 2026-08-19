@@ -473,7 +473,9 @@ const isAreasActive = currentPath.startsWith('/service-areas');
   }
 
   .dropdown-popular {
-    border-top: 1px solid var(--color-border);
+    /* --color-border is a light-theme token; on the dark panel it reads as a
+       hard white rule. Match the panel's own chrome instead. */
+    border-top: 1px solid #2a2a2a;
     padding: 0.875rem 1rem 0.5rem;
     display: flex;
     flex-wrap: wrap;
@@ -494,7 +496,11 @@ const isAreasActive = currentPath.startsWith('/service-areas');
     font-size: 0.75rem;
     font-weight: 700;
     padding: 0.4rem 0.6rem;
-    border: 1px solid var(--color-border);
+    /* Global `a { color: inherit }` was pulling the dark body text onto the
+       #111 panel. The sibling service links set this explicitly for the same
+       reason. */
+    color: var(--color-brand-white);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     white-space: nowrap;
     transition: border-color 0.15s, color 0.15s;
   }

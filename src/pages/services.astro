@@ -45,9 +45,11 @@ const itemListSchema = {
   </section>
 
   <nav class="service-nav" aria-label="Services">
-    {services.map(s => (
-      <a href={`/services/${s.slug}/`} class="service-nav-link">{s.label}</a>
-    ))}
+    <div class="service-nav-inner">
+      {services.map(s => (
+        <a href={`/services/${s.slug}/`} class="service-nav-link">{s.label}</a>
+      ))}
+    </div>
   </nav>
 
   {services.map((s, i) => (
@@ -155,6 +157,14 @@ const itemListSchema = {
     border-bottom: 2px solid var(--color-border);
     overflow-x: auto;
   }
+  /* `margin: 0 auto` on an inner flex row centres the links when they fit and
+     falls back to a normal left-aligned scroll when they don't. Centring the
+     scroll container itself would overflow both edges and put the first link
+     out of reach on narrow screens. */
+  .service-nav-inner {
+    display: flex;
+    margin: 0 auto;
+  }
   .service-nav-link {
     font-family: var(--font-heading);
     font-size: 0.8rem;
@@ -167,6 +177,10 @@ const itemListSchema = {
     white-space: nowrap;
     border-right: 1px solid var(--color-border);
     transition: opacity 0.15s, background-color 0.15s;
+  }
+  /* Centred, the trailing divider reads as a stray line rather than a column edge. */
+  .service-nav-link:first-child {
+    border-left: 1px solid var(--color-border);
   }
   .service-nav-link:hover {
     opacity: 1;
