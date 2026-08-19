@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import { services } from '../../data/services';
 
@@ -22,7 +23,14 @@ const { service: s } = Astro.props;
       <a href="/contact/" class="btn-primary">Get a Free Quote &rarr;</a>
     </div>
     <div class="hero-photo-wrap">
-      <img src={s.photo} alt={s.photoAlt} loading="eager" />
+      <Image
+        src={s.photo}
+        alt={s.photoAlt}
+        widths={[600, 900, 1200]}
+        sizes="(max-width: 900px) 100vw, 600px"
+        loading="eager"
+        fetchpriority="high"
+      />
     </div>
   </section>
 

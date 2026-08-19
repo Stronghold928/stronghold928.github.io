@@ -1,3 +1,9 @@
+import type { ImageMetadata } from 'astro';
+import remodelingPhoto from '../assets/services/remodeling.webp';
+import restorationPhoto from '../assets/services/restoration.webp';
+import newConstructionPhoto from '../assets/services/new-construction.webp';
+import handymanPhoto from '../assets/services/handyman.webp';
+
 export interface ServiceStep {
   n: string;
   title: string;
@@ -21,7 +27,7 @@ export interface Service {
   metaDescription: string;
   description: string;
   detail: string;
-  photo: string;
+  photo: ImageMetadata;
   photoAlt: string;
   steps: ServiceStep[];
   designCta?: { label: string; href: string };
@@ -42,7 +48,7 @@ export const services: Service[] = [
       "A good remodel changes the way a family uses their home. We've seen it happen on every project we're proud of. The key is being honest up front about what the space can do and what the budget can actually cover.",
     detail:
       "If you know you want a change but haven't figured out the look yet, our free design tool gets you there fast: a seven-question quiz that hands you a real design plan, a named style, a proven material palette, and the finishes that make it work, before any work starts.",
-    photo: '/services/remodeling.webp',
+    photo: remodelingPhoto,
     photoAlt: 'Modern kitchen remodel with white cabinetry and quartz countertops',
     steps: [
       { n: '01', title: 'Discovery Call', body: "We learn what you're hoping to do, your rough timeline, and what you're working with budget-wise. No pitch, no pressure." },
@@ -74,7 +80,7 @@ export const services: Service[] = [
       "Northern Arizona's older homes have something most new builds don't: character that took decades to earn. Restoration work is about keeping that while fixing what's actually broken and being straight about which is which.",
     detail:
       "We focus on the structural stuff first: sill plates, foundations, roof systems, windows. Get those right and the house has a future. We'll tell you what it actually needs, not what generates the most work for us.",
-    photo: '/services/restoration.webp',
+    photo: restorationPhoto,
     photoAlt: 'Restored Craftsman bungalow exterior',
     steps: [
       { n: '01', title: 'Condition Assessment', body: 'We walk the whole structure: foundation, envelope, systems. You get a written report with an honest priority order, not a list designed to scare you.' },
@@ -103,7 +109,7 @@ export const services: Service[] = [
       "We build single-family and multi-family homes across northern Arizona. Custom owner-occupied builds, small investment properties, spec homes. Every project gets the same attention to structure, envelope, and systems regardless of size.",
     detail:
       "We can work from your architect's drawings or connect you with designers we trust. Either way, we get involved early: reviewing plans for buildability, catching coordination problems before they become field problems, and putting together a schedule and budget that's actually accurate.",
-    photo: '/services/new-construction.webp',
+    photo: newConstructionPhoto,
     photoAlt: 'New single-family home under blue sky',
     steps: [
       { n: '01', title: 'Pre-Construction Review', body: "We go through the plans, flag anything that needs attention, and put together the real schedule before breaking ground." },
@@ -134,7 +140,7 @@ export const services: Service[] = [
       "A sticking door, a leaky faucet, a shelf that needs hanging, a fence board that needs replacing. Most of what a home needs day to day isn't a big project, it's a small fix from someone who shows up and does it properly the first time.",
     detail:
       "We treat small jobs with the same care as big ones. Same licensed crew, same straight answers, same clean site when we leave. If a small job turns out to be bigger than it looked, we'll tell you before we keep going, not after.",
-    photo: '/services/handyman.webp',
+    photo: handymanPhoto,
     photoAlt: 'Handyman tools laid out: hammer, screwdriver, nails, and pliers',
     steps: [
       { n: '01', title: 'Tell Us the Issue', body: "Call, email, or text a quick description of what needs fixing. No formal quote process required for small jobs." },

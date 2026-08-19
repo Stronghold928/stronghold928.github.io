@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoMark from '../assets/logo-white.png';
 import { services as serviceData, landingPages } from '../data/services';
 import { serviceAreas } from '../data/service-areas';
 
@@ -24,7 +26,15 @@ const company = [
   <div class="footer-inner">
     <div class="footer-brand">
       <a href="/" class="footer-logo" aria-label="Stronghold Home">
-        <img src="/logo-white.png" alt="" class="logo-mark" aria-hidden="true" />
+        <Image
+        src={logoMark}
+        alt=""
+        class="logo-mark"
+        aria-hidden="true"
+        width={59}
+        densities={[1, 2]}
+        loading="eager"
+      />
         <span class="logo-text">STRONGHOLD</span>
       </a>
       <p class="footer-tagline">

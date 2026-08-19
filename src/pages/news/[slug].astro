@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
@@ -32,9 +33,9 @@ const articleSchema = {
   // discarded the image and the Article rich result lost its thumbnail.
   image: {
     '@type': 'ImageObject',
-    url: `${SITE}${post.data.image}`,
-    width: 1200,
-    height: 630,
+    url: `${SITE}${post.data.image.src}`,
+    width: post.data.image.width,
+    height: post.data.image.height,
   },
   datePublished: pubDateISO,
   dateModified: modDateISO,
@@ -79,7 +80,7 @@ function formatDate(date: Date): string {
 <Layout
   title={post.data.title}
   description={post.data.description}
-  ogImage={post.data.image}
+  ogImage={post.data.image.src}
   ogImageAlt={post.data.imageAlt}
   ogType="article"
   publishedTime={post.data.pubDate}
@@ -113,12 +114,13 @@ function formatDate(date: Date): string {
 
   <div class="post-hero-img">
     <div class="post-hero-img-inner">
-      <img
+      <Image
         src={post.data.image}
         alt={post.data.imageAlt}
-        width="1200"
-        height="630"
+        widths={[600, 900, 1200]}
+        sizes="(max-width: 1200px) 100vw, 1200px"
         loading="eager"
+        fetchpriority="high"
       />
     </div>
   </div>

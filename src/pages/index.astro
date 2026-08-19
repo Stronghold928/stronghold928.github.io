@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import BlueprintCanvas from '../components/BlueprintCanvas.astro';
 import { getCollection } from 'astro:content';
@@ -141,7 +142,13 @@ const typeLabels: Record<string, string> = {
         {featured.map(project => (
           <a href={`/projects/${project.id}/`} class="project-card">
             <div class="project-img-wrap">
-              <img src={project.data.afterImage} alt={project.data.title} loading="lazy" />
+              <Image
+                src={project.data.afterImage}
+                alt={project.data.title}
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 700px) 100vw, 400px"
+                loading="lazy"
+              />
             </div>
             <div class="project-card-body">
               <p class="project-type">{typeLabels[project.data.type]}</p>

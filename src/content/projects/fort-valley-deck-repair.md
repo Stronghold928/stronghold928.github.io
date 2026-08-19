@@ -5,11 +5,11 @@ location: Flagstaff, AZ
 description: A rear deck with significant ledger board rot and failing post bases. Full structural assessment, ledger replacement, post-base hardware upgrade, and new decking boards. Done in four working days.
 completedDate: "2025-01"
 featured: false
-beforeImage: "/projects/fort-valley-deck-repair/before.webp"
-afterImage: "/projects/fort-valley-deck-repair/after.webp"
+beforeImage: "../../assets/projects/fort-valley-deck-repair/before.webp"
+afterImage: "../../assets/projects/fort-valley-deck-repair/after.webp"
 gallery:
-  - "/projects/fort-valley-deck-repair/after.webp"
-  - "/projects/fort-valley-deck-repair/before.webp"
+  - "../../assets/projects/fort-valley-deck-repair/after.webp"
+  - "../../assets/projects/fort-valley-deck-repair/before.webp"
 highlights:
   - Full ledger board replacement with proper flashing and lag pattern
   - Post base hardware upgraded to current code (Simpson Strong-Tie)

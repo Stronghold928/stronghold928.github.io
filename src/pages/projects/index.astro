@@ -1,4 +1,5 @@
 ﻿---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
@@ -67,12 +68,12 @@ const breadcrumbSchema = {
           data-type={project.data.type}
         >
           <div class="project-img">
-            <img
+            <Image
               src={project.data.afterImage}
               alt={project.data.title}
+              widths={[400, 800, 1200]}
+              sizes="(max-width: 700px) 100vw, 400px"
               loading="lazy"
-              width="800"
-              height="500"
             />
             <span class="project-type-badge">{typeLabels[project.data.type]}</span>
           </div>

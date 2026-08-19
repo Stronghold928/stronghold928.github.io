@@ -1,5 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import missionTeamPhoto from '../assets/about/mission-team.webp';
+import communityPhoto from '../assets/about/community-volunteer.webp';
+import bryanPhoto from '../assets/team-bryan-anthony.webp';
+import derekPhoto from '../assets/team-derek-hanson.webp';
 
 const values = [
   {
@@ -21,13 +26,13 @@ const team = [
     name: 'Bryan Anthony',
     role: 'General Contractor / Founder',
     bio: 'Third-generation builder and Flagstaff resident. Since learning construction from a young age, he brought his talents from Chicago to Northern AZ. His Grandfather taught him to be direct and fair with clients who give him their trust.',
-    image: '/team-bryan-anthony.webp',
+    image: bryanPhoto,
   },
   {
     name: 'Derek Hanson',
     role: 'General Manager / Owner',
     bio: 'Flagstaff resident and newcomer to Stronghold, Derek brings twenty years of business and technology experience to the group. Originally from Minneapolis, he moved to Northern AZ and made it his home.',
-    image: '/team-derek-hanson.webp',
+    image: derekPhoto,
   },
 ];
 
@@ -75,9 +80,11 @@ const breadcrumbSchema = {
       </div>
       <div class="mission-photo">
         <div class="mission-img-wrap">
-          <img
-            src="/about/mission-team.webp"
+          <Image
+            src={missionTeamPhoto}
             alt="Stronghold team at a job site"
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 900px) 100vw, 600px"
             loading="lazy"
           />
         </div>
@@ -117,7 +124,13 @@ const breadcrumbSchema = {
         {team.map(member => (
           <div class="team-card">
             <div class="team-img-wrap">
-              <img src={member.image} alt={member.name} loading="lazy" />
+              <Image
+                src={member.image}
+                alt={member.name}
+                widths={[300, 600]}
+                sizes="(max-width: 700px) 100vw, 320px"
+                loading="lazy"
+              />
             </div>
             <div class="team-info">
               <h3 class="team-name">{member.name}</h3>
@@ -145,9 +158,11 @@ const breadcrumbSchema = {
       </div>
       <div class="community-photo">
         <div class="community-img-wrap">
-          <img
-            src="/about/community-volunteer.webp"
+          <Image
+            src={communityPhoto}
             alt="Community construction volunteer work"
+            widths={[400, 800, 1200]}
+            sizes="(max-width: 900px) 100vw, 600px"
             loading="lazy"
           />
         </div>
