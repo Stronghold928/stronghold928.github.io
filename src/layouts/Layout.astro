@@ -65,10 +65,10 @@ const localBusinessSchema: Record<string, unknown> = {
   "telephone": "+1-928-962-7535",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "13447 King John Road",
-    "addressLocality": "Parks",
+    "streetAddress": "1155 W Kaibab Lane",
+    "addressLocality": "Flagstaff",
     "addressRegion": "AZ",
-    "postalCode": "86018",
+    "postalCode": "86001",
     "addressCountry": "US"
   },
   "hasCredential": {
@@ -81,10 +81,10 @@ const localBusinessSchema: Record<string, unknown> = {
       "url": "https://roc.az.gov/"
     }
   },
-  // TODO(NAP): geo points at Flagstaff while the postal address is in Parks.
-  // Update both together once the Google Business Profile address is confirmed —
-  // a mismatch between address, coordinates, and on-page location works against
-  // local ranking.
+  // TODO(geo): Flagstaff city-centre coordinates, not the parcel at 1155 W Kaibab
+  // Lane. Replace with the exact lat/long from the Google Business Profile once it
+  // is live. City and region already agree with the address, so this is a
+  // precision fix rather than the address/geo mismatch it used to be.
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": 35.1983,
