@@ -141,7 +141,7 @@ export const services: Service[] = [
     detail:
       "We treat small jobs with the same care as big ones. Same licensed crew, same straight answers, same clean site when we leave. If a small job turns out to be bigger than it looked, we'll tell you before we keep going, not after.",
     photo: handymanPhoto,
-    photoAlt: 'Handyman tools laid out: hammer, screwdriver, nails, and pliers',
+    photoAlt: 'Handyman tools laid out: nails, screwdriver, paintbrush, and pliers',
     steps: [
       { n: '01', title: 'Tell Us the Issue', body: "Call, email, or text a quick description of what needs fixing. No formal quote process required for small jobs." },
       { n: '02', title: 'Straight Timing', body: "We give you a real window for when we can get there, based on what you actually need done." },

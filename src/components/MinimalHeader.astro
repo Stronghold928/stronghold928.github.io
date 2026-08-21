@@ -1,23 +1,17 @@
 ---
 // Slim header for single-purpose campaign landing pages: logo + click-to-call only.
 // No nav links, no dropdowns — nothing to exit through except the phone number.
-import { Image } from 'astro:assets';
-import logoMark from '../assets/logo-white.png';
+import LogoMark from './LogoMark.astro';
 ---
 
 <header class="min-header">
   <div class="min-header-inner">
-    <a href="/" class="min-logo" aria-label="Stronghold Home">
-      <Image
-        src={logoMark}
-        alt=""
-        class="min-logo-mark"
-        aria-hidden="true"
-        width={45}
-        densities={[1, 2]}
-        loading="eager"
-      />
-      <span class="min-logo-text">STRONGHOLD</span>
+    <a href="/" class="min-logo" aria-label="Stronghold Construction — home">
+      <LogoMark height={28} />
+      <span class="min-logo-wordmark">
+        <span class="min-logo-name">Stronghold</span>
+        <span class="min-logo-suffix">Construction</span>
+      </span>
     </a>
     <a href="tel:+19289627535" class="min-header-phone">
       <span class="min-header-phone-label">Call Now</span>
@@ -52,21 +46,34 @@ import logoMark from '../assets/logo-white.png';
     gap: 0.625rem;
     text-decoration: none;
     flex-shrink: 0;
+    /* Astro scoped styles don't reach a child component's root node, so the
+       mark reads its mountain colour off `currentColor` set here. */
+    color: var(--color-brand-white);
   }
 
-  .min-logo-mark {
-    height: 34px;
-    width: auto;
-    display: block;
-    flex-shrink: 0;
+  .min-logo-wordmark {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
   }
 
-  .min-logo-text {
+  .min-logo-name {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-brand-white);
+  }
+
+  .min-logo-suffix {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.46rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
     color: var(--color-brand-red);
-    letter-spacing: 0.15em;
+    margin-top: 0.18rem;
   }
 
   .min-header-phone {
@@ -95,5 +102,7 @@ import logoMark from '../assets/logo-white.png';
 
   @media (max-width: 480px) {
     .min-header-phone-number { font-size: 0.9rem; }
+    .min-logo-name { font-size: 0.85rem; }
+    .min-logo-suffix { font-size: 0.42rem; letter-spacing: 0.26em; }
   }
 </style>

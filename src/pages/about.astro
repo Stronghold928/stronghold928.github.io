@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
-import missionTeamPhoto from '../assets/about/mission-team.webp';
+import crewJobsitePhoto from '../assets/about/crew-jobsite.webp';
 import communityPhoto from '../assets/about/community-volunteer.webp';
 import bryanPhoto from '../assets/team-bryan-anthony.webp';
 import derekPhoto from '../assets/team-derek-hanson.webp';
@@ -37,10 +37,10 @@ const team = [
 ];
 
 const community = [
-  'Annual volunteer build day with Flagstaff Habitat for Humanity',
+  'Sponsorship and support of DeMiguel Elementary School',
   'Discounted handyman services for elderly and fixed-income homeowners in Coconino County',
   'Tools and materials donation program for Flagstaff Unified School District trade programs',
-  'Mentorship of apprentice tradespeople through local union partnerships',
+  'Mentorship of apprentice tradespeople through local union and trade school partnerships',
 ];
 
 const breadcrumbSchema = {
@@ -81,11 +81,12 @@ const breadcrumbSchema = {
       <div class="mission-photo">
         <div class="mission-img-wrap">
           <Image
-            src={missionTeamPhoto}
-            alt="Stronghold team at a job site"
+            src={crewJobsitePhoto}
+            alt="Two Stronghold crew members leveling a cedar bracket above a window on a Flagstaff home"
             widths={[400, 800, 1200]}
             sizes="(max-width: 900px) 100vw, 600px"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
           />
         </div>
         <div class="mission-label">
