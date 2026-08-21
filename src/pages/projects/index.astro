@@ -15,6 +15,12 @@ const typeLabels: Record<string, string> = {
   repair: 'Repair',
 };
 
+// Only offer filters that have something behind them - a button that empties the
+// grid reads as a broken page rather than an empty category.
+const activeTypes = Object.keys(typeLabels).filter(type =>
+  sorted.some(project => project.data.type === type)
+);
+
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -52,10 +58,9 @@ const breadcrumbSchema = {
   <section class="filters-bar">
     <div class="filters-inner">
       <button class="filter-btn filter-btn--active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="remodeling">Remodeling</button>
-      <button class="filter-btn" data-filter="restoration">Restoration</button>
-      <button class="filter-btn" data-filter="new-build">New Build</button>
-      <button class="filter-btn" data-filter="repair">Repair</button>
+      {activeTypes.map(type => (
+        <button class="filter-btn" data-filter={type}>{typeLabels[type]}</button>
+      ))}
     </div>
   </section>
 

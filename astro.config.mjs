@@ -24,6 +24,10 @@ export default defineConfig({
   redirects: {
     '/projects/milton-deck-repair': '/projects/fort-valley-deck-repair/',
 
+    // The Leroux Street restoration was retired. Nothing replaces it one-for-one,
+    // so the index absorbs the URL.
+    '/projects/historic-restoration-leroux': '/projects/',
+
     // The blog collection was renamed to news. Only these two posts ever existed
     // under /blog/, so the list is complete rather than a pattern.
     '/blog': '/news/',

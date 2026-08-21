@@ -69,8 +69,8 @@ const faqSchema = {
       <h1>Deck Repair & Construction in Flagstaff, AZ</h1>
       <p class="hero-desc">Flagstaff's altitude and winter conditions are hard on decks. Freeze-thaw cycles attack ledger connections, post footings, and deck boards. Most decks we're called to "repair" actually have a structural story worth understanding before patching the visible symptom.</p>
       <div class="hero-actions">
-        <a href="/contact/" class="btn-primary">Get a Free Assessment &rarr;</a>
-        <a href="/quote/" class="btn-outline">Start Your Project &rarr;</a>
+        <a href="/quote/" class="btn-primary">Get a Free Assessment &rarr;</a>
+        <a href="/design/" class="btn-outline">Start Your Design &rarr;</a>
       </div>
     </div>
   </section>
@@ -259,11 +259,15 @@ const faqSchema = {
     border-bottom: 2px solid var(--color-border);
     background-color: var(--color-surface);
   }
+  /* Headline and description read across the full measure, with the scope list
+     underneath rather than beside it. */
   .includes-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .includes-text {
+    max-width: 720px;
   }
   .includes-text h2 {
     font-size: var(--font-size-h2);
@@ -278,9 +282,8 @@ const faqSchema = {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    display: grid;
+    grid-template-columns: 1fr;
     border: 2px solid var(--color-border);
   }
   .includes-list li {
@@ -300,6 +303,28 @@ const faqSchema = {
     color: var(--color-brand-red);
     font-weight: 700;
   }
+
+  /* Two columns once the list has room, so a full-width scope list stays compact.
+     Clearing the bottom hairline on the last two cells drops the trailing rule
+     for an even count (both sit in the final row) and for an odd count (the
+     second-to-last cell has nothing beneath it). */
+  @media (min-width: 760px) {
+    .includes-list {
+      grid-template-columns: 1fr 1fr;
+    }
+    .includes-list li:nth-child(odd) {
+      border-right: 1px solid var(--color-border);
+    }
+    .includes-list li:last-child,
+    .includes-list li:nth-last-child(2) {
+      border-bottom: none;
+    }
+    /* An odd item count leaves the final cell alone in the left column. */
+    .includes-list li:last-child:nth-child(odd) {
+      border-right: none;
+    }
+  }
+
 
   /* Local considerations */
   .local-section {
@@ -366,11 +391,15 @@ const faqSchema = {
   .cost-section {
     border-bottom: 2px solid var(--color-border);
   }
+  /* Cost copy runs full measure with the CTA block underneath it. */
   .cost-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 4rem;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+  .cost-text {
+    max-width: 780px;
   }
   .cost-text h2 {
     font-size: var(--font-size-h2);
@@ -386,9 +415,11 @@ const faqSchema = {
     background-color: var(--color-surface);
     border: 2px solid var(--color-border);
     padding: 2rem;
-    min-width: 280px;
+    max-width: 780px;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 0.75rem;
   }
   .note-label {
@@ -567,21 +598,9 @@ const faqSchema = {
 
   /* Responsive */
   @media (max-width: 900px) {
-    .includes-content {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
     .local-content {
       grid-template-columns: 1fr;
       gap: 1.5rem;
-    }
-    .cost-inner {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-    .cost-note {
-      min-width: auto;
-      width: 100%;
     }
     .cta-inner {
       grid-template-columns: 1fr;
