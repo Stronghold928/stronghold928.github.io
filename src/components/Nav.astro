@@ -3,14 +3,6 @@ import LogoMark from './LogoMark.astro';
 import { services, landingPages } from '../data/services';
 import { serviceAreas } from '../data/service-areas';
 
-// Major service areas in Northern AZ without dedicated pages yet — see TODO.md
-const pendingAreas = [
-  { cityName: 'Prescott', county: 'Yavapai' },
-  { cityName: 'Cottonwood', county: 'Yavapai' },
-  { cityName: 'Pinetop-Lakeside', county: 'Navajo' },
-  { cityName: 'Chino Valley', county: 'Yavapai' },
-];
-
 const otherLinks = [
   { href: '/projects/', label: 'Projects' },
   { href: '/design/', label: 'Design' },
@@ -138,12 +130,6 @@ const isAreasActive = currentPath.startsWith('/service-areas');
                 <span class="dropdown-area-county">{a.county} Co.</span>
               </a>
             ))}
-            {pendingAreas.map(a => (
-              <span class="dropdown-area-link dropdown-area-link--pending" aria-label={`${a.cityName} — coming soon`}>
-                <span class="dropdown-area-city">{a.cityName}</span>
-                <span class="dropdown-area-county dropdown-area-county--pending">{a.county} Co. &mdash; Soon</span>
-              </span>
-            ))}
           </div>
           <div class="dropdown-footer">
             <a href="/service-areas/" class="dropdown-all-link" role="menuitem">
@@ -162,11 +148,6 @@ const isAreasActive = currentPath.startsWith('/service-areas');
               >
                 {a.cityName}
               </a>
-            </li>
-          ))}
-          {pendingAreas.map(a => (
-            <li>
-              <span class="mobile-sub-link mobile-sub-link--pending">{a.cityName} (Soon)</span>
             </li>
           ))}
           <li>
@@ -456,14 +437,6 @@ const isAreasActive = currentPath.startsWith('/service-areas');
     background-color: rgba(255,255,255,0.06);
     border-left-color: var(--color-brand-red);
   }
-  .dropdown-area-link--pending {
-    cursor: default;
-    opacity: 0.4;
-  }
-  .dropdown-area-link--pending:hover {
-    background-color: transparent;
-    border-left-color: transparent;
-  }
   .dropdown-area-city {
     font-family: var(--font-heading);
     font-size: 0.78rem;
@@ -475,10 +448,6 @@ const isAreasActive = currentPath.startsWith('/service-areas');
   .dropdown-area-county {
     font-size: 0.68rem;
     color: rgba(255,255,255,0.45);
-  }
-  .dropdown-area-county--pending {
-    color: rgba(255,255,255,0.3);
-    font-style: italic;
   }
 
   .dropdown-popular {
@@ -658,11 +627,6 @@ const isAreasActive = currentPath.startsWith('/service-areas');
     }
     .mobile-sub-link--all {
       color: var(--color-brand-red);
-    }
-    .mobile-sub-link--pending {
-      color: rgba(255,255,255,0.3);
-      font-style: italic;
-      cursor: default;
     }
 
     .nav-cta {

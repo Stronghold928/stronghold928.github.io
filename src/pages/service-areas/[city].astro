@@ -20,8 +20,14 @@ const localProjects = allProjects.filter(
   pr => pr.data.location.toLowerCase().startsWith(area.cityName.toLowerCase())
 );
 
-// Nearby areas, for lateral links between city pages.
-const nearbyAreas = serviceAreas.filter(a => a.slug !== area.slug).slice(0, 4);
+// Nearby areas, for lateral links between city pages. `serviceAreas` is ordered
+// geographically, so a window around this city's index gives genuine neighbours.
+// Taking the first four instead would point all twelve pages at the same cities.
+const areaIndex = serviceAreas.findIndex(a => a.slug === area.slug);
+const windowStart = Math.max(0, Math.min(areaIndex - 2, serviceAreas.length - 5));
+const nearbyAreas = serviceAreas
+  .slice(windowStart, windowStart + 5)
+  .filter(a => a.slug !== area.slug);
 
 // The keyword landing pages are Flagstaff-specific, so they only belong on the
 // Flagstaff page — surfacing them on Winslow would promise the wrong location.
@@ -139,6 +145,14 @@ const services = [
       <h2>Ready to talk about your {area.cityName} project?</h2>
       <p>Every project starts with a straight conversation. No pitch, no pressure. We'll tell you what's involved and what it costs.</p>
       <a href="/contact/" class="btn-cta">Get in Touch &rarr;</a>
+
+      <nav class="nearby-areas" aria-label="Nearby service areas">
+        <span class="nearby-label">Nearby</span>
+        {nearbyAreas.map(a => (
+          <a href={`/service-areas/${a.slug}/`} class="nearby-link">{a.cityName}</a>
+        ))}
+        <a href="/service-areas/" class="nearby-link nearby-link--all">All service areas &rarr;</a>
+      </nav>
     </div>
   </section>
 

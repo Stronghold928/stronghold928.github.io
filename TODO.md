@@ -1,14 +1,14 @@
 # TODO
 
-## Service Area Pages
+Nothing outstanding.
 
-The following cities appear in the Service Areas nav dropdown but do not yet have
-dedicated pages. Add each as an entry in `src/data/service-areas.ts` — the
-`[city].astro` dynamic route will generate the page automatically.
+## Adding a service area
 
-| City | County | Slug | Notes |
-|------|--------|------|-------|
-| Prescott | Yavapai | `prescott` | Historic city center, distinct from Prescott Valley; strong remodel/restoration market |
-| Cottonwood | Yavapai | `cottonwood` | Verde Valley hub between Sedona and Camp Verde; growing residential market |
-| Pinetop-Lakeside | Navajo | `pinetop-lakeside` | White Mountains resort/vacation market; pairs naturally with Show Low |
-| Chino Valley | Yavapai | `chino-valley` | Fast-growing suburb north of Prescott; new construction and rural builds |
+Add an entry to `src/data/service-areas.ts` and everything else follows: the
+`[city].astro` dynamic route generates the page, and the nav dropdown, footer,
+service areas index, contact sidebar, and sitemap all read from the same array.
+
+Hardcoded city lists that do **not** read from that array and need updating by
+hand: the `areaServed` block in `src/layouts/Layout.astro`, the coverage answers
+in `src/pages/faq.astro` and `src/data/services.ts`, and the sidebar note and
+meta descriptions on `src/pages/quote.astro` and `src/pages/service-areas/index.astro`.

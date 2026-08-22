@@ -64,7 +64,7 @@ export const services: Service[] = [
       { q: "Do you handle permits for remodeling projects?", a: "Yes. We pull all required permits and manage the inspection schedule. Structural changes, electrical, and plumbing work require permits in Flagstaff under the Coconino County building codes. We handle it so you don't have to." },
       { q: "Do I need an architect before hiring you for a remodel?", a: "For most remodels, no. We can design the scope and selections with you. For significant structural changes or additions, we'll tell you when an architect is the right call and can connect you with designers we trust." },
       { q: "What is included in a remodeling quote from Stronghold?", a: "Our quotes are itemized line by line: labor, materials, subcontractors, permits. No lump sums. You should know exactly what you're paying for before you sign anything." },
-      { q: "Do you serve areas outside of Flagstaff for remodeling?", a: "Yes. We regularly remodel homes in Williams, Sedona, Camp Verde, Winslow, Show Low, Payson, and Prescott Valley. If you're in northern Arizona, reach out and we'll confirm coverage." },
+      { q: "Do you serve areas outside of Flagstaff for remodeling?", a: "Yes. We regularly remodel homes in Williams, Sedona, Camp Verde, Cottonwood, Winslow, Show Low, Pinetop-Lakeside, Payson, Prescott Valley, Prescott, and Chino Valley. If you're in northern Arizona, reach out and we'll confirm coverage." },
     ],
   },
   {
@@ -120,7 +120,7 @@ export const services: Service[] = [
       { n: '06', title: 'Finish & Close Out', body: 'Trim, paint, fixtures, appliances, final inspections. Then we hand you the keys.' },
     ],
     faqs: [
-      { q: "Do you build custom homes in northern Arizona?", a: "Yes. We build single-family and multi-family homes across northern Arizona: Flagstaff, Williams, Winslow, Show Low, and surrounding areas. Custom owner-occupied builds, spec homes, and small investment properties." },
+      { q: "Do you build custom homes in northern Arizona?", a: "Yes. We build single-family and multi-family homes across northern Arizona: Flagstaff, Williams, Winslow, Show Low, Chino Valley, and surrounding areas. Custom owner-occupied builds, spec homes, and small investment properties." },
       { q: "Can I bring my own architect's plans?", a: "Absolutely. We work from your architect's drawings and get involved early to review for buildability, catch coordination issues before they become field problems, and put together an accurate schedule and budget." },
       { q: "How long does it take to build a new home in Flagstaff?", a: "For a typical 2,000–3,000 sq ft single-family home, expect 8–14 months from groundbreaking to keys, depending on complexity, weather, and permit timing. We'll give you a realistic schedule in the pre-construction phase." },
       { q: "Do you handle the permit and inspection process for new construction?", a: "Yes. We manage the permit application, municipal coordination, and the full inspection schedule. You don't have to navigate Coconino County building department timelines on your own." },
