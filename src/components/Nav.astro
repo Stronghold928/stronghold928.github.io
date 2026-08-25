@@ -1,6 +1,7 @@
 ---
 import LogoMark from './LogoMark.astro';
 import { services, landingPages } from '../data/services';
+import { commercialServices } from '../data/commercial';
 import { serviceAreas } from '../data/service-areas';
 
 const otherLinks = [
@@ -12,6 +13,7 @@ const otherLinks = [
 
 const currentPath = Astro.url.pathname;
 const isServicesActive = currentPath.startsWith('/services');
+const isCommercialActive = currentPath.startsWith('/commercial');
 const isAreasActive = currentPath.startsWith('/service-areas');
 ---
 
@@ -100,6 +102,81 @@ const isAreasActive = currentPath.startsWith('/service-areas');
           ))}
           <li>
             <a href="/services/" class="mobile-sub-link mobile-sub-link--all">All Services &rarr;</a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Commercial dropdown -->
+      <li class="nav-item nav-item--dropdown" data-dropdown="commercial">
+        <button
+          class={`nav-link nav-link--dropdown-trigger ${isCommercialActive ? 'nav-link--active' : ''}`}
+          data-dropdown-toggle="commercial"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Commercial
+          <svg class="chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="dropdown-panel" data-dropdown-panel="commercial" role="menu">
+          <div class="dropdown-services">
+            {commercialServices.map(c => (
+              <a
+                href={`/commercial/${c.slug}/`}
+                class={`dropdown-service-link ${currentPath === `/commercial/${c.slug}/` ? 'dropdown-service-link--active' : ''}`}
+                role="menuitem"
+              >
+                <span class="dropdown-service-label">{c.navLabel}</span>
+                <span class="dropdown-service-tagline">{c.tagline}</span>
+              </a>
+            ))}
+          </div>
+          <div class="dropdown-popular">
+            <p class="dropdown-popular-title">For Buyers</p>
+            <a
+              href="/commercial/capabilities/"
+              class={`dropdown-popular-link ${currentPath === '/commercial/capabilities/' ? 'dropdown-popular-link--active' : ''}`}
+              role="menuitem"
+            >
+              Capabilities
+            </a>
+            <a
+              href="/commercial/bid-request/"
+              class={`dropdown-popular-link ${currentPath === '/commercial/bid-request/' ? 'dropdown-popular-link--active' : ''}`}
+              role="menuitem"
+            >
+              Request a Bid
+            </a>
+          </div>
+          <div class="dropdown-footer">
+            <a href="/commercial/" class="dropdown-all-link" role="menuitem">
+              Commercial Overview &rarr;
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile sub-links -->
+        <ul class="mobile-sub-links" data-mobile-sub="commercial" aria-label="Commercial pages">
+          {commercialServices.map(c => (
+            <li>
+              <a
+                href={`/commercial/${c.slug}/`}
+                class={`mobile-sub-link ${currentPath === `/commercial/${c.slug}/` ? 'mobile-sub-link--active' : ''}`}
+              >
+                {c.navLabel}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="/commercial/capabilities/" class="mobile-sub-link mobile-sub-link--nested">Capabilities</a>
+          </li>
+          <li>
+            <a href="/commercial/bid-request/" class="mobile-sub-link mobile-sub-link--nested">Request a Bid</a>
+          </li>
+          <li>
+            <a href="/commercial/" class="mobile-sub-link mobile-sub-link--all">Commercial Overview &rarr;</a>
           </li>
         </ul>
       </li>
@@ -205,7 +282,9 @@ const isAreasActive = currentPath.startsWith('/service-areas');
     let skipNextDocClick = false;
 
     toggle?.addEventListener('click', () => {
-      const isMobile = window.innerWidth <= 768;
+      // Keep in step with the collapse breakpoint in this component's styles.
+      const NAV_COLLAPSE_PX = 1080;
+      const isMobile = window.innerWidth <= NAV_COLLAPSE_PX;
       if (isMobile) {
         const open = mobileSub?.classList.toggle('mobile-sub-links--open');
         toggle.setAttribute('aria-expanded', String(!!open));
@@ -559,7 +638,9 @@ const isAreasActive = currentPath.startsWith('/service-areas');
     .logo-suffix { font-size: 0.45rem; letter-spacing: 0.28em; }
   }
 
-  @media (max-width: 768px) {
+  /* Eight top-level items no longer fit a 1200px bar much below this width.
+     NAV_COLLAPSE_PX in this component's script must match. */
+  @media (max-width: 1080px) {
     .nav-toggle {
       display: flex;
     }

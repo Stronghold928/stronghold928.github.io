@@ -1,0 +1,455 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { commercialSectors, capabilities } from '../../data/commercial';
+
+// Formspree endpoint for commercial bid requests. Kept separate from the
+// residential quote and general contact forms so commercial enquiries stay
+// separable in the inbox.
+// TODO: replace with the real endpoint before this page ships.
+const FORMSPREE_URL = 'https://formspree.io/f/REPLACE_ME';
+
+const roles = [
+  'Tenant',
+  'Building owner',
+  'Landlord',
+  'Property manager',
+  'Broker',
+  'Architect or designer',
+  'Other',
+];
+
+const workTypes = [
+  'Tenant improvement / build-out',
+  'Renovation or refresh',
+  'Repair or deferred maintenance',
+  'Code, ADA, or life-safety correction',
+  'Design-build / preconstruction',
+  'Emergency or make-safe',
+  'Not sure yet',
+];
+
+const spaceTypes = [
+  ...commercialSectors.map(s => s.name),
+  'Mixed use',
+  'Other',
+];
+
+const sizeRanges = [
+  'Under 1,000 sq ft',
+  '1,000 – 3,000 sq ft',
+  '3,000 – 10,000 sq ft',
+  'Over 10,000 sq ft',
+  'Not sure',
+];
+
+const drawingStates = [
+  'Permitted drawings in hand',
+  'Drawings in progress',
+  'Concept or sketch only',
+  'Nothing drawn yet',
+];
+
+const occupancyStates = [
+  'Space is vacant',
+  'Occupied, we can work during business hours',
+  'Occupied, needs nights or weekends',
+  'Not sure yet',
+];
+
+const budgetRanges = [
+  'Under $25,000',
+  '$25,000 – $75,000',
+  '$75,000 – $200,000',
+  '$200,000 – $500,000',
+  '$500,000+',
+  'Not sure yet',
+];
+
+const timelines = [
+  'Urgent — something is failing',
+  'Within 1 month',
+  '1 – 3 months',
+  '3 – 6 months',
+  'Still planning',
+];
+
+const licence = capabilities.find(c => c.label === 'License');
+
+const base = 'https://builtstronghold.com';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${base}/` },
+    { '@type': 'ListItem', position: 2, name: 'Commercial', item: `${base}/commercial/` },
+    { '@type': 'ListItem', position: 3, name: 'Request a Bid', item: `${base}/commercial/bid-request/` },
+  ],
+};
+---
+
+<Layout
+  title="Request a Commercial Bid"
+  description="Request an itemized bid for commercial tenant improvement, renovation, or design-build work in Flagstaff and northern Arizona. Response within one business day."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Commercial</p>
+      <h1>Request a bid.</h1>
+      <p class="hero-sub">The more of this you can fill in, the closer our first number will be. If you do not know something, leave it &mdash; we would rather hear from you with gaps than not hear from you.</p>
+    </div>
+  </section>
+
+  <div class="bid-layout">
+    <div class="bid-layout-inner">
+
+      <div class="form-col">
+        <form id="bid-form" action={FORMSPREE_URL} method="POST" class="bid-form" novalidate>
+          <input type="hidden" name="source" id="source-field" value="" />
+
+          <div class="form-section">
+            <h2 class="form-section-title">Who You Are</h2>
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="name" class="field-label">Your Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" required placeholder="Jane Smith" class="field-input" />
+              </div>
+              <div class="field-group">
+                <label for="company" class="field-label">Company</label>
+                <input type="text" id="company" name="company" placeholder="Business or property name" class="field-input" />
+              </div>
+            </div>
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="phone" class="field-label">Phone <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" required placeholder="(928) 962-7535" class="field-input" />
+              </div>
+              <div class="field-group">
+                <label for="email" class="field-label">Email <span class="required">*</span></label>
+                <input type="email" id="email" name="email" required placeholder="jane@example.com" class="field-input" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="role" class="field-label">Your Role <span class="required">*</span></label>
+              <select id="role" name="role" required class="field-input field-select">
+                <option value="" disabled selected>Select...</option>
+                {roles.map(r => <option value={r}>{r}</option>)}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section-title">The Space</h2>
+            <div class="field-group">
+              <label for="address" class="field-label">Property Address or City <span class="required">*</span></label>
+              <input type="text" id="address" name="address" required placeholder="12 N San Francisco St, Flagstaff, AZ" class="field-input" />
+            </div>
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="space-type" class="field-label">Space Type</label>
+                <select id="space-type" name="space_type" class="field-input field-select">
+                  <option value="" disabled selected>Select...</option>
+                  {spaceTypes.map(t => <option value={t}>{t}</option>)}
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="size" class="field-label">Approximate Size</label>
+                <select id="size" name="size" class="field-input field-select">
+                  <option value="" disabled selected>Select...</option>
+                  {sizeRanges.map(t => <option value={t}>{t}</option>)}
+                </select>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="occupancy" class="field-label">Is the space occupied?</label>
+              <select id="occupancy" name="occupancy" class="field-input field-select">
+                <option value="" disabled selected>Select...</option>
+                {occupancyStates.map(t => <option value={t}>{t}</option>)}
+              </select>
+              <p class="field-help">This changes how we schedule and price the work, so it is worth answering.</p>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2 class="form-section-title">The Work</h2>
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="work-type" class="field-label">Type of Work <span class="required">*</span></label>
+                <select id="work-type" name="work_type" required class="field-input field-select">
+                  <option value="" disabled selected>Select...</option>
+                  {workTypes.map(t => <option value={t}>{t}</option>)}
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="drawings" class="field-label">Drawings</label>
+                <select id="drawings" name="drawings" class="field-input field-select">
+                  <option value="" disabled selected>Select...</option>
+                  {drawingStates.map(t => <option value={t}>{t}</option>)}
+                </select>
+              </div>
+            </div>
+            <div class="form-row form-row--2">
+              <div class="field-group">
+                <label for="budget" class="field-label">Rough Budget</label>
+                <select id="budget" name="budget" class="field-input field-select">
+                  <option value="" disabled selected>Select a range...</option>
+                  {budgetRanges.map(b => <option value={b}>{b}</option>)}
+                </select>
+              </div>
+              <div class="field-group">
+                <label for="timeline" class="field-label">Timeline</label>
+                <select id="timeline" name="timeline" class="field-input field-select">
+                  <option value="" disabled selected>Select...</option>
+                  {timelines.map(t => <option value={t}>{t}</option>)}
+                </select>
+              </div>
+            </div>
+            <div class="field-group">
+              <label for="allowance" class="field-label">Landlord Allowance or Work Letter</label>
+              <input type="text" id="allowance" name="allowance" placeholder="e.g. $30/sq ft TI allowance, or leave blank" class="field-input" />
+              <p class="field-help">If a landlord is contributing, telling us the number lets us price against it rather than around it.</p>
+            </div>
+            <div class="field-group">
+              <label for="message" class="field-label">What Needs Doing <span class="required">*</span></label>
+              <textarea id="message" name="message" rows="6" required placeholder="Describe the space and what you need. If you have drawings or photos, mention it here and we will reply with somewhere to send them." class="field-input field-textarea"></textarea>
+            </div>
+          </div>
+
+          <input type="hidden" name="_subject" value="Commercial bid request, Stronghold" />
+          <input type="hidden" name="_next" value="https://builtstronghold.com/thank-you/" />
+          <input type="text" name="_gotcha" style="display:none" />
+
+          <button type="submit" class="submit-btn">Send Bid Request &rarr;</button>
+          <p class="form-note">We respond within one business day. Prefer to talk? Call or text <a href="tel:+19289627535">(928) 962-7535</a>.</p>
+        </form>
+      </div>
+
+      <aside class="bid-sidebar">
+        <div class="sidebar-block">
+          <h2 class="sidebar-title">Call or Text</h2>
+          <a href="tel:+19289627535" class="sidebar-phone">(928) 962-7535</a>
+          <p class="sidebar-note">Mon&ndash;Fri 9am&ndash;4pm. After-hours work scheduled as needed.</p>
+        </div>
+        <div class="sidebar-block">
+          <h2 class="sidebar-title">Licensed</h2>
+          <p class="sidebar-strong">{licence?.value}</p>
+          <p class="sidebar-note">Commercial and residential, no project size limit.</p>
+          <a href="/commercial/capabilities/" class="sidebar-link">Bonding &amp; insurance &rarr;</a>
+        </div>
+        <div class="sidebar-block">
+          <h2 class="sidebar-title">Insurance Certificates</h2>
+          <p class="sidebar-note">We issue COIs naming your landlord and property manager as additional insured before work starts. Tell us who needs to be on it.</p>
+        </div>
+        <div class="sidebar-block">
+          <h2 class="sidebar-title">Residential Project?</h2>
+          <p class="sidebar-note">This form is for commercial work. For a home project, the residential quote form asks the right questions.</p>
+          <a href="/quote/" class="sidebar-link">Residential quote form &rarr;</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Carry a ?ref= campaign parameter through to the submission, matching the
+  // residential quote form.
+  const params = new URLSearchParams(window.location.search);
+  const ref = params.get('ref');
+  if (ref) {
+    const field = document.getElementById('source-field') as HTMLInputElement | null;
+    if (field) field.value = ref;
+  }
+</script>
+
+<style>
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+
+  .hero {
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+    border-bottom: 3px solid var(--color-brand-red);
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 4rem;
+  }
+  .hero h1 {
+    font-size: var(--font-size-h1);
+    line-height: 1.05;
+    margin: 0.75rem 0 1.25rem;
+    color: var(--color-brand-white);
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    opacity: 0.75;
+    max-width: 600px;
+  }
+
+  .bid-layout { padding: 4rem 1.5rem 2rem; }
+  .bid-layout-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .form-section {
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .form-section:last-of-type { border-bottom: none; }
+  .form-section-title {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 1.75rem;
+  }
+
+  .form-row { display: flex; gap: 1.25rem; }
+  .form-row--2 > * { flex: 1; }
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .field-label {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .required { color: var(--color-brand-red); }
+  .field-input {
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    color: var(--color-text);
+    padding: 0.875rem 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field-input::placeholder { opacity: 0.4; }
+  .field-input:focus {
+    outline: none;
+    border-color: var(--color-brand-red);
+  }
+  .field-select { cursor: pointer; }
+  .field-textarea {
+    resize: vertical;
+    min-height: 8rem;
+    line-height: 1.6;
+  }
+  .field-help {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    opacity: 0.55;
+  }
+
+  .submit-btn {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 1.1rem 2.5rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 5px 5px 0 var(--color-dark);
+    cursor: pointer;
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .submit-btn:hover {
+    box-shadow: 2px 2px 0 var(--color-dark);
+    transform: translate(3px, 3px);
+  }
+  .form-note {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    margin-top: 1.25rem;
+    line-height: 1.6;
+  }
+  .form-note a { color: var(--color-brand-red); font-weight: 600; }
+
+  /* Sidebar */
+  .bid-sidebar {
+    position: sticky;
+    top: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .sidebar-block {
+    border: 2px solid var(--color-border);
+    padding: 1.5rem;
+  }
+  .sidebar-title {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 0.75rem;
+  }
+  .sidebar-phone {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .sidebar-phone:hover { color: var(--color-brand-red); }
+  .sidebar-strong {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .sidebar-note {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    opacity: 0.65;
+  }
+  .sidebar-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .sidebar-link:hover { text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .bid-layout-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .bid-sidebar { position: static; }
+    .form-row { flex-direction: column; gap: 0; }
+  }
+</style>

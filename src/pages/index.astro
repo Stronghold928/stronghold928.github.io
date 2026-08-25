@@ -36,7 +36,7 @@ const typeLabels: Record<string, string> = {
           guy.
         </h1>
         <p class="hero-sub">
-          Based in Flagstaff, specializing in remodels, restoration, new builds, and handyman services all across northern Arizona.
+          Based in Flagstaff, specializing in remodels, restoration, new builds, and handyman services for homes, plus tenant improvement and renovation for commercial space, all across northern Arizona.
         </p>
         <div class="hero-actions">
           <a href="/quote/" class="btn-primary">Get a Quote</a>
@@ -109,6 +109,22 @@ const typeLabels: Record<string, string> = {
         Most people haven't. Answer seven questions and get back a real design plan: a named style, a proven palette, and the exact materials that make it work, ready for your first project conversation.
       </p>
       <a href="/design/" class="btn-dark">Get Your Design Plan &rarr;</a>
+    </div>
+  </section>
+
+  <section class="commercial-band">
+    <div class="commercial-band-inner">
+      <div class="commercial-band-text">
+        <p class="commercial-band-label">Commercial</p>
+        <h2>We build for businesses too.</h2>
+        <p class="commercial-band-sub">
+          Tenant improvement, renovation, and design-build for offices and retail across northern Arizona. Licensed KB-1 Dual, which means commercial work at any size. No minimum job, and we work nights and weekends so you do not have to close.
+        </p>
+      </div>
+      <div class="commercial-band-actions">
+        <a href="/commercial/" class="btn-commercial">Commercial Services &rarr;</a>
+        <a href="/commercial/bid-request/" class="btn-commercial-outline">Request a Bid</a>
+      </div>
     </div>
   </section>
 
@@ -684,10 +700,95 @@ const typeLabels: Record<string, string> = {
     font-size: 0.72rem;
     opacity: 0.55;
   }
+
+  /* Commercial band */
+  .commercial-band {
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+    border-top: 3px solid var(--color-brand-red);
+    border-bottom: 3px solid var(--color-brand-red);
+  }
+  .commercial-band-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .commercial-band-label {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 0.75rem;
+  }
+  .commercial-band h2 {
+    font-size: var(--font-size-h2);
+    color: var(--color-brand-white);
+    margin-bottom: 1rem;
+  }
+  .commercial-band-sub {
+    font-size: 0.975rem;
+    line-height: 1.7;
+    opacity: 0.75;
+    max-width: 620px;
+  }
+  .commercial-band-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+    min-width: 240px;
+  }
+  .btn-commercial {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.95rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+    text-align: center;
+  }
+  .btn-commercial:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+  .btn-commercial-outline {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.95rem 1.75rem;
+    color: var(--color-brand-white);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    transition: border-color 0.15s, background-color 0.15s;
+    text-align: center;
+  }
+  .btn-commercial-outline:hover {
+    border-color: var(--color-brand-white);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  @media (max-width: 900px) {
+    .commercial-band-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .commercial-band-actions { min-width: auto; }
+  }
 </style>
 
 <script>
-  const slotWords = ['remodel', 'restoration', 'repair', 'bathroom', 'kitchen', 'deck'];
+  const slotWords = ['remodel', 'restoration', 'repair', 'commercial', 'bathroom', 'kitchen', 'deck'];
   const slotEl = document.getElementById('hero-slot-word');
 
   if (slotEl) {

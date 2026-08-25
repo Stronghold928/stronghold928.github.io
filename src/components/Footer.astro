@@ -1,6 +1,7 @@
 ---
 import LogoMark from './LogoMark.astro';
 import { services as serviceData, landingPages } from '../data/services';
+import { commercialServices } from '../data/commercial';
 import { serviceAreas } from '../data/service-areas';
 
 const year = new Date().getFullYear();
@@ -8,6 +9,12 @@ const year = new Date().getFullYear();
 const services = [
   ...serviceData.map(s => ({ href: `/services/${s.slug}/`, label: s.label })),
   ...landingPages.map(l => ({ href: `/services/${l.slug}/`, label: l.navLabel })),
+];
+
+const commercial = [
+  ...commercialServices.map(c => ({ href: `/commercial/${c.slug}/`, label: c.navLabel })),
+  { href: '/commercial/capabilities/', label: 'Capabilities' },
+  { href: '/commercial/bid-request/', label: 'Request a Bid' },
 ];
 
 const company = [
@@ -46,9 +53,15 @@ const company = [
 
     <div class="footer-nav">
       <div class="footer-col">
-        <h2 class="footer-col-title">Services</h2>
+        <h2 class="footer-col-title">Residential</h2>
         <ul>
           {services.map(link => (
+            <li><a href={link.href} class="footer-link">{link.label}</a></li>
+          ))}
+        </ul>
+        <h2 class="footer-col-title footer-col-title--second">Commercial</h2>
+        <ul>
+          {commercial.map(link => (
             <li><a href={link.href} class="footer-link">{link.label}</a></li>
           ))}
         </ul>
@@ -186,6 +199,10 @@ const company = [
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+  }
+
+  .footer-col-title--second {
+    margin-top: 1.75rem;
   }
 
   .footer-col-title {

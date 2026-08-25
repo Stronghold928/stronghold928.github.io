@@ -1,0 +1,551 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { commercialServices, commercialSectors, capabilities } from '../../data/commercial';
+
+const licence = capabilities.find(c => c.label === 'License');
+
+const differentiators = [
+  {
+    title: 'No minimum job size',
+    body: "One door that will not latch is work we take. Most general contractors your landlord calls will not return the message. Same licensed crew on the small jobs as the large ones.",
+  },
+  {
+    title: 'We work around your hours',
+    body: 'Nights and weekends when the schedule needs it, phased when it does not. Your business stays open and your customers should not be able to tell we were there.',
+  },
+  {
+    title: 'Itemized, in writing',
+    body: 'Labor, materials, subcontractors, permits, and the after-hours premium if there is one. No lump sums. You should know exactly what you are paying for before you sign.',
+  },
+  {
+    title: 'We handle the landlord',
+    body: 'Work letters, building rules, access hours, and certificates of insurance naming whoever needs to be on them. That coordination is part of the job, not your problem.',
+  },
+];
+
+const base = 'https://builtstronghold.com';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${base}/` },
+    { '@type': 'ListItem', position: 2, name: 'Commercial', item: `${base}/commercial/` },
+  ],
+};
+
+const serviceListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Commercial construction services',
+  itemListElement: commercialServices.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: s.label,
+    url: `${base}/commercial/${s.slug}/`,
+  })),
+};
+---
+
+<Layout
+  title="Commercial Contractor in Flagstaff, AZ"
+  description="Commercial tenant improvement, renovation, and design-build in Flagstaff and northern Arizona. Licensed KB-1 Dual, with no minimum job size."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceListSchema)} />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Commercial &bull; Flagstaff, Arizona</p>
+      <h1>Your space, <br /><span class="accent">open for business.</span></h1>
+      <p class="hero-sub">Tenant improvement, renovation, and design-build for offices and retail across northern Arizona. We are licensed for commercial work at any size, we take the small jobs nobody else will, and we work around your operating hours rather than through them.</p>
+      <div class="hero-actions">
+        <a href="/commercial/bid-request/" class="btn-primary">Request a Bid &rarr;</a>
+        <a href="tel:+19289627535" class="btn-outline">Call or Text (928) 962-7535</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Licence band -->
+  <section class="licence-band">
+    <div class="section-inner licence-inner">
+      <div class="licence-text">
+        <p class="eyebrow">Licensed For This</p>
+        <h2>{licence?.value}</h2>
+        <p>{licence?.note}</p>
+      </div>
+      <a href="/commercial/capabilities/" class="btn-outline btn-outline--nowrap">See Full Capabilities &rarr;</a>
+    </div>
+  </section>
+
+  <!-- Service lines -->
+  <section class="lines-section">
+    <div class="section-inner">
+      <p class="eyebrow">What We Do</p>
+      <h2 class="section-title">Three ways we take on commercial work</h2>
+      <div class="lines-grid">
+        {commercialServices.map(s => (
+          <a href={`/commercial/${s.slug}/`} class="line-card">
+            <span class="line-label">{s.navLabel}</span>
+            <span class="line-tagline">{s.tagline}</span>
+            <span class="line-blurb">{s.hubSummary}</span>
+            <span class="line-arrow">&rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectors -->
+  <section class="sectors-section">
+    <div class="section-inner">
+      <p class="eyebrow">Who We Build For</p>
+      <h2 class="section-title">Space types we have finished</h2>
+      <p class="section-desc">These are the spaces we have actually built out. If yours is not on the list, ask &mdash; we will tell you honestly whether it is work we should be bidding.</p>
+      <div class="sectors-grid">
+        {commercialSectors.map(sector => (
+          <div class="sector-card">
+            <h3 class="sector-name">{sector.name}</h3>
+            <p class="sector-body">{sector.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Differentiators -->
+  <section class="diff-section">
+    <div class="section-inner">
+      <p class="eyebrow">How We Work</p>
+      <h2 class="section-title">What is different about hiring us</h2>
+      <div class="diff-grid">
+        {differentiators.map(d => (
+          <div class="diff-card">
+            <h3 class="diff-title">{d.title}</h3>
+            <p class="diff-body">{d.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Residential cross-link -->
+  <section class="cross-section">
+    <div class="section-inner cross-inner">
+      <div>
+        <p class="eyebrow">Also Us</p>
+        <h2 class="cross-title">We do residential too.</h2>
+        <p class="cross-sub">Remodeling, restoration, new builds, and handyman work across northern Arizona. Same crew, same licence, same straight answers.</p>
+      </div>
+      <a href="/services/" class="btn-dark">Residential Services &rarr;</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-inner cta-inner">
+      <div class="cta-text">
+        <p class="eyebrow eyebrow--light">Get Started</p>
+        <h2>Tell us about the space.</h2>
+        <p class="cta-sub">An address, a floor plan, a lease you are about to sign. We will walk it, tell you what it involves, and put a written itemized number in front of you. We respond within one business day.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="tel:+19289627535" class="btn-phone">
+          <span class="btn-phone-label">Call or text</span>
+          <span class="btn-phone-number">(928) 962-7535</span>
+        </a>
+        <a href="/commercial/bid-request/" class="btn-quote">Request a Bid &rarr;</a>
+        <p class="cta-note">Mon&ndash;Fri 9am&ndash;4pm. After-hours work scheduled as needed.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .eyebrow--light { color: rgba(255, 255, 255, 0.6); }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .section-title {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1rem;
+  }
+  .section-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.7;
+    max-width: 720px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Hero */
+  .hero {
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+    border-bottom: 3px solid var(--color-brand-red);
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+  }
+  .hero h1 {
+    font-size: var(--font-size-h1);
+    line-height: 1.05;
+    margin: 0.75rem 0 1.5rem;
+    color: var(--color-brand-white);
+  }
+  .hero .accent { color: var(--color-brand-red); }
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    opacity: 0.75;
+    max-width: 660px;
+    margin-bottom: 2rem;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Licence band */
+  .licence-band {
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .licence-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .licence-text h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0.75rem 0 0.75rem;
+  }
+  .licence-text p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.72;
+    max-width: 680px;
+  }
+
+  /* Service lines */
+  .lines-section { border-bottom: 2px solid var(--color-border); }
+  .lines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .line-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 2rem;
+    border: 2px solid var(--color-border);
+    background-color: var(--color-brand-white);
+    transition: border-color 0.15s, box-shadow 0.1s, transform 0.1s;
+  }
+  .line-card:hover {
+    border-color: var(--color-brand-red);
+    box-shadow: 6px 6px 0 var(--color-brand-red);
+    transform: translate(-3px, -3px);
+  }
+  .line-label {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .line-tagline {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--color-brand-red);
+  }
+  .line-blurb {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    opacity: 0.72;
+  }
+  .line-arrow {
+    color: var(--color-brand-red);
+    font-weight: 700;
+    margin-top: 0.25rem;
+  }
+
+  /* Sectors */
+  .sectors-section {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .sectors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  .sector-card {
+    border-top: 3px solid var(--color-brand-red);
+    padding-top: 1.25rem;
+  }
+  .sector-name {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .sector-body {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    opacity: 0.72;
+  }
+
+  /* Differentiators */
+  .diff-section { border-bottom: 2px solid var(--color-border); }
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0;
+    border: 2px solid var(--color-border);
+    margin-top: 2rem;
+  }
+  .diff-card {
+    padding: 2rem;
+    border-right: 1px solid var(--color-border);
+  }
+  .diff-card:last-child { border-right: none; }
+  .diff-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .diff-body {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    opacity: 0.7;
+  }
+
+  /* Residential cross-link */
+  .cross-section {
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .cross-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+  .cross-title {
+    font-size: var(--font-size-h3);
+    margin: 0.75rem 0 0.6rem;
+  }
+  .cross-sub {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.7;
+    max-width: 560px;
+  }
+
+  /* CTA */
+  .cta-section {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+    border-bottom: 3px solid var(--color-brand-black);
+    color: var(--color-brand-white);
+  }
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .cta-text h2 {
+    font-size: var(--font-size-h2);
+    color: var(--color-brand-white);
+    margin: 0.75rem 0 1rem;
+  }
+  .cta-sub {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 540px;
+  }
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    min-width: 260px;
+  }
+  .btn-phone {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-black);
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--color-brand-white);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.1s, transform 0.1s;
+    width: 100%;
+  }
+  .btn-phone:hover {
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
+    transform: translate(2px, 2px);
+  }
+  .btn-phone-label {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .btn-phone-number {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .btn-quote {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-white);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    transition: background-color 0.15s, color 0.15s, box-shadow 0.1s, transform 0.1s;
+    width: 100%;
+    text-align: center;
+  }
+  .btn-quote:hover {
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-red);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    transform: translate(2px, 2px);
+  }
+  .cta-note {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.4;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-brand-white);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  /* On the light licence band the outline button needs dark chrome to be visible. */
+  .licence-band .btn-outline {
+    color: var(--color-text);
+    border-color: var(--color-dark);
+  }
+  .licence-band .btn-outline:hover {
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+  }
+  .btn-outline--nowrap { white-space: nowrap; }
+
+  .btn-dark {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-dark);
+    box-shadow: 4px 4px 0 var(--color-brand-red);
+    transition: box-shadow 0.1s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .btn-dark:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-red);
+    transform: translate(2px, 2px);
+  }
+
+  @media (max-width: 900px) {
+    .licence-inner,
+    .cross-inner,
+    .cta-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .cta-actions { min-width: auto; width: 100%; }
+    .diff-card {
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .diff-card:last-child { border-bottom: none; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-outline {
+      width: 100%;
+      text-align: center;
+    }
+    .btn-outline--nowrap,
+    .btn-dark { white-space: normal; text-align: center; }
+  }
+</style>

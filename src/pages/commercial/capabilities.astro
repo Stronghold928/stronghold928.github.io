@@ -1,0 +1,441 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { capabilities, commercialServices, commercialSectors } from '../../data/commercial';
+import { serviceAreas } from '../../data/service-areas';
+
+const base = 'https://builtstronghold.com';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${base}/` },
+    { '@type': 'ListItem', position: 2, name: 'Commercial', item: `${base}/commercial/` },
+    { '@type': 'ListItem', position: 3, name: 'Capabilities', item: `${base}/commercial/capabilities/` },
+  ],
+};
+---
+
+<Layout
+  title="Commercial Capabilities & Credentials"
+  description="Licensing, bonding, insurance, and service area for Stronghold Construction's commercial work in Flagstaff and northern Arizona. AZ ROC #354046, KB-1 Dual."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Commercial &bull; Capabilities</p>
+      <h1>The paperwork, <br /><span class="accent">up front.</span></h1>
+      <p class="hero-sub">Everything a property manager, landlord, or procurement officer needs before deciding whether to take our call. If something you need is not here, ask and we will send it.</p>
+      <div class="hero-actions">
+        <a href="/commercial/bid-request/" class="btn-primary">Request a Bid &rarr;</a>
+        <a href="tel:+19289627535" class="btn-outline">Call or Text (928) 962-7535</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Spec table -->
+  <section class="spec-section">
+    <div class="section-inner">
+      <p class="eyebrow">At a Glance</p>
+      <h2 class="section-title">Credentials</h2>
+      <dl class="spec-list">
+        {capabilities.map(c => (
+          <div class="spec-row">
+            <dt class="spec-label">{c.label}</dt>
+            <dd class="spec-value">
+              <span class={c.value ? 'spec-figure' : 'spec-figure spec-figure--pending'}>
+                {c.value ?? 'Available on request'}
+              </span>
+              <span class="spec-note">{c.note}</span>
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p class="spec-footnote">We do not publish a figure we cannot back. Where this page says "available on request", the coverage is in place and the certificate or letter comes from the carrier or surety directly, not from us.</p>
+    </div>
+  </section>
+
+  <!-- What the licence means -->
+  <section class="licence-section">
+    <div class="section-inner">
+      <div class="licence-grid">
+        <div>
+          <p class="eyebrow">Worth Understanding</p>
+          <h2 class="section-title">What KB-1 Dual actually means</h2>
+          <p class="body-text">Arizona splits contractor licences into residential, commercial, and dual classifications. A KB-1 is a dual licence: it carries the scope of both the B-1 General Commercial Contractor and the general residential classification, and it has no project size limit on either side.</p>
+          <p class="body-text">In practical terms, there is no commercial job we are barred from bidding on the basis of licence class. Plenty of contractors who advertise commercial work in northern Arizona hold residential-only licences and subcontract the parts they cannot legally sign for. You can check ours, and anyone else's, against the state register.</p>
+          <a href="https://roc.az.gov/" class="text-link" rel="noopener" target="_blank">Verify a licence at the AZ ROC &rarr;</a>
+        </div>
+        <div class="licence-card">
+          <p class="licence-card-label">License of record</p>
+          <p class="licence-card-num">AZ ROC #354046</p>
+          <p class="licence-card-class">KB-1 Dual</p>
+          <ul class="licence-card-list">
+            <li>B-1 General Commercial scope</li>
+            <li>General residential scope</li>
+            <li>No project size limit</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scope of services -->
+  <section class="scope-section">
+    <div class="section-inner">
+      <p class="eyebrow">Scope</p>
+      <h2 class="section-title">What we bid</h2>
+      <div class="scope-grid">
+        <div class="scope-col">
+          <h3 class="scope-col-title">Service lines</h3>
+          <ul class="scope-col-list">
+            {commercialServices.map(s => (
+              <li><a href={`/commercial/${s.slug}/`}>{s.navLabel}</a></li>
+            ))}
+          </ul>
+          <p class="scope-col-note">Ground-up commercial construction on request. Talk to us about scope and schedule before you assume either way.</p>
+        </div>
+        <div class="scope-col">
+          <h3 class="scope-col-title">Space types</h3>
+          <ul class="scope-col-list">
+            {commercialSectors.map(sector => <li>{sector.name}</li>)}
+          </ul>
+          <p class="scope-col-note">These are spaces we have finished. Ask about anything else and we will give you a straight answer rather than a bid we cannot stand behind.</p>
+        </div>
+        <div class="scope-col">
+          <h3 class="scope-col-title">Service area</h3>
+          <ul class="scope-col-list scope-col-list--compact">
+            {serviceAreas.map(a => (
+              <li><a href={`/service-areas/${a.slug}/`}>{a.cityName}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- References -->
+  <section class="refs-section">
+    <div class="section-inner refs-inner">
+      <div>
+        <p class="eyebrow">Due Diligence</p>
+        <h2 class="section-title">References and insurance certificates</h2>
+        <p class="body-text">Client references for commercial work are available on request, including projects in leased space where the landlord relationship was part of the job. Certificates of insurance are issued naming the landlord and property manager as additional insured, before work starts, as a matter of course.</p>
+        <p class="body-text">Ask for whichever you need and tell us who it goes to.</p>
+      </div>
+      <div class="refs-actions">
+        <a href="/commercial/bid-request/" class="btn-dark">Request a Bid &rarr;</a>
+        <a href="mailto:hello@builtstronghold.com" class="text-link">hello@builtstronghold.com</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+  .section-title {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1.5rem;
+  }
+  .body-text {
+    font-size: 0.975rem;
+    line-height: 1.75;
+    opacity: 0.78;
+    margin-bottom: 1rem;
+    max-width: 62ch;
+  }
+
+  /* Hero */
+  .hero {
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+    border-bottom: 3px solid var(--color-brand-red);
+  }
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+  }
+  .hero h1 {
+    font-size: var(--font-size-h1);
+    line-height: 1.05;
+    margin: 0.75rem 0 1.5rem;
+    color: var(--color-brand-white);
+  }
+  .hero .accent { color: var(--color-brand-red); }
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    opacity: 0.75;
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* Spec table */
+  .spec-section {
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .spec-list {
+    margin: 0;
+    padding: 0;
+    border: 2px solid var(--color-border);
+    background-color: var(--color-brand-white);
+  }
+  .spec-row {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: 2rem;
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-label {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    padding-top: 0.2rem;
+  }
+  .spec-value { margin: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+  .spec-figure {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .spec-figure--pending {
+    color: var(--color-brand-red);
+    font-size: 0.95rem;
+  }
+  .spec-note {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    opacity: 0.7;
+    max-width: 62ch;
+  }
+  .spec-footnote {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    opacity: 0.6;
+    margin-top: 1.5rem;
+    max-width: 68ch;
+  }
+
+  /* Licence explainer */
+  .licence-section { border-bottom: 2px solid var(--color-border); }
+  .licence-grid {
+    display: grid;
+    grid-template-columns: 1fr 20rem;
+    gap: 4rem;
+    align-items: start;
+  }
+  .licence-card {
+    border: 2px solid var(--color-dark);
+    box-shadow: 6px 6px 0 var(--color-brand-red);
+    padding: 1.75rem;
+  }
+  .licence-card-label {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+  }
+  .licence-card-num {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .licence-card-class {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-brand-red);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
+  }
+  .licence-card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .licence-card-list li {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .licence-card-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 0.5rem;
+    height: 2px;
+    background: var(--color-brand-red);
+  }
+
+  .text-link {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    display: inline-block;
+  }
+  .text-link:hover { text-decoration: underline; }
+
+  /* Scope */
+  .scope-section {
+    background-color: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .scope-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2.5rem;
+  }
+  .scope-col-title {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--color-dark);
+    margin-bottom: 1rem;
+  }
+  .scope-col-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .scope-col-list li {
+    font-size: 0.925rem;
+    line-height: 1.5;
+  }
+  .scope-col-list a:hover { color: var(--color-brand-red); }
+  .scope-col-list--compact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+  }
+  .scope-col-note {
+    font-size: 0.825rem;
+    line-height: 1.6;
+    opacity: 0.6;
+  }
+
+  /* References */
+  .refs-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .refs-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-brand-white);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .btn-dark {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-dark);
+    box-shadow: 4px 4px 0 var(--color-brand-red);
+    transition: box-shadow 0.1s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .btn-dark:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-red);
+    transform: translate(2px, 2px);
+  }
+
+  @media (max-width: 900px) {
+    .licence-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .refs-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .spec-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-actions { flex-direction: column; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-outline { width: 100%; text-align: center; }
+    .scope-col-list--compact { grid-template-columns: 1fr; }
+    .btn-dark { white-space: normal; text-align: center; }
+  }
+</style>

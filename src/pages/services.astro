@@ -88,6 +88,17 @@ const itemListSchema = {
     </section>
   ))}
 
+  <section class="commercial-cross">
+    <div class="commercial-cross-inner">
+      <div>
+        <p class="commercial-cross-label">Commercial</p>
+        <h2>Looking for work on a business, not a house?</h2>
+        <p class="commercial-cross-sub">Tenant improvement, renovation, and design-build for offices and retail across northern Arizona. Licensed for commercial work at any size, with no minimum job.</p>
+      </div>
+      <a href="/commercial/" class="commercial-cross-btn">Commercial Services &rarr;</a>
+    </div>
+  </section>
+
   <section class="popular-section">
     <div class="popular-inner">
       <p class="eyebrow">Most Requested</p>
@@ -434,5 +445,63 @@ const itemListSchema = {
     .service-section--alt .service-inner {
       direction: ltr;
     }
+  }
+
+  /* Commercial cross-link */
+  .commercial-cross {
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .commercial-cross-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+  .commercial-cross-label {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 0.75rem;
+  }
+  .commercial-cross h2 {
+    font-size: var(--font-size-h3);
+    color: var(--color-brand-white);
+    margin-bottom: 0.75rem;
+  }
+  .commercial-cross-sub {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.75;
+    max-width: 620px;
+  }
+  .commercial-cross-btn {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-brand-white);
+    transition: box-shadow 0.1s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .commercial-cross-btn:hover {
+    box-shadow: 2px 2px 0 var(--color-brand-white);
+    transform: translate(2px, 2px);
+  }
+  @media (max-width: 900px) {
+    .commercial-cross-inner { grid-template-columns: 1fr; gap: 1.75rem; }
+    .commercial-cross-btn { white-space: normal; text-align: center; }
   }
 </style>

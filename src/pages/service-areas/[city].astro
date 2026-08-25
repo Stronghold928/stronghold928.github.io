@@ -41,6 +41,7 @@ const services = [
   { title: 'Restoration', desc: 'Structural repair and restoration of older homes.', href: '/services/restoration/' },
   { title: 'New Construction', desc: 'Custom single-family homes from foundation to keys.', href: '/services/new-construction/' },
   { title: 'Handyman', desc: 'Small jobs and fixes around the house, done right.', href: '/services/handyman/' },
+  { title: 'Commercial', desc: 'Tenant improvement, build-out, and renovation for offices and retail.', href: '/commercial/' },
 ];
 ---
 
@@ -161,7 +162,7 @@ const services = [
     "@type": "Service",
     "@id": `https://builtstronghold.com/service-areas/${area.slug}/#service`,
     "name": `General contracting in ${area.cityName}, ${area.stateAbbr}`,
-    "serviceType": ["Residential remodeling", "Home restoration", "New home construction", "Handyman services"],
+    "serviceType": ["Residential remodeling", "Home restoration", "New home construction", "Handyman services", "Commercial tenant improvement", "Commercial renovation"],
     "provider": { "@id": "https://builtstronghold.com/#organization" },
     "areaServed": {
       "@type": "City",
