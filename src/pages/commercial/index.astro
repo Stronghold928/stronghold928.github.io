@@ -73,6 +73,7 @@ const serviceListSchema = {
       <div class="licence-text">
         <p class="eyebrow">Licensed For This</p>
         <h2>{licence?.value}</h2>
+        <p class="licence-accreditation">Licensed, Bonded, Insured</p>
         <p>{licence?.note}</p>
       </div>
       <a href="/commercial/capabilities/" class="btn-outline btn-outline--nowrap">See Full Capabilities &rarr;</a>
@@ -238,7 +239,16 @@ const serviceListSchema = {
     font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 700;
-    margin: 0.75rem 0 0.75rem;
+    margin: 0.75rem 0 0.5rem;
+  }
+  .licence-accreditation {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin-bottom: 0.9rem;
   }
   .licence-text p {
     font-size: 0.95rem;

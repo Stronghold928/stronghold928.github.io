@@ -8,6 +8,7 @@ const year = new Date().getFullYear();
   <div class="min-footer-inner">
     <div class="min-footer-brand">
       <p class="min-footer-license">AZ ROC License: 354046</p>
+      <p class="min-footer-accreditation">Licensed, Bonded, Insured</p>
       <p class="min-footer-location">Flagstaff, AZ &bull; Serving Northern Arizona</p>
     </div>
     <div class="min-footer-legal">
@@ -46,6 +47,16 @@ const year = new Date().getFullYear();
     margin: 0;
   }
   .min-footer-license { margin-bottom: 0.15rem; }
+
+  .min-footer-accreditation {
+    font-family: var(--font-heading);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    margin: 0.5rem 0 0;
+  }
 
   .min-footer-legal {
     text-align: right;
