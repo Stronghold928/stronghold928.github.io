@@ -200,4 +200,17 @@ export const landingPages: LandingPage[] = [
     blurb: 'Structural diagnosis first, then repair or replacement built for snow load and freeze-thaw.',
     parentService: 'handyman',
   },
+  // The ADU page is built and routed but still carries {{TODO-DEREK}} placeholders,
+  // so it stays out of this array: everything downstream reads from here, and one
+  // entry would surface a half-written page in the nav, the footer, the homepage
+  // strip, the 404 suggestions, the services hub, and all twelve city pages at once.
+  // Uncomment this block in the same commit that fills the placeholders, drops the
+  // `noindex` prop, and removes the sitemap exclusion in astro.config.mjs.
+  // {
+  //   slug: 'adu-flagstaff-az',
+  //   label: 'ADU Construction in Flagstaff, AZ',
+  //   navLabel: 'ADUs',
+  //   blurb: 'Detached casitas, garage conversions, and attached units, permitted and built as dwellings.',
+  //   parentService: 'new-construction',
+  // },
 ];

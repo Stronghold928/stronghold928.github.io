@@ -10,6 +10,21 @@
   `src/data/commercial.ts` renders `value: null` as "Available on request".
   Replace with real figures once confirmed. Do not invent one.
 
+## ADU page — before this ships
+
+`src/pages/services/adu-flagstaff-az.astro` is built, routed, and styled, but
+every claim that needs a fact we do not have is a `{{TODO-DEREK}}` string in the
+`TODO` object at the top of the file. Eight of them: past ADU work in Coconino
+County, which ADU types we take on, whether we produce the plan set, the City of
+Flagstaff ADU ordinance, the unincorporated county rules, rental and short-term
+rental restrictions, cost ranges, and schedule.
+
+Until those are answered the page is `noindex`, excluded from the sitemap in
+`astro.config.mjs`, and its `landingPages` entry in `src/data/services.ts` stays
+commented out. All three come off in the same commit — a noindex page in the
+sitemap sends Google two contradictory signals, and the `landingPages` entry
+surfaces the page in six places at once.
+
 ## Commercial — planned
 
 - **Case studies.** Completed commercial jobs exist but have no usable
