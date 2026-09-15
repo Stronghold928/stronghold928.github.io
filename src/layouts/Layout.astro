@@ -153,6 +153,15 @@ const localBusinessSchema: Record<string, unknown> = {
   // Houzz URLs here. Google uses sameAs to reconcile this site with the GBP
   // listing; the previous empty array was worse than omitting the property.
 };
+
+// gtag.js loads at the end of <body> rather than in <head>. Astro appends its
+// own <link rel="stylesheet"> tags at the very end of the head, so anything we
+// put in the head is found by the preload scanner *before* the CSS that gates
+// first paint — which meant a 175 KB analytics script was the first thing
+// competing for bandwidth on a page that cannot render until two small
+// stylesheets arrive. GA4 fires the pageview wherever the tag sits, so moving
+// it down costs no data. The googletagmanager preconnect stays in the head so
+// the connection is already warm when the parser gets there.
 ---
 
 <!doctype html>
@@ -198,6 +207,10 @@ const localBusinessSchema: Record<string, unknown> = {
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
+    <!-- Analytics origin. The tag itself loads at the end of the body; warming
+         the connection here means moving it down costs nothing. -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -221,8 +234,15 @@ const localBusinessSchema: Record<string, unknown> = {
 
     <!-- LocalBusiness Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  </head>
+  <body>
+    {minimalChrome ? <MinimalHeader /> : <Nav />}
+    <main>
+      <slot />
+    </main>
+    {minimalChrome ? <MinimalFooter /> : <Footer />}
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) — end of body on purpose; see note in frontmatter -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B3NH363HYC"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -231,12 +251,5 @@ const localBusinessSchema: Record<string, unknown> = {
 
       gtag('config', 'G-B3NH363HYC');
     </script>
-  </head>
-  <body>
-    {minimalChrome ? <MinimalHeader /> : <Nav />}
-    <main>
-      <slot />
-    </main>
-    {minimalChrome ? <MinimalFooter /> : <Footer />}
   </body>
 </html>
