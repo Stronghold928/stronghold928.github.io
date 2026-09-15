@@ -57,15 +57,13 @@ const faqItems = [
   {
     question: "Do I need to add parking for an ADU?",
     answer: "No. The City does not require on-site parking for an ADU."
-  },
-  {
-    question: "What does an ADU cost to build in Flagstaff?",
-    answer: TODO.cost
-  },
-  {
-    question: "How long does an ADU take?",
-    answer: TODO.timeline
   }
+  // Cost and schedule are the two questions people most want answered here, and
+  // both are deliberately absent. Every entry in this array is rendered to the
+  // page *and* serialised into FAQPage JSON-LD, so a question whose answer is
+  // still a placeholder would put that placeholder in front of both a visitor
+  // and Google. The gap is tracked in TODO.cost and TODO.timeline; add the
+  // questions back once there are real answers to give.
 ];
 
 const serviceSchema = {
