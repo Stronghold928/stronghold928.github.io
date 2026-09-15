@@ -10,20 +10,20 @@
   `src/data/commercial.ts` renders `value: null` as "Available on request".
   Replace with real figures once confirmed. Do not invent one.
 
-## ADU page — before this ships
+## ADU page — still open
 
-`src/pages/services/adu-flagstaff-az.astro` is built, routed, and styled, but
-every claim that needs a fact we do not have is a `{{TODO-DEREK}}` string in the
-`TODO` object at the top of the file. Eight of them: past ADU work in Coconino
-County, which ADU types we take on, whether we produce the plan set, the City of
-Flagstaff ADU ordinance, the unincorporated county rules, rental and short-term
-rental restrictions, cost ranges, and schedule.
+`src/pages/services/adu-flagstaff-az.astro` is live and linked. Three
+`{{TODO-DEREK}}` strings remain in the `TODO` object at the top of the file:
+cost ranges, schedule from our own jobs, and a completed ADU we can name or
+photograph. None of them make the page wrong, which is why it shipped, but the
+cost section reads as unfinished next to the kitchen and home addition pages.
 
-Until those are answered the page is `noindex`, excluded from the sitemap in
-`astro.config.mjs`, and its `landingPages` entry in `src/data/services.ts` stays
-commented out. All three come off in the same commit — a noindex page in the
-sitemap sends Google two contradictory signals, and the `landingPages` entry
-surfaces the page in six places at once.
+Everything the page says about the City's ADU Model Plans Library and about
+Flagstaff's ADU standards is sourced from the City program page, cited in a
+comment at the top of the file. The City does not publish review times for the
+same-as review, so neither do we — that number has to come from our own permit
+history. Re-check the City page before editing that section; the program
+launched in January 2026 and the plan library is still growing.
 
 ## Commercial — planned
 

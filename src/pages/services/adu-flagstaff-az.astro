@@ -2,66 +2,80 @@
 import Layout from '../../layouts/Layout.astro';
 
 /**
- * Answers only Derek has. Held as string constants because a literal `{{ }}` in
- * markup is parsed as a JSX expression and fails the build — and because keeping
- * them in one object makes it obvious at the top of the file that the page is
- * not finished. Every one of these has to be replaced before the `noindex` prop
- * comes off and the nav entry in `services.ts` is uncommented.
+ * Everything this page says about the Model Plans Library and about Flagstaff's
+ * ADU standards comes from the City's own program page, checked 15 Sep 2026:
+ * https://connect.flagstaffaz.gov/model-plans-library/adu-model-plans-library
+ * (flagstaff.az.gov/5177 redirects there), plus the launch announcement at
+ * https://www.flagstaff.az.gov/CivicAlerts.aspx?AID=2204.
+ *
+ * Nothing here is paraphrased from memory. The City says a model-plan review
+ * should be shorter and cheaper than a custom review but does not put a number
+ * on either, so this page does not either — see TODO.timeline below.
+ */
+
+/**
+ * Still unanswered. Held as string constants because a literal `{{ }}` in markup
+ * is parsed as a JSX expression and fails the build, and because one object at
+ * the top of the file makes the gaps impossible to miss. These are cost and
+ * track-record details only: the page is accurate without them, which is why it
+ * is indexed and linked rather than held back.
  */
 const TODO = {
-  experience:
-    '{{TODO-DEREK: Has Stronghold completed any ADUs in Coconino County? How many, what type (detached, garage conversion, above-garage, attached), and is there one we can name or photograph? If the answer is none, say so and this paragraph gets rewritten around the addition and new-construction work instead.}}',
-  types:
-    '{{TODO-DEREK: Which of these do we actually take on? Detached ground-up ADUs specifically — yes or no? The home addition page already claims attached ADUs, so that one is settled; the rest of this list is unconfirmed.}}',
-  design:
-    '{{TODO-DEREK: Do we produce the ADU plan set in-house, or does the homeowner need an architect or designer first? New construction says we can work from an architect drawings or refer out. Same answer here?}}',
-  zoning:
-    '{{TODO-DEREK: Flagstaff ADU ordinance — need the real specifics before any of this goes in writing: are detached ADUs allowed by right in the zones we work in, what is the maximum size, is there an owner-occupancy requirement, and is there a parking requirement? Do not paraphrase the ordinance from memory.}}',
-  county:
-    '{{TODO-DEREK: Unincorporated Coconino County is a different rulebook from the City of Flagstaff. What applies on county parcels — guest house vs. ADU definitions, septic capacity, well sharing? Which of the two do we get asked about more?}}',
-  rental:
-    '{{TODO-DEREK: Can a Flagstaff ADU be rented, and does the city restrict short-term rental of one? This is the first question most owners ask and the one we can least afford to get wrong.}}',
   cost:
-    '{{TODO-DEREK: Cost ranges. Need a per-square-foot range for a detached ADU and for a garage conversion, plus the big swing factors (utility runs, site access, whether the existing electrical service has headroom). The kitchen and addition pages both carry ranges, so this section looks broken without one.}}',
+    '{{TODO-DEREK: Cost. Need a real range for a model-plan detached ADU in Flagstaff — all-in, or per square foot, either works — plus the swing factors (utility runs, site access, whether the existing electrical service has headroom, rock). The kitchen and home addition pages both carry ranges and this section reads as unfinished without one.}}',
   timeline:
-    '{{TODO-DEREK: Realistic schedule from permit application to certificate of occupancy for a detached ADU, and separately for a garage conversion.}}',
+    '{{TODO-DEREK: Schedule. The City says the same-as review is shorter than a custom review but publishes no numbers, so this has to come from our own jobs: realistic weeks from permit submittal to approval on a model plan, and from groundbreaking to certificate of occupancy.}}',
+  projects:
+    '{{TODO-DEREK: Proof. How many ADUs have we completed, and can we name one or photograph one for this page? A project entry in the projects collection would do more for this page than another paragraph of copy.}}',
 };
 
 const faqItems = [
   {
-    question: "What is an ADU?",
-    answer: "An accessory dwelling unit is a second, self-contained home on a lot that already has one. It has its own kitchen, bathroom, and entrance, which is what separates it from a spare bedroom or a finished basement. Detached casitas, garage conversions, and above-garage units are all ADUs."
+    question: "What is the Flagstaff ADU Model Plans Library?",
+    answer: "It is a City of Flagstaff program that publishes a set of pre-approved detached ADU designs. You pick a design, license the plans directly from the designer who drew them, and the designer prepares a site plan for your lot. Because the design has already cleared the City's review, your building permit goes through a shorter path than a custom-drawn ADU."
   },
   {
-    question: "Can I build an ADU on my lot in Flagstaff?",
-    answer: `That depends on your zoning, your lot, and your existing utilities. ${TODO.zoning}`
+    question: "Does using a model plan actually speed up permitting?",
+    answer: "Yes. A model plan gets what the City calls a same-as review, which confirms the unit fits your site and meets standards for height, access, and utilities rather than re-reviewing the design itself. The City states this review should be shorter, easier to navigate, and less expensive than a building permit review for custom plans, and that model plans qualify for reduced City permitting fees."
   },
   {
-    question: "Do you build detached ADUs, or only attached ones?",
-    answer: TODO.types
+    question: "Can I change the design?",
+    answer: "Within limits. Each model plan comes with a set of pre-approved customization options. Any change beyond those options means the plan is reviewed as a custom plan, which gives up the shorter review and the reduced fees. This is the single most useful thing to understand before you fall in love with a modification, and we walk through it with you before anything is licensed."
   },
   {
-    question: "Do ADUs require permits?",
-    answer: "Yes. An ADU is a dwelling, so it pulls a full permit set: structural, electrical, plumbing, and mechanical, plus the utility connections. We pull the permits and manage the inspection schedule the same way we do on an addition or a new build."
+    question: "How many ADUs can I put on my lot?",
+    answer: "The City allows ADUs on any lot or parcel developed with one single-family dwelling, up to two per lot: no more than one detached and one attached or interior. The Model Plans Library covers detached units."
+  },
+  {
+    question: "How big can a Flagstaff ADU be?",
+    answer: "The plans in the City's library run from 384 to 1,000 square feet of livable space, studio through two-bedroom, with a separate garage option. Size limits for your specific lot depend on your zoning, which we confirm during the feasibility walk."
+  },
+  {
+    question: "Can I rent out my ADU?",
+    answer: "The City allows the main house or the ADU to be leased separately as long-term rental housing. If any ADU on the property is used as a vacation or short-term rental, the owner has to live on the property. Short-term rental rules in Flagstaff change, so we confirm the current position before you plan around rental income."
+  },
+  {
+    question: "Do I need to add parking for an ADU?",
+    answer: "No. The City does not require on-site parking for an ADU."
   },
   {
     question: "What does an ADU cost to build in Flagstaff?",
     answer: TODO.cost
   },
   {
-    question: "Can I rent out an ADU once it's built?",
-    answer: TODO.rental
+    question: "How long does an ADU take?",
+    answer: TODO.timeline
   }
 ];
 
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "name": "ADU Construction in Flagstaff, AZ",
+  "name": "Pre-Approved ADUs in Flagstaff, AZ",
   "@id": "https://builtstronghold.com/services/adu-flagstaff-az/#service",
   "provider": { "@id": "https://builtstronghold.com/#organization" },
   "areaServed": "Flagstaff, AZ and Northern Arizona",
-  "description": "Accessory dwelling unit construction in Flagstaff, AZ by Stronghold Construction. Detached units, garage conversions, and attached ADUs: foundation, framing, envelope, utility connections, and permitting."
+  "description": "Accessory dwelling unit construction in Flagstaff, AZ by Stronghold Construction, built from the City of Flagstaff ADU Model Plans Library. Feasibility, site plan coordination, permitting, and the full build through certificate of occupancy."
 };
 
 const breadcrumbSchema = {
@@ -70,7 +84,7 @@ const breadcrumbSchema = {
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/" },
     { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://builtstronghold.com/services/" },
-    { "@type": "ListItem", "position": 3, "name": "ADU Construction in Flagstaff, AZ", "item": "https://builtstronghold.com/services/adu-flagstaff-az/" }
+    { "@type": "ListItem", "position": 3, "name": "Pre-Approved ADUs in Flagstaff, AZ", "item": "https://builtstronghold.com/services/adu-flagstaff-az/" }
   ]
 };
 
@@ -89,9 +103,8 @@ const faqSchema = {
 ---
 
 <Layout
-  title="ADU Construction in Flagstaff, AZ"
-  description="Accessory dwelling unit construction in Flagstaff, AZ. Licensed general contractor handling foundation, framing, utilities, and permitting across northern Arizona."
-  noindex
+  title="Pre-Approved ADUs in Flagstaff, AZ"
+  description="Flagstaff ADU builder working from the City's pre-approved Model Plans Library. Licensed general contractor handling permits, utilities, and the full build."
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
@@ -101,9 +114,9 @@ const faqSchema = {
   <section class="hero">
     <div class="hero-inner">
       <p class="eyebrow">Accessory Dwelling Units</p>
-      <h1>ADU Construction in Flagstaff, AZ</h1>
-      <p class="hero-desc">An ADU is a second, self-contained home on a lot that already has one: a detached casita, a garage conversion, a unit above the garage. Its own kitchen, its own bathroom, its own entrance. That makes it a dwelling rather than an addition, and it gets built, permitted, and inspected like one.</p>
-      <p class="hero-desc">{TODO.experience}</p>
+      <h1>Pre-Approved ADUs in Flagstaff, AZ</h1>
+      <p class="hero-desc">ADUs are core work for us, not a sideline. Most of what we build comes out of the City of Flagstaff's ADU Model Plans Library: a set of detached designs the City has already reviewed and approved, which means your permit is checked against your lot instead of re-argued from scratch.</p>
+      <p class="hero-desc">That is the whole point of the program. A custom-drawn ADU puts your design through full building permit review. A model plan skips that fight, costs less in City permitting fees, and gets you to a certificate of occupancy sooner. We run that path often enough to know where it snags.</p>
       <div class="hero-actions">
         <a href="/quote/" class="btn-primary">Get a Free Quote &rarr;</a>
         <a href="/design/" class="btn-outline">Start Your Design &rarr;</a>
@@ -111,38 +124,42 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- Types & Scope -->
+  <!-- Model Plans Library -->
   <section class="includes-section">
     <div class="section-inner">
       <div class="includes-content">
         <div class="includes-text">
-          <p class="eyebrow">Types of ADU</p>
-          <h2>What we handle</h2>
-          <p class="section-desc">An ADU sits between a <a href="/services/home-addition-flagstaff-az/">home addition</a> and a <a href="/services/new-construction/">ground-up build</a>. It carries the structural work of the second and the tie-in problems of the first, which is why the utility side usually drives the schedule.</p>
-          <p class="section-desc">{TODO.types}</p>
+          <p class="eyebrow">The Fast Path</p>
+          <h2>Building from the City's Model Plans Library</h2>
+          <p class="section-desc">You pick a design from the City's library, license the plans directly from the designer who drew them, and that designer prepares a site plan for your lot. From there the building permit goes through what the City calls a same-as review: it confirms the unit fits your site and meets the standards for height, access, and utilities, rather than re-reviewing a design that has already been approved.</p>
+          <p class="section-desc">One thing to know before you get attached to a modification. Each plan ships with a set of pre-approved customization options, and any change beyond those puts you back into custom plan review. You lose the shorter path and the reduced fees. We walk through that line with you before anything gets licensed, because it is the decision that most often costs people months.</p>
+          <a href="https://connect.flagstaffaz.gov/model-plans-library/adu-model-plans-library" class="text-link" rel="noopener" target="_blank">See the City's ADU Model Plans Library &rarr;</a>
         </div>
         <div class="two-col-lists">
           <div>
-            <p class="list-label">ADU types</p>
+            <p class="list-label">What the program gives you</p>
             <ul class="includes-list">
-              <li>Detached ADUs and casitas</li>
-              <li>Garage conversions</li>
-              <li>Above-garage units</li>
-              <li>Attached ADUs built as an addition</li>
-              <li>Basement conversions with a separate entrance</li>
+              <li>Pre-approved detached ADU designs, studio to two-bedroom</li>
+              <li>384 to 1,000 sq ft of livable space</li>
+              <li>A separate garage option</li>
+              <li>Plans licensed straight from the designer</li>
+              <li>Reduced City permitting fees against custom plans</li>
+              <li>A shorter, simpler permit review</li>
             </ul>
           </div>
           <div>
-            <p class="list-label">Scope of work</p>
+            <p class="list-label">What we run</p>
             <ul class="includes-list">
+              <li>Feasibility: lot, zoning, and utility capacity</li>
+              <li>Site plan coordination with the plan designer</li>
+              <li>Permit submittal and the same-as review</li>
               <li>Site work and foundation</li>
               <li>Framing, envelope, and roofing</li>
               <li>Electrical service and subpanel</li>
-              <li>Water and sewer or septic connection</li>
+              <li>Water and sewer connection</li>
               <li>HVAC and insulation to Arizona Energy Code</li>
               <li>Kitchen and bathroom fit-out</li>
-              <li>Exterior materials matched to the main house</li>
-              <li>Permits and the full inspection schedule</li>
+              <li>Final inspections and certificate of occupancy</li>
             </ul>
           </div>
         </div>
@@ -150,21 +167,27 @@ const faqSchema = {
     </div>
   </section>
 
-  <!-- Zoning & Permitting -->
+  <!-- Zoning & Siting -->
   <section class="zoning-section">
     <div class="section-inner">
       <div class="zoning-inner">
         <div class="zoning-text">
-          <p class="eyebrow">Zoning &amp; Permitting</p>
-          <h2>Whether you can build one comes first</h2>
-          <p>Every other question about an ADU depends on this one. Lot size, zoning district, setbacks, and whether your existing water, sewer, and electrical service have the headroom to carry a second dwelling all decide the answer before anything gets designed.</p>
-          <p>City of Flagstaff parcels and unincorporated Coconino County parcels are governed separately, and the answer can differ across a street.</p>
+          <p class="eyebrow">Zoning &amp; Siting</p>
+          <h2>What the City allows on your lot</h2>
+          <p>An ADU is a dwelling, not an addition, so the rules that govern it are about the lot as much as the building. The feasibility walk is where we confirm these against your actual parcel: zoning district, where the unit can physically sit, and whether your existing water, sewer, and electrical service have the headroom to carry a second home.</p>
+          <p>The Model Plans Library is a City of Flagstaff program, so it applies to parcels inside city limits. Unincorporated Coconino County runs its own rulebook, and we confirm which one you are under before anything else.</p>
         </div>
         <div class="zoning-note">
-          <p class="note-label">Needs confirming</p>
-          <p>{TODO.zoning}</p>
-          <p>{TODO.county}</p>
-          <p>{TODO.design}</p>
+          <p class="note-label">City of Flagstaff standards</p>
+          <ul class="zoning-list">
+            <li>ADUs are allowed on any lot or parcel developed with one single-family dwelling</li>
+            <li>Two ADUs per lot maximum: no more than one detached and one attached or interior</li>
+            <li>At least 5 ft from the rear or interior side property line next to another lot</li>
+            <li>No on-site parking required</li>
+            <li>A maximum of two people may live in an ADU</li>
+            <li>The house and the ADU can be leased separately as long-term rentals; the owner must live on the property if any ADU is used as a vacation or short-term rental</li>
+          </ul>
+          <a href="https://connect.flagstaffaz.gov/model-plans-library/adu-model-plans-library" class="text-link" rel="noopener" target="_blank">Read the City's ADU page &rarr;</a>
         </div>
       </div>
     </div>
@@ -180,28 +203,28 @@ const faqSchema = {
           <span class="step-num">1</span>
           <div class="step-body">
             <h3 class="step-title">Feasibility Walk</h3>
-            <p class="step-desc">We look at the lot, the zoning, and what your existing utilities can carry.</p>
+            <p class="step-desc">We look at the lot, the zoning, and what your utilities can carry, and tell you which model plans will actually fit.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">2</span>
           <div class="step-body">
-            <h3 class="step-title">Detailed Quote</h3>
-            <p class="step-desc">Line-itemized, written before any work starts.</p>
+            <h3 class="step-title">Plan &amp; Quote</h3>
+            <p class="step-desc">You license the design, the designer draws your site plan, and we write a line-itemized quote against it.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">3</span>
           <div class="step-body">
-            <h3 class="step-title">Permitted Build</h3>
-            <p class="step-desc">Permits pulled, inspections scheduled. Crew shows up on time.</p>
+            <h3 class="step-title">Same-As Review</h3>
+            <p class="step-desc">We submit the permit and run the City review, then schedule inspections.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">4</span>
           <div class="step-body">
-            <h3 class="step-title">Walkthrough &amp; Punch</h3>
-            <p class="step-desc">We go through every item together before we call it done.</p>
+            <h3 class="step-title">Build &amp; Occupancy</h3>
+            <p class="step-desc">Foundation through final punch, ending at a certificate of occupancy.</p>
           </div>
         </div>
       </div>
@@ -217,6 +240,7 @@ const faqSchema = {
           <h2>What does an ADU cost in Flagstaff?</h2>
           <p>{TODO.cost}</p>
           <p>{TODO.timeline}</p>
+          <p>{TODO.projects}</p>
         </div>
         <div class="cost-note">
           <p class="note-label">These are ranges, not quotes.</p>
@@ -231,7 +255,7 @@ const faqSchema = {
   <section class="faq-section">
     <div class="section-inner">
       <p class="eyebrow">Common Questions</p>
-      <h2>ADU FAQ</h2>
+      <h2>Flagstaff ADU FAQ</h2>
       <div class="faq-list">
         {faqItems.map(item => (
           <div class="faq-item">
@@ -243,13 +267,22 @@ const faqSchema = {
     </div>
   </section>
 
+  <!-- Related -->
+  <section class="related-section">
+    <div class="section-inner">
+      <p class="eyebrow">Related</p>
+      <h2>Not sure an ADU is the right move?</h2>
+      <p class="section-desc">An attached unit built as part of the house is a <a href="/services/home-addition-flagstaff-az/">home addition</a>, and it follows a different permit path. If you are starting from bare land instead, that is <a href="/services/new-construction/">new construction</a>. Same crew either way.</p>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-section">
     <div class="section-inner cta-inner">
       <div class="cta-text">
         <p class="eyebrow eyebrow--light">Get Started</p>
         <h2>Thinking about an ADU? Start with the feasibility walk.</h2>
-        <p class="cta-sub">We'll look at the lot, the zoning, and what your utilities can carry, then tell you whether it works before you spend anything on design. We respond within one business day.</p>
+        <p class="cta-sub">We'll look at the lot, the zoning, and what your utilities can carry, then tell you which model plans fit before you spend anything on licensing or design. We respond within one business day.</p>
       </div>
       <div class="cta-actions">
         <a href="tel:+19289627535" class="btn-phone">
@@ -408,13 +441,48 @@ const faqSchema = {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 1rem;
   }
-  .zoning-note p:not(.note-label) {
+  /* Arrow bullets rather than the bordered `includes-list` cells: these are the
+     City's rules, not our scope, and they should not read as another checklist
+     of things we sell. */
+  .zoning-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .zoning-list li {
     font-size: 0.875rem;
     line-height: 1.6;
-    opacity: 0.7;
+    opacity: 0.75;
+    position: relative;
+    padding-left: 1.25rem;
   }
+  .zoning-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-brand-red);
+    font-weight: 700;
+    opacity: 0.9;
+  }
+
+  /* Outbound link to the City's program page, matching the ROC link on the
+     commercial capabilities page. */
+  .text-link {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .text-link:hover { text-decoration: underline; }
 
   /* Process */
   .process-section {
@@ -535,6 +603,24 @@ const faqSchema = {
     font-size: 0.925rem;
     line-height: 1.7;
     opacity: 0.72;
+  }
+
+  /* Related */
+  .related-section {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .related-section h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1rem;
+  }
+  .related-section .section-desc {
+    max-width: 780px;
+  }
+  .related-section .section-desc a {
+    color: var(--color-brand-red);
+    font-weight: 700;
+    text-decoration: underline;
   }
 
   /* CTA */

@@ -5,9 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // Pages that are intentionally noindex must stay out of the sitemap — listing a
 // noindex URL sends Google two contradictory signals.
-// The ADU page is noindex only until Derek answers the {{TODO-DEREK}} placeholders
-// in it. Remove it from this list and drop the `noindex` prop in the same commit.
-const excludedFromSitemap = ['/thank-you/', '/404/', '/offer/', '/services/adu-flagstaff-az/'];
+const excludedFromSitemap = ['/thank-you/', '/404/', '/offer/'];
 
 export default defineConfig({
   site: 'https://builtstronghold.com',
