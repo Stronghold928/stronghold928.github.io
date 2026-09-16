@@ -29,9 +29,13 @@ const nearbyAreas = serviceAreas
   .slice(windowStart, windowStart + 5)
   .filter(a => a.slug !== area.slug);
 
-// The keyword landing pages are Flagstaff-specific, so they only belong on the
-// Flagstaff page — surfacing them on Winslow would promise the wrong location.
-const showLandingPages = area.slug === 'flagstaff';
+// The keyword landing pages are written around Flagstaff projects, which is why
+// they used to render on the Flagstaff page alone. That left the four
+// highest-intent pages on the site unreachable from eleven of the twelve city
+// pages, which cost more than the location mismatch does. They now render
+// everywhere, and the heading on non-Flagstaff pages says plainly that the
+// pages themselves are Flagstaff-written so nobody arrives expecting otherwise.
+const isHomeBase = area.slug === 'flagstaff';
 
 // For multi-county areas (e.g. "Yavapai / Coconino"), skip appending "County"
 const countyLabel = area.county.includes('/') ? `${area.county} Counties` : `${area.county} County`;
@@ -90,23 +94,35 @@ const services = [
     </section>
   )}
 
-  {showLandingPages && (
-    <section class="local-popular">
-      <div class="local-popular-inner">
-        <p class="section-eyebrow">Most Requested in {area.cityName}</p>
-        <h2 class="section-title">Popular {area.cityName} projects</h2>
-        <div class="local-popular-grid">
-          {landingPages.map(l => (
-            <a href={`/services/${l.slug}/`} class="local-popular-card">
-              <span class="local-popular-label">{l.label}</span>
-              <span class="local-popular-blurb">{l.blurb}</span>
-              <span class="service-arrow">&rarr;</span>
-            </a>
-          ))}
-        </div>
+  <section class="building-notes">
+    <div class="building-notes-inner">
+      <p class="section-eyebrow">Building in {area.cityName}</p>
+      <h2 class="section-title">What the work actually involves here</h2>
+      <p class="building-notes-body">{area.buildingNotes}</p>
+    </div>
+  </section>
+
+  <section class="local-popular">
+    <div class="local-popular-inner">
+      <p class="section-eyebrow">{isHomeBase ? `Most Requested in ${area.cityName}` : 'Most Requested'}</p>
+      <h2 class="section-title">{isHomeBase ? `Popular ${area.cityName} projects` : `The work we get asked for most`}</h2>
+      {!isHomeBase && (
+        <p class="local-popular-note">
+          These pages are written around Flagstaff projects. The work, the crews, and
+          the process are the same in {area.cityName} &mdash; only the permit office changes.
+        </p>
+      )}
+      <div class="local-popular-grid">
+        {landingPages.map(l => (
+          <a href={`/services/${l.slug}/`} class="local-popular-card">
+            <span class="local-popular-label">{l.label}</span>
+            <span class="local-popular-blurb">{l.blurb}</span>
+            <span class="service-arrow">&rarr;</span>
+          </a>
+        ))}
       </div>
-    </section>
-  )}
+    </div>
+  </section>
 
   {localProjects.length > 0 && (
     <section class="local-projects">
@@ -131,6 +147,35 @@ const services = [
         <a href="/projects/" class="btn-outline">See All Projects &rarr;</a>
       </div>
     </section>
+  )}
+
+  {area.faqs.length > 0 && (
+    <section class="area-faq">
+      <div class="area-faq-inner">
+        <p class="section-eyebrow">Common Questions</p>
+        <h2 class="section-title">{area.cityName} questions we get asked</h2>
+        <div class="faq-list">
+          {area.faqs.map(faq => (
+            <details class="faq-item">
+              <summary class="faq-question">{faq.q}</summary>
+              <p class="faq-answer">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {area.faqs.length > 0 && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": area.faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.q,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+      }))
+    })} />
   )}
 
   <section class="area-note">
@@ -162,6 +207,8 @@ const services = [
     "@type": "Service",
     "@id": `https://builtstronghold.com/service-areas/${area.slug}/#service`,
     "name": `General contracting in ${area.cityName}, ${area.stateAbbr}`,
+    // Every other Service on the site carries one; this route was the exception.
+    "description": `Licensed general contractor serving ${area.cityName}, ${area.stateAbbr} (${countyLabel}). Remodeling, restoration, new construction, handyman work, and commercial tenant improvement.`,
     "serviceType": ["Residential remodeling", "Home restoration", "New home construction", "Handyman services", "Commercial tenant improvement", "Commercial renovation"],
     "provider": { "@id": "https://builtstronghold.com/#organization" },
     "areaServed": {
@@ -248,6 +295,60 @@ const services = [
     opacity: 0.85;
   }
   .highlight-item::before { content: '—'; position: absolute; left: 0; color: var(--color-brand-red); font-weight: 700; }
+
+  .building-notes {
+    padding: 4rem 1.5rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .building-notes-inner { max-width: 800px; margin: 0 auto; }
+  .building-notes-body { font-size: 1.05rem; line-height: 1.8; opacity: 0.8; }
+
+  .local-popular-note {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    opacity: 0.7;
+    max-width: 60ch;
+    margin: -1rem 0 2rem;
+  }
+
+  .area-faq {
+    padding: 4rem 1.5rem;
+    border-bottom: 2px solid var(--color-border);
+  }
+  .area-faq-inner { max-width: 800px; margin: 0 auto; }
+  .faq-list { display: flex; flex-direction: column; }
+  .faq-item {
+    border-top: 2px solid var(--color-border);
+    padding: 1.25rem 0;
+  }
+  .faq-item:last-child { border-bottom: 2px solid var(--color-border); }
+  .faq-question {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .faq-question::-webkit-details-marker { display: none; }
+  .faq-question::after {
+    content: '+';
+    color: var(--color-brand-red);
+    font-size: 1.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-question::after { content: '\2013'; }
+  .faq-answer {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    opacity: 0.75;
+    margin-top: 0.875rem;
+    max-width: 68ch;
+  }
 
   .area-note {
     background-color: var(--color-surface);
