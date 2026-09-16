@@ -95,14 +95,16 @@ const localBusinessSchema: Record<string, unknown> = {
       "url": "https://roc.az.gov/"
     }
   },
-  // TODO(geo): Flagstaff city-centre coordinates, not the parcel at 1155 W Kaibab
-  // Lane. Replace with the exact lat/long from the Google Business Profile once it
-  // is live. City and region already agree with the address, so this is a
-  // precision fix rather than the address/geo mismatch it used to be.
+  // The parcel at 1155 W Kaibab Lane, not Flagstaff city centre. Precision matters
+  // more here than it used to: the Google Business Profile now displays the street
+  // address rather than hiding it, so this is the coordinate pair Google reconciles
+  // that listing against. The profile's own map pin still resolves to the service
+  // area centroid roughly 40 miles south-east, which is the thing these coordinates
+  // are meant to contradict.
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 35.1983,
-    "longitude": -111.6513
+    "latitude": 35.1894,
+    "longitude": -111.6683
   },
   "areaServed": [
     "Flagstaff, AZ",
@@ -148,10 +150,19 @@ const localBusinessSchema: Record<string, unknown> = {
   ],
   "priceRange": "$$",
   "currenciesAccepted": "USD",
-  "paymentAccepted": "Check, Bank Transfer"
-  // TODO(sameAs): add the Google Business Profile, Facebook, Instagram, and
-  // Houzz URLs here. Google uses sameAs to reconcile this site with the GBP
-  // listing; the previous empty array was worse than omitting the property.
+  "paymentAccepted": "Check, Bank Transfer",
+  // Google uses sameAs to reconcile this site with the Google Business Profile.
+  // That reconciliation is the main defence against the name collision: there is
+  // an unrelated, longer-established "Stronghold Construction, LLC" in Sierra
+  // Vista, plus three more Stronghold contractors elsewhere in Arizona. The CID
+  // form is used deliberately - maps.app.goo.gl short links and /maps/place/ URLs
+  // both rot when the listing is edited, the CID does not.
+  //
+  // TODO(sameAs): add Facebook, Instagram, and Houzz URLs as those profiles go
+  // live. Each additional corroborating profile strengthens the same signal.
+  "sameAs": [
+    "https://www.google.com/maps?cid=10492724600250347743"
+  ]
 };
 ---
 
