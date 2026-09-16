@@ -47,6 +47,15 @@ Add an entry to `src/data/service-areas.ts` and everything else follows: the
 service areas index, contact sidebar, capabilities page, and sitemap all read
 from the same array.
 
+`buildingNotes` and `faqs` are required and are most of what makes a city page
+worth having. A new city added without them builds fine and reads as filler.
+Write them to the same standard as the existing twelve: climate, terrain,
+permitting authority, and housing stock, which are facts about the place, and
+nothing that asserts a project, a client, a job count, a price, or a timeline
+we have not actually published. The FAQs are rendered *and* serialised into
+FAQPage schema, so a placeholder answer goes in front of Google, not just a
+visitor.
+
 ## Adding a commercial service line
 
 Same pattern — add an entry to `commercialServices` in `src/data/commercial.ts`
