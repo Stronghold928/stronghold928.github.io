@@ -10,24 +10,8 @@ import Layout from '../../layouts/Layout.astro';
  *
  * Nothing here is paraphrased from memory. The City says a model-plan review
  * should be shorter and cheaper than a custom review but does not put a number
- * on either, so this page does not either — see TODO.timeline below.
+ * on either, so this page does not either.
  */
-
-/**
- * Still unanswered. Held as string constants because a literal `{{ }}` in markup
- * is parsed as a JSX expression and fails the build, and because one object at
- * the top of the file makes the gaps impossible to miss. These are cost and
- * track-record details only: the page is accurate without them, which is why it
- * is indexed and linked rather than held back.
- */
-const TODO = {
-  cost:
-    '{{TODO-DEREK: Cost. Need a real range for a model-plan detached ADU in Flagstaff — all-in, or per square foot, either works — plus the swing factors (utility runs, site access, whether the existing electrical service has headroom, rock). The kitchen and home addition pages both carry ranges and this section reads as unfinished without one.}}',
-  timeline:
-    '{{TODO-DEREK: Schedule. The City says the same-as review is shorter than a custom review but publishes no numbers, so this has to come from our own jobs: realistic weeks from permit submittal to approval on a model plan, and from groundbreaking to certificate of occupancy.}}',
-  projects:
-    '{{TODO-DEREK: Proof. How many ADUs have we completed, and can we name one or photograph one for this page? A project entry in the projects collection would do more for this page than another paragraph of copy.}}',
-};
 
 const faqItems = [
   {
@@ -62,8 +46,8 @@ const faqItems = [
   // both are deliberately absent. Every entry in this array is rendered to the
   // page *and* serialised into FAQPage JSON-LD, so a question whose answer is
   // still a placeholder would put that placeholder in front of both a visitor
-  // and Google. The gap is tracked in TODO.cost and TODO.timeline; add the
-  // questions back once there are real answers to give.
+  // and Google. Add these two questions back once there are real numbers to
+  // give — they are the two people most want answered, so they are worth having.
 ];
 
 const serviceSchema = {
@@ -236,13 +220,31 @@ const faqSchema = {
         <div class="cost-text">
           <p class="eyebrow">Cost Guidance</p>
           <h2>What does an ADU cost in Flagstaff?</h2>
-          <p>{TODO.cost}</p>
-          <p>{TODO.timeline}</p>
-          <p>{TODO.projects}</p>
+          <p>
+            We won't quote an ADU off a floor plan. On a detached unit the swing
+            comes from the site rather than the finishes: how far the water, sewer,
+            and power have to run, whether a truck can reach the back of the lot,
+            whether the existing electrical service has the headroom to carry a
+            second dwelling, and what is under the topsoil. Two identical model
+            plans on two lots a block apart can land a long way from each other.
+          </p>
+          <p>
+            What the model plan does reliably is take cost out of the front end.
+            You license a design that has already cleared review instead of paying
+            to have one drawn and then reviewed, and the City charges reduced
+            permitting fees for it. That part is predictable. The construction
+            underneath it still depends on your lot.
+          </p>
+          <p>
+            So we work the other way round. We walk the site, find where the
+            utilities actually are and what the panel can carry, and then quote it
+            line by line: labor, materials, subcontractors, permits. That is a
+            number you can plan against.
+          </p>
         </div>
         <div class="cost-note">
-          <p class="note-label">These are ranges, not quotes.</p>
-          <p>Every lot is different, and on an ADU the utility runs move the number more than the finishes do. The only way to get a real one is a site walk. We don't charge for that.</p>
+          <p class="note-label">We quote after a site walk.</p>
+          <p>Every lot is different. The only way to get a real number is to have someone stand on yours. We don't charge for that.</p>
           <a href="/contact/" class="btn-primary">Schedule a Site Walk &rarr;</a>
         </div>
       </div>
