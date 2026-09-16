@@ -1,0 +1,779 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+
+/**
+ * Everything this page says about the Model Plans Library and about Flagstaff's
+ * ADU standards comes from the City's own program page, checked 15 Sep 2026:
+ * https://connect.flagstaffaz.gov/model-plans-library/adu-model-plans-library
+ * (flagstaff.az.gov/5177 redirects there), plus the launch announcement at
+ * https://www.flagstaff.az.gov/CivicAlerts.aspx?AID=2204.
+ *
+ * Nothing here is paraphrased from memory. The City says a model-plan review
+ * should be shorter and cheaper than a custom review but does not put a number
+ * on either, so this page does not either.
+ */
+
+const faqItems = [
+  {
+    question: "What is the Flagstaff ADU Model Plans Library?",
+    answer: "It is a City of Flagstaff program that publishes a set of pre-approved detached ADU designs. You pick a design, license the plans directly from the designer who drew them, and the designer prepares a site plan for your lot. Because the design has already cleared the City's review, your building permit goes through a shorter path than a custom-drawn ADU."
+  },
+  {
+    question: "Does using a model plan actually speed up permitting?",
+    answer: "Yes. A model plan gets what the City calls a same-as review, which confirms the unit fits your site and meets standards for height, access, and utilities rather than re-reviewing the design itself. The City states this review should be shorter, easier to navigate, and less expensive than a building permit review for custom plans, and that model plans qualify for reduced City permitting fees."
+  },
+  {
+    question: "Can I change the design?",
+    answer: "Within limits. Each model plan comes with a set of pre-approved customization options. Any change beyond those options means the plan is reviewed as a custom plan, which gives up the shorter review and the reduced fees. This is the single most useful thing to understand before you fall in love with a modification, and we walk through it with you before anything is licensed."
+  },
+  {
+    question: "How many ADUs can I put on my lot?",
+    answer: "The City allows ADUs on any lot or parcel developed with one single-family dwelling, up to two per lot: no more than one detached and one attached or interior. The Model Plans Library covers detached units."
+  },
+  {
+    question: "How big can a Flagstaff ADU be?",
+    answer: "The plans in the City's library run from 384 to 1,000 square feet of livable space, studio through two-bedroom, with a separate garage option. Size limits for your specific lot depend on your zoning, which we confirm during the feasibility walk."
+  },
+  {
+    question: "Can I rent out my ADU?",
+    answer: "The City allows the main house or the ADU to be leased separately as long-term rental housing. If any ADU on the property is used as a vacation or short-term rental, the owner has to live on the property. Short-term rental rules in Flagstaff change, so we confirm the current position before you plan around rental income."
+  },
+  {
+    question: "Do I need to add parking for an ADU?",
+    answer: "No. The City does not require on-site parking for an ADU."
+  }
+  // Cost and schedule are the two questions people most want answered here, and
+  // both are deliberately absent. Every entry in this array is rendered to the
+  // page *and* serialised into FAQPage JSON-LD, so a question whose answer is
+  // still a placeholder would put that placeholder in front of both a visitor
+  // and Google. Add these two questions back once there are real numbers to
+  // give — they are the two people most want answered, so they are worth having.
+];
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Pre-Approved ADUs in Flagstaff, AZ",
+  "@id": "https://builtstronghold.com/services/adu-flagstaff-az/#service",
+  "provider": { "@id": "https://builtstronghold.com/#organization" },
+  "areaServed": "Flagstaff, AZ and Northern Arizona",
+  "description": "Accessory dwelling unit construction in Flagstaff, AZ by Stronghold Construction, built from the City of Flagstaff ADU Model Plans Library. Feasibility, site plan coordination, permitting, and the full build through certificate of occupancy."
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://builtstronghold.com/services/" },
+    { "@type": "ListItem", "position": 3, "name": "Pre-Approved ADUs in Flagstaff, AZ", "item": "https://builtstronghold.com/services/adu-flagstaff-az/" }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+---
+
+<Layout
+  title="Pre-Approved ADUs in Flagstaff, AZ"
+  description="Flagstaff ADU builder working from the City's pre-approved Model Plans Library. Licensed general contractor handling permits, utilities, and the full build."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Accessory Dwelling Units</p>
+      <h1>Pre-Approved ADUs in Flagstaff, AZ</h1>
+      <p class="hero-desc">ADUs are core work for us, not a sideline. Most of what we build comes out of the City of Flagstaff's ADU Model Plans Library: a set of detached designs the City has already reviewed and approved, which means your permit is checked against your lot instead of re-argued from scratch.</p>
+      <p class="hero-desc">That is the whole point of the program. A custom-drawn ADU puts your design through full building permit review. A model plan skips that fight, costs less in City permitting fees, and gets you to a certificate of occupancy sooner. We run that path often enough to know where it snags.</p>
+      <div class="hero-actions">
+        <a href="/quote/" class="btn-primary">Get a Free Quote &rarr;</a>
+        <a href="/design/" class="btn-outline">Start Your Design &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Model Plans Library -->
+  <section class="includes-section">
+    <div class="section-inner">
+      <div class="includes-content">
+        <div class="includes-text">
+          <p class="eyebrow">The Fast Path</p>
+          <h2>Building from the City's Model Plans Library</h2>
+          <p class="section-desc">You pick a design from the City's library, license the plans directly from the designer who drew them, and that designer prepares a site plan for your lot. From there the building permit goes through what the City calls a same-as review: it confirms the unit fits your site and meets the standards for height, access, and utilities, rather than re-reviewing a design that has already been approved.</p>
+          <p class="section-desc">One thing to know before you get attached to a modification. Each plan ships with a set of pre-approved customization options, and any change beyond those puts you back into custom plan review. You lose the shorter path and the reduced fees. We walk through that line with you before anything gets licensed, because it is the decision that most often costs people months.</p>
+          <a href="https://connect.flagstaffaz.gov/model-plans-library/adu-model-plans-library" class="text-link" rel="noopener" target="_blank">See the City's ADU Model Plans Library &rarr;</a>
+        </div>
+        <div class="two-col-lists">
+          <div>
+            <p class="list-label">What the program gives you</p>
+            <ul class="includes-list">
+              <li>Pre-approved detached ADU designs, studio to two-bedroom</li>
+              <li>384 to 1,000 sq ft of livable space</li>
+              <li>A separate garage option</li>
+              <li>Plans licensed straight from the designer</li>
+              <li>Reduced City permitting fees against custom plans</li>
+              <li>A shorter, simpler permit review</li>
+            </ul>
+          </div>
+          <div>
+            <p class="list-label">What we run</p>
+            <ul class="includes-list">
+              <li>Feasibility: lot, zoning, and utility capacity</li>
+              <li>Site plan coordination with the plan designer</li>
+              <li>Permit submittal and the same-as review</li>
+              <li>Site work and foundation</li>
+              <li>Framing, envelope, and roofing</li>
+              <li>Electrical service and subpanel</li>
+              <li>Water and sewer connection</li>
+              <li>HVAC and insulation to Arizona Energy Code</li>
+              <li>Kitchen and bathroom fit-out</li>
+              <li>Final inspections and certificate of occupancy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zoning & Siting -->
+  <section class="zoning-section">
+    <div class="section-inner">
+      <div class="zoning-inner">
+        <div class="zoning-text">
+          <p class="eyebrow">Zoning &amp; Siting</p>
+          <h2>What the City allows on your lot</h2>
+          <p>An ADU is a dwelling, not an addition, so the rules that govern it are about the lot as much as the building. The feasibility walk is where we confirm these against your actual parcel: zoning district, where the unit can physically sit, and whether your existing water, sewer, and electrical service have the headroom to carry a second home.</p>
+          <p>The Model Plans Library is a City of Flagstaff program, so it applies to parcels inside city limits. Unincorporated Coconino County runs its own rulebook, and we confirm which one you are under before anything else.</p>
+        </div>
+        <div class="zoning-note">
+          <p class="note-label">City of Flagstaff standards</p>
+          <ul class="zoning-list">
+            <li>ADUs are allowed on any lot or parcel developed with one single-family dwelling</li>
+            <li>Two ADUs per lot maximum: no more than one detached and one attached or interior</li>
+            <li>At least 5 ft from the rear or interior side property line next to another lot</li>
+            <li>No on-site parking required</li>
+            <li>A maximum of two people may live in an ADU</li>
+            <li>The house and the ADU can be leased separately as long-term rentals; the owner must live on the property if any ADU is used as a vacation or short-term rental</li>
+          </ul>
+          <a href="https://connect.flagstaffaz.gov/model-plans-library/adu-model-plans-library" class="text-link" rel="noopener" target="_blank">Read the City's ADU page &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process-section">
+    <div class="section-inner">
+      <p class="eyebrow">Our Process</p>
+      <h2>How it works with Stronghold</h2>
+      <div class="steps-grid">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <h3 class="step-title">Feasibility Walk</h3>
+            <p class="step-desc">We look at the lot, the zoning, and what your utilities can carry, and tell you which model plans will actually fit.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <h3 class="step-title">Plan &amp; Quote</h3>
+            <p class="step-desc">You license the design, the designer draws your site plan, and we write a line-itemized quote against it.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <h3 class="step-title">Same-As Review</h3>
+            <p class="step-desc">We submit the permit and run the City review, then schedule inspections.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <div class="step-body">
+            <h3 class="step-title">Build &amp; Occupancy</h3>
+            <p class="step-desc">Foundation through final punch, ending at a certificate of occupancy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cost Guidance -->
+  <section class="cost-section">
+    <div class="section-inner">
+      <div class="cost-inner">
+        <div class="cost-text">
+          <p class="eyebrow">Cost Guidance</p>
+          <h2>What does an ADU cost in Flagstaff?</h2>
+          <p>
+            We won't quote an ADU off a floor plan. On a detached unit the swing
+            comes from the site rather than the finishes: how far the water, sewer,
+            and power have to run, whether a truck can reach the back of the lot,
+            whether the existing electrical service has the headroom to carry a
+            second dwelling, and what is under the topsoil. Two identical model
+            plans on two lots a block apart can land a long way from each other.
+          </p>
+          <p>
+            What the model plan does reliably is take cost out of the front end.
+            You license a design that has already cleared review instead of paying
+            to have one drawn and then reviewed, and the City charges reduced
+            permitting fees for it. That part is predictable. The construction
+            underneath it still depends on your lot.
+          </p>
+          <p>
+            So we work the other way round. We walk the site, find where the
+            utilities actually are and what the panel can carry, and then quote it
+            line by line: labor, materials, subcontractors, permits. That is a
+            number you can plan against.
+          </p>
+        </div>
+        <div class="cost-note">
+          <p class="note-label">We quote after a site walk.</p>
+          <p>Every lot is different. The only way to get a real number is to have someone stand on yours. We don't charge for that.</p>
+          <a href="/contact/" class="btn-primary">Schedule a Site Walk &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-inner">
+      <p class="eyebrow">Common Questions</p>
+      <h2>Flagstaff ADU FAQ</h2>
+      <div class="faq-list">
+        {faqItems.map(item => (
+          <div class="faq-item">
+            <h3 class="faq-q">{item.question}</h3>
+            <p class="faq-a">{item.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related -->
+  <section class="related-section">
+    <div class="section-inner">
+      <p class="eyebrow">Related</p>
+      <h2>Not sure an ADU is the right move?</h2>
+      <p class="section-desc">An attached unit built as part of the house is a <a href="/services/home-addition-flagstaff-az/">home addition</a>, and it follows a different permit path. If you are starting from bare land instead, that is <a href="/services/new-construction/">new construction</a>. Same crew either way.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-inner cta-inner">
+      <div class="cta-text">
+        <p class="eyebrow eyebrow--light">Get Started</p>
+        <h2>Thinking about an ADU? Start with the feasibility walk.</h2>
+        <p class="cta-sub">We'll look at the lot, the zoning, and what your utilities can carry, then tell you which model plans fit before you spend anything on licensing or design. We respond within one business day.</p>
+      </div>
+      <div class="cta-actions">
+        <a href="tel:+19289627535" class="btn-phone">
+          <span class="btn-phone-label">Call us directly</span>
+          <span class="btn-phone-number">(928) 962-7535</span>
+        </a>
+        <a href="/contact/" class="btn-quote">Request a Written Quote &rarr;</a>
+        <p class="cta-note">No obligation. Mon&ndash;Fri 9am&ndash;4pm.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero */
+  .hero {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-dark);
+    color: var(--color-brand-white);
+  }
+  .hero-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+  }
+  .hero h1 {
+    font-size: var(--font-size-h1);
+    line-height: 1.1;
+    margin: 0.75rem 0 1.25rem;
+    color: var(--color-brand-white);
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    opacity: 0.75;
+    max-width: 620px;
+    margin-bottom: 2rem;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Shared */
+  .eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .eyebrow--light {
+    color: rgba(255,255,255,0.6);
+  }
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+
+  /* Includes */
+  .includes-section {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .includes-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .includes-text {
+    max-width: 720px;
+  }
+  .includes-text h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1rem;
+  }
+  .section-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.7;
+  }
+  .two-col-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .list-label {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+  }
+  .includes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 2px solid var(--color-border);
+  }
+  .includes-list li {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.95rem;
+    position: relative;
+    padding-left: 2rem;
+  }
+  .includes-list li:last-child {
+    border-bottom: none;
+  }
+  .includes-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0.75rem;
+    color: var(--color-brand-red);
+    font-weight: 700;
+  }
+
+  /* Zoning */
+  .zoning-section {
+    border-bottom: 2px solid var(--color-border);
+  }
+  /* Same stacked shape as the cost section. The note block sits on surface
+     rather than white because this section keeps the default background. */
+  .zoning-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+  .zoning-text {
+    max-width: 780px;
+  }
+  .zoning-text h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1.25rem;
+  }
+  .zoning-text p {
+    font-size: 0.975rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+  .zoning-note {
+    background-color: var(--color-surface);
+    border: 2px solid var(--color-border);
+    padding: 2rem;
+    max-width: 780px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  /* Arrow bullets rather than the bordered `includes-list` cells: these are the
+     City's rules, not our scope, and they should not read as another checklist
+     of things we sell. */
+  .zoning-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .zoning-list li {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    opacity: 0.75;
+    position: relative;
+    padding-left: 1.25rem;
+  }
+  .zoning-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-brand-red);
+    font-weight: 700;
+    opacity: 0.9;
+  }
+
+  /* Outbound link to the City's program page, matching the ROC link on the
+     commercial capabilities page. */
+  .text-link {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  .text-link:hover { text-decoration: underline; }
+
+  /* Process */
+  .process-section {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .process-section h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 3rem;
+  }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+  }
+  .step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .step-num {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-brand-red);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .step-desc {
+    font-size: 0.85rem;
+    opacity: 0.65;
+    line-height: 1.55;
+  }
+
+  /* Cost */
+  .cost-section {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  /* Cost copy runs full measure with the CTA block underneath it. */
+  .cost-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+  .cost-text {
+    max-width: 780px;
+  }
+  .cost-text h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1.25rem;
+  }
+  .cost-text p {
+    font-size: 0.975rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+  .cost-note {
+    background-color: var(--color-brand-white);
+    border: 2px solid var(--color-border);
+    padding: 2rem;
+    max-width: 780px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .note-label {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-red);
+  }
+  .cost-note p:not(.note-label) {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    opacity: 0.7;
+  }
+
+  /* FAQ */
+  .faq-section {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .faq-section h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 2.5rem;
+  }
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 2px solid var(--color-border);
+  }
+  .faq-item {
+    padding: 1.75rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+  .faq-q {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .faq-a {
+    font-size: 0.925rem;
+    line-height: 1.7;
+    opacity: 0.72;
+  }
+
+  /* Related */
+  .related-section {
+    border-bottom: 2px solid var(--color-border);
+    background-color: var(--color-surface);
+  }
+  .related-section h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 1rem;
+  }
+  .related-section .section-desc {
+    max-width: 780px;
+  }
+  .related-section .section-desc a {
+    color: var(--color-brand-red);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  /* CTA */
+  .cta-section {
+    background-color: var(--color-brand-red);
+    border-top: 3px solid var(--color-brand-black);
+    border-bottom: 3px solid var(--color-brand-black);
+    color: var(--color-brand-white);
+  }
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  .cta-text h2 {
+    font-size: var(--font-size-h2);
+    color: var(--color-brand-white);
+    margin: 0.75rem 0 1rem;
+  }
+  .cta-sub {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 540px;
+  }
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    min-width: 260px;
+  }
+  .btn-phone {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-black);
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--color-brand-white);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+    transition: box-shadow 0.1s, transform 0.1s;
+    width: 100%;
+  }
+  .btn-phone:hover {
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+    transform: translate(2px, 2px);
+  }
+  .btn-phone-label {
+    font-family: var(--font-heading);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .btn-phone-number {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .btn-quote {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-white);
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+    transition: background-color 0.15s, color 0.15s, box-shadow 0.1s, transform 0.1s;
+    width: 100%;
+    text-align: center;
+  }
+  .btn-quote:hover {
+    background-color: var(--color-brand-white);
+    color: var(--color-brand-red);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    transform: translate(2px, 2px);
+  }
+  .cta-note {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.4;
+  }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-white);
+    border: 2px solid var(--color-brand-red);
+    box-shadow: 4px 4px 0 var(--color-dark);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  .btn-primary:hover {
+    box-shadow: 2px 2px 0 var(--color-dark);
+    transform: translate(2px, 2px);
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.875rem 1.75rem;
+    background-color: transparent;
+    color: var(--color-brand-white);
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  .btn-outline:hover {
+    border-color: var(--color-brand-white);
+    background-color: rgba(255,255,255,0.1);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .two-col-lists {
+      grid-template-columns: 1fr;
+    }
+    .cta-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .cta-actions {
+      min-width: auto;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero-actions {
+      flex-direction: column;
+    }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-outline {
+      width: 100%;
+      text-align: center;
+    }
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

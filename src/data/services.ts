@@ -200,4 +200,11 @@ export const landingPages: LandingPage[] = [
     blurb: 'Structural diagnosis first, then repair or replacement built for snow load and freeze-thaw.',
     parentService: 'handyman',
   },
+  {
+    slug: 'adu-flagstaff-az',
+    label: 'Pre-Approved ADUs in Flagstaff, AZ',
+    navLabel: 'ADUs',
+    blurb: "Detached backyard homes built from the City of Flagstaff's pre-approved model plans, permit to certificate of occupancy.",
+    parentService: 'new-construction',
+  },
 ];
