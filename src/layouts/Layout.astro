@@ -57,6 +57,23 @@ const fullTitle = bareTitle || title.length > 48 ? title : `${title} | ${BRAND}`
 const socialTitle = bareTitle ? title : `${title} | ${BRAND_FULL}`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Google's site-name system reads WebSite markup on the homepage specifically;
+// the GeneralContractor entity below does not stand in for it. publisher points
+// at that entity by @id rather than restating it, for the same reason page-level
+// schema does. alternateName is the legal entity: distinct from the unrelated
+// "Stronghold Construction, LLC" in Sierra Vista, where the bare "Stronghold" on
+// the business entity is not.
+const isHome = Astro.url.pathname === '/';
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE}/#website`,
+  "name": "Stronghold Construction",
+  "alternateName": "Stronghold Construction Group LLC",
+  "url": `${SITE}/`,
+  "publisher": { "@id": ORG_ID },
+};
 // Resolve ogImage to an absolute URL so social crawlers can fetch it
 const ogImageURL = new URL(ogImage, Astro.site).toString();
 
@@ -245,6 +262,7 @@ const localBusinessSchema: Record<string, unknown> = {
 
     <!-- LocalBusiness Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    {isHome && <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />}
   </head>
   <body>
     {minimalChrome ? <MinimalHeader /> : <Nav />}
