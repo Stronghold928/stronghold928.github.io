@@ -1,6 +1,6 @@
 ---
 import LogoMark from './LogoMark.astro';
-import { services as serviceData, landingPages } from '../data/services';
+import { services as serviceData } from '../data/services';
 import { commercialServices } from '../data/commercial';
 import { serviceAreas } from '../data/service-areas';
 import ChamberLogo from './ChamberLogo.astro';
@@ -9,9 +9,12 @@ import { socialIcons, evenOddIcons } from '../data/social-icons';
 
 const year = new Date().getFullYear();
 
+// Core services only. The specialty pages are linked from the nav, the services
+// hub, their parent service page, the homepage and every city page, so listing
+// them here again added clutter and almost no link value.
 const services = [
   ...serviceData.map(s => ({ href: `/services/${s.slug}/`, label: s.label })),
-  ...landingPages.map(l => ({ href: `/services/${l.slug}/`, label: l.navLabel })),
+  { href: '/services/', label: 'All Services' },
 ];
 
 const commercial = [

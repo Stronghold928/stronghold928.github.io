@@ -1,13 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import { services } from '../../data/services';
+import { services, landingPages } from '../../data/services';
 
 export function getStaticPaths() {
   return services.map(s => ({ params: { slug: s.slug }, props: { service: s } }));
 }
 
 const { service: s } = Astro.props;
+
+// Hub-to-spoke links: each parent service links down to its specialty pages,
+// which link back up through their breadcrumb. These contextual links carry
+// more weight than the sitewide nav, and they are what let the footer list
+// only the core services.
+const specialties = landingPages.filter(l => l.parentService === s.slug);
 ---
 
 <Layout
@@ -48,6 +54,25 @@ const { service: s } = Astro.props;
       )}
     </div>
   </section>
+
+  <!-- Specialties -->
+  {specialties.length > 0 && (
+    <section class="specialties-section">
+      <div class="specialties-inner">
+        <p class="eyebrow">Specialties</p>
+        <h2>Most requested {s.label.toLowerCase()} projects.</h2>
+        <div class="specialties-grid">
+          {specialties.map(l => (
+            <a href={`/services/${l.slug}/`} class="specialty-card">
+              <span class="specialty-label">{l.label}</span>
+              <span class="specialty-blurb">{l.blurb}</span>
+              <span class="specialty-arrow">&rarr;</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Process -->
   <section class="process-section">
@@ -236,6 +261,56 @@ const { service: s } = Astro.props;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     opacity: 0.5;
+  }
+
+  /* Specialties */
+  .specialties-section {
+    border-bottom: 2px solid var(--color-border);
+  }
+  .specialties-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+  .specialties-inner h2 {
+    font-size: var(--font-size-h2);
+    margin: 0.75rem 0 2rem;
+  }
+  .specialties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .specialty-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.75rem;
+    border: 2px solid var(--color-border);
+    border-left: 4px solid var(--color-brand-red);
+    transition: background-color 0.15s, box-shadow 0.1s, transform 0.1s;
+  }
+  .specialty-card:hover {
+    background-color: var(--color-surface);
+    box-shadow: 4px 4px 0 var(--color-dark);
+    transform: translate(-2px, -2px);
+  }
+  .specialty-label {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .specialty-blurb {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    opacity: 0.65;
+  }
+  .specialty-arrow {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-brand-red);
   }
 
   /* Process */

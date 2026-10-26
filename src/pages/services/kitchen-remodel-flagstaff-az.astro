@@ -1,5 +1,6 @@
 ﻿---
 import Layout from '../../layouts/Layout.astro';
+import ServiceBreadcrumb from '../../components/ServiceBreadcrumb.astro';
 
 const faqItems = [
   {
@@ -30,15 +31,6 @@ const serviceSchema = {
   "description": "Stronghold Construction specializes in kitchen remodeling in Flagstaff, AZ and across northern Arizona. Full scope: layout changes, plumbing and electrical rough-in, cabinets and countertops, tile and flooring, lighting, and finish work."
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/" },
-    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://builtstronghold.com/services/" },
-    { "@type": "ListItem", "position": 3, "name": "Kitchen Remodel in Flagstaff, AZ", "item": "https://builtstronghold.com/services/kitchen-remodel-flagstaff-az/" }
-  ]
-};
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -59,8 +51,9 @@ const faqSchema = {
   description="Kitchen remodeling in Flagstaff, AZ by Stronghold Construction. Honest quotes, real timelines, licensed work across northern Arizona."
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <ServiceBreadcrumb slug="kitchen-remodel-flagstaff-az" />
 
   <!-- Hero -->
   <section class="hero">

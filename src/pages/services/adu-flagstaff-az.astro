@@ -1,5 +1,6 @@
 ﻿---
 import Layout from '../../layouts/Layout.astro';
+import ServiceBreadcrumb from '../../components/ServiceBreadcrumb.astro';
 
 /**
  * Everything this page says about the Model Plans Library and about Flagstaff's
@@ -60,15 +61,6 @@ const serviceSchema = {
   "description": "Accessory dwelling unit construction in Flagstaff, AZ by Stronghold Construction, built from the City of Flagstaff ADU Model Plans Library. Feasibility, site plan coordination, permitting, and the full build through certificate of occupancy."
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://builtstronghold.com/" },
-    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://builtstronghold.com/services/" },
-    { "@type": "ListItem", "position": 3, "name": "Pre-Approved ADUs in Flagstaff, AZ", "item": "https://builtstronghold.com/services/adu-flagstaff-az/" }
-  ]
-};
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -89,8 +81,9 @@ const faqSchema = {
   description="Flagstaff ADU builder working from the City's pre-approved Model Plans Library. Licensed general contractor handling permits, utilities, and the full build."
 >
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <ServiceBreadcrumb slug="adu-flagstaff-az" />
 
   <!-- Hero -->
   <section class="hero">
