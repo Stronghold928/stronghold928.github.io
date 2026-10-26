@@ -3,6 +3,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import MinimalHeader from '../components/MinimalHeader.astro';
 import MinimalFooter from '../components/MinimalFooter.astro';
+import { sameAsProfiles, chamber } from '../data/social';
 import '../styles/global.css';
 
 interface Props {
@@ -175,11 +176,19 @@ const localBusinessSchema: Record<string, unknown> = {
   // form is used deliberately - maps.app.goo.gl short links and /maps/place/ URLs
   // both rot when the listing is edited, the CID does not.
   //
-  // TODO(sameAs): add Facebook, Instagram, and Houzz URLs as those profiles go
-  // live. Each additional corroborating profile strengthens the same signal.
+  // The other profiles live in src/data/social.ts. Each additional corroborating
+  // profile strengthens the same signal.
   "sameAs": [
-    "https://www.google.com/maps?cid=10492724600250347743"
-  ]
+    "https://www.google.com/maps?cid=10492724600250347743",
+    ...sameAsProfiles
+  ],
+  // The Chamber is a membership, not a profile of ours, so it goes in memberOf
+  // rather than sameAs.
+  "memberOf": {
+    "@type": "Organization",
+    "name": chamber.name,
+    "url": chamber.href
+  }
 };
 
 // gtag.js loads at the end of <body> rather than in <head>. Astro appends its

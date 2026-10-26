@@ -3,6 +3,9 @@ import LogoMark from './LogoMark.astro';
 import { services as serviceData, landingPages } from '../data/services';
 import { commercialServices } from '../data/commercial';
 import { serviceAreas } from '../data/service-areas';
+import ChamberLogo from './ChamberLogo.astro';
+import { allProfiles } from '../data/social';
+import { socialIcons, evenOddIcons } from '../data/social-icons';
 
 const year = new Date().getFullYear();
 
@@ -50,6 +53,31 @@ const company = [
       <p class="footer-location">Serving Flagstaff &amp; Northern Arizona</p>
       <p class="footer-license">AZ ROC License: 354046</p>
       <p class="footer-accreditation">Licensed, Bonded, Insured</p>
+      <nav class="footer-social" aria-label="Stronghold on other sites">
+        <h2 class="footer-col-title">Follow Us</h2>
+        <ul class="footer-social-icons">
+          {allProfiles.map(p => {
+            // Hidden text rather than aria-label: it is the accessible name and
+            // also the anchor text crawlers read, which an icon alone would lose.
+            const name = p.label === 'Google Reviews'
+              ? 'Stronghold Construction reviews on Google'
+              : `Stronghold Construction on ${p.label}`;
+            return (
+              <li>
+                <a href={p.href} class="footer-social-link" target="_blank" rel="noopener noreferrer me" title={name}>
+                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                    <path d={socialIcons[p.label]} fill="currentColor" fill-rule={evenOddIcons.has(p.label) ? 'evenodd' : undefined} />
+                  </svg>
+                  <span class="visually-hidden">{name}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+      <div class="footer-chamber">
+        <ChamberLogo tone="dark" width={180} />
+      </div>
     </div>
 
     <div class="footer-nav">
@@ -204,6 +232,57 @@ const company = [
     text-transform: uppercase;
     color: var(--color-brand-red);
     margin-top: 0.6rem;
+  }
+
+  .footer-social {
+    margin-top: 1.75rem;
+  }
+  .footer-social-icons {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* 40px square keeps each icon a comfortable tap target on phones. */
+  .footer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #2A2A2A;
+    color: var(--color-brand-white);
+    opacity: 0.7;
+    transition: opacity 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  .footer-social-link:hover,
+  .footer-social-link:focus-visible {
+    opacity: 1;
+    color: var(--color-brand-red);
+    border-color: var(--color-brand-red);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  /* Its own block, ruled off from the social icons above. */
+  .footer-chamber {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #2A2A2A;
+    color: var(--color-brand-white);
   }
 
   .footer-nav {

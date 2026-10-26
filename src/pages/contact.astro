@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { serviceAreas } from '../data/service-areas';
+import ChamberLogo from '../components/ChamberLogo.astro';
+import { allProfiles } from '../data/social';
 
 // Formspree endpoint for the general contact form — separate form from the quote request form
 const FORMSPREE_URL = 'https://formspree.io/f/mojgvwpp';
@@ -151,6 +153,21 @@ const breadcrumbSchema = {
             referrerpolicy="no-referrer-when-downgrade"
             title="Stronghold Construction location in Flagstaff, AZ"
           ></iframe> -->
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Find Us Online</h3>
+          <p class="sidebar-note">Read reviews and see recent work before you call.</p>
+          <div class="area-tags">
+            {allProfiles.map(p => (
+              <a href={p.href} class="area-tag" target="_blank" rel="noopener noreferrer me">{p.label}</a>
+            ))}
+          </div>
+        </div>
+
+        <div class="sidebar-block">
+          <h3 class="sidebar-title">Community</h3>
+          <ChamberLogo tone="light" width={200} />
         </div>
 
         <div class="sidebar-block">

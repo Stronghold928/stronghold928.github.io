@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import { chamber } from '../data/social';
+// The Greater Flagstaff Chamber of Commerce logo, recoloured to the site palette:
+// the disc is brand red with white mountains, and the wordmark is white or
+// near-black to suit the background. Produced from a 200px source, so keep it
+// at roughly that rendered width; anything larger goes soft.
+import onDark from '../assets/chamber-logo-on-dark.png';
+import onLight from '../assets/chamber-logo-on-light.png';
+
+interface Props {
+  /** Background the logo sits on. Picks the wordmark colour. */
+  tone?: 'dark' | 'light';
+  /** Rendered width in CSS pixels. */
+  width?: number;
+}
+
+const { tone = 'dark', width = 180 } = Astro.props;
+---
+
+<a
+  href={chamber.href}
+  class="chamber-logo"
+  target="_blank"
+  rel="noopener noreferrer"
+  title={`Stronghold Construction is a member of the ${chamber.name}`}
+>
+  <span class="chamber-logo-label">Proud Member</span>
+  <Image
+    src={tone === 'dark' ? onDark : onLight}
+    alt={`${chamber.name} logo. View the Stronghold Construction member listing.`}
+    width={width}
+    densities={[1, 2]}
+    loading="lazy"
+  />
+</a>
+
+<style>
+  .chamber-logo {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.15s;
+  }
+  .chamber-logo:hover { opacity: 0.85; }
+  .chamber-logo img { display: block; height: auto; }
+  .chamber-logo-label {
+    font-family: var(--font-heading);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+</style>
