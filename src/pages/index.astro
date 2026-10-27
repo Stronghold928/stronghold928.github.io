@@ -29,19 +29,18 @@ const typeLabels: Record<string, string> = {
 >
   <section class="hero">
     <div class="hero-panel">
-      <p class="hero-creds">&laquo; AZ ROC 354046 &laquo; Licensed &middot; Bonded &middot; Insured &laquo;</p>
       <div>
-        <!-- The brand stays inside the H1 (see c80719a); the eyebrow carries it so
-             the visible headline can stay short. -->
+        <!-- The brand stays inside the H1 (see c80719a); the tagline carries it,
+             with the license, so the visible headline can stay short. -->
         <h1 class="hero-headline">
-          <span class="hero-eyebrow">Stronghold Construction &middot; Flagstaff General Contractor</span>
+          <span class="hero-eyebrow">Stronghold&nbsp;Construction &middot; Flagstaff&nbsp;General&nbsp;Contractor &middot; AZ&nbsp;ROC&nbsp;354046 &middot; Licensed,&nbsp;Bonded,&nbsp;Insured</span>
           One call.<br /><span class="hero-box">Built</span> right.
         </h1>
         <p class="hero-sub">
           Remodels, repairs and new builds from a Flagstaff crew that answers the phone. Itemized quotes, permits handled.
         </p>
         <div class="hero-ctas">
-          <a href="/quote/" class="hero-cta hero-cta--light">
+          <a href="/quote/" class="hero-cta hero-cta--quote">
             <span class="hero-cta-label">Free &middot; itemized</span>
             <span class="hero-cta-main">Get a quote &rarr;</span>
           </a>
@@ -214,9 +213,11 @@ const typeLabels: Record<string, string> = {
 
 <style>
   /* ---- Hero ----
-     Red panel with the pitch on the left, a full-bleed photo on the right.
-     Both CTAs use the same type: a small mono label over a condensed figure,
-     with the angled corner from the panel repeated on each. */
+     Limestone panel with the pitch on the left, a full-bleed photo on the
+     right. The sand picks up the stone in the photo; red is kept for the
+     BUILT box and the quote button, so it marks what to act on. Both CTAs use
+     the same type: a small mono label over a condensed figure, with the
+     angled corner from the panel repeated on each. */
   .hero {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -226,22 +227,13 @@ const typeLabels: Record<string, string> = {
   }
 
   .hero-panel {
-    background: var(--color-brand-red);
-    color: var(--color-brand-white);
+    background: var(--color-sand);
+    color: var(--color-text);
     padding: 2.5rem 3rem 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 2.5rem;
+    justify-content: center;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
-  }
-
-  .hero-creds {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.75;
   }
 
   .hero-eyebrow {
@@ -252,6 +244,8 @@ const typeLabels: Record<string, string> = {
     letter-spacing: 0.08em;
     line-height: 1.4;
     text-transform: uppercase;
+    /* Darker than brand red: 6.6:1 on sand at this small size. */
+    color: #9E1B14;
     margin-bottom: 1rem;
   }
 
@@ -262,14 +256,15 @@ const typeLabels: Record<string, string> = {
     line-height: 1.12;
     letter-spacing: 0.005em;
     text-transform: uppercase;
-    color: var(--color-brand-white);
+    color: var(--color-text);
     margin-bottom: 1.25rem;
   }
 
   .hero-box {
     display: inline-block;
     line-height: 1;
-    background: var(--color-brand-black);
+    color: var(--color-brand-white);
+    background: var(--color-brand-red);
     padding: 0.04em 0.15em 0;
   }
 
@@ -277,6 +272,7 @@ const typeLabels: Record<string, string> = {
     font-size: 1.05rem;
     line-height: 1.55;
     max-width: 44ch;
+    opacity: 0.8;
     margin-bottom: 1.75rem;
   }
 
@@ -316,9 +312,12 @@ const typeLabels: Record<string, string> = {
     white-space: nowrap;
   }
 
-  .hero-cta--light {
-    background: var(--color-brand-gray);
-    color: var(--color-brand-black);
+  .hero-cta--quote {
+    background: var(--color-brand-red);
+    color: var(--color-brand-white);
+  }
+  .hero-cta--quote .hero-cta-label {
+    opacity: 0.85;
   }
   .hero-cta--dark {
     background: var(--color-brand-black);
@@ -392,7 +391,7 @@ const typeLabels: Record<string, string> = {
 
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
-    .hero-panel { padding: 2rem 1.25rem 2.5rem; gap: 2rem; }
+    .hero-panel { padding: 2rem 1.25rem 2.5rem; }
     .hero-headline { font-size: 3.6rem; }
     .hero-cta { flex: 1 1 100%; min-width: 0; }
     .hero-photo { height: 320px; }
