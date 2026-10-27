@@ -1,5 +1,6 @@
 ---
 import LogoMark from './LogoMark.astro';
+import Wordmark from './Wordmark.astro';
 import { services as serviceData } from '../data/services';
 import { commercialServices } from '../data/commercial';
 import { serviceAreas } from '../data/service-areas';
@@ -39,10 +40,7 @@ const company = [
     <div class="footer-brand">
       <a href="/" class="footer-logo" aria-label="Stronghold Construction — home">
         <LogoMark height={44} />
-        <span class="logo-wordmark">
-          <span class="logo-name">Stronghold</span>
-          <span class="logo-suffix">Construction</span>
-        </span>
+        <Wordmark size={1.35} />
       </a>
       <p class="footer-tagline">
         Building better homes and stronger communities across northern Arizona.
@@ -184,31 +182,6 @@ const company = [
     /* Astro scoped styles don't reach a child component's root node, so the
        mark reads its mountain colour off `currentColor` set here. */
     color: var(--color-brand-white);
-  }
-
-  .logo-wordmark {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-  }
-
-  .logo-name {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.35rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-brand-white);
-  }
-
-  .logo-suffix {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.33em;
-    color: var(--color-brand-red);
-    margin-top: 0.25rem;
   }
 
   .footer-tagline {

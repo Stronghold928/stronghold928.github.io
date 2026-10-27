@@ -13,6 +13,10 @@
 :root {
   --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
+  /* Condensed display face for the hero headline, CTA figures and header phone. */
+  --font-display: 'Anton', 'Space Grotesk', sans-serif;
+  /* System monospace for small labels; nothing to download. */
+  --font-mono: ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
 
   --font-size-display: clamp(2.5rem, 6vw, 5rem);
   --font-size-h1: clamp(2rem, 4vw, 3.5rem);

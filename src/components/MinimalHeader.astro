@@ -2,16 +2,14 @@
 // Slim header for single-purpose campaign landing pages: logo + click-to-call only.
 // No nav links, no dropdowns — nothing to exit through except the phone number.
 import LogoMark from './LogoMark.astro';
+import Wordmark from './Wordmark.astro';
 ---
 
 <header class="min-header">
   <div class="min-header-inner">
     <a href="/" class="min-logo" aria-label="Stronghold Construction — home">
       <LogoMark height={28} />
-      <span class="min-logo-wordmark">
-        <span class="min-logo-name">Stronghold</span>
-        <span class="min-logo-suffix">Construction</span>
-      </span>
+      <Wordmark size={0.95} />
     </a>
     <a href="tel:+19289627535" class="min-header-phone">
       <span class="min-header-phone-label">Call Now</span>
@@ -51,31 +49,6 @@ import LogoMark from './LogoMark.astro';
     color: var(--color-brand-white);
   }
 
-  .min-logo-wordmark {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-  }
-
-  .min-logo-name {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--color-brand-white);
-  }
-
-  .min-logo-suffix {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.46rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: var(--color-brand-red);
-    margin-top: 0.18rem;
-  }
-
   .min-header-phone {
     display: flex;
     flex-direction: column;
@@ -102,7 +75,5 @@ import LogoMark from './LogoMark.astro';
 
   @media (max-width: 480px) {
     .min-header-phone-number { font-size: 0.9rem; }
-    .min-logo-name { font-size: 0.85rem; }
-    .min-logo-suffix { font-size: 0.42rem; letter-spacing: 0.26em; }
   }
 </style>

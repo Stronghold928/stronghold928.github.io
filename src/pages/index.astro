@@ -1,8 +1,10 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import BlueprintCanvas from '../components/BlueprintCanvas.astro';
 import { getCollection } from 'astro:content';
+import heroPhoto from '../assets/hero/mountain-modern-home.webp';
+import { allProfiles } from '../data/social';
+import { socialIcons, evenOddIcons } from '../data/social-icons';
 import { services, landingPages } from '../data/services';
 import { serviceAreas } from '../data/service-areas';
 
@@ -26,24 +28,55 @@ const typeLabels: Record<string, string> = {
   description="Licensed general contractor in Flagstaff, AZ. Remodeling, restoration, new builds, and handyman work across northern Arizona. Itemized quotes, permits handled."
 >
   <section class="hero">
-    <BlueprintCanvas />
-    <div class="hero-content-wrap">
-      <div class="hero-inner">
+    <div class="hero-panel">
+      <p class="hero-creds">&laquo; AZ ROC 354046 &laquo; Licensed &middot; Bonded &middot; Insured &laquo;</p>
+      <div>
+        <!-- The brand stays inside the H1 (see c80719a); the eyebrow carries it so
+             the visible headline can stay short. -->
         <h1 class="hero-headline">
-          <span class="hero-eyebrow">Stronghold&nbsp;Construction&nbsp;&bull; General&nbsp;Contractor&nbsp;&bull; Flagstaff,&nbsp;AZ</span>
-          You got a <br />
-          <span class="hero-accent" id="hero-slot-word">construction</span><br />
-          guy.
+          <span class="hero-eyebrow">Stronghold Construction &middot; Flagstaff General Contractor</span>
+          One call.<br /><span class="hero-box">Built</span> right.
         </h1>
         <p class="hero-sub">
-          Based in Flagstaff, specializing in remodels, restoration, new builds, and handyman services for homes, plus tenant improvement and renovation for commercial space, all across northern Arizona.
+          Remodels, repairs and new builds from a Flagstaff crew that answers the phone. Itemized quotes, permits handled.
         </p>
-        <div class="hero-actions">
-          <a href="/quote/" class="btn-primary">Get a Quote</a>
-          <a href="/projects/" class="btn-secondary">See Our Work</a>
+        <div class="hero-ctas">
+          <a href="/quote/" class="hero-cta hero-cta--light">
+            <span class="hero-cta-label">Free &middot; itemized</span>
+            <span class="hero-cta-main">Get a quote &rarr;</span>
+          </a>
+          <a href="tel:+19289627535" class="hero-cta hero-cta--dark">
+            <span class="hero-cta-label">Call or text &middot; Mon&ndash;Fri 9&ndash;4</span>
+            <span class="hero-cta-main">(928) 962-7535</span>
+          </a>
         </div>
-        <a href="tel:+19289627535" class="hero-phone">Call or Text: <span class="hero-phone-number">(928) 962-7535</span></a>
       </div>
+    </div>
+    <div class="hero-photo">
+      <Image
+        src={heroPhoto}
+        alt="Modern mountain home with a steep metal roof, stone and timber siding, and tall black-framed windows"
+        widths={[800, 1200, 1600]}
+        sizes="(max-width: 900px) 100vw, 50vw"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <!-- Off-site profiles as visible proof right under the hero. Same links and
+       rel="me" as the footer icons; see src/data/social.ts. -->
+  <section class="profiles-strip" aria-label="Stronghold Construction reviews and profiles">
+    <div class="profiles-strip-inner">
+      <p class="profiles-lead">Reviewed &amp;<br /><span>found on</span></p>
+      {allProfiles.map(p => (
+        <a href={p.href} class="profile-tile" target="_blank" rel="noopener noreferrer me">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path d={socialIcons[p.label]} fill="currentColor" fill-rule={evenOddIcons.has(p.label) ? 'evenodd' : undefined} />
+          </svg>
+          {p.label.replace(' Reviews', '')}
+        </a>
+      ))}
     </div>
   </section>
 
@@ -180,145 +213,190 @@ const typeLabels: Record<string, string> = {
 </Layout>
 
 <style>
-  /* ---- Hero ---- */
+  /* ---- Hero ----
+     Red panel with the pitch on the left, a full-bleed photo on the right.
+     Both CTAs use the same type: a small mono label over a condensed figure,
+     with the angled corner from the panel repeated on each. */
   .hero {
-    position: relative;
-    overflow: hidden;
-    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+    background: var(--color-dark);
+    border-bottom: 3px solid var(--color-brand-red);
+  }
+
+  .hero-panel {
+    background: var(--color-brand-red);
+    color: var(--color-brand-white);
+    padding: 2.5rem 3rem 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 3rem 2.5rem;
-    border-bottom: 2px solid var(--color-border);
+    justify-content: space-between;
+    gap: 2.5rem;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
   }
 
-  /* Centers hero content within the site's standard 1200px column, so on
-     wide/maximized viewports the box sits left-of-center with real margin
-     instead of hugging the raw screen edge, while BlueprintCanvas (a sibling
-     positioned absolute against .hero) still spans the full viewport width. */
-  .hero-content-wrap {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .hero-inner {
-    background: #ffffff;
-    border: 2px solid var(--color-border);
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.06);
-    padding: 3rem 3.5rem 3.5rem;
-    max-width: 520px;
+  .hero-creds {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.75;
   }
 
   .hero-eyebrow {
     display: block;
-    font-family: var(--font-heading);
+    font-family: var(--font-mono);
     font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    font-weight: 400;
+    letter-spacing: 0.08em;
     line-height: 1.4;
     text-transform: uppercase;
-    color: var(--color-brand-red);
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
   }
 
   .hero-headline {
-    /* ── Adjust this value to change hero headline size ── */
-    font-size: 3.75rem;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    line-height: 1.08;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 5.25rem;
+    line-height: 1.12;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    color: var(--color-brand-white);
     margin-bottom: 1.25rem;
-    max-width: 700px;
-    color: var(--color-text);
   }
 
-  .hero-accent {
-    color: var(--color-brand-red);
+  .hero-box {
     display: inline-block;
-    border-bottom: 4px solid var(--color-brand-red);
-  }
-
-  .hero-accent.is-spinning {
-    filter: blur(2px);
+    line-height: 1;
+    background: var(--color-brand-black);
+    padding: 0.04em 0.15em 0;
   }
 
   .hero-sub {
-    font-size: 1.125rem;
-    color: var(--color-text);
-    opacity: 0.65;
-    margin-bottom: 2rem;
-    line-height: 1.6;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    max-width: 44ch;
+    margin-bottom: 1.75rem;
   }
 
-  .hero-actions {
+  .hero-ctas {
     display: flex;
-    gap: 1rem;
     flex-wrap: wrap;
+    gap: 0.75rem;
   }
 
-  .hero-phone {
-    display: inline-block;
-    margin-top: 1.25rem;
-    font-family: var(--font-heading);
-    font-weight: 400;
-    font-size: 1.25rem;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    color: var(--color-text);
-    text-decoration: none;
-    transition: opacity 0.15s;
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    min-width: 230px;
+    padding: 0.85rem 1.2rem 0.95rem;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+    transition: transform 0.1s;
   }
-  .hero-phone-number {
-    font-weight: 700;
+  .hero-cta:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-cta-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    white-space: nowrap;
+  }
+
+  .hero-cta-main {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .hero-cta--light {
+    background: var(--color-brand-gray);
+    color: var(--color-brand-black);
+  }
+  .hero-cta--dark {
+    background: var(--color-brand-black);
+    color: var(--color-brand-white);
+  }
+  .hero-cta--dark .hero-cta-main {
+    color: #FF3B30;
+  }
+
+  .hero-photo {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 45% 50%;
+  }
+
+  /* ---- Profiles strip ---- */
+  .profiles-strip {
+    background: var(--color-dark);
+    padding: 2.5rem 1.5rem;
+  }
+  .profiles-strip-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .profiles-lead {
+    background: var(--color-brand-gray);
+    color: var(--color-brand-black);
+    padding: 0.9rem 1.1rem;
+    min-width: 150px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+  .profiles-lead span {
     color: var(--color-brand-red);
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 3px;
   }
-  .hero-phone:hover {
-    opacity: 0.75;
-  }
-
-  /* ---- Buttons ---- */
-  .btn-primary {
-    display: inline-block;
+  .profile-tile {
+    flex: 1 1 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.9rem;
+    background: var(--color-dark-surface);
+    color: var(--color-brand-white);
+    opacity: 0.8;
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 0.875rem 1.75rem;
-    background-color: var(--color-brand-red);
-    color: #fff;
-    border: 2px solid var(--color-brand-red);
-    box-shadow: 4px 4px 0 var(--color-brand-black);
-    transition: box-shadow 0.1s, transform 0.1s;
+    transition: opacity 0.15s, color 0.15s;
   }
-  .btn-primary:hover {
-    box-shadow: 2px 2px 0 var(--color-brand-black);
-    transform: translate(2px, 2px);
+  .profile-tile:hover,
+  .profile-tile:focus-visible {
+    opacity: 1;
+    color: var(--color-brand-red);
   }
 
-  .btn-secondary {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 0.875rem 1.75rem;
-    background-color: transparent;
-    color: var(--color-text);
-    border: 2px solid var(--color-text);
-    box-shadow: 4px 4px 0 var(--color-border);
-    transition: box-shadow 0.1s, transform 0.1s;
+  @media (max-width: 1100px) {
+    .hero-headline { font-size: 4.25rem; }
   }
-  .btn-secondary:hover {
-    box-shadow: 2px 2px 0 var(--color-border);
-    transform: translate(2px, 2px);
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-panel { padding: 2rem 1.25rem 2.5rem; gap: 2rem; }
+    .hero-headline { font-size: 3.6rem; }
+    .hero-cta { flex: 1 1 100%; min-width: 0; }
+    .hero-photo { height: 320px; }
+    .profiles-lead { flex: 1 1 100%; }
   }
 
   .btn-outline-dark {
@@ -603,7 +681,6 @@ const typeLabels: Record<string, string> = {
 
   /* ---- Responsive ---- */
   @media (max-width: 900px) {
-    .hero-headline { font-size: 2.75rem; }
     .services-tiles { grid-template-columns: repeat(2, 1fr); }
     .service-tile:nth-child(2) { border-right: none; }
     .service-tile:nth-child(1),
@@ -613,8 +690,6 @@ const typeLabels: Record<string, string> = {
   }
 
   @media (max-width: 600px) {
-    .hero { min-height: 80vh; padding: 4rem 1.5rem 3rem; }
-    .hero-headline { font-size: 2.25rem; }
     .services-tiles { grid-template-columns: 1fr; }
     .service-tile { border-right: none; border-bottom: 2px solid var(--color-border); }
     .service-tile:last-child { border-bottom: none; }
@@ -786,57 +861,3 @@ const typeLabels: Record<string, string> = {
     .commercial-band-actions { min-width: auto; }
   }
 </style>
-
-<script>
-  const slotWords = ['remodel', 'restoration', 'repair', 'commercial', 'bathroom', 'kitchen', 'deck'];
-  const slotEl = document.getElementById('hero-slot-word');
-
-  if (slotEl) {
-    const roundCount = 4 + Math.floor(Math.random() * 2); // land on "construction" after 4 or 5 rounds
-    const flickerDelays = [60, 80, 100, 130, 160];
-    const holdDuration = 2000; // stay on each landed word for 2 seconds before spinning again
-    let round = 0;
-    let lastWord = '';
-
-    function pickWord(): string {
-      let word = slotWords[Math.floor(Math.random() * slotWords.length)];
-      while (word === lastWord) {
-        word = slotWords[Math.floor(Math.random() * slotWords.length)];
-      }
-      lastWord = word;
-      return word;
-    }
-
-    function spinTo(word: string, onLanded: () => void) {
-      slotEl!.classList.add('is-spinning');
-      let i = 0;
-
-      function flicker() {
-        if (i < flickerDelays.length) {
-          slotEl!.textContent = pickWord();
-          const delay = flickerDelays[i];
-          i++;
-          setTimeout(flicker, delay);
-        } else {
-          slotEl!.textContent = word;
-          slotEl!.classList.remove('is-spinning');
-          onLanded();
-        }
-      }
-
-      flicker();
-    }
-
-    function nextRound() {
-      if (round < roundCount) {
-        round++;
-        const word = pickWord();
-        spinTo(word, () => setTimeout(nextRound, holdDuration));
-      } else {
-        spinTo('construction', () => {});
-      }
-    }
-
-    nextRound();
-  }
-</script>

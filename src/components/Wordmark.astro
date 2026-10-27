@@ -1,0 +1,52 @@
+---
+// Stacked STRONGHOLD / CONSTRUCTION wordmark, shared by the nav, footer and
+// campaign header. CONSTRUCTION is one span per letter spread with
+// space-between, so it always ends exactly under the D of STRONGHOLD whatever
+// the size. The enclosing logo link carries the name for screen readers.
+interface Props {
+  /** Font size of STRONGHOLD in rem; CONSTRUCTION scales from it. */
+  size?: number;
+}
+const { size = 1.05 } = Astro.props;
+---
+
+<span class="wordmark" style={`--wm-size: ${size}rem`}>
+  <span class="wordmark-name">Stronghold</span>
+  <span class="wordmark-suffix" aria-hidden="true">{[...'CONSTRUCTION'].map(c => <span>{c}</span>)}</span>
+</span>
+
+<style>
+  /* inline-flex column: the block is as wide as STRONGHOLD, and the suffix
+     stretches its letters across that width. */
+  .wordmark {
+    display: inline-flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  /* Negative margin cancels the trailing letter-space after the D, so the
+     two lines end on the same pixel. */
+  .wordmark-name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--wm-size);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-right: -0.04em;
+    color: var(--color-brand-white);
+  }
+
+  /* Space Grotesk tops out at 700, so a hairline stroke adds the extra weight.
+     The brighter red holds up at this size on the black bars it sits on. */
+  .wordmark-suffix {
+    display: flex;
+    justify-content: space-between;
+    margin-top: calc(var(--wm-size) * 0.28);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: calc(var(--wm-size) * 0.63);
+    line-height: 1;
+    color: #FF2A1F;
+    -webkit-text-stroke: 0.25px currentColor;
+  }
+</style>
